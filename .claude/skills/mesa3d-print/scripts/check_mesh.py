@@ -74,7 +74,11 @@ def main():
         avisos.append("Não cabe na orientação atual, mas cabe girando no fatiador.")
 
     if mesh.is_watertight:
-        print(f"Volume: {mesh.volume / 1000:.2f} cm³  (~{mesh.volume / 1000 * 1.24:.1f} g de PLA se 100% sólido)")
+        gramas = mesh.volume / 1000 * 1.24
+        print(f"Volume: {mesh.volume / 1000:.2f} cm³  (~{gramas:.1f} g de PLA se 100% sólido)")
+        rs_g = perfil.get("filamentos", {}).get("custo_por_grama_reais")
+        if rs_g:
+            print(f"Custo de filamento: até R$ {gramas * rs_g:.2f} (teto, peça maciça; o Bambu Studio dá o peso real)")
         try:
             esp = espessura_local(mesh, a.amostras)
         except ImportError as e:

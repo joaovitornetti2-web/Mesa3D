@@ -64,6 +64,10 @@
       "branco": "peças para pintar depois (pega bem tinta), neve, mármore, ossos",
       "vermelho": "destaques: lava, sangue, marcadores de condição, peças de time"
     },
-    "nota_multicor": "Cada troca de cor gasta filamento de purga; prefira cor por camada (ex.: base preta + topo vermelho) ou peças separadas por cor em vez de detalhes pequenos coloridos."
+    "nota_multicor": "Cada troca de cor gasta filamento de purga; prefira cor por camada (ex.: base preta + topo vermelho) ou peças separadas por cor em vez de detalhes pequenos coloridos.",
+    "custo_por_carretel_reais": 149,
+    "peso_carretel_g": 1000,
+    "custo_por_grama_reais": 0.149,
+    "nota_custo": "Carretel de 1 kg assumido (padrão Bambu). Confirmar."
   }
 }
