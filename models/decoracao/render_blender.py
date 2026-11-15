@@ -43,7 +43,11 @@ def importar(caminho, mat, matriz=Matrix()):
 
 
 m1, m2 = material("cor1", c1), material("cor2", c2, 0.35)
-importar(f"{pasta}/{e}_corpo.stl", m1)
+corpo = importar(f"{pasta}/{e}_corpo.stl", m1)
+bpy.context.view_layer.update()
+H = corpo.dimensions.z                 # altura real do corpo (muda por tamanho)
+esc = corpo.dimensions.x / 82.07       # escala xy (82.07 mm = base do tamanho de referência)
+ZT, ASSENTO = ZT * esc, ASSENTO * esc
 # tampa: volta da posição de impressão para a de uso: (x,y,z) -> (-x, y, ZT - z), depois sobe H
 virar = Matrix.Translation((0, 0, H + 0.2 + ZT)) @ Matrix.Rotation(math.pi, 4, "Y")
 importar(f"{pasta}/{e}_tampa.stl", m1, virar)
@@ -75,7 +79,8 @@ cam = bpy.data.objects.new("cam", cam_d); cena.collection.objects.link(cam); cen
 cam.location = (-55, -275, 175)
 alvo = cam.location.copy(); alvo.z = 0
 import mathutils
-dirv = (mathutils.Vector((0, 0, 24)) - cam.location).normalized()
+dirv = (mathutils.Vector((0, 0, (H + ZT) * 0.55)) - cam.location).normalized()
+cam_d.lens = 85 / max(1.0, esc * 0.95)
 cam.rotation_euler = dirv.to_track_quat("-Z", "Y").to_euler()
 
 cena.render.filepath = saida
