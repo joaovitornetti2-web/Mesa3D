@@ -8,6 +8,7 @@ from mathutils.bvhtree import BVHTree
 
 a = sys.argv[sys.argv.index("--") + 1:]
 obj, out, W, H, PX = a[0], a[1], float(a[2]), float(a[3]), float(a[4])
+ZOOM = float(a[5]) if len(a) > 5 else 1.0     # fração da altura do modelo que cabe na placa (1 = inteiro)
 bpy.ops.wm.read_factory_settings(use_empty=True)
 (bpy.ops.wm.obj_import if hasattr(bpy.ops.wm, "obj_import") else bpy.ops.import_scene.obj)(filepath=obj)
 o = [x for x in bpy.context.scene.objects if x.type == "MESH"][0]
@@ -22,7 +23,7 @@ pts = [M @ v.co for v in o.data.vertices]
 lo = [min(p[k] for p in pts) for k in range(3)]
 hi = [max(p[k] for p in pts) for k in range(3)]
 # escala: altura da figura = 1.06 x altura da placa (a base do busto passa da moldura e é cortada)
-s = H * 1.06 / (hi[2] - lo[2])
+s = H * 1.06 / ((hi[2] - lo[2]) * ZOOM)
 cx = (lo[0] + hi[0]) / 2
 ztop = hi[2]
 nx, nz = int(W / PX), int(H / PX)
@@ -31,7 +32,7 @@ prof = array("f", [NAN]) * (nz * nx)
 y0 = lo[1] - 1.0
 d = Vector((0, 1, 0))
 for i in range(nz):
-    z = ztop - (i + 0.5) * PX / s + (H * 0.02) / s          # pequena folga no topo
+    z = ztop - (i + 0.5) * PX / s + (H * 0.035) / s         # folga no topo (cabeça não encosta no arco)
     for j in range(nx):
         x = cx + ((j + 0.5) * PX - W / 2) / s
         hit = bvh.ray_cast(Vector((x, y0, z)), d)
