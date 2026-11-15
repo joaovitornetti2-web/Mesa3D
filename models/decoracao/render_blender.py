@@ -80,6 +80,24 @@ if PLACAS:
             for i in (1, 2, 3):
                 importar(f"{base}/{nome}_placa_cor{i}.stl", mp[i - 1], M)
 
+# modo visualizador: saída .glb -> reduz malhas e exporta a cena (sem chão/luz/câmera)
+if saida.endswith(".glb"):
+    for o in [x for x in bpy.context.scene.objects if x.type == "MESH"]:
+        o.data = o.data.copy()          # malha própria (o importador pode compartilhar)
+        n = len(o.data.polygons)
+        alvo = 15000 if ("relevo" in o.name or "placa" in o.name) else 60000
+        if n > alvo:
+            bpy.context.view_layer.objects.active = o
+            d = o.modifiers.new("dec", "DECIMATE"); d.ratio = alvo / n
+            bpy.ops.object.select_all(action="DESELECT"); o.select_set(True)
+            bpy.ops.object.modifier_apply(modifier="dec")
+        bpy.ops.object.select_all(action="DESELECT"); o.select_set(True)
+        bpy.context.view_layer.objects.active = o
+        bpy.ops.object.shade_smooth() if "relevo" in o.name or "pantheon" in o.name.lower() else None
+    bpy.ops.export_scene.gltf(filepath=saida, export_format="GLB", export_apply=True, export_yup=True)
+    print("GLB", saida)
+    sys.exit(0)
+
 # altura total da cena (inclui figura na tampa) para enquadrar
 bpy.context.view_layer.update()
 ALTO = max((o.matrix_world @ mathutils.Vector(c)).z for o in bpy.context.scene.objects if o.type == "MESH" for c in o.bound_box)
