@@ -17,16 +17,27 @@ def matriz(ang):
     B = np.array([[0, 0, 1, 0], [1, 0, 0, -17.4], [0, 1, 0, 0], [0, 0, 0, 1]], float)
     return Rz @ T @ B
 
+import sys
+POSTER = "--poster" in sys.argv
 corpo = man(trimesh.load(f"{OUT}/energia_corpo_placas.stl"))
-tudo, preto, branco = corpo, corpo, None
+tudo, preto, branco, verm = corpo, corpo, None, None
 for n, ang in ORDEM.items():
     M = matriz(ang)
-    p = trimesh.load(f"relevo/saida/{n}_relevo.stl"); p.apply_transform(M)
-    b = trimesh.load(f"relevo/saida/{n}_relevo_cor2.stl"); b.apply_transform(M)
-    k = trimesh.load(f"relevo/saida/{n}_relevo_cor1.stl"); k.apply_transform(M)
-    tudo = tudo + man(p)
-    preto = preto + man(k)
+    if POSTER:   # pôster 3 cores: cor1 preto, cor2 vermelho, cor3 branco
+        f = lambda k: f"personagens/saida/{n}_placa{k}.stl"
+        p, k, r, b = (trimesh.load(f(x)) for x in ("", "_cor1", "_cor2", "_cor3"))
+    else:
+        f = lambda k: f"relevo/saida/{n}_relevo{k}.stl"
+        p, k, b = (trimesh.load(f(x)) for x in ("", "_cor1", "_cor2")); r = None
+    for t in (p, k, r, b):
+        if t is not None: t.apply_transform(M)
+    tudo = tudo + man(p); preto = preto + man(k)
     branco = man(b) if branco is None else branco + man(b)
-for nome, x in [("energia_corpo_com_personagens", tudo), ("energia_corpo_com_personagens_cor1_preto", preto), ("energia_corpo_com_personagens_cor2_branco", branco)]:
+    if r is not None: verm = man(r) if verm is None else verm + man(r)
+suf = "_poster" if POSTER else ""
+saidas = [(f"energia_corpo_com_personagens{suf}", tudo), (f"energia_corpo_com_personagens{suf}_cor1_preto", preto)]
+if verm is not None: saidas.append((f"energia_corpo_com_personagens{suf}_cor2_vermelho", verm))
+saidas.append((f"energia_corpo_com_personagens{suf}_cor{3 if verm is not None else 2}_branco", branco))
+for nome, x in saidas:
     tm(x).export(f"{OUT}/{nome}.stl")
     print(nome, trimesh.load(f"{OUT}/{nome}.stl").is_watertight)

@@ -73,7 +73,7 @@ if PLACAS:
         M = (Matrix.Rotation(math.radians(ang), 4, "Z") @ Matrix.Translation((r_fundo, 0, z0))
              @ Matrix(((0, 0, 1, 0), (1, 0, 0, -17.4), (0, 1, 0, 0), (0, 0, 0, 1))))
         rel = f"/home/user/Mesa3D/models/decoracao/relevo/saida/{nome}_relevo_cor1.stl"
-        if os.path.exists(rel):   # baixo-relevo (Meshy): preto + branco
+        if os.environ.get("RELEVO") == "1" and os.path.exists(rel):   # baixo-relevo (Meshy): preto + branco
             for i, mat in ((1, mp[0]), (2, mp[2])):
                 importar(rel.replace("_cor1", f"_cor{i}"), mat, M)
         else:
@@ -124,7 +124,7 @@ luz("preenchimento", (160, -200, 60), 1.4e5, 150)
 
 cam_d = bpy.data.cameras.new("cam"); cam_d.lens = 85
 cam = bpy.data.objects.new("cam", cam_d); cena.collection.objects.link(cam); cena.camera = cam
-cam.location = mathutils.Vector((-55, -275, 175)) * max(1.0, ALTO / 85.0)
+cam.location = mathutils.Vector((-55, -275, 175)) * (ALTO / 50.0 if ALTO < 130 else ALTO / 85.0)
 cam_d.clip_end = 5000
 alvo = cam.location.copy(); alvo.z = 0
 import mathutils

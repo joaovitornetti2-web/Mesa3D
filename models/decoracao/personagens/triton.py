@@ -24,6 +24,7 @@ CONF = {
     "joui":      {"crop": (0.38, 0.00, 0.74, 0.62), "fundo": "saturado"},
     "dante":     {"crop": (0.00, 0.00, 1.00, 1.00), "fundo": None},
     "pantheon":  {"crop": (0.37, 0.00, 0.67, 0.62), "fundo": "verde", "pct": [45, 82]},
+    "bran":      {"crop": (0.14, 0.00, 0.66, 0.36), "fundo": "escuro"},
     "plautus_placa": {"arquivo": "plautus", "crop": (0.36, 0.03, 0.80, 0.52), "fundo": None, "pct": [42, 80]},
     # medalhão redondo da tampa (Plautus sobre a pilha de corpos)
     "plautus":   {"crop": (0.12, 0.00, 0.95, 0.97), "fundo": None, "circulo": 66.6, "encaixar": True, "pct": [55, 86]},
