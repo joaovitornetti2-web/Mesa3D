@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Corta o medalhão na altura da troca de cor e monta os 3MF (1 cor e 2 cores).
-Uso: python3 dividir_cores.py medalhao.stl Z_COR prefixo_saida"""
+"""Corta o medalhão nas alturas de troca de cor e monta os 3MF (1 cor e N cores).
+Uso: python3 dividir_cores.py medalhao.stl Z1[,Z2,...] prefixo_saida"""
 import sys
 import numpy as np
 import trimesh
 import manifold3d as mf
 
-src, zc, pre = sys.argv[1], float(sys.argv[2]), sys.argv[3]
+src, zs, pre = sys.argv[1], [float(z) for z in sys.argv[2].split(",")], sys.argv[3]
 m = trimesh.load(src)
 man = mf.Manifold(mf.Mesh(vert_properties=np.asarray(m.vertices, np.float32), tri_verts=np.asarray(m.faces, np.uint32)))
 
@@ -18,14 +18,20 @@ def tm(x):
     return t
 
 
-baixo = tm(man.trim_by_plane((0, 0, -1), -zc))   # z <= zc
-cima = tm(man.trim_by_plane((0, 0, 1), zc))      # z >= zc
+cortes = [-1e9] + zs + [1e9]
+partes = []
+for a, b in zip(cortes[:-1], cortes[1:]):
+    x = man
+    if a > -1e8: x = x.trim_by_plane((0, 0, 1), a)     # z >= a
+    if b < 1e8: x = x.trim_by_plane((0, 0, -1), -b)    # z <= b
+    partes.append(tm(x))
 nome = pre.rsplit("/", 1)[-1]
 cena = trimesh.Scene()
-cena.add_geometry(baixo, node_name=f"{nome}_cor1", geom_name=f"{nome}_cor1")
-cena.add_geometry(cima, node_name=f"{nome}_cor2_topo", geom_name=f"{nome}_cor2_topo")
-cena.export(f"{pre}_2cores.3mf")
+for i, p in enumerate(partes, 1):
+    cena.add_geometry(p, node_name=f"{nome}_cor{i}", geom_name=f"{nome}_cor{i}")
+    p.export(f"{pre}_cor{i}.stl")
+n = len(partes)
+cena.export(f"{pre}_{n}cores.3mf")
 m.export(f"{pre}_1cor.3mf")
-baixo.export(f"{pre}_cor1.stl")
-cima.export(f"{pre}_cor2.stl")
-print(f"  medalhão: cor1 {baixo.is_watertight}, cor2 {cima.is_watertight} (fechadas), troca de cor em z={zc} mm")
+print(f"  medalhão: " + ", ".join(f"cor{i} {'fechada' if p.is_watertight else 'ABERTA'}" for i, p in enumerate(partes, 1))
+      + f"; trocas de cor em z = {', '.join(str(z) for z in zs)} mm")

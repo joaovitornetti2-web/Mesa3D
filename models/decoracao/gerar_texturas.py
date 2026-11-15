@@ -53,9 +53,33 @@ def fragmentos(seed=37, n=26, jit=0.5):
     return out
 
 
+def raios(seed=53):
+    """Raios fractais (figura de Lichtenberg) saindo do centro: o caos da Energia."""
+    rng = np.random.default_rng(seed)
+    linhas = []
+
+    def ramo(p, ang, prof):
+        pts = [p]
+        for _ in range([20, 8, 4, 2][prof]):
+            ang += rng.normal(0, 0.55)
+            p = p + rng.uniform(0.8, 1.4) * np.array([np.cos(ang), np.sin(ang)])
+            if np.hypot(*p) > R - 0.6:
+                break
+            pts.append(p)
+            if prof < 3 and rng.uniform() < 0.22:
+                ramo(p, ang + rng.choice([-1, 1]) * rng.uniform(0.4, 0.9), prof + 1)
+        if len(pts) > 1:
+            linhas.append(pts)
+
+    for k in range(9):
+        a = 2 * np.pi * k / 9 + rng.normal(0, 0.2)
+        ramo(np.array([np.cos(a), np.sin(a)]) * 3.0, a, 0)
+    return linhas
+
+
 with open("texturas.scad", "w") as f:
     f.write("// Gerado por gerar_texturas.py – sulcos do fundo do medalhão\n")
-    for nome, ls, w in [("SANGUE", veias(), 0.7), ("MORTE", espiral(), 0.6), ("MEDO", fragmentos(), 0.6)]:
+    for nome, ls, w in [("SANGUE", veias(), 0.7), ("MORTE", espiral(), 0.6), ("MEDO", fragmentos(), 0.6), ("ENERGIA", raios(), 0.6)]:
         txt = ",\n  ".join("[" + ", ".join(f"[{x:.2f}, {y:.2f}]" for x, y in l) + "]" for l in ls)
         f.write(f"RACHAS_{nome} = [\n  {txt}\n];\nLARG_{nome} = {w};\n")
         print(nome, len(ls), "linhas,", sum(len(l) for l in ls), "pontos")

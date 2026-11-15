@@ -11,3 +11,4 @@ models/decoracao/saida_pessoal/
 models/decoracao/render_pessoal/
 models/decoracao/saida/*_dados/*.stl
 models/decoracao/saida_pessoal/
+models/decoracao/simbolos/energia_vetor.scad

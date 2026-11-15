@@ -11,7 +11,9 @@ amostras = int(argv[3]) if len(argv) > 3 else 64
 H, ZT, ASSENTO = 34.0, 12.0, 2.0
 CORES = {"sangue": ((0.018, 0.018, 0.02), (0.55, 0.02, 0.03)),
          "morte": ((0.018, 0.018, 0.02), (0.82, 0.82, 0.80)),
-         "medo": ((0.80, 0.80, 0.78), (0.018, 0.018, 0.02))}
+         "medo": ((0.80, 0.80, 0.78), (0.018, 0.018, 0.02)),
+         "energia": ((0.018, 0.018, 0.02), (0.82, 0.82, 0.80))}
+COR3 = (0.55, 0.02, 0.03)   # 3ª cor (vermelho) quando existir *_medalhao_cor3.stl
 c1, c2 = CORES[e]
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -54,6 +56,9 @@ importar(f"{pasta}/{e}_tampa.stl", m1, virar)
 sobe = Matrix.Translation((0, 0, H + 0.2 + ZT - ASSENTO))
 importar(f"{pasta}/{e}_medalhao_cor1.stl", m1, sobe)
 importar(f"{pasta}/{e}_medalhao_cor2.stl", m2, sobe)
+import os
+if os.path.exists(f"{pasta}/{e}_medalhao_cor3.stl"):
+    importar(f"{pasta}/{e}_medalhao_cor3.stl", material("cor3", COR3, 0.35), sobe)
 
 # chão e fundo
 bpy.ops.mesh.primitive_plane_add(size=800, location=(0, 0, 0))
@@ -74,13 +79,14 @@ luz("principal", (-160, -140, 220), 9.0e5, 120)
 luz("recorte", (170, 120, 120), 4.5e5, 80, (0.85, 0.9, 1.0))
 luz("preenchimento", (160, -200, 60), 1.4e5, 150)
 
+import mathutils
 cam_d = bpy.data.cameras.new("cam"); cam_d.lens = 85
 cam = bpy.data.objects.new("cam", cam_d); cena.collection.objects.link(cam); cena.camera = cam
-cam.location = (-55, -275, 175)
+cam.location = mathutils.Vector((-55, -275, 175)) * max(1.0, (H + ZT) / 50.0)
 alvo = cam.location.copy(); alvo.z = 0
 import mathutils
 dirv = (mathutils.Vector((0, 0, (H + ZT) * 0.55)) - cam.location).normalized()
-cam_d.lens = 85 / max(1.0, esc * 0.95)
+cam_d.lens = 85
 cam.rotation_euler = dirv.to_track_quat("-Z", "Y").to_euler()
 
 cena.render.filepath = saida

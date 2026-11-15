@@ -7,7 +7,7 @@
 include <../../.claude/skills/mesa3d-print/lib/mesa3d.scad>
 include <texturas.scad>
 
-ELEMENTO = "sangue";   // sangue | morte | medo
+ELEMENTO = "sangue";   // sangue | morte | medo | energia
 PARTE    = "preview";
 // Símbolo próprio (uso pessoal): caminho de um SVG que substitui o motivo central.
 // O build preenche sozinho se existir simbolos/<elemento>.svg (ou .png).
@@ -91,10 +91,15 @@ module motivo_medo() {
   circle(r = 2.1);
 }
 
+module motivo_energia() {
+  anel(19, 1.3);
+  polygon([[3.5, 16], [-8, -1], [-0.8, -1], [-4.5, -16], [8, 2.8], [0.8, 2.8]]);
+  for (a = [30:60:359]) rotate(a) translate([0, 13]) polygon([[0, -2.2], [0.7, 0], [0, 2.2], [-0.7, 0]]);
+}
 module motivo(e) {
   if (SIMBOLO_SVG != "") scale(SIMBOLO_ESCALA) translate(-SIMBOLO_CENTRO) import(SIMBOLO_SVG);
-  else if (e == "sangue") motivo_sangue(); else if (e == "morte") motivo_morte(); else motivo_medo(); }
-function semente(e) = e == "sangue" ? 11 : e == "morte" ? 23 : 37;
+  else if (e == "sangue") motivo_sangue(); else if (e == "morte") motivo_morte(); else if (e == "energia") motivo_energia(); else motivo_medo(); }
+function semente(e) = e == "sangue" ? 11 : e == "morte" ? 23 : e == "energia" ? 53 : 37;
 
 // selo completo (2D, centrado). Cabe no octógono do topo (raio inscrito 33.5).
 module selo2d(e) {
@@ -130,6 +135,15 @@ module painel2d(e, i) {
     translate([0, PH - 7.1]) linha([for (t = [0:8:3 * 360]) let(rr = 0.7 + t / 360 * 1.75) [rr * cos(-t + 90), rr * sin(-t + 90)]], 1.0);
     translate([0, PH - 7.1]) circle(d = 1.8);
     for (y = [11.5:7.5:PH - 15.5]) for (x = [-5.5, 5.5]) translate([x, y]) linha([for (t = [0:12:2 * 360]) let(rr = 0.5 + t / 360 * 1.15) [rr * cos(t), rr * sin(t)]], 0.9);
+    translate([-PW / 2 + 1.5, 5.6]) square([PW - 3, 0.9]);
+    for (k = [0:2]) translate([(k - 1) * 6.5, 2.6]) runa(s + k, 3.2, 4.0);
+  } else if (e == "energia") {
+    // raio central em zigue-zague, faíscas, faixas de falha digital e runas
+    polygon([[2.2, PH], [-3.6, PH * 0.55], [-0.4, PH * 0.55], [-2.8, 7.2], [3.8, PH * 0.62], [0.6, PH * 0.62], [5.2, PH]]);
+    for (q = [[-7, PH * 0.78, 1.6], [7.2, PH * 0.7, 1.3], [-6.5, PH * 0.42, 1.1], [6.8, PH * 0.38, 1.5], [-3.2, PH * 0.9, 0.9]])
+      translate([q[0], q[1]]) scale(q[2]) polygon([[0, -2], [0.45, -0.45], [2, 0], [0.45, 0.45], [0, 2], [-0.45, 0.45], [-2, 0], [-0.45, -0.45]]);
+    for (b = [[-10, PH * 0.6, 5], [5.5, PH * 0.5, 4.5], [-9.5, PH * 0.3, 3.5], [6, PH * 0.84, 4]])
+      translate([b[0], b[1]]) square([b[2], 0.9]);
     translate([-PW / 2 + 1.5, 5.6]) square([PW - 3, 0.9]);
     for (k = [0:2]) translate([(k - 1) * 6.5, 2.6]) runa(s + k, 3.2, 4.0);
   } else {
@@ -174,11 +188,14 @@ module corpo() {
 // colunas nos 8 cantos, com base e capitel
 RV = F_CORPO / 2 / cos(22.5);   // raio do vértice do corpo
 module colunas() for (i = [0:7]) rotate(22.5 + i * 45) translate([RV - 0.6, 0, 0]) {
-  translate([0, 0, 7]) cylinder(d = 5.4, h = H - 12, $fn = 32);
+  if (ELEMENTO == "energia")   // bobina de energia: coluna torcida
+    translate([0, 0, 7]) linear_extrude(H - 12, twist = -120 * (H - 12) / 10, slices = round(H * 2))
+      for (a = [0:120:359]) rotate(a) translate([1.25, 0]) circle(d = 2.9, $fn = 20);
+  else translate([0, 0, 7]) cylinder(d = 5.4, h = H - 12, $fn = 32);
   translate([0, 0, 7]) cylinder(d1 = 7.2, d2 = 5.4, h = 1.8, $fn = 32);
   translate([0, 0, H - 7.6]) cylinder(d1 = 5.4, d2 = 7.2, h = 1.8, $fn = 32);
   translate([0, 0, H - 5.85]) cylinder(d = 7.2, h = 0.85, $fn = 32);   // sobrepõe 0.05 (evita fresta numérica)
-  for (z = [11:5.5:H - 9]) translate([0, 0, z]) cylinder(d = 6.2, h = 0.8, $fn = 32);   // anéis
+  if (ELEMENTO != "energia") for (z = [11:5.5:H - 9]) translate([0, 0, z]) cylinder(d = 6.2, h = 0.8, $fn = 32);   // anéis
 }
 
 // tampa na posição de USO: face de cima em z = ZT
@@ -210,8 +227,9 @@ H_TEXT  = 0.6;              // relevo da pedra
 H_FAIXA = 0.8;              // faixa das runas
 Z_COR   = Z_CAMPO + 1.4;    // troca de cor
 Z_TOPO  = Z_CAMPO + 2.2;    // topo do relevo (0.8 mm = 4 camadas da 2ª cor)
-function rachas(e) = e == "sangue" ? RACHAS_SANGUE : e == "morte" ? RACHAS_MORTE : RACHAS_MEDO;
-function larg(e) = e == "sangue" ? LARG_SANGUE : e == "morte" ? LARG_MORTE : LARG_MEDO;
+Z_SIMB  = ELEMENTO == "energia" ? Z_TOPO + 0.8 : Z_TOPO;   // energia: símbolo sobe mais, topo na 3ª cor
+function rachas(e) = e == "sangue" ? RACHAS_SANGUE : e == "morte" ? RACHAS_MORTE : e == "energia" ? RACHAS_ENERGIA : RACHAS_MEDO;
+function larg(e) = e == "sangue" ? LARG_SANGUE : e == "morte" ? LARG_MORTE : e == "energia" ? LARG_ENERGIA : LARG_MEDO;
 
 module medalhao() {
   e = ELEMENTO;
@@ -231,11 +249,11 @@ module medalhao() {
   }
   // símbolo com contorno-sombra (contorno fica na 1ª cor)
   translate([0, 0, Z_CAMPO]) linear_extrude(Z_COR - 0.2 - Z_CAMPO) intersection() { offset(r = 0.8) motivo(e); circle(r = 21); }
-  translate([0, 0, Z_CAMPO]) linear_extrude(Z_TOPO - Z_CAMPO) intersection() { motivo(e); circle(r = 21); }
+  translate([0, 0, Z_CAMPO]) linear_extrude(Z_SIMB - Z_CAMPO) intersection() { motivo(e); circle(r = 21); }
 }
 module corte(cima) intersection() { children(); translate([-50, -50, cima ? Z_COR : -1]) cube([100, 100, cima ? 20 : Z_COR + 1]); }
 
-function cores(e) = e == "sangue" ? ["#151515", "#c0141c"] : e == "morte" ? ["#151515", "#f0f0f0"] : ["#f0f0f0", "#151515"];
+function cores(e) = e == "sangue" ? ["#151515", "#c0141c"] : e == "morte" ? ["#151515", "#f0f0f0"] : e == "energia" ? ["#151515", "#f0f0f0", "#c0141c"] : ["#f0f0f0", "#151515"];
 
 if (PARTE == "corpo") corpo();
 if (PARTE == "tampa") scale(ESCALA) para_impressao() tampa_uso();
