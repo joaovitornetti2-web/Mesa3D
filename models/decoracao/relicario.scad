@@ -10,6 +10,8 @@ PARTE    = "preview";
 // Símbolo próprio (uso pessoal): caminho de um SVG que substitui o motivo central.
 // O build preenche sozinho se existir simbolos/<elemento>.svg (ou .png).
 SIMBOLO_SVG = "";
+SIMBOLO_CENTRO = [0, 0];   // calculado pelo build
+SIMBOLO_ESCALA = 1;
 $fn = 72;
 
 // ---- medidas (mm) ----
@@ -85,7 +87,7 @@ module motivo_medo() {
 }
 
 module motivo(e) {
-  if (SIMBOLO_SVG != "") resize([38, 38], auto = true) import(SIMBOLO_SVG, center = true);
+  if (SIMBOLO_SVG != "") scale(SIMBOLO_ESCALA) translate(-SIMBOLO_CENTRO) import(SIMBOLO_SVG);
   else if (e == "sangue") motivo_sangue(); else if (e == "morte") motivo_morte(); else motivo_medo(); }
 function semente(e) = e == "sangue" ? 11 : e == "morte" ? 23 : 37;
 

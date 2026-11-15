@@ -1,3 +1,10 @@
 # STL é regenerável a partir do .scad; o 3MF vai no repo para abrir direto no Bambu Studio
 *.stl
 __pycache__/
+models/decoracao/simbolos/*.png
+models/decoracao/simbolos/*.svg
+models/decoracao/simbolos/*.webp
+models/decoracao/simbolos/debug/
+models/decoracao/simbolos/originais/
+models/decoracao/simbolos/medo_vetor.scad
+models/decoracao/saida_pessoal/
