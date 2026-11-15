@@ -14,6 +14,9 @@ PARTE    = "preview";
 SIMBOLO_SVG = "";
 SIMBOLO_CENTRO = [0, 0];   // calculado pelo build
 SIMBOLO_ESCALA = 1;
+// Tamanho: 1 = 10 dados, 1.145 = 15, 1.26 = 20. Só a tampa é gerada já escalada aqui
+// (para manter as folgas reais); corpo e medalhão são escalados depois, no build.
+ESCALA = 1;
 $fn = 72;
 
 // ---- medidas (mm) ----
@@ -23,7 +26,7 @@ F_PLINTO = 82;   // base
 F_MOLD   = 80;   // moldura do topo
 F_TAMPA  = 83;   // aba da tampa (1.5 mm além da moldura, para pegar)
 F_TOPO   = 67;   // face de cima da tampa
-H        = 34;   // altura do corpo
+H        = 34;   // altura do corpo (o build muda por tamanho: 2 camadas de dados)
 FUNDO    = 3;
 LABIO    = 5;
 INLAY    = 0.6;
@@ -103,7 +106,7 @@ module selo2d(e) {
 }
 
 // ---------------- painéis laterais (2D: x ao longo da face, y para cima) ----------------
-PW = 22; PH = 19.5;
+PW = 22; PH = H - 14.5;   // painel acompanha a altura do corpo
 // arco ogival: retângulo + ponta formada por dois círculos
 module arco2d(w = PW, h = PH) {
   r = 0.6 * w; off = r - w / 2; ha = sqrt(r * r - off * off);
@@ -119,25 +122,26 @@ module painel2d(e, i) {
   if (e == "sangue") {
     // escorridos do alto, runas no meio, presas embaixo (bestialidade)
     for (d = [[-9, 4], [-6, 7], [-3, 3.5], [0.5, 6], [3.5, 8], [6.5, 4], [9, 5.5]])
-      hull() { translate([d[0] - 1, PH - 0.5]) square([2, 0.5]); translate([d[0], PH - d[1]]) circle(d = 2.2, $fn = 20); }
+      hull() { translate([d[0] - 1, PH - 0.5]) square([2, 0.5]); translate([d[0], PH - d[1] * (PH - 9) / 10.5]) circle(d = 2.2, $fn = 20); }
     for (k = [0:2]) translate([(k - 1) * 6.5, 6.9]) runa(s + k, 3.4, 4.6);
     for (x = [-9:3:9]) polygon([[x - 1.3, 0], [x + 1.3, 0], [x, 2.8 + (abs(x) % 6 == 0 ? 0.7 : 0)]]);
   } else if (e == "morte") {
     // espiral do tempo dentro do arco, runas embaixo
-    translate([0, 12.4]) linha([for (t = [0:8:3 * 360]) let(rr = 0.7 + t / 360 * 1.75) [rr * cos(-t + 90), rr * sin(-t + 90)]], 1.0);
-    translate([0, 12.4]) circle(d = 1.8);
+    translate([0, PH - 7.1]) linha([for (t = [0:8:3 * 360]) let(rr = 0.7 + t / 360 * 1.75) [rr * cos(-t + 90), rr * sin(-t + 90)]], 1.0);
+    translate([0, PH - 7.1]) circle(d = 1.8);
+    for (y = [11.5:7.5:PH - 15.5]) for (x = [-5.5, 5.5]) translate([x, y]) linha([for (t = [0:12:2 * 360]) let(rr = 0.5 + t / 360 * 1.15) [rr * cos(t), rr * sin(t)]], 0.9);
     translate([-PW / 2 + 1.5, 5.6]) square([PW - 3, 0.9]);
     for (k = [0:2]) translate([(k - 1) * 6.5, 2.6]) runa(s + k, 3.2, 4.0);
   } else {
     // olho no alto, névoa ondulada, espinhos embaixo (o impossível)
-    translate([0, 14.8]) {
+    translate([0, PH - 4.7]) {
       difference() {
         intersection() { translate([0, -3.4]) circle(r = 6.2); translate([0, 3.4]) circle(r = 6.2); }
         intersection() { translate([0, -3.4]) circle(r = 5.1); translate([0, 3.4]) circle(r = 5.1); }
       }
       circle(r = 1.7);
     }
-    for (y = [7.6, 9.9]) linha([for (x = [-10:1:10]) [x, y + 0.7 * sin(x * 50 + y * 40)]], 0.9);
+    for (y = [7.6:2.9:PH - 9.4]) linha([for (x = [-10:1:10]) [x, y + 0.7 * sin(x * 50 + y * 40)]], 0.9);
     for (p = [[-9, 5], [-6, 6.5], [-3, 4], [0, 6.8], [3, 4.5], [6, 6.2], [9, 4.8]])
       polygon([[p[0] - 1.3, 0], [p[0] + 1.3, 0], [p[0] + 0.2, p[1]]]);
   }
@@ -182,7 +186,7 @@ ZT = 12;
 R_MED = 31.0;     // raio do medalhão
 ASSENTO = 2.0;    // altura do assento cônico (45°)
 module tampa_uso() {
-  lab = F_INT - 2 * FOLGA_JUSTA;
+  lab = F_INT - 2 * FOLGA_JUSTA / ESCALA;
   difference() {
     union() {
       linear_extrude(4) oct(F_TAMPA);
@@ -191,8 +195,8 @@ module tampa_uso() {
     }
     translate([0, 0, -LABIO - 1]) linear_extrude(LABIO + 1 + ZT - 2.6) oct(lab - 3.2);
     // assento cônico do medalhão (vira chanfro de 45° na impressão, sem suporte)
-    translate([0, 0, ZT - ASSENTO]) cylinder(r1 = R_MED - ASSENTO + 0.2, r2 = R_MED + 0.2, h = ASSENTO + 0.01, $fn = 128);
-    translate([0, 0, ZT - 3]) cylinder(r = R_MED - ASSENTO + 0.2, h = 2, $fn = 128);
+    translate([0, 0, ZT - ASSENTO]) cylinder(r1 = R_MED - ASSENTO + 0.2 / ESCALA, r2 = R_MED + 0.2 / ESCALA, h = ASSENTO + 0.01, $fn = 128);
+    translate([0, 0, ZT - 3]) cylinder(r = R_MED - ASSENTO + 0.2 / ESCALA, h = 2, $fn = 128);
     // diamantes gravados nos cantos do topo
     for (a = [22.5:45:359]) rotate(a) translate([0, 32.6, ZT - 0.6]) linear_extrude(1) polygon([[0, -1.2], [1.3, 0.4], [0, 2.4], [-1.3, 0.4]]);
   }
@@ -234,7 +238,7 @@ module corte(cima) intersection() { children(); translate([-50, -50, cima ? Z_CO
 function cores(e) = e == "sangue" ? ["#151515", "#c0141c"] : e == "morte" ? ["#151515", "#f0f0f0"] : ["#f0f0f0", "#151515"];
 
 if (PARTE == "corpo") corpo();
-if (PARTE == "tampa") para_impressao() tampa_uso();
+if (PARTE == "tampa") scale(ESCALA) para_impressao() tampa_uso();
 if (PARTE == "medalhao") medalhao();
 if (PARTE == "medalhao_cor1") corte(false) medalhao();
 if (PARTE == "medalhao_cor2") corte(true) medalhao();
