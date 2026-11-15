@@ -1,0 +1,3 @@
+# STL é regenerável a partir do .scad; o 3MF vai no repo para abrir direto no Bambu Studio
+*.stl
+__pycache__/

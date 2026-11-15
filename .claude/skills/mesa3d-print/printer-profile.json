@@ -1,0 +1,41 @@
+{
+  "_leia": "Valores com calibrado=false são pontos de partida. Troque pelo resultado do gauge de tolerância depois de imprimir.",
+  "impressora": {
+    "modelo": "Bambu Lab A1 Combo (AMS lite)",
+    "tecnologia": "FDM",
+    "volume_mm": [256, 256, 256],
+    "margem_seguranca_mm": 6,
+    "bico_mm": 0.4,
+    "cores_max_ams_lite": 4,
+    "fatiador": "Bambu Studio",
+    "fonte": "https://bambulab.com/en/a1/tech-specs"
+  },
+  "material_padrao": "PLA",
+  "camada_mm": { "padrao": 0.2, "fina_miniaturas": 0.12, "calibrado": false },
+  "parede_minima_mm": { "valor": 0.8, "recomendada": 1.2, "nota": "2-3 perímetros de bico 0.4", "calibrado": false },
+  "folgas_mm": {
+    "pressao": 0.10,
+    "encaixe_justo": 0.15,
+    "deslizante": 0.25,
+    "solto": 0.40,
+    "nota": "folga por lado (raio); furo = peça + 2*folga",
+    "calibrado": false
+  },
+  "imas": {
+    "padrao": "disco 6x3 mm (neodímio)",
+    "furo_diametro_mm": 6.3,
+    "furo_profundidade_mm": 3.2,
+    "calibrado": false
+  },
+  "detalhes": {
+    "texto_altura_min_mm": 5,
+    "gravacao_profundidade_mm": 0.6,
+    "overhang_max_graus": 45,
+    "calibrado": false
+  },
+  "mesa_rpg": {
+    "grade_mm": 25.4,
+    "nota": "1 quadrado = 1 polegada (5 pés). Escala de miniatura 28-32 mm.",
+    "sistema_encaixe": "nenhum definido ainda (opções: plano, ímã, clipe próprio)"
+  }
+}
