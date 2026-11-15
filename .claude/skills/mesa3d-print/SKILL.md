@@ -27,6 +27,7 @@ O objetivo é entregar um arquivo que o usuário abre no Bambu Studio e imprime 
 5. **Entregue** o `.3mf` (abre direto no Bambu Studio) e o PNG, com: tamanho, peso aproximado, orientação na mesa, se precisa de suporte, camada sugerida (0.2 padrão, 0.12 para detalhes) e quais valores ainda não estão calibrados.
 
 ## Multicolor (AMS lite, até 4 cores)
+Filamentos disponíveis: preto, branco e vermelho (ver `filamentos` no perfil). Só proponha cores que o usuário tem; se uma peça pedir outra cor, sugira imprimir em branco e pintar.
 Ainda não testado neste projeto. Caminho provável: um corpo por cor exportado como objetos separados, atribuindo filamento a cada um no Bambu Studio. Diga ao usuário que é experimental até a primeira impressão confirmar.
 
 ## Sistema de encaixe dos tiles

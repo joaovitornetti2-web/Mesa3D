@@ -3,7 +3,11 @@
   "impressora": {
     "modelo": "Bambu Lab A1 Combo (AMS lite)",
     "tecnologia": "FDM",
-    "volume_mm": [256, 256, 256],
+    "volume_mm": [
+      256,
+      256,
+      256
+    ],
     "margem_seguranca_mm": 6,
     "bico_mm": 0.4,
     "cores_max_ams_lite": 4,
@@ -11,13 +15,22 @@
     "fonte": "https://bambulab.com/en/a1/tech-specs"
   },
   "material_padrao": "PLA",
-  "camada_mm": { "padrao": 0.2, "fina_miniaturas": 0.12, "calibrado": false },
-  "parede_minima_mm": { "valor": 0.8, "recomendada": 1.2, "nota": "2-3 perímetros de bico 0.4", "calibrado": false },
+  "camada_mm": {
+    "padrao": 0.2,
+    "fina_miniaturas": 0.12,
+    "calibrado": false
+  },
+  "parede_minima_mm": {
+    "valor": 0.8,
+    "recomendada": 1.2,
+    "nota": "2-3 perímetros de bico 0.4",
+    "calibrado": false
+  },
   "folgas_mm": {
-    "pressao": 0.10,
+    "pressao": 0.1,
     "encaixe_justo": 0.15,
     "deslizante": 0.25,
-    "solto": 0.40,
+    "solto": 0.4,
     "nota": "folga por lado (raio); furo = peça + 2*folga",
     "calibrado": false
   },
@@ -37,5 +50,20 @@
     "grade_mm": 25.4,
     "nota": "1 quadrado = 1 polegada (5 pés). Escala de miniatura 28-32 mm.",
     "sistema_encaixe": "nenhum definido ainda (opções: plano, ímã, clipe próprio)"
+  },
+  "filamentos": {
+    "material": "PLA (assumido - confirmar)",
+    "cores": [
+      "preto",
+      "branco",
+      "vermelho"
+    ],
+    "slots_ams_lite_livres": 1,
+    "uso_sugerido": {
+      "preto": "chão de masmorra, pedra, bases, peças estruturais",
+      "branco": "peças para pintar depois (pega bem tinta), neve, mármore, ossos",
+      "vermelho": "destaques: lava, sangue, marcadores de condição, peças de time"
+    },
+    "nota_multicor": "Cada troca de cor gasta filamento de purga; prefira cor por camada (ex.: base preta + topo vermelho) ou peças separadas por cor em vez de detalhes pequenos coloridos."
   }
 }
