@@ -1,7 +1,7 @@
 """Render realista de um relicário (Cycles, CPU). Uso:
 blender -b -P render_blender.py -- <elemento> <pasta_saida> <arquivo.png> [amostras]
 Precisa de <pasta>/<e>_corpo.stl, <e>_tampa.stl, <e>_medalhao_cor1.stl, <e>_medalhao_cor2.stl"""
-import sys, math
+import sys, math, os
 import bpy
 from mathutils import Matrix
 import mathutils
@@ -72,8 +72,13 @@ if PLACAS:
     for nome, ang in PLACAS:
         M = (Matrix.Rotation(math.radians(ang), 4, "Z") @ Matrix.Translation((r_fundo, 0, z0))
              @ Matrix(((0, 0, 1, 0), (1, 0, 0, -17.4), (0, 1, 0, 0), (0, 0, 0, 1))))
-        for i in (1, 2, 3):
-            importar(f"{base}/{nome}_placa_cor{i}.stl", mp[i - 1], M)
+        rel = f"/home/user/Mesa3D/models/decoracao/relevo/saida/{nome}_relevo_cor1.stl"
+        if os.path.exists(rel):   # baixo-relevo (Meshy): preto + branco
+            for i, mat in ((1, mp[0]), (2, mp[2])):
+                importar(rel.replace("_cor1", f"_cor{i}"), mat, M)
+        else:
+            for i in (1, 2, 3):
+                importar(f"{base}/{nome}_placa_cor{i}.stl", mp[i - 1], M)
 
 # altura total da cena (inclui figura na tampa) para enquadrar
 bpy.context.view_layer.update()

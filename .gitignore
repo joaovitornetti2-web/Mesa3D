@@ -17,3 +17,5 @@ models/decoracao/personagens/*.svg
 models/decoracao/personagens/saida/
 models/decoracao/personagens/medalhao_plautus.py
 models/decoracao/meshy/
+models/decoracao/relevo/prof/
+models/decoracao/relevo/saida/
