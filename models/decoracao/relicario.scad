@@ -1,9 +1,11 @@
 // Relicário octogonal decorativo (guarda um jogo de dados) – Morte, Sangue e Medo.
 // Selos e runas ORIGINAIS na estética de horror ocultista; não copiam sigilos oficiais.
 //
-// PARTE: "corpo" | "tampa" (rebaixo p/ 2ª cor) | "selo" (só a 2ª cor) | "tampa_simples" | "preview"
-// "tampa"/"selo"/"tampa_simples" já saem na posição de impressão (selo apoiado na mesa).
+// PARTE: "corpo" | "tampa" | "medalhao" | "medalhao_cor1" | "medalhao_cor2" | "preview" | "selo2d"
+// A tampa sai virada para imprimir (face de cima na mesa). O medalhão é uma peça à parte,
+// impressa deitada, que encaixa (e cola) no assento da tampa. A 2ª cor é só o topo do relevo.
 include <../../.claude/skills/mesa3d-print/lib/mesa3d.scad>
+include <texturas.scad>
 
 ELEMENTO = "sangue";   // sangue | morte | medo
 PARTE    = "preview";
@@ -101,22 +103,43 @@ module selo2d(e) {
 }
 
 // ---------------- painéis laterais (2D: x ao longo da face, y para cima) ----------------
-PW = 24; PH = 19.5;
+PW = 22; PH = 19.5;
+// arco ogival: retângulo + ponta formada por dois círculos
+module arco2d(w = PW, h = PH) {
+  r = 0.6 * w; off = r - w / 2; ha = sqrt(r * r - off * off);
+  translate([-w / 2, 0]) square([w, h - ha]);
+  translate([0, h - ha]) intersection() {
+    translate([off, 0]) circle(r = r, $fn = 96);
+    translate([-off, 0]) circle(r = r, $fn = 96);
+    translate([-w / 2, 0]) square([w, ha]);
+  }
+}
 module painel2d(e, i) {
   s = semente(e) * 100 + i * 7;
   if (e == "sangue") {
-    for (k = [0:2]) translate([(k - 1) * 7, 5]) runa(s + k, 4, 6);
-    for (d = [[-10, 5], [-6.5, 8], [-3, 3.5], [1, 6.5], [4.5, 9], [8, 4.5], [10.5, 6]])
+    // escorridos do alto, runas no meio, presas embaixo (bestialidade)
+    for (d = [[-9, 4], [-6, 7], [-3, 3.5], [0.5, 6], [3.5, 8], [6.5, 4], [9, 5.5]])
       hull() { translate([d[0] - 1, PH - 0.5]) square([2, 0.5]); translate([d[0], PH - d[1]]) circle(d = 2.2, $fn = 20); }
+    for (k = [0:2]) translate([(k - 1) * 6.5, 6.9]) runa(s + k, 3.4, 4.6);
+    for (x = [-9:3:9]) polygon([[x - 1.3, 0], [x + 1.3, 0], [x, 2.8 + (abs(x) % 6 == 0 ? 0.7 : 0)]]);
   } else if (e == "morte") {
-    for (k = [0:2]) translate([(k - 1) * 7, 5]) runa(s + k, 4, 6);
-    translate([-PW / 2 + 1, 10.5]) square([PW - 2, 1]);
-    translate([0, 15]) linha([for (t = [0:10:2 * 360]) let(rr = 0.8 + t / 360 * 1.6) [rr * cos(t), rr * sin(t)]], 0.9);
-    for (x = [-8, 8]) translate([x, 15]) circle(d = 2.2);
+    // espiral do tempo dentro do arco, runas embaixo
+    translate([0, 12.4]) linha([for (t = [0:8:3 * 360]) let(rr = 0.7 + t / 360 * 1.75) [rr * cos(-t + 90), rr * sin(-t + 90)]], 1.0);
+    translate([0, 12.4]) circle(d = 1.8);
+    translate([-PW / 2 + 1.5, 5.6]) square([PW - 3, 0.9]);
+    for (k = [0:2]) translate([(k - 1) * 6.5, 2.6]) runa(s + k, 3.2, 4.0);
   } else {
-    for (k = [0:2]) translate([(k - 1) * 7, 14.5]) runa(s + k, 4, 6);
-    for (p = [[-10.5, 6], [-7.5, 9], [-4.5, 5], [-1.5, 10], [1.5, 7], [4.5, 9.5], [7.5, 5.5], [10.5, 8]])
-      polygon([[p[0] - 1.4, 0], [p[0] + 1.4, 0], [p[0] + 0.2, p[1]]]);
+    // olho no alto, névoa ondulada, espinhos embaixo (o impossível)
+    translate([0, 14.8]) {
+      difference() {
+        intersection() { translate([0, -3.4]) circle(r = 6.2); translate([0, 3.4]) circle(r = 6.2); }
+        intersection() { translate([0, -3.4]) circle(r = 5.1); translate([0, 3.4]) circle(r = 5.1); }
+      }
+      circle(r = 1.7);
+    }
+    for (y = [7.6, 9.9]) linha([for (x = [-10:1:10]) [x, y + 0.7 * sin(x * 50 + y * 40)]], 0.9);
+    for (p = [[-9, 5], [-6, 6.5], [-3, 4], [0, 6.8], [3, 4.5], [6, 6.2], [9, 4.8]])
+      polygon([[p[0] - 1.3, 0], [p[0] + 1.3, 0], [p[0] + 0.2, p[1]]]);
   }
 }
 
@@ -133,15 +156,31 @@ module corpo() {
       translate([0, 0, H - 3]) linear_extrude(3) oct(F_MOLD);
     }
     translate([0, 0, FUNDO]) linear_extrude(H) oct(F_INT);
-    for (i = [0:7]) rotate(i * 45) translate([R - 0.8, -PW / 2, Z0P]) cube([2, PW, PH]);
+    for (i = [0:7]) rotate(i * 45) translate([R - 0.8, 0, Z0P]) rotate([90, 0, 90]) linear_extrude(2) arco2d();
   }
   for (i = [0:7]) rotate(i * 45) translate([R - 0.8, 0, Z0P]) rotate([90, 0, 90])
-    linear_extrude(0.8) intersection() { painel2d(ELEMENTO, i); translate([-PW / 2, 0]) square([PW, PH]); }
+    linear_extrude(0.8) intersection() { painel2d(ELEMENTO, i); arco2d(); }
+  // moldura do arco em relevo
+  for (i = [0:7]) rotate(i * 45) translate([R - 0.01, 0, Z0P]) rotate([90, 0, 90])
+    linear_extrude(0.7) difference() { translate([0, -0.3]) arco2d(PW + 2.4, PH + 1.5); translate([0, -1]) arco2d(PW, PH + 1); }
+  colunas();
+}
+
+// colunas nos 8 cantos, com base e capitel
+RV = F_CORPO / 2 / cos(22.5);   // raio do vértice do corpo
+module colunas() for (i = [0:7]) rotate(22.5 + i * 45) translate([RV - 0.6, 0, 0]) {
+  translate([0, 0, 7]) cylinder(d = 5.4, h = H - 12, $fn = 32);
+  translate([0, 0, 7]) cylinder(d1 = 7.2, d2 = 5.4, h = 1.8, $fn = 32);
+  translate([0, 0, H - 7.6]) cylinder(d1 = 5.4, d2 = 7.2, h = 1.8, $fn = 32);
+  translate([0, 0, H - 5.8]) cylinder(d = 7.2, h = 0.8, $fn = 32);
+  for (z = [11:5.5:H - 9]) translate([0, 0, z]) cylinder(d = 6.2, h = 0.8, $fn = 32);   // anéis
 }
 
 // tampa na posição de USO: face de cima em z = ZT
 ZT = 12;
-module tampa_uso(rebaixo = 0) {
+R_MED = 31.0;     // raio do medalhão
+ASSENTO = 2.0;    // altura do assento cônico (45°)
+module tampa_uso() {
   lab = F_INT - 2 * FOLGA_JUSTA;
   difference() {
     union() {
@@ -149,23 +188,63 @@ module tampa_uso(rebaixo = 0) {
       translate([0, 0, 4]) hull() { linear_extrude(0.01) oct(F_TAMPA); translate([0, 0, ZT - 4]) linear_extrude(0.01) oct(F_TOPO); }
       translate([0, 0, -LABIO]) linear_extrude(LABIO + 0.01) difference() { oct(lab); oct(lab - 3.2); }
     }
-    translate([0, 0, -LABIO - 1]) linear_extrude(LABIO + 1 + ZT - 2.4) oct(lab - 3.2);
-    if (rebaixo > 0) translate([0, 0, ZT - rebaixo]) linear_extrude(rebaixo + 1) selo2d(ELEMENTO);
+    translate([0, 0, -LABIO - 1]) linear_extrude(LABIO + 1 + ZT - 2.6) oct(lab - 3.2);
+    // assento cônico do medalhão (vira chanfro de 45° na impressão, sem suporte)
+    translate([0, 0, ZT - ASSENTO]) cylinder(r1 = R_MED - ASSENTO + 0.2, r2 = R_MED + 0.2, h = ASSENTO + 0.01, $fn = 128);
+    translate([0, 0, ZT - 3]) cylinder(r = R_MED - ASSENTO + 0.2, h = 2, $fn = 128);
+    // diamantes gravados nos cantos do topo
+    for (a = [22.5:45:359]) rotate(a) translate([0, 32.6, ZT - 0.6]) linear_extrude(1) polygon([[0, -1.2], [1.3, 0.4], [0, 2.4], [-1.3, 0.4]]);
   }
 }
-module selo_uso() translate([0, 0, ZT - INLAY]) linear_extrude(INLAY) selo2d(ELEMENTO);
-// virar para imprimir: girar 180° no eixo Y (preserva a leitura do selo)
+// virar para imprimir: girar 180° no eixo Y (preserva a leitura)
 module para_impressao() translate([0, 0, ZT]) rotate([0, 180, 0]) children();
+
+// ---- medalhão (z = 0 na mesa) ----
+Z_CAMPO = ASSENTO;          // nível do fundo (rente à tampa)
+H_TEXT  = 0.6;              // relevo da pedra
+H_FAIXA = 0.8;              // faixa das runas
+Z_COR   = Z_CAMPO + 1.4;    // troca de cor
+Z_TOPO  = Z_CAMPO + 2.2;    // topo do relevo (0.8 mm = 4 camadas da 2ª cor)
+function rachas(e) = e == "sangue" ? RACHAS_SANGUE : e == "morte" ? RACHAS_MORTE : RACHAS_MEDO;
+function larg(e) = e == "sangue" ? LARG_SANGUE : e == "morte" ? LARG_MORTE : LARG_MEDO;
+
+module medalhao() {
+  e = ELEMENTO;
+  cylinder(r1 = R_MED - ASSENTO, r2 = R_MED, h = ASSENTO, $fn = 128);
+  // fundo de pedra rachada
+  translate([0, 0, Z_CAMPO - 0.01]) linear_extrude(H_TEXT + 0.01) difference() {
+    circle(r = 21.2, $fn = 128);
+    for (l = rachas(e)) linha(l, larg(e));
+  }
+  // faixa das runas
+  translate([0, 0, Z_CAMPO - 0.01]) linear_extrude(H_FAIXA + 0.01) anel(R_MED, R_MED - 21.0);
+  // runas, anéis e ornamentos saltados (topo na 2ª cor)
+  translate([0, 0, Z_CAMPO]) linear_extrude(Z_TOPO - Z_CAMPO) {
+    anel(R_MED, 1.4);
+    anel(22.0, 1.1);
+    anel_runas(18, 25.6, semente(e), 4.4);
+  }
+  // símbolo com contorno-sombra (contorno fica na 1ª cor)
+  translate([0, 0, Z_CAMPO]) linear_extrude(Z_COR - Z_CAMPO) intersection() { offset(r = 0.8) motivo(e); circle(r = 21); }
+  translate([0, 0, Z_CAMPO]) linear_extrude(Z_TOPO - Z_CAMPO) intersection() { motivo(e); circle(r = 21); }
+}
+module corte(cima) intersection() { children(); translate([-50, -50, cima ? Z_COR : -1]) cube([100, 100, cima ? 20 : Z_COR + 1]); }
 
 function cores(e) = e == "sangue" ? ["#151515", "#c0141c"] : e == "morte" ? ["#151515", "#f0f0f0"] : ["#f0f0f0", "#151515"];
 
 if (PARTE == "corpo") corpo();
-if (PARTE == "tampa") para_impressao() tampa_uso(INLAY);
-if (PARTE == "selo") para_impressao() selo_uso();
-if (PARTE == "tampa_simples") para_impressao() tampa_uso(0.8);
+if (PARTE == "tampa") para_impressao() tampa_uso();
+if (PARTE == "medalhao") medalhao();
+if (PARTE == "medalhao_cor1") corte(false) medalhao();
+if (PARTE == "medalhao_cor2") corte(true) medalhao();
 if (PARTE == "preview") {
   c = cores(ELEMENTO);
   color(c[0]) corpo();
-  translate([0, 0, H + 0.2]) { color(c[0]) tampa_uso(INLAY); color(c[1]) translate([0, 0, 0.02]) selo_uso(); }
+  translate([0, 0, H + 0.2]) {
+    color(c[0]) tampa_uso();
+    translate([0, 0, ZT - ASSENTO]) { color(c[0]) corte(false) medalhao(); color(c[1]) corte(true) medalhao(); }
+  }
 }
 if (PARTE == "selo2d") selo2d(ELEMENTO);
+if (PARTE == "campo2d") difference() { circle(r = 21.2, $fn = 128); for (l = rachas(ELEMENTO)) linha(l, larg(ELEMENTO)); }
+if (PARTE == "painel2d") for (k = [0:2]) translate([k * 26, 0]) intersection() { painel2d(["sangue", "morte", "medo"][k], 0); arco2d(); }
