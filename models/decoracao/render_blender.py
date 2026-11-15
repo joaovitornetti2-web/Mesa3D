@@ -4,6 +4,7 @@ Precisa de <pasta>/<e>_corpo.stl, <e>_tampa.stl, <e>_medalhao_cor1.stl, <e>_meda
 import sys, math
 import bpy
 from mathutils import Matrix
+import mathutils
 
 argv = sys.argv[sys.argv.index("--") + 1:]
 e, pasta, saida = argv[0], argv[1], argv[2]
@@ -74,6 +75,11 @@ if PLACAS:
         for i in (1, 2, 3):
             importar(f"{base}/{nome}_placa_cor{i}.stl", mp[i - 1], M)
 
+# altura total da cena (inclui figura na tampa) para enquadrar
+bpy.context.view_layer.update()
+ALTO = max((o.matrix_world @ mathutils.Vector(c)).z for o in bpy.context.scene.objects if o.type == "MESH" for c in o.bound_box)
+print("ALTO", ALTO)
+
 # chão e fundo
 bpy.ops.mesh.primitive_plane_add(size=800, location=(0, 0, 0))
 bpy.context.object.data.materials.append(material("chao", (0.11, 0.105, 0.10), 0.6))
@@ -93,15 +99,16 @@ luz("principal", (-160, -140, 220), 9.0e5, 120)
 luz("recorte", (170, 120, 120), 4.5e5, 80, (0.85, 0.9, 1.0))
 luz("preenchimento", (160, -200, 60), 1.4e5, 150)
 
-import mathutils
 cam_d = bpy.data.cameras.new("cam"); cam_d.lens = 85
 cam = bpy.data.objects.new("cam", cam_d); cena.collection.objects.link(cam); cena.camera = cam
-cam.location = mathutils.Vector((-55, -275, 175)) * max(1.0, (H + ZT) / 50.0)
+cam.location = mathutils.Vector((-55, -275, 175)) * max(1.0, ALTO / 85.0)
+cam_d.clip_end = 5000
 alvo = cam.location.copy(); alvo.z = 0
 import mathutils
-dirv = (mathutils.Vector((0, 0, (H + ZT) * 0.55)) - cam.location).normalized()
+dirv = (mathutils.Vector((0, 0, ALTO * 0.5)) - cam.location).normalized()
 cam_d.lens = 85
 cam.rotation_euler = dirv.to_track_quat("-Z", "Y").to_euler()
 
+print("CAM", tuple(cam.location), "clip", cam_d.clip_end)
 cena.render.filepath = saida
 bpy.ops.render.render(write_still=True)
