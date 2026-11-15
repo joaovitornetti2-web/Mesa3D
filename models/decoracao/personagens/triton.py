@@ -8,9 +8,10 @@ from scipy import ndimage as ndi
 from pathlib import Path
 
 ORIG = Path(__file__).resolve().parent.parent / "simbolos" / "originais" / "personagens"
-PX_MM = 0.15                 # resolução da placa (mm por pixel)
+PX_MM = 0.10                 # resolução da placa (mm por pixel)
 LARG_MM, ALT_MM = 34.8, 59.2 # placa = arco da parede de 50 dados menos 0.2 mm de folga
 MIN_MM = 0.5                 # menor detalhe que o bico 0.4 imprime
+MOLDURA = (0.4, 1.0, 1.9)    # filete branco de 0.4 a 1.0 mm da borda; imagem começa a 1.9 mm
 
 # recorte (frações da imagem: x0, y0, x1, y1) e fundo a remover
 CONF = {
@@ -20,12 +21,25 @@ CONF = {
     "labirinto": {"crop": (0.20, 0.00, 0.80, 0.86), "fundo": None},
     "guizo":     {"crop": (0.15, 0.00, 0.85, 0.42), "fundo": "claro"},
     "chico":     {"crop": (0.15, 0.00, 0.85, 0.62), "fundo": "escuro"},
-    "joui":      {"crop": (0.45, 0.04, 0.78, 0.58), "fundo": "saturado"},
+    "joui":      {"crop": (0.38, 0.00, 0.74, 0.62), "fundo": "saturado"},
     "dante":     {"crop": (0.00, 0.00, 1.00, 1.00), "fundo": None},
-    "pantheon":  {"crop": (0.36, 0.00, 0.70, 0.80), "fundo": "verde"},
+    "pantheon":  {"crop": (0.37, 0.00, 0.67, 0.62), "fundo": "verde", "pct": [45, 82]},
     # medalhão redondo da tampa (Plautus sobre a pilha de corpos)
     "plautus":   {"crop": (0.12, 0.00, 0.95, 0.97), "fundo": None, "circulo": 66.6, "encaixar": True, "pct": [55, 86]},
 }
+
+
+def arco_dist(W, H):
+    """distância (px) de cada pixel até a borda da placa em arco (fora = negativo)."""
+    w, h = W, H
+    r = 0.6 * w; off = r - w / 2; ha = np.sqrt(r * r - off * off); yb = h - ha
+    yy, xx = np.mgrid[:H, :W].astype(float)
+    y = H - yy; x = xx - w / 2              # y para cima, x centrado
+    d_lados = np.minimum(x + w / 2, w / 2 - x)
+    d_base = y
+    d_arco = np.minimum(r - np.hypot(x + off, y - yb), r - np.hypot(x - off, y - yb))
+    d = np.minimum(np.minimum(d_lados, d_base), np.where(y > yb, d_arco, np.inf))
+    return d
 
 
 def processa(nome):
@@ -57,7 +71,8 @@ def processa(nome):
     L = np.asarray(im.convert("L").filter(ImageFilter.MedianFilter(3)).filter(ImageFilter.GaussianBlur(0.7))).astype(float)
     L_bruto = L.copy()   # para separar o fundo
     # contraste local (CLAHE): rosto escuro ao lado de roupa clara não some
-    from skimage import exposure
+    from skimage import exposure, restoration
+    L = restoration.denoise_tv_chambolle(L / 255.0, weight=0.06) * 255   # alisa manchas, mantém contornos
     L = exposure.equalize_adapthist(L / 255.0, kernel_size=max(8, L.shape[1] // 4), clip_limit=0.012) * 255
     fundo = np.zeros(L.shape, bool)
     if c.get("encaixar"):
@@ -91,17 +106,24 @@ def processa(nome):
     if c["fundo"]:
         aro = ndi.binary_dilation(fig, iterations=4) & ~ndi.binary_erosion(fig, iterations=0 or 1) & fundo
         niv[aro] = 1
-    # detalhes mínimos imprimíveis: tira ilhas/furos menores que MIN_MM
-    r = max(1, round(MIN_MM / 2 / PX_MM))
-    for k in (2, 1):
-        m = niv >= k
-        m = ndi.binary_opening(m, iterations=r)
-        m = ndi.binary_closing(m, iterations=1)
-        lab, n = ndi.label(m)
-        if n:
-            a = ndi.sum(m, lab, range(1, n + 1))
-            m = np.isin(lab, [i + 1 for i, x in enumerate(a) if x * PX_MM ** 2 >= MIN_MM ** 2 * 2])
+    # contornos suaves + sem sujeira: cada nível é alisado e ilhas/furos < 0.8 mm² somem
+    sig = 0.28 / PX_MM
+    area_min = 0.8 / PX_MM ** 2
+    for k in (1, 2):
+        m = ndi.gaussian_filter((niv >= k).astype(float), sig) > 0.5
+        for alvo in (m, ~m):                      # ilhas e furos
+            lab, n = ndi.label(alvo)
+            if n:
+                a = ndi.sum(alvo, lab, range(1, n + 1))
+                peq = np.isin(lab, [i + 1 for i, x in enumerate(a) if x < area_min])
+                m = m ^ peq if alvo is m else m | peq
         niv = np.where(m, np.maximum(niv, k), np.minimum(niv, k - 1)).astype(np.uint8)
+    # moldura: margem preta + filete branco acompanhando o arco
+    if not c.get("circulo"):
+        dist = arco_dist(W, H)
+        f0, f1, f2 = (v / PX_MM for v in MOLDURA)
+        niv[dist < f2] = 0
+        niv[(dist >= f0) & (dist < f1)] = 2
     if c.get("circulo"):
         yy, xx = np.mgrid[:H, :W]
         niv[(xx - W / 2) ** 2 + (yy - H / 2) ** 2 > (W / 2) ** 2] = 0
