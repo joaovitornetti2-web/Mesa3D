@@ -15,3 +15,4 @@ models/decoracao/simbolos/energia_vetor.scad
 models/decoracao/personagens/*.png
 models/decoracao/personagens/*.svg
 models/decoracao/personagens/saida/
+models/decoracao/personagens/medalhao_plautus.py
