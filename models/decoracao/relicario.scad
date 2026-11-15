@@ -177,7 +177,7 @@ module colunas() for (i = [0:7]) rotate(22.5 + i * 45) translate([RV - 0.6, 0, 0
   translate([0, 0, 7]) cylinder(d = 5.4, h = H - 12, $fn = 32);
   translate([0, 0, 7]) cylinder(d1 = 7.2, d2 = 5.4, h = 1.8, $fn = 32);
   translate([0, 0, H - 7.6]) cylinder(d1 = 5.4, d2 = 7.2, h = 1.8, $fn = 32);
-  translate([0, 0, H - 5.8]) cylinder(d = 7.2, h = 0.8, $fn = 32);
+  translate([0, 0, H - 5.85]) cylinder(d = 7.2, h = 0.85, $fn = 32);   // sobrepõe 0.05 (evita fresta numérica)
   for (z = [11:5.5:H - 9]) translate([0, 0, z]) cylinder(d = 6.2, h = 0.8, $fn = 32);   // anéis
 }
 
