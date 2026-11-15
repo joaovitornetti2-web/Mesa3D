@@ -16,12 +16,13 @@ module gravar(txt, tam = 5, topo = 0) {
     text(txt, size = tam, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
 }
 
-// Tile de chão: nx × ny quadrados, com sulcos da grade e (opcional) ímãs nos cantos de cada quadrado.
+// Tile de chão: nx × ny quadrados, com sulcos da grade e (opcional) um ímã sob o centro de cada quadrado.
+// Ímãs por baixo prendem o tile numa chapa de aço; eles NÃO unem um tile ao outro.
 module tile_chao(nx = 2, ny = 2, altura = 6, sulco = 0.8, imas = false) {
   difference() {
     cube([nx * GRADE, ny * GRADE, altura]);
-    for (i = [1:nx - 1]) translate([i * GRADE - sulco / 2, -1, altura - sulco]) cube([sulco, ny * GRADE + 2, sulco + 1]);
-    for (j = [1:ny - 1]) translate([-1, j * GRADE - sulco / 2, altura - sulco]) cube([nx * GRADE + 2, sulco, sulco + 1]);
+    if (nx > 1) for (i = [1:nx - 1]) translate([i * GRADE - sulco / 2, -1, altura - sulco]) cube([sulco, ny * GRADE + 2, sulco + 1]);
+    if (ny > 1) for (j = [1:ny - 1]) translate([-1, j * GRADE - sulco / 2, altura - sulco]) cube([nx * GRADE + 2, sulco, sulco + 1]);
     if (imas) for (i = [0:nx - 1], j = [0:ny - 1]) translate([(i + 0.5) * GRADE, (j + 0.5) * GRADE, 0]) furo_ima();
   }
 }
