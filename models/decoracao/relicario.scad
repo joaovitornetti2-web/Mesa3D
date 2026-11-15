@@ -14,6 +14,8 @@ PARTE    = "preview";
 SIMBOLO_SVG = "";
 SIMBOLO_CENTRO = [0, 0];   // calculado pelo build
 SIMBOLO_ESCALA = 1;
+// PLACAS = true: paredes lisas com rebaixo em arco para colar placas de personagens
+PLACAS = false;
 // Tamanho: 1 = 10 dados, 1.145 = 15, 1.26 = 20. Só a tampa é gerada já escalada aqui
 // (para manter as folgas reais); corpo e medalhão são escalados depois, no build.
 ESCALA = 1;
@@ -177,7 +179,7 @@ module corpo() {
     for (i = [0:7]) rotate(i * 45) translate([R - 0.8, 0, Z0P]) rotate([90, 0, 90]) linear_extrude(2) arco2d();
   }
   // detalhes: avançam 0.3 mm dentro da parede do arco e terminam 0.05 mm abaixo da face (malha fechada)
-  for (i = [0:7]) rotate(i * 45) translate([R - 0.9, 0, Z0P]) rotate([90, 0, 90])
+  if (!PLACAS) for (i = [0:7]) rotate(i * 45) translate([R - 0.9, 0, Z0P]) rotate([90, 0, 90])
     linear_extrude(0.85) intersection() { painel2d(ELEMENTO, i); offset(delta = 0.3) arco2d(); }
   // moldura do arco em relevo
   for (i = [0:7]) rotate(i * 45) translate([R - 0.03, 0, Z0P]) rotate([90, 0, 90])

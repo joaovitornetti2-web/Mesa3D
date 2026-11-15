@@ -8,6 +8,9 @@ from mathutils import Matrix
 argv = sys.argv[sys.argv.index("--") + 1:]
 e, pasta, saida = argv[0], argv[1], argv[2]
 amostras = int(argv[3]) if len(argv) > 3 else 64
+# opcional: placas de personagens "nome@angulo,..." (pasta personagens/saida)
+PLACAS = [(x.split("@")[0], float(x.split("@")[1])) for x in argv[4].split(",")] if len(argv) > 4 and argv[4] else []
+CORPO = argv[5] if len(argv) > 5 else f"{e}_corpo.stl"
 H, ZT, ASSENTO = 34.0, 12.0, 2.0
 CORES = {"sangue": ((0.018, 0.018, 0.02), (0.55, 0.02, 0.03)),
          "morte": ((0.018, 0.018, 0.02), (0.82, 0.82, 0.80)),
@@ -45,7 +48,7 @@ def importar(caminho, mat, matriz=Matrix()):
 
 
 m1, m2 = material("cor1", c1), material("cor2", c2, 0.35)
-corpo = importar(f"{pasta}/{e}_corpo.stl", m1)
+corpo = importar(f"{pasta}/{CORPO}", m1)
 bpy.context.view_layer.update()
 H = corpo.dimensions.z                 # altura real do corpo (muda por tamanho)
 esc = corpo.dimensions.x / 82.07       # escala xy (82.07 mm = base do tamanho de referência)
@@ -59,6 +62,17 @@ importar(f"{pasta}/{e}_medalhao_cor2.stl", m2, sobe)
 import os
 if os.path.exists(f"{pasta}/{e}_medalhao_cor3.stl"):
     importar(f"{pasta}/{e}_medalhao_cor3.stl", material("cor3", COR3, 0.35), sobe)
+
+# placas: x da placa -> tangente, y -> altura, z (relevo) -> para fora da parede
+if PLACAS:
+    mp = [material("p1", (0.018, 0.018, 0.02)), material("p2", (0.55, 0.02, 0.03), 0.35), material("p3", (0.82, 0.82, 0.80), 0.35)]
+    r_fundo = (38 - 0.8) * esc; z0 = 8.5 * esc + 0.2
+    base = "/home/user/Mesa3D/models/decoracao/personagens/saida"
+    for nome, ang in PLACAS:
+        M = (Matrix.Rotation(math.radians(ang), 4, "Z") @ Matrix.Translation((r_fundo, 0, z0))
+             @ Matrix(((0, 0, 1, 0), (1, 0, 0, -17.4), (0, 1, 0, 0), (0, 0, 0, 1))))
+        for i in (1, 2, 3):
+            importar(f"{base}/{nome}_placa_cor{i}.stl", mp[i - 1], M)
 
 # chão e fundo
 bpy.ops.mesh.primitive_plane_add(size=800, location=(0, 0, 0))
