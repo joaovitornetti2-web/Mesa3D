@@ -52,7 +52,7 @@
     "sistema_encaixe": "nenhum definido ainda (opções: plano, ímã, clipe próprio)"
   },
   "filamentos": {
-    "material": "PLA (assumido - confirmar)",
+    "material": "PLA (confirmado pelo usuário)",
     "cores": [
       "preto",
       "branco",
