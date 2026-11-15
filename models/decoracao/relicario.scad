@@ -14,6 +14,7 @@ PARTE    = "preview";
 SIMBOLO_SVG = "";
 SIMBOLO_CENTRO = [0, 0];   // calculado pelo build
 SIMBOLO_ESCALA = 1;
+SIMBOLO_ALTO = false;   // símbolo sobe 0.8 mm acima das runas (topo na 3ª cor)
 // PLACAS = true: paredes lisas com rebaixo em arco para colar placas de personagens
 PLACAS = false;
 // Tamanho: 1 = 10 dados, 1.145 = 15, 1.26 = 20. Só a tampa é gerada já escalada aqui
@@ -229,7 +230,7 @@ H_TEXT  = 0.6;              // relevo da pedra
 H_FAIXA = 0.8;              // faixa das runas
 Z_COR   = Z_CAMPO + 1.4;    // troca de cor
 Z_TOPO  = Z_CAMPO + 2.2;    // topo do relevo (0.8 mm = 4 camadas da 2ª cor)
-Z_SIMB  = ELEMENTO == "energia" ? Z_TOPO + 0.8 : Z_TOPO;   // energia: símbolo sobe mais, topo na 3ª cor
+Z_SIMB  = (ELEMENTO == "energia" || SIMBOLO_ALTO) ? Z_TOPO + 0.8 : Z_TOPO;   // energia: símbolo sobe mais, topo na 3ª cor
 function rachas(e) = e == "sangue" ? RACHAS_SANGUE : e == "morte" ? RACHAS_MORTE : e == "energia" ? RACHAS_ENERGIA : RACHAS_MEDO;
 function larg(e) = e == "sangue" ? LARG_SANGUE : e == "morte" ? LARG_MORTE : e == "energia" ? LARG_ENERGIA : LARG_MEDO;
 
