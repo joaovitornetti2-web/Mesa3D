@@ -72,7 +72,7 @@ luz("preenchimento", (160, -200, 60), 1.4e5, 150)
 
 cam_d = bpy.data.cameras.new("cam"); cam_d.lens = 85
 cam = bpy.data.objects.new("cam", cam_d); cena.collection.objects.link(cam); cena.camera = cam
-cam.location = (-150, -235, 175)
+cam.location = (-55, -275, 175)
 alvo = cam.location.copy(); alvo.z = 0
 import mathutils
 dirv = (mathutils.Vector((0, 0, 24)) - cam.location).normalized()

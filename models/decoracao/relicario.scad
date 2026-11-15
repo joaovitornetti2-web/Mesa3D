@@ -158,11 +158,12 @@ module corpo() {
     translate([0, 0, FUNDO]) linear_extrude(H) oct(F_INT);
     for (i = [0:7]) rotate(i * 45) translate([R - 0.8, 0, Z0P]) rotate([90, 0, 90]) linear_extrude(2) arco2d();
   }
-  for (i = [0:7]) rotate(i * 45) translate([R - 0.8, 0, Z0P]) rotate([90, 0, 90])
-    linear_extrude(0.8) intersection() { painel2d(ELEMENTO, i); arco2d(); }
+  // detalhes: avançam 0.3 mm dentro da parede do arco e terminam 0.05 mm abaixo da face (malha fechada)
+  for (i = [0:7]) rotate(i * 45) translate([R - 0.9, 0, Z0P]) rotate([90, 0, 90])
+    linear_extrude(0.85) intersection() { painel2d(ELEMENTO, i); offset(delta = 0.3) arco2d(); }
   // moldura do arco em relevo
-  for (i = [0:7]) rotate(i * 45) translate([R - 0.01, 0, Z0P]) rotate([90, 0, 90])
-    linear_extrude(0.7) difference() { translate([0, -0.3]) arco2d(PW + 2.4, PH + 1.5); translate([0, -1]) arco2d(PW, PH + 1); }
+  for (i = [0:7]) rotate(i * 45) translate([R - 0.03, 0, Z0P]) rotate([90, 0, 90])
+    linear_extrude(0.7) difference() { translate([0, -0.3]) arco2d(PW + 2.4, PH + 1.47); translate([0, -1]) arco2d(PW + 0.04, PH + 1.03); }
   colunas();
 }
 
@@ -225,7 +226,7 @@ module medalhao() {
     anel_runas(18, 25.6, semente(e), 4.4);
   }
   // símbolo com contorno-sombra (contorno fica na 1ª cor)
-  translate([0, 0, Z_CAMPO]) linear_extrude(Z_COR - Z_CAMPO) intersection() { offset(r = 0.8) motivo(e); circle(r = 21); }
+  translate([0, 0, Z_CAMPO]) linear_extrude(Z_COR - 0.2 - Z_CAMPO) intersection() { offset(r = 0.8) motivo(e); circle(r = 21); }
   translate([0, 0, Z_CAMPO]) linear_extrude(Z_TOPO - Z_CAMPO) intersection() { motivo(e); circle(r = 21); }
 }
 module corte(cima) intersection() { children(); translate([-50, -50, cima ? Z_COR : -1]) cube([100, 100, cima ? 20 : Z_COR + 1]); }

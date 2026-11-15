@@ -13,7 +13,9 @@ man = mf.Manifold(mf.Mesh(vert_properties=np.asarray(m.vertices, np.float32), tr
 
 def tm(x):
     g = x.to_mesh()
-    return trimesh.Trimesh(np.asarray(g.vert_properties)[:, :3], np.asarray(g.tri_verts), process=True)
+    t = trimesh.Trimesh(np.asarray(g.vert_properties)[:, :3], np.asarray(g.tri_verts), process=True)
+    t.merge_vertices()
+    return t
 
 
 baixo = tm(man.trim_by_plane((0, 0, -1), -zc))   # z <= zc
