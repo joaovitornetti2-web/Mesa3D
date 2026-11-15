@@ -19,7 +19,7 @@ cena = bpy.context.scene
 cena.render.engine = "CYCLES"
 cena.cycles.device = "CPU"
 cena.cycles.samples = amostras
-cena.cycles.use_denoising = True
+cena.cycles.use_denoising = False
 cena.render.resolution_x, cena.render.resolution_y = 1400, 1100
 cena.view_settings.view_transform = "AgX" if "AgX" in [i.identifier for i in cena.view_settings.bl_rna.properties["view_transform"].enum_items] else "Filmic"
 
