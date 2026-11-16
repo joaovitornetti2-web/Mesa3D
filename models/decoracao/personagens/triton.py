@@ -29,6 +29,7 @@ CONF = {
     "guizo2":    {"crop": (0.04, 0.00, 0.96, 1.00), "fundo": "verde2", "pct": [36, 74]},
     "rubens2":   {"crop": (0.10, 0.00, 0.98, 1.00), "fundo": "azul2", "pct": [42, 68]},
     "balu2":     {"crop": (0.10, 0.00, 0.90, 1.00), "fundo": None, "pct": [40, 76]},
+    "rubens3":   {"crop": (0.24, 0.02, 0.88, 0.92), "fundo": "azul2", "pct": [40, 72]},
     "plautus_placa": {"arquivo": "plautus", "crop": (0.36, 0.03, 0.80, 0.52), "fundo": None, "pct": [42, 80]},
     # medalhão redondo da tampa (Plautus sobre a pilha de corpos)
     "plautus":   {"crop": (0.12, 0.00, 0.95, 0.97), "fundo": None, "circulo": 66.6, "encaixar": True, "pct": [55, 86]},

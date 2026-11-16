@@ -5,7 +5,7 @@ ESC = 1.6
 R_FUNDO = (38 - 0.8) * ESC
 Z0 = 8.5 * ESC + 0.2
 ORDEM_V1 = {"joui": 270, "labirinto": 225, "dante": 315, "rubens": 180, "balu": 0, "guizo": 135, "chico": 45, "bran": 90}
-ORDEM = {"chico2": 270, "sigilo_sangue": 225, "guizo2": 180, "sigilo_morte": 135, "rubens2": 90, "sigilo_energia": 45, "balu2": 0, "sigilo_conhecimento": 315}
+ORDEM = [("chico2", 270), ("vazia", 225), ("guizo2", 180), ("vazia", 135), ("rubens3", 90), ("vazia", 45), ("balu2", 0), ("vazia", 315)]
 OUT = "saida_pessoal/50_dados_energia_personagens"
 
 def man(t):
@@ -22,7 +22,7 @@ import sys
 POSTER = "--poster" in sys.argv
 corpo = man(trimesh.load(f"{OUT}/energia_corpo_placas.stl"))
 tudo, preto, branco, verm = corpo, corpo, None, None
-for n, ang in ORDEM.items():
+for n, ang in (ORDEM.items() if isinstance(ORDEM, dict) else ORDEM):
     M = matriz(ang)
     if POSTER:   # pôster 3 cores: cor1 preto, cor2 vermelho, cor3 branco
         f = lambda k: f"personagens/saida/{n}_placa{k}.stl"
@@ -35,7 +35,7 @@ for n, ang in ORDEM.items():
     tudo = tudo + man(p); preto = preto + man(k)
     branco = man(b) if branco is None else branco + man(b)
     if r is not None: verm = man(r) if verm is None else verm + man(r)
-suf = "_v2" if POSTER else ""
+suf = "_v3" if POSTER else ""
 saidas = [(f"energia_corpo_com_personagens{suf}", tudo), (f"energia_corpo_com_personagens{suf}_cor1_preto", preto)]
 if verm is not None: saidas.append((f"energia_corpo_com_personagens{suf}_cor2_vermelho", verm))
 saidas.append((f"energia_corpo_com_personagens{suf}_cor{3 if verm is not None else 2}_branco", branco))
