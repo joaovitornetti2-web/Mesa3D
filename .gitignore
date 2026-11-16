@@ -19,3 +19,5 @@ models/decoracao/personagens/medalhao_plautus.py
 models/decoracao/meshy/
 models/decoracao/relevo/prof/
 models/decoracao/relevo/saida/
+models/decoracao/estatua/*.3mf
+models/decoracao/estatua/*.stl
