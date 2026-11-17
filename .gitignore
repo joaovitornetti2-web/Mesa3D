@@ -21,3 +21,5 @@ models/decoracao/relevo/prof/
 models/decoracao/relevo/saida/
 models/decoracao/estatua/*.3mf
 models/decoracao/estatua/*.stl
+models/torre/stl/
+models/torre/saida/
