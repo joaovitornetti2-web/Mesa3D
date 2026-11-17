@@ -46,6 +46,8 @@ module torre() {
     for (r = [0, 90, 180, 270]) translate([T / 2, T / 2, 0]) rotate(r) translate([0, -T / 2 + TW + 1, JAN_Z]) rotate([90, 0, 0]) linear_extrude(TW + 4) arco2d(JAN_W, JAN_H);
     // pedras nas 4 faces
     for (r = [0, 90, 180, 270]) translate([T / 2, T / 2, 0]) rotate(r) translate([-T / 2, -T / 2, 8]) pedras_face(T, JAN_Z - 16);
+    // rebaixo da placa do Thiago Fritz (parede de trás)
+    translate([T / 2, T - 1.5, 18]) rotate([90, 0, 180]) translate([0, 0, -0.01]) linear_extrude(3) ogiva(35.2, 59.6);
     // rebaixo do emblema da Morte (frente, acima da porta)
     translate([T / 2, 1.6, 70]) rotate([90, 0, 0]) cylinder(d = 30.4, h = 3);
   }
@@ -64,6 +66,11 @@ module torre() {
   // Lodo escorrendo das janelas
   for (r = [90, 180, 270]) translate([T / 2, T / 2, 0]) rotate(r) translate([0, -T / 2 - 0.1, JAN_Z - 6])
     for (d = [[-14, 18], [-4, 30], [8, 14], [16, 24]]) translate([d[0], 0, 0]) escorrido(d[1], 3.4);
+}
+module ogiva(w, h) {   // mesmo arco ogival das placas (r = 0.6 w)
+  r = 0.6 * w; off = r - w / 2; ha = sqrt(r * r - off * off);
+  translate([-w / 2, 0]) square([w, h - ha]);
+  translate([0, h - ha]) intersection() { translate([off, 0]) circle(r = r, $fn = 96); translate([-off, 0]) circle(r = r, $fn = 96); translate([-w / 2, 0]) square([w, ha]); }
 }
 // rampa: de uma parede (y0) a 26 mm para dentro, descendo 31 mm (50°)
 module rampa(y0, z0, s) {
