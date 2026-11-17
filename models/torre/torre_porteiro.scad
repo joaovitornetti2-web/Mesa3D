@@ -13,6 +13,7 @@ FOLGA = 0.3;
 ARCO_W = 40; ARCO_H = 38;                  // porta de saída
 JAN_Z = 98; JAN_H = 30; JAN_W = 32;       // janelas do campanário (entrada dos dados)
 DECK = 80; DECK_H = 6;
+DB_W = 48; DB_D = 34; DB_H = 3; DB_Y = 22;   // base do Deus da Morte (encaixa num rebaixo do deck)
 
 // ---------- utilitários ----------
 module pedras_face(w, h, alt = 9, larg = 16, prof = 0.8) {
@@ -65,7 +66,7 @@ module torre() {
     for (d = [[-28, 14], [-19, 26], [-9, 9], [3, 19], [13, 31], [24, 12]]) if (!(r == 0 && abs(d[0]) < 22)) translate([d[0] + r / 30, 0, 0]) escorrido(d[1]);
   // Lodo escorrendo das janelas
   for (r = [90, 180, 270]) translate([T / 2, T / 2, 0]) rotate(r) translate([0, -T / 2 - 0.1, JAN_Z - 6])
-    for (d = [[-14, 18], [-4, 30], [8, 14], [16, 24]]) translate([d[0], 0, 0]) escorrido(d[1], 3.4);
+    for (d = [[-14, 18], [-4, 30], [8, 14], [16, 24]]) translate([d[0], 0, 0]) escorrido(r == 180 ? min(d[1], 11) : d[1], 3.4);   // atrás: curtas, sem cobrir a placa do Thiago
 }
 module ogiva(w, h) {   // mesmo arco ogival das placas (r = 0.6 w)
   r = 0.6 * w; off = r - w / 2; ha = sqrt(r * r - off * off);
@@ -125,10 +126,13 @@ module telhado() {
     // telhas (sulcos) no topo do deck
     for (i = [0:7]) translate([-(DECK - T) / 2 - 1, -(DECK - T) / 2 + 4 + i * 10, DECK_H - 0.6]) cube([DECK + 2, 0.8, 1]);
     translate([T / 2, T - 6, DECK_H + 24]) cylinder(d = 2.2, h = 6);   // furo do gancho do sino
+    translate([T / 2, DB_Y, DECK_H - 1.6]) linear_extrude(2) offset(delta = FOLGA) base_deus2d();   // rebaixo da base do Deus
   }
   // lábio que entra no topo da torre
   translate([TW + FOLGA, TW + FOLGA, -4]) difference() { cube([TI - 2 * FOLGA, TI - 2 * FOLGA, 4.01]); translate([2.5, 2.5, -1]) cube([TI - 2 * FOLGA - 5, TI - 2 * FOLGA - 5, 6]); }
 }
+module base_deus2d() { offset(r = 4, $fn = 32) square([DB_W - 8, DB_D - 8], center = true); }
+module base_deus() { linear_extrude(DB_H) base_deus2d(); }
 module sino() {
   rotate_extrude($fn = 64) polygon([[0, 0], [7, 0], [6.6, 1.2], [5, 3], [4.2, 9], [3.2, 12], [0, 13]]);
   translate([0, 0, 12.5]) cylinder(d = 2, h = 5);
@@ -167,6 +171,7 @@ if (PARTE == "bandeja") bandeja();
 if (PARTE == "torre") torre();
 if (PARTE == "telhado") telhado();
 if (PARTE == "sino") sino();
+if (PARTE == "base_deus") base_deus();
 if (PARTE == "emblema_base") emblema_base();
 if (PARTE == "emblema_espiral") emblema_espiral();
 if (PARTE == "lapide_base") lapide_base();
