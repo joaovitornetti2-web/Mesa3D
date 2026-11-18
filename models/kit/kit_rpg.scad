@@ -114,10 +114,16 @@ module sino() {
 CONDICOES = ["CAÍDO", "ATORDOADO", "CEGO", "ENVENENADO", "AGARRADO", "AMEDRONTADO", "INVISÍVEL", "PARALISADO"];
 A_ID = 25.8; A_OD = 37; A_H = 2.4;
 module anel_base() { difference() { cylinder(d = A_OD, h = A_H, $fn = 96); translate([0, 0, -1]) cylinder(d = A_ID, h = A_H + 2, $fn = 96); } }
+function larg_letra(c) = (c == "I" || c == "Í") ? 0.42 : (c == "M" || c == "W") ? 1.12 : (c == "C" || c == "D" || c == "G" || c == "O" || c == "N" || c == "A" || c == "V") ? 0.94 : 0.84;
+function soma(v, n) = n <= 0 ? 0 : v[n - 1] + soma(v, n - 1);
 module anel_texto(i = ANEL) {
-  s = CONDICOES[i]; n = len(s); r = (A_ID + A_OD) / 4; passo = min(12.5, 200 / n);
+  s = CONDICOES[i]; n = len(s); r = (A_ID + A_OD) / 4;
+  w = [for (k = [0:n - 1]) larg_letra(s[k])];
+  total = soma(w, n);
+  grau = min(12.5 / 0.86, 205 / total);      // graus por unidade de largura
   translate([0, 0, A_H - 0.01]) linear_extrude(0.6) {
-    for (k = [0:n - 1]) rotate(90 + (n - 1) * passo / 2 - k * passo) translate([r, 0]) rotate(-90) text(s[k], size = 3.1, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
+    for (k = [0:n - 1]) let(meio = soma(w, k) + w[k] / 2)
+      rotate(90 + total * grau / 2 - meio * grau) translate([r, 0]) rotate(-90) text(s[k], size = 3.1, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
     for (a = [-90 - 34, -90, -90 + 34]) rotate(a) translate([r, 0]) circle(d = 1.6, $fn = 16);   // pontos decorativos embaixo
   }
 }
