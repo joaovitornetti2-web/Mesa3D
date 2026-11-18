@@ -1,0 +1,143 @@
+// Kit RPG Mesa3D – peças funcionais (design próprio, pode vender).
+// Torre de dados desmontável (bandeja + torre + telhado + sino + brasão) e anéis de condição.
+// PARTE: bandeja | torre | telhado | sino | brasao_base | brasao_d20 | anel_base | anel_texto | aneis_base | aneis_texto | montado
+PARTE = "montado";
+ANEL = 0;          // índice da condição (0..7) para anel_base/anel_texto
+$fn = 48;
+
+// ---------- medidas (mm) ----------
+B = 150; BH = 18; BW = 4; BF = 3;          // bandeja 15×15
+T = 70; TW = 5; TH = 130;                  // torre (externo, parede, altura)
+TI = T - 2 * TW;                           // canal interno 60
+TX = (B - T) / 2; TY = B - BW - 1 - T;     // torre ao fundo, centralizada
+FOLGA = 0.3;
+ARCO_W = 40; ARCO_H = 38;                  // porta de saída (cabe d20 de 26 mm com folga)
+JAN_Z = 98; JAN_H = 30; JAN_W = 32;        // janelas do campanário (entrada dos dados)
+DECK = 80; DECK_H = 6;
+
+// ---------- utilitários ----------
+module pedras_face(w, h, alt = 9, larg = 16, prof = 0.8) {
+  for (j = [0:floor(h / alt)]) {
+    translate([-1, -0.01, j * alt]) cube([w + 2, prof, 0.8]);
+    off = (j % 2) * larg / 2;
+    for (i = [0:floor(w / larg) + 1]) translate([i * larg - off, -0.01, j * alt]) cube([0.8, prof, alt]);
+  }
+}
+module arco2d(w, h) { translate([-w / 2, 0]) square([w, h - w / 2]); translate([0, h - w / 2]) circle(d = w); }
+module seteira(h) { hull() { translate([0, -0.01, 0]) cube([2.4, 3, 0.01], center = true); translate([0, -0.01, h]) rotate([90, 0, 0]) cylinder(d = 2.4, h = 3, center = true); } }
+module hera(comp) {   // ramo de hera em relevo descendo pela parede (normal -Y)
+  for (k = [0:floor(comp / 6)]) translate([sin(k * 70) * 2.5, -0.6, -k * 6]) {
+    rotate([90, 0, 0]) cylinder(d = 1.6, h = 1.2, center = true);
+    translate([(k % 2 ? 2.2 : -2.2), 0, -1.5]) rotate([90, 0, k * 40]) scale([1, 0.65, 1]) cylinder(d = 4.2, h = 1.2, center = true, $fn = 6);
+  }
+}
+module d20_2d(r) {   // ícone de d20 (hexágono com triângulo central), contorno
+  difference() { circle(r = r, $fn = 6); circle(r = r - 1.4, $fn = 6); }
+  pts = [for (a = [90, 210, 330]) [cos(a), sin(a)] * r * 0.55];
+  difference() { polygon(pts); offset(delta = -1.2) polygon(pts); }
+  for (i = [0:2]) hull() { translate(pts[i]) circle(d = 1.2, $fn = 12); translate([cos(90 + i * 120 - 60), sin(90 + i * 120 - 60)] * (r - 0.8) * 0.98) circle(d = 1.2, $fn = 12); }
+  for (i = [0:2]) hull() { translate(pts[i]) circle(d = 1.2, $fn = 12); translate([cos(90 + i * 120), sin(90 + i * 120)] * (r - 0.8)) circle(d = 1.2, $fn = 12); }
+}
+
+// ---------- TORRE ----------
+module torre() {
+  difference() {
+    union() {
+      cube([T, T, TH]);
+      for (z = [JAN_Z - 6, TH - 4]) translate([-1.2, -1.2, z]) cube([T + 2.4, T + 2.4, 4]);   // faixas de madeira
+      translate([-1.5, -1.5, 0]) cube([T + 3, T + 3, 8]);                                    // rodapé
+      for (x = [0, T], y = [0, T]) translate([x, y, 0]) cylinder(d = 9, h = JAN_Z - 6, $fn = 8);   // contrafortes nos cantos
+    }
+    translate([TW, TW, -1]) cube([TI, TI, TH + 2]);
+    translate([T / 2, TW + 1, 0]) rotate([90, 0, 0]) linear_extrude(TW + 4) translate([0, -1]) arco2d(ARCO_W, ARCO_H + 1);
+    for (r = [0, 90, 180, 270]) translate([T / 2, T / 2, 0]) rotate(r) translate([0, -T / 2 + TW + 1, JAN_Z]) rotate([90, 0, 0]) linear_extrude(TW + 4) arco2d(JAN_W, JAN_H);
+    for (r = [0, 90, 180, 270]) translate([T / 2, T / 2, 0]) rotate(r) translate([-T / 2, -T / 2, 8]) pedras_face(T, JAN_Z - 16);
+    for (r = [90, 180, 270]) translate([T / 2, T / 2, 0]) rotate(r) translate([0, -T / 2 + 0.6, 50]) seteira(16);   // seteiras falsas
+    translate([T / 2, 1.6, 70]) rotate([90, 0, 0]) linear_extrude(3) offset(delta = FOLGA) brasao2d();   // rebaixo do brasão
+  }
+  rampa(TW, 100, 1);
+  rampa(T - TW, 76, -1);
+  hull() { translate([TW, TW, 0]) cube([TI, 0.1, 1.5]); translate([TW, T - TW - 0.1, 0]) cube([TI, 0.1, 40]); }
+}
+module rampa(y0, z0, s) {   // de uma parede a 26 mm para dentro, descendo 31 mm (50°): sem suporte
+  hull() {
+    translate([TW, y0 - (s > 0 ? 0 : 0.1), z0 - 4]) cube([TI, 0.1, 4]);
+    translate([TW, y0 + s * 26 - (s > 0 ? 0.1 : 0), z0 - 31 - 3]) cube([TI, 0.1, 3]);
+  }
+}
+
+// ---------- BRASÃO (escudo com d20, encaixa na frente da torre) ----------
+module brasao2d() { hull() { translate([-14, 6]) square([28, 14]); translate([0, -12]) circle(d = 4); } }
+module brasao_base() { linear_extrude(2.6) brasao2d(); }
+module brasao_d20() { translate([0, 4, 2.59]) linear_extrude(0.8) d20_2d(9); }
+
+// ---------- BANDEJA ----------
+module bandeja() {
+  difference() {
+    cube([B, B, BH]);
+    translate([BW, BW, BF]) cube([B - 2 * BW, B - 2 * BW, BH]);
+    for (r = [0, 90, 180, 270]) translate([B / 2, B / 2, 0]) rotate(r) translate([-B / 2, -B / 2, 2]) pedras_face(B, BH - 4, 6, 18);
+    translate([B / 2, 42, BF - 0.8]) linear_extrude(1) d20_2d(20);   // d20 gravado onde os dados param
+  }
+  translate([TX - FOLGA - 2, TY - FOLGA - 2, BF]) difference() {   // moldura de encaixe da torre
+    cube([T + 2 * FOLGA + 4, T + 2 * FOLGA + 4, 2]);
+    translate([2, 2, -1]) cube([T + 2 * FOLGA, T + 2 * FOLGA, 4]);
+    translate([(T + 4) / 2 - ARCO_W / 2 - 3, -1, -1]) cube([ARCO_W + 6, 4, 4]);
+  }
+}
+
+// ---------- TELHADO ----------
+module telhado() {
+  difference() {
+    union() {
+      translate([-(DECK - T) / 2, -(DECK - T) / 2, 0]) cube([DECK, DECK, DECK_H]);
+      for (s = [0, 1, 2, 3]) translate([T / 2, T / 2, 0]) rotate(s * 90) for (i = [-2:2]) translate([i * 15 - 4 + 0.37 * s, -DECK / 2, DECK_H - 0.01]) cube([8, 6, 7]);
+      translate([T / 2, T / 2, DECK_H - 0.01]) {   // campanário central com telhado de 4 águas
+        for (x = [-15, 11], y = [-15, 11]) translate([x, y, 0]) cube([4, 4, 26]);
+        translate([-17, -17, 26]) cube([34, 34, 4]);
+        translate([0, 0, 30]) cylinder(d1 = 50, d2 = 0, h = 24, $fn = 4);
+        translate([0, 0, 52]) cylinder(d = 1.6, h = 8);   // mastro
+        translate([0, 0.8, 55]) rotate([90, 0, 0]) linear_extrude(1.6) polygon([[0, 0], [10, 2], [0, 5]]);   // flâmula
+      }
+    }
+    for (i = [0:7]) translate([-(DECK - T) / 2 - 1, -(DECK - T) / 2 + 4 + i * 10, DECK_H - 0.6]) cube([DECK + 2, 0.8, 1]);
+    translate([T / 2, T / 2, DECK_H + 20]) cylinder(d = 2.2, h = 12);   // furo do gancho do sino
+  }
+  translate([TW + FOLGA, TW + FOLGA, -4]) difference() { cube([TI - 2 * FOLGA, TI - 2 * FOLGA, 4.01]); translate([2.5, 2.5, -1]) cube([TI - 2 * FOLGA - 5, TI - 2 * FOLGA - 5, 6]); }
+}
+module sino() {
+  rotate_extrude($fn = 64) polygon([[0, 0], [7, 0], [6.6, 1.2], [5, 3], [4.2, 9], [3.2, 12], [0, 13]]);
+  translate([0, 0, 12.5]) cylinder(d = 2, h = 5);
+}
+
+// ---------- ANÉIS DE CONDIÇÃO (base de 25 mm) ----------
+CONDICOES = ["CAÍDO", "ATORDOADO", "CEGO", "ENVENENADO", "AGARRADO", "AMEDRONTADO", "INVISÍVEL", "PARALISADO"];
+A_ID = 25.8; A_OD = 37; A_H = 2.4;
+module anel_base() { difference() { cylinder(d = A_OD, h = A_H, $fn = 96); translate([0, 0, -1]) cylinder(d = A_ID, h = A_H + 2, $fn = 96); } }
+module anel_texto(i = ANEL) {
+  s = CONDICOES[i]; n = len(s); r = (A_ID + A_OD) / 4; passo = min(12.5, 200 / n);
+  translate([0, 0, A_H - 0.01]) linear_extrude(0.6) {
+    for (k = [0:n - 1]) rotate(90 + (n - 1) * passo / 2 - k * passo) translate([r, 0]) rotate(-90) text(s[k], size = 3.1, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
+    for (a = [-90 - 34, -90, -90 + 34]) rotate(a) translate([r, 0]) circle(d = 1.6, $fn = 16);   // pontos decorativos embaixo
+  }
+}
+module grade(f) { for (i = [0:7]) translate([(i % 4) * 42, floor(i / 4) * 42, 0]) f(i); }
+
+if (PARTE == "bandeja") bandeja();
+if (PARTE == "torre") torre();
+if (PARTE == "telhado") telhado();
+if (PARTE == "sino") sino();
+if (PARTE == "brasao_base") brasao_base();
+if (PARTE == "brasao_d20") brasao_d20();
+if (PARTE == "anel_base") anel_base();
+if (PARTE == "anel_texto") anel_texto();
+if (PARTE == "aneis_base") for (i = [0:7]) translate([(i % 4) * 42, floor(i / 4) * 42, 0]) anel_base();
+if (PARTE == "aneis_texto") for (i = [0:7]) translate([(i % 4) * 42, floor(i / 4) * 42, 0]) anel_texto(i);
+if (PARTE == "montado") {
+  color("#1a1a1a") bandeja();
+  color("#1a1a1a") translate([TX, TY, BF]) torre();
+  color("#1a1a1a") translate([TX, TY, BF + TH]) telhado();
+  color("#eeeeee") translate([TX + T / 2, TY + T / 2, BF + TH + DECK_H + 7]) sino();
+  translate([TX + T / 2, TY - 0.1, BF + 70]) rotate([90, 0, 0]) { color("#c0141c") brasao_base(); color("#eeeeee") brasao_d20(); }
+  for (i = [0:2]) translate([25 + i * 40 + (i == 1 ? 0 : 0), 20, BF]) { color("#1a1a1a") anel_base(); color("#eeeeee") anel_texto(i); }
+}
