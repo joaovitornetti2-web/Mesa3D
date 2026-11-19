@@ -30,7 +30,7 @@ def kit(corpo):
 
 
 def caixa(e, corpo):
-    return f'include <{M}/dados/caixa_elementos.scad>\nPARTE = "nada"; NOME = false; ELEMENTO = "{e}";\n{corpo}\n'
+    return f'include <{M}/dados/caixa_elementos.scad>\nPARTE = "nada"; NOME = false; DECOR = true; ELEMENTO = "{e}";\n{corpo}\n'
 
 
 def relic(e, corpo):

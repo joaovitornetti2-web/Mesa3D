@@ -4,15 +4,15 @@ set -e
 cd "$(dirname "$0")"
 CHK=../../.claude/skills/mesa3d-print/scripts/check_mesh.py
 mkdir -p saida
-openscad -q -o saida/caixa.stl -D 'PARTE="caixa"' caixa_elementos.scad
-openscad -q -o saida/caixa.3mf -D 'PARTE="caixa"' caixa_elementos.scad
+openscad -q -o saida/caixa.stl -D 'PARTE="caixa"' -D 'DECOR=true' caixa_elementos.scad
+openscad -q -o saida/caixa.3mf -D 'PARTE="caixa"' -D 'DECOR=true' caixa_elementos.scad
 python3 $CHK saida/caixa.stl | grep -E "Tamanho|Custo|AVISO|ERRO|RESULTADO"
 for e in sangue morte conhecimento energia medo; do
   echo "== $e"
   for p in tampa emblema tampa_simples; do
-    openscad -q -o saida/${e}_$p.stl -D "ELEMENTO=\"$e\"" -D "PARTE=\"$p\"" caixa_elementos.scad
+    openscad -q -o saida/${e}_$p.stl -D "ELEMENTO=\"$e\"" -D "PARTE=\"$p\"" -D "NOME=false" -D "DECOR=true" caixa_elementos.scad
   done
-  openscad -q -o saida/${e}_tampa_simples.3mf -D "ELEMENTO=\"$e\"" -D 'PARTE="tampa_simples"' caixa_elementos.scad
+  openscad -q -o saida/${e}_tampa_simples.3mf -D "ELEMENTO=\"$e\"" -D 'PARTE="tampa_simples"' -D "NOME=false" -D "DECOR=true" caixa_elementos.scad
   python3 $CHK saida/${e}_tampa.stl | grep -E "AVISO|ERRO|RESULTADO" | sed 's/^/  tampa: /'
   python3 $CHK saida/${e}_tampa_simples.stl | grep -E "AVISO|ERRO|RESULTADO" | sed 's/^/  simples: /'
   python3 - "$e" <<'PY'
