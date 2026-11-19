@@ -1,105 +1,133 @@
 #!/usr/bin/env python3
-"""Gera as imagens do site (uma por combinação de cor) a partir dos modelos OpenSCAD.
+"""Gera as imagens do site (uma por combinação de cor) com render realista no Blender.
 
-Uso: python3 site/gerar_imagens.py      (precisa de openscad, xvfb-run e Pillow)
+1. Exporta cada grupo de cor dos modelos OpenSCAD como STL (em site/.cache/, fora do git).
+2. Renderiza cada produto no Blender (site/render_blender.py), trocando só as cores entre variantes.
+
+Uso: python3 site/gerar_imagens.py [produto ...]     (precisa de openscad, blender e Pillow)
 Saída: site/img/<produto>_<variante>.webp
 """
-import itertools
+import json
 import os
 import subprocess
-import tempfile
+import sys
 from concurrent.futures import ThreadPoolExecutor
 
-from PIL import Image, ImageChops
+from PIL import Image
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-IMG = os.path.join(RAIZ, "site", "img")
+SITE = os.path.join(RAIZ, "site")
+IMG = os.path.join(SITE, "img")
+CACHE = os.path.join(SITE, ".cache")
 M = os.path.join(RAIZ, "models")
 
-PRETO, BRANCO, VERMELHO = "#1a1a1a", "#f2f2f2", "#c0141c"
-
-# id da cor -> [cor principal, cor de destaque, cor de detalhe]
-CORES_TORRE = {"preta": [PRETO, VERMELHO, BRANCO], "branca": [BRANCO, VERMELHO, PRETO], "vermelha": [VERMELHO, PRETO, BRANCO]}
-CORES_ANEIS = {"preto": [PRETO, BRANCO], "branco": [BRANCO, PRETO], "vermelho": [VERMELHO, BRANCO]}
-CORES_CAIXA = {"preta-vermelha": [PRETO, VERMELHO], "preta-branca": [PRETO, BRANCO], "branca-preta": [BRANCO, PRETO], "vermelha-preta": [VERMELHO, PRETO]}
-EMBLEMAS = {"gota": "sangue", "ampulheta": "morte", "olho": "conhecimento", "raio": "energia", "estrela": "medo"}
-CORES_RELIC = {"preto-vermelho": [PRETO, VERMELHO], "preto-branco": [PRETO, BRANCO], "branco-preto": [BRANCO, PRETO]}
-SELOS = {"gota": "sangue", "espiral": "morte", "estrela": "medo"}
+# cores lineares (PLA)
+PRETO, BRANCO, VERMELHO, CINZA = (0.018, 0.018, 0.02), (0.78, 0.78, 0.76), (0.42, 0.008, 0.012), (0.2, 0.21, 0.22)
 
 
-def torre(c):
-    return f"""include <{M}/kit/kit_rpg.scad>
-PARTE = "nada";
-color("{c[0]}") bandeja();
-color("{c[0]}") translate([TX, TY, BF]) torre();
-color("{c[0]}") translate([TX, TY, BF + TH]) telhado();
-color("{c[2]}") translate([TX + T / 2, TY + T / 2, BF + TH + DECK_H + 7]) sino();
-translate([TX + T / 2, TY - 0.1, BF + 70]) rotate([90, 0, 0]) {{ color("{c[1]}") brasao_base(); color("{c[2]}") brasao_d20(); }}
-""", "--camera=0,0,0,60,0,35,0", "1200,1200"
+def kit(corpo):
+    return f'include <{M}/kit/kit_rpg.scad>\nPARTE = "nada"; TEMA = "paranormal";\n{corpo}\n'
 
 
-def aneis(c):
-    return f"""include <{M}/kit/kit_rpg.scad>
-PARTE = "nada";
-for (i = [0:3]) translate([(i % 2) * 34, -floor(i / 2) * 34, 0]) {{ color("{c[0]}") anel_base(); color("{c[1]}") anel_texto(i); }}
-""", "--camera=0,0,0,40,0,20,0", "1400,1400"
+def caixa(e, corpo):
+    return f'include <{M}/dados/caixa_elementos.scad>\nPARTE = "nada"; NOME = false; ELEMENTO = "{e}";\n{corpo}\n'
 
 
-def caixa(e, c):
-    return f"""include <{M}/dados/caixa_elementos.scad>
-PARTE = "nada"; NOME = false; ELEMENTO = "{e}";
-color("{c[0]}") caixa();
-translate([EXT[0], 0, FUNDO + INT[2] + TAMPA_TOPO]) rotate([0, 180, 0]) {{
-  color("{c[0]}") difference() {{ tampa_corpo(); translate([0, 0, -0.01]) linear_extrude(INLAY + 0.01) arte_impressao(ELEMENTO); }}
-  color("{c[1]}") translate([0, 0, -0.02]) linear_extrude(INLAY + 0.02) arte_impressao(ELEMENTO);
-}}
-""", "--camera=44,29,14,55,0,20,250", "1200,900"
+def relic(e, corpo):
+    return f'include <{M}/decoracao/relicario.scad>\nPARTE = "nada"; ELEMENTO = "{e}";\n{corpo}\n'
 
 
-def relicario(e, c):
-    return f"""include <{M}/decoracao/relicario.scad>
-PARTE = "nada"; ELEMENTO = "{e}";
-color("{c[0]}") corpo();
-translate([0, 0, H + 0.2]) {{
-  color("{c[0]}") tampa_uso();
-  translate([0, 0, ZT - ASSENTO]) {{ color("{c[0]}") corte(false) medalhao(); color("{c[1]}") corte(true) medalhao(); }}
-}}
-""", "--camera=0,0,0,55,0,25,0", "1200,1000"
+TAMPA_CX = "translate([EXT[0], 0, FUNDO + INT[2] + TAMPA_TOPO]) rotate([0, 180, 0])"
+ANEIS = [0, 1, 3, 7]   # Morrendo, Sangrando, Apavorado, Enlouquecendo
+
+# produto -> grupos (papel -> código scad), variantes (sufixo -> cor por papel), câmera
+PRODUTOS = {}
+
+PRODUTOS["torre"] = dict(
+    grupos={
+        "c1": kit("bandeja(); translate([TX, TY, BF]) torre(); translate([TX, TY, BF + TH]) telhado();"),
+        "c2": kit("translate([TX + T / 2, TY - 0.1, BF + 70]) rotate([90, 0, 0]) brasao_base();"),
+        "c3:sino": kit("translate([TX + T / 2, TY + T / 2, BF + TH + DECK_H + 7]) sino();"),
+        "c3:sigilo": kit("translate([TX + T / 2, TY - 0.1, BF + 70]) rotate([90, 0, 0]) brasao_d20();"),
+    },
+    variantes={"preta": dict(c1=PRETO, c2=VERMELHO, c3=BRANCO), "branca": dict(c1=BRANCO, c2=VERMELHO, c3=PRETO),
+               "vermelha": dict(c1=VERMELHO, c2=PRETO, c3=BRANCO)},
+    cam=dict(elevacao=24, azimute=-32, tamanho=[1000, 1200], folga=1.05))
+
+PRODUTOS["aneis"] = dict(
+    grupos={
+        "c1": kit(" ".join(f"translate([{(k % 2) * 34}, {-(k // 2) * 34}, 0]) anel_base();" for k, i in enumerate(ANEIS))),
+        "c2": kit(" ".join(f"translate([{(k % 2) * 34}, {-(k // 2) * 34}, 0]) anel_texto({i});" for k, i in enumerate(ANEIS))),
+    },
+    variantes={"preto": dict(c1=PRETO, c2=BRANCO), "branco": dict(c1=BRANCO, c2=PRETO), "vermelho": dict(c1=VERMELHO, c2=BRANCO)},
+    cam=dict(elevacao=52, azimute=-20, tamanho=[1200, 960], folga=1.0))
+
+CORES_CAIXA = {"preta-vermelha": dict(c1=PRETO, c2=VERMELHO), "preta-branca": dict(c1=PRETO, c2=BRANCO),
+               "branca-preta": dict(c1=BRANCO, c2=PRETO), "vermelha-preta": dict(c1=VERMELHO, c2=PRETO)}
+for e in ["sangue", "morte", "conhecimento", "energia", "medo"]:
+    PRODUTOS[f"caixa_{e}"] = dict(
+        grupos={
+            "c1": caixa(e, f"caixa(); {TAMPA_CX} difference() {{ tampa_corpo(); translate([0, 0, -0.01]) linear_extrude(INLAY + 0.01) arte_impressao(ELEMENTO); }}"),
+            "c2": caixa(e, f"{TAMPA_CX} translate([0, 0, -0.02]) linear_extrude(INLAY + 0.02) arte_impressao(ELEMENTO);"),
+        },
+        variantes=CORES_CAIXA, cam=dict(elevacao=38, azimute=-28, tamanho=[1200, 960], folga=1.0))
+
+CORES_RELIC = {"preto-vermelho": dict(c1=PRETO, c2=VERMELHO), "preto-branco": dict(c1=PRETO, c2=BRANCO), "branco-preto": dict(c1=BRANCO, c2=PRETO)}
+for e in ["sangue", "morte", "medo"]:
+    PRODUTOS[f"relicario_{e}"] = dict(
+        grupos={
+            "c1": relic(e, "corpo(); translate([0, 0, H + 0.2]) { tampa_uso(); translate([0, 0, ZT - ASSENTO]) corte(false) medalhao(); }"),
+            "c2": relic(e, "translate([0, 0, H + 0.2]) translate([0, 0, ZT - ASSENTO]) corte(true) medalhao();"),
+        },
+        variantes=CORES_RELIC, cam=dict(elevacao=32, azimute=-24, tamanho=[1200, 1000], folga=1.0))
+
+# miniaturas e brinquedinhos do Meshy (STL já preparado em models/kit/meshy_op/<nome>_pronto.stl)
+CORES_MINI = {"cinza": dict(c1=CINZA), "branco": dict(c1=BRANCO), "preto": dict(c1=PRETO)}
+for n in ["ocultista", "combatente", "especialista", "criatura", "chibi_agente", "chibi_criatura"]:
+    PRODUTOS[f"mini_{n}"] = dict(stl={"c1": os.path.join(M, "kit", "meshy_op", f"{n}_pronto.stl")}, suave=True,
+                                 variantes=CORES_MINI, cam=dict(elevacao=14, azimute=-22, tamanho=[1000, 1200], folga=1.02))
 
 
-def trabalhos():
-    for k, c in CORES_TORRE.items():
-        yield f"torre_{k}", torre(c)
-    for k, c in CORES_ANEIS.items():
-        yield f"aneis_{k}", aneis(c)
-    for (ek, e), (k, c) in itertools.product(EMBLEMAS.items(), CORES_CAIXA.items()):
-        yield f"caixa_{ek}_{k}", caixa(e, c)
-    for (sk, e), (k, c) in itertools.product(SELOS.items(), CORES_RELIC.items()):
-        yield f"relicario_{sk}_{k}", relicario(e, c)
+def exportar(args):
+    nome, papel, scad = args
+    os.makedirs(CACHE, exist_ok=True)
+    f = os.path.join(CACHE, f"{nome}_{papel.replace(':', '_')}.scad")
+    stl = os.path.join(CACHE, f"{nome}_{papel.replace(':', '_')}.stl")
+    if os.path.exists(stl) and os.path.exists(f) and open(f).read() == scad:
+        return stl
+    open(f, "w").write(scad)
+    subprocess.run(["openscad", "-q", "-o", stl, f], check=True, cwd=CACHE)
+    return stl
 
 
-def render(item):
-    nome, (scad, camera, tam) = item
-    with tempfile.TemporaryDirectory() as tmp:
-        f = os.path.join(tmp, "v.scad")
-        png = os.path.join(tmp, "v.png")
-        open(f, "w").write(scad)
-        args = ["xvfb-run", "-a", "openscad", "-q", "-o", png, f"--imgsize={tam}", "--colorscheme=Tomorrow", camera]
-        if "--camera=0,0,0" in camera:
-            args += ["--autocenter", "--viewall"]
-        subprocess.run(args + [f], check=True, cwd=tmp, capture_output=True)
+def renderizar(nome):
+    p = PRODUTOS[nome]
+    partes = [{"stl": s, "papel": k.split(":")[0], "suave": p.get("suave", False)} for k, s in p["stls"].items()]
+    pngs = {os.path.join(CACHE, f"{nome}_{v}.png"): cores for v, cores in p["variantes"].items()}
+    trab = os.path.join(CACHE, f"{nome}.json")
+    json.dump({"partes": partes, "variantes": pngs, "amostras": 160, **p["cam"]}, open(trab, "w"))
+    r = subprocess.run(["blender", "-b", "-noaudio", "-P", os.path.join(SITE, "render_blender.py"), "--", trab],
+                       capture_output=True, text=True)
+    if r.returncode:
+        raise RuntimeError(nome + "\n" + r.stdout[-2000:] + r.stderr[-2000:])
+    for png, _ in pngs.items():
         im = Image.open(png).convert("RGB")
-    fundo = Image.new("RGB", im.size, im.getpixel((0, 0)))
-    b = ImageChops.difference(im, fundo).getbbox()
-    p = 40
-    im = im.crop((max(0, b[0] - p), max(0, b[1] - p), min(im.width, b[2] + p), min(im.height, b[3] + p)))
-    im.thumbnail((1000, 1000))
-    im.save(os.path.join(IMG, nome + ".webp"), quality=82)
+        im.thumbnail((1000, 1000))
+        im.save(os.path.join(IMG, os.path.basename(png)[:-4] + ".webp"), quality=84)
     return nome
 
 
 if __name__ == "__main__":
     os.makedirs(IMG, exist_ok=True)
+    nomes = sys.argv[1:] or list(PRODUTOS)
+    trabalhos = [(n, papel, scad) for n in nomes for papel, scad in PRODUTOS[n].get("grupos", {}).items()]
     with ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as ex:
-        for n in ex.map(render, list(trabalhos())):
-            print("ok", n)
+        stls = list(ex.map(exportar, trabalhos))
+    for (n, papel, _), stl in zip(trabalhos, stls):
+        PRODUTOS[n].setdefault("stls", {})[papel] = stl
+    for n in nomes:
+        PRODUTOS[n].setdefault("stls", PRODUTOS[n].get("stl", {}))
+        if all(os.path.exists(s) for s in PRODUTOS[n]["stls"].values()):
+            print("ok", renderizar(n), flush=True)
+        else:
+            print("sem STL, pulei:", n, flush=True)

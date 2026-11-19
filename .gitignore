@@ -28,3 +28,5 @@ models/kit/meshy/
 models/kit/stl/
 models/presentes/*/saida/
 models/presentes/*/desenho_*
+site/.cache/
+models/kit/meshy_op/

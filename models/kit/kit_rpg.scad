@@ -2,6 +2,7 @@
 // Torre de dados desmontável (bandeja + torre + telhado + sino + brasão) e anéis de condição.
 // PARTE: bandeja | torre | telhado | sino | brasao_base | brasao_d20 | anel_base | anel_texto | aneis_base | aneis_texto | montado
 PARTE = "montado";
+TEMA = "fantasia";   // fantasia (d20, condições clássicas) | paranormal (sigilo original, condições de horror)
 ANEL = 0;          // índice da condição (0..7) para anel_base/anel_texto
 $fn = 48;
 
@@ -69,7 +70,17 @@ module rampa(y0, z0, s) {   // de uma parede a 26 mm para dentro, descendo 31 mm
 // ---------- BRASÃO (escudo com d20, encaixa na frente da torre) ----------
 module brasao2d() { hull() { translate([-14, 6]) square([28, 14]); translate([0, -12]) circle(d = 4); } }
 module brasao_base() { linear_extrude(2.6) brasao2d(); }
-module brasao_d20() { translate([0, 4, 2.59]) linear_extrude(0.8) d20_2d(9); }
+module brasao_d20() { translate([0, 4, 2.59]) linear_extrude(0.8) icone2d(9); }
+// sigilo ORIGINAL (não é símbolo de nenhum jogo): anel quebrado, losango central, raios e marcas
+module sigilo2d(r) {
+  difference() { circle(r = r, $fn = 64); circle(r = r - max(0.9, r * 0.1), $fn = 64); for (a = [45:90:315]) rotate(a) translate([0, r * 0.9]) square([r * 0.22, r * 0.4], center = true); }
+  for (a = [45:90:315]) rotate(a) translate([0, r * 0.9]) circle(d = max(1, r * 0.13), $fn = 12);
+  difference() { circle(r = r * 0.62, $fn = 4); circle(r = r * 0.62 - max(0.9, r * 0.1), $fn = 4); }
+  circle(r = r * 0.14, $fn = 24);
+  for (a = [0:90:270]) rotate(a) translate([-max(0.45, r * 0.045), r * 0.62]) square([max(0.9, r * 0.09), r * 0.26]);
+  for (a = [0:30:330]) if (a % 90 != 0 && a % 45 != 0) rotate(a) translate([-max(0.4, r * 0.035), r * 0.7]) square([max(0.8, r * 0.07), r * 0.12]);
+}
+module icone2d(r) { if (TEMA == "paranormal") sigilo2d(r); else d20_2d(r); }
 
 // ---------- BANDEJA ----------
 module bandeja() {
@@ -77,7 +88,7 @@ module bandeja() {
     cube([B, B, BH]);
     translate([BW, BW, BF]) cube([B - 2 * BW, B - 2 * BW, BH]);
     for (r = [0, 90, 180, 270]) translate([B / 2, B / 2, 0]) rotate(r) translate([-B / 2, -B / 2, 2]) pedras_face(B, BH - 4, 6, 18);
-    translate([B / 2, 42, BF - 0.8]) linear_extrude(1) d20_2d(20);   // d20 gravado onde os dados param
+    translate([B / 2, 42, BF - 0.8]) linear_extrude(1) icone2d(20);   // ícone gravado onde os dados param
   }
   translate([TX - FOLGA - 2, TY - FOLGA - 2, BF]) difference() {   // moldura de encaixe da torre
     cube([T + 2 * FOLGA + 4, T + 2 * FOLGA + 4, 2]);
@@ -111,7 +122,8 @@ module sino() {
 }
 
 // ---------- ANÉIS DE CONDIÇÃO (base de 25 mm) ----------
-CONDICOES = ["CAÍDO", "ATORDOADO", "CEGO", "ENVENENADO", "AGARRADO", "AMEDRONTADO", "INVISÍVEL", "PARALISADO"];
+CONDICOES = TEMA == "paranormal" ? ["MORRENDO", "SANGRANDO", "ABALADO", "APAVORADO", "CAÍDO", "CEGO", "ATORDOADO", "ENLOUQUECENDO"]
+  : ["CAÍDO", "ATORDOADO", "CEGO", "ENVENENADO", "AGARRADO", "AMEDRONTADO", "INVISÍVEL", "PARALISADO"];
 A_ID = 25.8; A_OD = 37; A_H = 2.4;
 module anel_base() { difference() { cylinder(d = A_OD, h = A_H, $fn = 96); translate([0, 0, -1]) cylinder(d = A_ID, h = A_H + 2, $fn = 96); } }
 function larg_letra(c) = (c == "I" || c == "Í") ? 0.42 : (c == "M" || c == "W") ? 1.12 : (c == "C" || c == "D" || c == "G" || c == "O" || c == "N" || c == "A" || c == "V") ? 0.94 : 0.84;

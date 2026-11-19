@@ -5,220 +5,202 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mesa3D</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Torres de dados, miniaturas, brinquedinhos, acessórios e peças personalizadas impressas em 3D para mesas de RPG.">
+<meta name="description" content="Torres de dados, miniaturas, brinquedinhos e acessórios de horror paranormal impressos em 3D, com desenho próprio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Special+Elite&display=swap">
 <style>
-/* Layout: mesa de jogo — faixa de feltro com grade de 25,4 mm no topo, catálogo por categoria em cartões, rodapé de pedido. */
+/* Layout: dossiê de investigação paranormal — fundo de arquivo escuro com grão, círculo de ritual girando no topo,
+   catálogo em fichas com cantos marcados, carimbos datilografados. Visual escuro único, de propósito. */
 :root {
-  --bg: #f2f4f1;
-  --surface: #ffffff;
-  --ink: #16201c;
-  --muted: #56645d;
-  --line: #d4dbd5;
-  --felt: #1d4a3c;
-  --felt-ink: #eef3ef;
-  --felt-grid: rgba(238, 243, 239, 0.09);
-  --brass: #a8761c;
-  --brass-soft: #f4e6c8;
-  --plate: #f7f8f7;
-  --plate-ink: #56645d;
-  --cta: #1d4a3c;
-  --cta-ink: #ffffff;
-  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
-  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --step-0: 1rem;
-  --step-1: 1.2rem;
-  --step-2: 1.6rem;
-  --step-3: clamp(2rem, 1.3rem + 3.2vw, 3.4rem);
-  --radius: 10px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f1613; --surface: #16201c; --ink: #e6ece8; --muted: #9aa8a1; --line: #2a3832;
-    --felt: #153a2f; --felt-ink: #e6ece8; --felt-grid: rgba(230, 236, 232, 0.08);
-    --brass: #dcaa4c; --brass-soft: #3a2f18; --plate: #e4e8e5; --plate-ink: #56645d; --cta: #79c2a5; --cta-ink: #0f1613;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f1613; --surface: #16201c; --ink: #e6ece8; --muted: #9aa8a1; --line: #2a3832;
-  --felt: #153a2f; --felt-ink: #e6ece8; --felt-grid: rgba(230, 236, 232, 0.08);
-  --brass: #dcaa4c; --brass-soft: #3a2f18; --plate: #e4e8e5; --plate-ink: #56645d; --cta: #79c2a5; --cta-ink: #0f1613;
+  --bg: #0c0b0b;
+  --bg-2: #141212;
+  --ficha: #171515;
+  --linha: #2e2a29;
+  --osso: #e9e4da;
+  --cinza: #9d958c;
+  --texto-2: #c4bcb1;
+  --sangue: #c3141f;
+  --sangue-texto: #ff5a5f;
+  --font-display: "Oswald", "Arial Narrow", "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-maquina: "Special Elite", "Courier New", ui-monospace, monospace;
+  --step-3: clamp(2.4rem, 1.4rem + 4.4vw, 4.6rem);
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: var(--step-0); line-height: 1.55; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background-color: var(--bg); color: var(--osso);
+  font-family: var(--font-body); font-size: 1rem; line-height: 1.6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .055 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
 img { max-width: 100%; display: block; }
 a { color: inherit; }
-:focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
-html { scroll-behavior: smooth; }
+:focus-visible { outline: 2px solid var(--sangue-texto); outline-offset: 3px; }
+::selection { background: var(--sangue); color: var(--osso); }
 
-.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
-/* ---------- topo: feltro com grade de 1 polegada ---------- */
-.felt {
-  background-color: var(--felt);
-  background-image: linear-gradient(var(--felt-grid) 1px, transparent 1px), linear-gradient(90deg, var(--felt-grid) 1px, transparent 1px);
-  background-size: 48px 48px;
-  color: var(--felt-ink);
-}
-.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; flex-wrap: wrap; }
-.logo { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; letter-spacing: -0.01em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-.logo svg { width: 28px; height: 28px; }
-.nav-links { display: flex; gap: 6px 18px; flex-wrap: wrap; font-size: 0.95rem; }
-.nav-links a { text-decoration: none; opacity: 0.85; }
-.nav-links a:hover { opacity: 1; text-decoration: underline; }
+/* ---------- topo ---------- */
+header { position: relative; overflow: hidden; border-bottom: 1px solid var(--linha); }
+.nav { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 14px 24px; padding-block: 20px; flex-wrap: wrap; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 1.45rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.logo svg { width: 30px; height: 30px; color: var(--sangue); }
+.nav-links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-family: var(--font-display); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.9rem; }
+.nav-links a { text-decoration: none; color: var(--cinza); }
+.nav-links a:hover { color: var(--osso); }
 
-.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; padding-block: 28px 56px; }
-.hero > * { min-width: 0; }
-.eyebrow { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brass); }
-.felt .eyebrow { color: #e7c27a; }
-h1 { font-family: var(--font-display); font-weight: 800; font-size: var(--step-3); line-height: 1.04; letter-spacing: -0.02em; margin: 12px 0 16px; text-wrap: balance; }
-.lede { font-size: var(--step-1); max-width: 34em; opacity: 0.9; margin: 0 0 24px; }
-.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; text-decoration: none; border: 0; cursor: pointer; font: inherit; font-weight: 600; }
-.btn-light { background: var(--felt-ink); color: var(--felt); }
-.btn-ghost { background: transparent; color: var(--felt-ink); box-shadow: inset 0 0 0 1.5px rgba(238, 243, 239, 0.45); }
-.btn-cta { background: var(--cta); color: var(--cta-ink); }
-.btn:hover { filter: brightness(1.06); }
-.hero-figure { margin: 0; background: var(--plate); border-radius: 14px; padding: 12px; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.55); }
-.hero-figure img { margin: 0 auto; max-height: 420px; width: auto; }
-.hero-figure figcaption { font-family: var(--font-mono); font-size: 0.72rem; color: var(--plate-ink); text-align: center; padding-top: 6px; }
-.specs { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 0.8rem; padding-block: 14px; border-top: 1px solid rgba(238, 243, 239, 0.18); opacity: 0.9; }
+.hero { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 32px; align-items: center; padding-block: 24px 64px; }
+#ritual { position: absolute; z-index: 1; right: -12%; top: -8%; width: min(900px, 95vw); height: auto; aspect-ratio: 1; pointer-events: none; max-width: none; }
+.carimbo { display: inline-block; font-family: var(--font-maquina); color: var(--sangue-texto); border: 2px solid currentColor; padding: 4px 10px; transform: rotate(-3deg); letter-spacing: 0.12em; font-size: 0.85rem; text-transform: uppercase; }
+h1 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: var(--step-3); line-height: 0.98; letter-spacing: 0.01em; margin: 18px 0 18px; text-wrap: balance; }
+h1 em { font-style: normal; color: var(--sangue); }
+.lede { font-size: 1.15rem; color: var(--texto-2); max-width: 33em; margin: 0 0 28px; }
+.acoes { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; text-decoration: none; border: 0; cursor: pointer; font: inherit; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.95rem; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
+.btn-sangue { background: var(--sangue); color: #fff; }
+.btn-sangue:hover { background: #db1a26; }
+.btn-osso { background: var(--osso); color: #120f0f; }
+.btn-linha { background: transparent; color: var(--osso); box-shadow: inset 0 0 0 1.5px var(--linha); clip-path: none; }
+.btn-linha:hover { box-shadow: inset 0 0 0 1.5px var(--cinza); }
+.hero-img { position: relative; margin: 0; }
+.hero-img img { width: 100%; max-height: 560px; object-fit: contain; -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent); mask-image: radial-gradient(closest-side, #000 72%, transparent); }
+.hero-img figcaption { font-family: var(--font-maquina); font-size: 0.8rem; color: var(--cinza); text-align: center; }
+.ficha-tecnica { position: relative; z-index: 2; display: flex; flex-wrap: wrap; gap: 6px 26px; padding-block: 14px; border-top: 1px dashed var(--linha); font-family: var(--font-maquina); font-size: 0.85rem; color: var(--cinza); }
 
 /* ---------- seções ---------- */
-section { padding-block: 64px 8px; scroll-margin-top: 12px; }
-.section-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
-h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); letter-spacing: -0.01em; margin: 6px 0 0; text-wrap: balance; }
-.section-note { color: var(--muted); max-width: 36em; margin: 0; font-size: 0.95rem; }
+section { padding-block: 80px 8px; scroll-margin-top: 8px; }
+.cabeca { display: flex; justify-content: space-between; align-items: end; gap: 16px 32px; flex-wrap: wrap; margin-bottom: 30px; border-bottom: 1px solid var(--linha); padding-bottom: 18px; }
+.cabeca .num { font-family: var(--font-maquina); color: var(--sangue-texto); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
+h2 { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem); line-height: 1.05; margin: 4px 0 0; text-wrap: balance; }
+.cabeca p { margin: 0; max-width: 34em; color: var(--cinza); }
 
-/* ---------- catálogo ---------- */
-.catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
-.catalog.um { grid-template-columns: minmax(0, 1fr); }
-.catalog.um .card { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); grid-template-rows: none; }
-.catalog.um .card-img { aspect-ratio: auto; min-height: 360px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: grid; grid-template-rows: auto 1fr; overflow: hidden; }
-.card-img { position: relative; background: var(--plate); aspect-ratio: 16 / 10; padding: 12px; max-width: 100%; overflow: hidden; }
-.card-img img { width: 100%; height: 100%; object-fit: contain; transition: opacity 0.18s ease; }
-.card-img img.trocando { opacity: 0.35; }
-.card-img .aviso { position: absolute; left: 12px; bottom: 10px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--plate-ink); }
-.card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin: 0; line-height: 1.2; }
-.card p { margin: 0; color: var(--muted); }
-.tag { align-self: flex-start; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; background: var(--brass-soft); color: var(--brass); }
-dl.dims { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; font-size: 0.88rem; }
-dl.dims dt { color: var(--muted); }
-dl.dims dd { margin: 0; font-family: var(--font-mono); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
-.opcoes { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border: 0; padding: 0; margin: 0; min-width: 0; }
-.opcoes legend { font-size: 0.82rem; color: var(--muted); padding: 0; margin-bottom: 6px; width: 100%; }
-.opcoes legend b { color: var(--ink); font-weight: 600; }
+/* ---------- fichas ---------- */
+.catalogo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+.catalogo.largo { grid-template-columns: minmax(0, 1fr); }
+.ficha { position: relative; background: var(--ficha); border: 1px solid var(--linha); display: grid; grid-template-rows: auto 1fr; min-width: 0; }
+.ficha::before, .ficha::after { content: ""; position: absolute; width: 14px; height: 14px; border-color: var(--sangue); border-style: solid; pointer-events: none; z-index: 2; }
+.ficha::before { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.ficha::after { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+.catalogo.largo .ficha { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); grid-template-rows: none; }
+.foto { position: relative; background: #050505; aspect-ratio: 5 / 4; overflow: hidden; max-width: 100%; }
+.catalogo.largo .foto { aspect-ratio: auto; min-height: 480px; }
+.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.2s ease; }
+.foto img.trocando { opacity: 0.3; }
+.foto .codigo { position: absolute; left: 12px; top: 10px; font-family: var(--font-maquina); font-size: 0.75rem; color: var(--cinza); background: rgba(12, 11, 11, 0.75); padding: 2px 8px; }
+.corpo { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.selo { align-self: flex-start; font-family: var(--font-maquina); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--sangue-texto); border: 1px solid currentColor; padding: 1px 8px; }
+.ficha h3 { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; font-size: 1.5rem; line-height: 1.1; margin: 0; }
+.ficha p { margin: 0; color: var(--texto-2); }
+dl.medidas { display: grid; grid-template-columns: auto 1fr; gap: 3px 16px; margin: 0; font-size: 0.88rem; border-top: 1px dashed var(--linha); padding-top: 12px; }
+dl.medidas dt { color: var(--cinza); }
+dl.medidas dd { margin: 0; font-family: var(--font-maquina); font-variant-numeric: tabular-nums; }
+.opcoes { display: flex; flex-wrap: wrap; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.opcoes legend { width: 100%; padding: 0; margin-bottom: 6px; font-size: 0.82rem; color: var(--cinza); text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--font-display); }
+.opcoes legend b { color: var(--osso); font-weight: 500; }
 .opcao { position: relative; }
-.opcao input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; }
-.opcao span { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); font-size: 0.82rem; cursor: pointer; }
-.opcao span:has(i) { padding-left: 5px; }
-.opcao i { width: 16px; height: 16px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3); display: inline-block; }
-.opcao input:checked + span { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
-.opcao input:focus-visible + span { outline: 3px solid var(--brass); outline-offset: 2px; }
-.card-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 6px; }
-.price { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
-.price small { font-family: var(--font-body); font-weight: 500; font-size: 0.8rem; color: var(--muted); display: block; }
-
-.vazio { border: 1.5px dashed var(--line); border-radius: var(--radius); padding: 28px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-.vazio p { margin: 0; color: var(--muted); max-width: 40em; }
-.vazio strong { display: block; color: var(--ink); font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 4px; }
+.opcao input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.opcao span { display: inline-flex; align-items: center; gap: 7px; padding: 5px 11px; border: 1px solid var(--linha); font-size: 0.85rem; cursor: pointer; background: var(--bg-2); }
+.opcao span:has(i) { padding-left: 6px; }
+.opcao i { width: 16px; height: 16px; border-radius: 50%; display: inline-block; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25); }
+.opcao input:checked + span { border-color: var(--sangue); box-shadow: inset 0 0 0 1px var(--sangue); color: #fff; }
+.opcao input:focus-visible + span { outline: 2px solid var(--sangue-texto); outline-offset: 2px; }
+.ficha p.dica { font-size: 0.85rem; color: var(--cinza); }
+.dica a { color: var(--osso); }
+.rodape-ficha { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 8px; }
+.preco { font-family: var(--font-display); font-weight: 600; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.preco small { display: block; font-family: var(--font-body); font-weight: 400; font-size: 0.8rem; text-transform: none; letter-spacing: 0; color: var(--cinza); }
 
 /* ---------- personalizados ---------- */
-.planos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
-.dica { font-size: 0.85rem; color: var(--muted); margin: 0; }
-.dica a { color: var(--ink); }
-.plano { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
-.plano.destaque { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
-.plano h3 { font-family: var(--font-display); font-size: 1.3rem; margin: 0; }
-.plano .valor { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
-.plano ul { margin: 0; padding-left: 1.1em; color: var(--muted); display: grid; gap: 6px; }
-.plano ul b { color: var(--ink); font-weight: 600; }
+.planos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.plano { position: relative; background: var(--ficha); border: 1px solid var(--linha); padding: 26px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.plano.destaque { border-color: var(--sangue); }
+.plano h3 { font-family: var(--font-display); text-transform: uppercase; font-weight: 600; font-size: 1.35rem; line-height: 1.15; margin: 0; }
+.plano ul { margin: 0; padding-left: 1.1em; display: grid; gap: 7px; color: var(--texto-2); }
+.plano ul b { color: var(--osso); font-weight: 600; }
+.plano .valor { font-family: var(--font-maquina); font-size: 0.9rem; color: var(--osso); border-top: 1px dashed var(--linha); padding-top: 12px; }
 .plano .btn { align-self: flex-start; margin-top: auto; }
-.arquivo { font-family: var(--font-mono); font-size: 0.78rem; background: var(--brass-soft); color: var(--brass); padding: 1px 6px; border-radius: 4px; }
-.ideias { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 32px; }
-.ideias article { border-top: 2px solid var(--ink); padding-top: 14px; min-width: 0; }
-.ideias h3 { font-family: var(--font-display); font-size: 1.1rem; margin: 0 0 6px; }
-.ideias p { margin: 0; color: var(--muted); }
+.arq { font-family: var(--font-maquina); color: var(--sangue-texto); }
 
-/* ---------- como encomendar ---------- */
-.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; counter-reset: passo; }
-.steps li { counter-increment: passo; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; min-width: 0; }
-.steps li::before { content: "Passo " counter(passo); display: block; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass); margin-bottom: 6px; }
-.steps strong { display: block; font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 4px; }
-.steps span { color: var(--muted); font-size: 0.93rem; }
+/* ---------- passos e dúvidas ---------- */
+.passos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--linha); counter-reset: p; }
+.passos li { counter-increment: p; padding: 22px; border-right: 1px solid var(--linha); min-width: 0; }
+.passos li:last-child { border-right: 0; }
+.passos li::before { content: "Etapa 0" counter(p); display: block; font-family: var(--font-maquina); color: var(--sangue-texto); font-size: 0.82rem; margin-bottom: 8px; }
+.passos strong { display: block; font-family: var(--font-display); font-weight: 600; text-transform: uppercase; font-size: 1.1rem; margin-bottom: 4px; }
+.passos span { color: var(--cinza); font-size: 0.93rem; }
+.duvidas { display: grid; gap: 8px; max-width: 780px; }
+.duvidas details { background: var(--ficha); border: 1px solid var(--linha); padding: 14px 18px; }
+.duvidas summary { cursor: pointer; font-weight: 600; }
+.duvidas p { margin: 10px 0 0; color: var(--texto-2); }
 
-.faq { display: grid; gap: 10px; max-width: 760px; }
-.faq details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; }
-.faq summary { cursor: pointer; font-weight: 600; }
-.faq p { margin: 10px 0 0; color: var(--muted); }
+footer { margin-top: 96px; border-top: 1px solid var(--linha); background: linear-gradient(180deg, rgba(109, 10, 16, 0.18), transparent 70%); }
+.fim { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-block: 44px 28px; }
+.fim h2 { margin: 0 0 6px; }
+.fim p { margin: 0; color: var(--cinza); }
+.fim p.contato { font-family: var(--font-maquina); color: var(--osso); user-select: all; }
+.letras { font-size: 0.8rem; color: #7a726b; margin: 0; padding-block: 0 28px; }
 
-footer { margin-top: 72px; }
-.foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; padding-block: 36px; }
-.foot h2 { color: var(--felt-ink); margin: 0 0 6px; }
-.foot p { margin: 0; opacity: 0.85; }
-.contact { font-family: var(--font-mono); font-size: 0.9rem; user-select: all; }
-.fine { font-size: 0.8rem; opacity: 0.7; padding-block: 0 24px; margin: 0; }
-
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; }
-  .hero-figure img { max-height: 320px; }
-  .catalog, .planos, .ideias { grid-template-columns: 1fr; }
-  .catalog.um .card { grid-template-columns: 1fr; }
-  .catalog.um .card-img { min-height: 0; aspect-ratio: 1 / 1; }
-  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #ritual { right: -40%; top: 4%; width: 140vw; opacity: 0.6; }
+  .hero-img img { max-height: 400px; }
+  .catalogo, .catalogo.largo .ficha, .planos { grid-template-columns: 1fr; }
+  .catalogo.largo .foto { min-height: 0; aspect-ratio: 4 / 5; }
+  .passos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .passos li:nth-child(2) { border-right: 0; }
+  .passos li:nth-child(-n+2) { border-bottom: 1px solid var(--linha); }
 }
-@media (max-width: 480px) { .steps { grid-template-columns: 1fr; } }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .card-img img { transition: none; } }
+@media (max-width: 480px) {
+  .passos { grid-template-columns: 1fr; }
+  .passos li { border-right: 0; border-bottom: 1px solid var(--linha); }
+  .passos li:last-child { border-bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .foto img { transition: none; } }
 </style>
 </head>
 <body>
 
-<header class="felt">
+<header>
+  <canvas id="ritual" aria-hidden="true"></canvas>
   <div class="wrap">
     <nav class="nav" aria-label="Principal">
       <a class="logo" href="#topo" id="topo">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 29 9.5v13L16 30 3 22.5v-13Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 8 23 20H9Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 5 27 16 16 27 5 16Z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="2.6" fill="currentColor"/></svg>
         Mesa3D
       </a>
       <div class="nav-links">
         <a href="#torres">Torres</a>
-        <a href="#miniaturas">Miniaturas</a>
+        <a href="#agentes">Miniaturas</a>
         <a href="#brinquedinhos">Brinquedinhos</a>
         <a href="#acessorios">Acessórios</a>
         <a href="#personalizados">Personalizados</a>
-        <a href="#duvidas">Dúvidas</a>
       </div>
     </nav>
 
     <div class="hero">
       <div>
-        <div class="eyebrow">Impressão 3D para mesa de RPG</div>
-        <h1>Peças para a sua mesa, impressas sob encomenda</h1>
-        <p class="lede">Torres de dados, miniaturas, brinquedinhos e acessórios. Tem um modelo seu? Mande o arquivo .STL e a gente imprime.</p>
-        <div class="hero-actions">
-          <a class="btn btn-light" href="#torres">Ver o catálogo</a>
-          <a class="btn btn-ghost" href="#personalizados">Imprimir o meu .STL</a>
+        <span class="carimbo">Arquivo aberto · encomendas</span>
+        <h1>Equipamento para a sua <em>investigação</em> paranormal</h1>
+        <p class="lede">Torres de dados, agentes, criaturas e acessórios para mesas de horror, impressos em 3D sob encomenda. Desenho próprio, inspirado no horror paranormal de mesa.</p>
+        <div class="acoes">
+          <a class="btn btn-sangue" href="#torres">Abrir o catálogo</a>
+          <a class="btn btn-linha" href="#personalizados">Imprimir o meu .STL</a>
         </div>
       </div>
-      <figure class="hero-figure">
-        <img src="img/torre_preta.webp" alt="Torre de dados desmontável preta com campanário, sino branco e brasão vermelho com um d20, sobre a bandeja" width="760" height="1000">
-        <figcaption>Torre de dados desmontável · 15 × 15 × 22 cm</figcaption>
+      <figure class="hero-img">
+        <img src="img/torre_preta.webp" alt="Torre do Ritual preta com brasão vermelho e sigilo branco, sobre a bandeja, em fundo escuro com luz vermelha" width="833" height="1000">
+        <figcaption>Torre do Ritual · 15 × 15 × 22 cm</figcaption>
       </figure>
     </div>
 
-    <div class="specs" aria-label="Especificações de impressão">
+    <div class="ficha-tecnica" aria-label="Especificações de impressão">
       <span>PLA · bico 0,4 mm</span>
       <span>camada 0,2 mm</span>
-      <span>grade de 25,4 mm (1")</span>
-      <span>até 4 cores (AMS lite)</span>
+      <span>base de miniatura 25 mm</span>
+      <span>até 4 cores na mesma peça</span>
     </div>
   </div>
 </header>
@@ -226,116 +208,102 @@ footer { margin-top: 72px; }
 <main class="wrap">
 
   <section id="torres" aria-labelledby="t-torres">
-    <div class="section-head">
-      <div><div class="eyebrow">Torres de dados</div><h2 id="t-torres">Role os dados pela torre</h2></div>
-      <p class="section-note">Escolha a cor e a imagem mostra como a peça fica. As imagens são renders 3D dos modelos.</p>
+    <div class="cabeca">
+      <div><div class="num">Pasta 01 · Torres de dados</div><h2 id="t-torres">Onde os dados decidem</h2></div>
+      <p>Escolha a cor e a foto mostra a peça como ela fica.</p>
     </div>
-    <div class="catalog um" data-categoria="torres"></div>
+    <div class="catalogo largo" data-categoria="torres"></div>
   </section>
 
-  <section id="miniaturas" aria-labelledby="t-minis">
-    <div class="section-head">
-      <div><div class="eyebrow">Miniaturas</div><h2 id="t-minis">Miniaturas para o seu grupo</h2></div>
-      <p class="section-note">Escala heroica de 28 a 32 mm, base redonda de 25 mm. Vêm sem pintura, prontas para você pintar.</p>
+  <section id="agentes" aria-labelledby="t-agentes">
+    <div class="cabeca">
+      <div><div class="num">Pasta 02 · Miniaturas</div><h2 id="t-agentes">Agentes e criaturas</h2></div>
+      <p>Escala 28–32 mm, base redonda de 25 mm. Saem em uma cor, sem pintura: peça em cinza ou branco para pintar.</p>
     </div>
-    <div class="catalog um" data-categoria="miniaturas"></div>
+    <div class="catalogo largo" data-categoria="miniaturas"></div>
   </section>
 
   <section id="brinquedinhos" aria-labelledby="t-brinq">
-    <div class="section-head">
-      <div><div class="eyebrow">Brinquedinhos</div><h2 id="t-brinq">Brinquedinhos impressos</h2></div>
-      <p class="section-note">Peças pequenas para presentear, colecionar ou deixar na mesa.</p>
+    <div class="cabeca">
+      <div><div class="num">Pasta 03 · Brinquedinhos</div><h2 id="t-brinq">O horror, em versão de bolso</h2></div>
+      <p>Bonequinhos de uns 5 cm para a estante, a mesa do computador ou de presente.</p>
     </div>
-    <div class="catalog" data-categoria="brinquedinhos"></div>
+    <div class="catalogo" data-categoria="brinquedinhos"></div>
   </section>
 
   <section id="acessorios" aria-labelledby="t-acess">
-    <div class="section-head">
-      <div><div class="eyebrow">Acessórios de mesa</div><h2 id="t-acess">Para guardar e marcar o jogo</h2></div>
+    <div class="cabeca">
+      <div><div class="num">Pasta 04 · Acessórios</div><h2 id="t-acess">Para guardar e marcar a sessão</h2></div>
     </div>
-    <div class="catalog" data-categoria="acessorios"></div>
+    <div class="catalogo" data-categoria="acessorios"></div>
   </section>
 
   <section id="personalizados" aria-labelledby="t-pers">
-    <div class="section-head">
-      <div><div class="eyebrow">Personalizados</div><h2 id="t-pers">Imprima a sua ideia</h2></div>
-      <p class="section-note">Com o arquivo pronto, você paga só a impressão. Sem arquivo, a gente modela para você.</p>
+    <div class="cabeca">
+      <div><div class="num">Pasta 05 · Personalizados</div><h2 id="t-pers">Traga o seu arquivo</h2></div>
+      <p>Com o .STL pronto, você paga só a impressão. Sem arquivo, a gente modela.</p>
     </div>
     <div class="planos">
       <article class="plano destaque">
-        <span class="tag">Sem taxa de projeto</span>
-        <h3>Você manda o arquivo .STL</h3>
+        <span class="selo">Sem taxa de projeto</span>
+        <h3>Você manda o .STL</h3>
         <ul>
-          <li>Envie o <span class="arquivo">.STL</span> (ou <span class="arquivo">.3MF</span>) pelo WhatsApp.</li>
+          <li>Envie o <span class="arq">.STL</span> ou <span class="arq">.3MF</span> pelo WhatsApp.</li>
           <li>Você paga <b>só a impressão</b>: material, tempo de máquina e frete.</li>
           <li>Antes de imprimir, conferimos se o modelo imprime bem e avisamos se precisar de suporte.</li>
         </ul>
         <div class="valor" id="valor-stl"></div>
-        <a class="btn btn-cta js-whats" data-msg="Olá! Tenho um arquivo .STL para imprimir na Mesa3D. Vou enviar o arquivo aqui." href="#contato">Enviar o meu .STL</a>
+        <a class="btn btn-sangue js-whats" data-msg="Olá! Tenho um arquivo .STL para imprimir na Mesa3D. Vou enviar o arquivo aqui." href="#contato">Enviar o meu .STL</a>
       </article>
       <article class="plano">
-        <span class="tag">Modelagem sob medida</span>
+        <span class="selo">Modelagem sob medida</span>
         <h3>A gente cria o modelo</h3>
         <ul>
-          <li>Você manda a ideia, um desenho ou uma foto de referência.</li>
-          <li>É cobrada uma <b>taxa de personalização</b> pelo projeto. O 1º projeto inclui uma prévia 3D para você aprovar.</li>
+          <li>Mande a ideia, um desenho ou uma foto de referência.</li>
+          <li>É cobrada uma <b>taxa de personalização</b>. O 1º projeto inclui uma prévia 3D para você aprovar.</li>
           <li>Depois do 1º projeto feito, <b>cada mudança tem um valor adicional</b>.</li>
         </ul>
         <div class="valor" id="valor-pers"></div>
-        <a class="btn btn-cta js-whats" data-msg="Olá! Quero orçar uma peça personalizada na Mesa3D. A ideia é:" href="#contato">Pedir orçamento</a>
+        <a class="btn btn-sangue js-whats" data-msg="Olá! Quero orçar uma peça personalizada na Mesa3D. A ideia é:" href="#contato">Pedir orçamento</a>
       </article>
       <article class="plano">
-        <span class="tag">Cor do seu jeito</span>
+        <span class="selo">Cor do seu jeito</span>
         <h3>Branca para pintar ou na cor que você quiser</h3>
         <ul>
-          <li>Qualquer peça do catálogo pode sair em <b>filamento branco, pronta para você pintar</b>.</li>
+          <li>Qualquer peça do catálogo pode sair em <b>filamento branco, pronta para pintar</b>.</li>
           <li>Quer outra cor ou outra combinação além das mostradas? Também fazemos.</li>
           <li>Como no projeto personalizado, entra uma <b>pequena taxa de personalização</b> pela troca de cor.</li>
         </ul>
         <div class="valor" id="valor-cor"></div>
-        <a class="btn btn-cta js-whats" data-msg="Olá! Quero uma peça da Mesa3D em cor personalizada (ou branca para pintar). A peça é:" href="#contato">Pedir em outra cor</a>
-      </article>
-    </div>
-    <div class="ideias">
-      <article>
-        <h3>Quadro em relevo de 2 cores</h3>
-        <p>Um desenho em linha vira um mini quadro com o traço em relevo. Bom para presente, brasão do grupo ou o símbolo da campanha.</p>
-      </article>
-      <article>
-        <h3>Nome e emblema na peça</h3>
-        <p>Nome do personagem na base, emblema na tampa da caixa ou no brasão da torre. Use um símbolo seu ou criado por você.</p>
-      </article>
-      <article>
-        <h3>Medidas para o seu jogo</h3>
-        <p>Caixa para outro tamanho de dados, anéis com as condições do seu sistema, bandeja maior. Os modelos mudam de tamanho sem refazer o desenho.</p>
+        <a class="btn btn-sangue js-whats" data-msg="Olá! Quero uma peça da Mesa3D em cor personalizada (ou branca para pintar). A peça é:" href="#contato">Pedir em outra cor</a>
       </article>
     </div>
   </section>
 
   <section id="como-encomendar" aria-labelledby="t-como">
-    <div class="section-head">
-      <div><div class="eyebrow">Como encomendar</div><h2 id="t-como">Do pedido à sua mesa</h2></div>
+    <div class="cabeca">
+      <div><div class="num">Procedimento</div><h2 id="t-como">Do pedido à sua mesa</h2></div>
     </div>
-    <ol class="steps">
+    <ol class="passos">
       <li><strong>Escolha a peça e a cor</strong><span>No catálogo, ou mande o seu .STL ou a sua ideia.</span></li>
-      <li><strong>Combine pelo WhatsApp</strong><span>Valor, prazo e frete são confirmados na conversa. Pagamento por Pix.</span></li>
+      <li><strong>Combine pelo WhatsApp</strong><span>Valor, prazo e frete na conversa. Pagamento por Pix.</span></li>
       <li><strong>Impressão</strong><span>Cada peça é impressa depois do pedido. Você recebe uma foto antes do envio.</span></li>
-      <li><strong>Envio ou retirada</strong><span>Envio pelos Correios para todo o Brasil, ou retirada combinada.</span></li>
+      <li><strong>Envio ou retirada</strong><span>Correios para todo o Brasil, ou retirada combinada.</span></li>
     </ol>
   </section>
 
   <section id="duvidas" aria-labelledby="t-duvidas">
-    <div class="section-head">
-      <div><div class="eyebrow">Dúvidas</div><h2 id="t-duvidas">Perguntas frequentes</h2></div>
+    <div class="cabeca">
+      <div><div class="num">Relatório</div><h2 id="t-duvidas">Perguntas frequentes</h2></div>
     </div>
-    <div class="faq">
+    <div class="duvidas">
       <details>
         <summary>Qual material é usado?</summary>
-        <p>PLA, um plástico rígido e leve, bom para peças de mesa. Não deixe as peças no carro ao sol ou perto de fonte de calor, porque o PLA amolece acima de uns 55 °C.</p>
+        <p>PLA, um plástico rígido e leve. Não deixe as peças no carro ao sol ou perto de fonte de calor, porque o PLA amolece acima de uns 55 °C.</p>
       </details>
       <details>
         <summary>A peça vem pintada?</summary>
-        <p>As cores vêm do próprio filamento: cada parte é impressa na sua cor, sem tinta. Se você quiser pintar, pedimos a peça em filamento branco, pronta para pintura. Peça branca ou em cor fora do catálogo tem uma pequena taxa de personalização.</p>
+        <p>As cores vêm do próprio filamento: cada parte é impressa na sua cor, sem tinta. Se quiser pintar, pedimos a peça em filamento branco. Peça branca ou em cor fora do catálogo tem uma pequena taxa de personalização.</p>
       </details>
       <details>
         <summary>Quanto custa imprimir o meu .STL?</summary>
@@ -343,32 +311,32 @@ footer { margin-top: 72px; }
       </details>
       <details>
         <summary>Posso pedir mudanças no modelo personalizado?</summary>
-        <p>Sim. O 1º projeto inclui a prévia 3D para você aprovar. Depois que esse projeto é entregue, cada mudança pedida tem um valor adicional, combinado antes de fazer.</p>
+        <p>Sim. O 1º projeto inclui a prévia 3D para você aprovar. Depois que esse projeto é entregue, cada mudança tem um valor adicional, combinado antes de fazer.</p>
       </details>
       <details>
-        <summary>A peça fica igual à imagem?</summary>
-        <p>A forma e as medidas são as do modelo. Peças impressas em camadas mostram linhas finas na superfície, o que é normal na impressão 3D.</p>
+        <summary>As fotos são da peça impressa?</summary>
+        <p>São renders 3D dos modelos, com as cores de filamento que usamos. A peça impressa mostra linhas finas de camada na superfície, o que é normal na impressão 3D.</p>
       </details>
       <details>
-        <summary>Vocês imprimem personagens de jogos, filmes ou séries?</summary>
-        <p>Não vendemos personagens, logos ou símbolos de outras marcas. Imprimimos desenhos próprios e arquivos que você tem direito de usar.</p>
+        <summary>São peças oficiais de algum jogo?</summary>
+        <p>Não. As peças têm desenho próprio, inspirado no horror paranormal de mesa. Não usamos símbolos, logos nem personagens oficiais de nenhum jogo, série ou canal.</p>
       </details>
     </div>
   </section>
 
 </main>
 
-<footer class="felt" id="contato">
+<footer id="contato">
   <div class="wrap">
-    <div class="foot">
+    <div class="fim">
       <div>
-        <h2>Vamos montar a sua mesa?</h2>
+        <h2>Abra um chamado</h2>
         <p>Encomendas, arquivos .STL e orçamentos pelo WhatsApp.</p>
-        <p class="contact" id="contato-num"></p>
+        <p class="contato" id="contato-num"></p>
       </div>
-      <a class="btn btn-light js-whats" data-msg="Olá! Vi o site da Mesa3D e quero fazer uma encomenda." href="#contato">Abrir conversa no WhatsApp</a>
+      <a class="btn btn-osso js-whats" data-msg="Olá! Vi o site da Mesa3D e quero fazer uma encomenda." href="#contato">Falar no WhatsApp</a>
     </div>
-    <p class="fine">Mesa3D · peças impressas em 3D sob encomenda.</p>
+    <p class="letras">Mesa3D · peças impressas em 3D sob encomenda · desenhos próprios, sem vínculo com nenhum jogo oficial.</p>
   </div>
 </footer>
 
@@ -381,76 +349,101 @@ const TAXA_PERSONALIZACAO = null;   // projeto modelado pela Mesa3D
 const ADICIONAL_MUDANCA = null;     // cada mudança depois do 1º projeto
 const TAXA_COR = null;              // peça branca para pintar ou em cor fora do catálogo
 
-// Cores de filamento (amostras)
-const C = { preto: "#1a1a1a", branco: "#f2f2f2", vermelho: "#c0141c", cinza: "#8a8d8f" };
+// Amostras de cor
+const C = { preto: "#1a1a1a", branco: "#ece9e2", vermelho: "#c0141c", cinza: "#77797b" };
+const CORES_MINI = [
+  { id: "cinza", nome: "Cinza (para pintar)", cor: [C.cinza] },
+  { id: "branco", nome: "Branco", cor: [C.branco] },
+  { id: "preto", nome: "Preto", cor: [C.preto] }];
 
-// Cada produto: opcoes (grupos de escolha) e img(escolha) que devolve a imagem da combinação.
-// Imagens geradas por site/gerar_imagens.py. img: null mostra o desenho "foto em breve".
+// Cada produto: opcoes (grupos de escolha) e img(escolha) com a imagem da combinação.
+// Imagens geradas por site/gerar_imagens.py.
 const PRODUTOS = [
   {
-    id: "torre", categoria: "torres",
-    nome: "Torre de dados desmontável", tag: "Mais completa",
-    desc: "Torre de castelo com rampas internas, campanário com sino e brasão de d20. Desmonta em bandeja, torre e telhado para guardar.",
-    dims: [["Bandeja", "150 × 150 × 18 mm"], ["Torre", "70 × 70 × 130 mm"], ["Dado máximo", "d20 de 26 mm"], ["Peças", "bandeja, torre, telhado, sino, brasão"]],
+    id: "torre", categoria: "torres", codigo: "T-01",
+    nome: "Torre do Ritual", selo: "Desmontável",
+    desc: "Torre de pedra com rampas internas, campanário com sino e brasão com sigilo próprio. O mesmo sigilo vem gravado na bandeja, onde os dados param. Desmonta em bandeja, torre e telhado.",
+    medidas: [["Bandeja", "150 × 150 × 18 mm"], ["Torre", "70 × 70 × 130 mm"], ["Dado máximo", "d20 de 26 mm"], ["Peças", "bandeja, torre, telhado, sino, brasão"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
       { id: "preta", nome: "Preta e vermelha", cor: [C.preto, C.vermelho] },
       { id: "branca", nome: "Branca e vermelha", cor: [C.branco, C.vermelho] },
       { id: "vermelha", nome: "Vermelha e preta", cor: [C.vermelho, C.preto] }] }],
     img: s => `img/torre_${s.cor}.webp`,
-    alt: s => `Torre de dados na cor ${s.nomes.cor.toLowerCase()}`,
+    alt: s => `Torre do Ritual na cor ${s.nomes.cor.toLowerCase()}`,
     preco: null
   },
   {
-    id: "minis", categoria: "miniaturas",
-    nome: "Miniaturas de herói", tag: "4 personagens",
-    desc: "Personagens de fantasia de desenho próprio: guerreiro de armadura, maga com cajado, ladino com adagas e clérigo anão com maça.",
-    dims: [["Escala", "28 a 32 mm"], ["Base", "redonda, 25 mm"], ["Acabamento", "sem pintura, 1 cor"]],
+    id: "agentes", categoria: "miniaturas", codigo: "M-01",
+    nome: "Agentes e criatura", selo: "4 miniaturas",
+    desc: "A ocultista com grimório e velas sobre o círculo de ritual, o combatente com facão e espingarda, o especialista com lanterna e câmera, e uma criatura de sangue para o mestre.",
+    medidas: [["Escala", "28 a 32 mm"], ["Base", "redonda, 25 mm (ocultista: 40 mm)"], ["Acabamento", "uma cor, sem pintura"]],
     opcoes: [
-      { chave: "personagem", nome: "Personagem", itens: [
-        { id: "guerreiro", nome: "Guerreiro" }, { id: "maga", nome: "Maga" }, { id: "ladino", nome: "Ladino" }, { id: "clerigo", nome: "Clérigo" }] },
-      { chave: "cor", nome: "Cor", itens: [
-        { id: "cinza", nome: "Cinza (para pintar)", cor: [C.cinza] }, { id: "branco", nome: "Branco", cor: [C.branco] }, { id: "preto", nome: "Preto", cor: [C.preto] }] }],
-    img: () => null,
-    alt: s => `Miniatura de ${s.nomes.personagem.toLowerCase()}`,
+      { chave: "personagem", nome: "Miniatura", itens: [
+        { id: "ocultista", nome: "Ocultista" }, { id: "combatente", nome: "Combatente" },
+        { id: "especialista", nome: "Especialista" }, { id: "criatura", nome: "Criatura de sangue" }] },
+      { chave: "cor", nome: "Cor", itens: CORES_MINI }],
+    img: s => `img/mini_${s.personagem}_${s.cor}.webp`,
+    alt: s => `Miniatura ${s.nomes.personagem.toLowerCase()} em ${s.nomes.cor.toLowerCase()}`,
     preco: null
   },
   {
-    id: "aneis", categoria: "acessorios",
-    nome: "Anéis de condição (8 un.)", tag: "Para miniaturas",
-    desc: "Encaixam em volta da base da miniatura para marcar a condição: Caído, Atordoado, Cego, Envenenado, Agarrado, Amedrontado, Invisível e Paralisado.",
-    dims: [["Base da miniatura", "25 mm"], ["Texto", "em relevo, 2 cores"], ["Quantidade", "8 anéis, 1 de cada condição"]],
+    id: "mini-agente", categoria: "brinquedinhos", codigo: "B-01",
+    nome: "Mini agente", selo: "Bonequinho",
+    desc: "Agente de capuz e cachecol segurando a lanterna com as duas mãos, pronto para descer ao porão.",
+    medidas: [["Altura", "cerca de 5 cm"], ["Base", "redonda, 32 mm"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_MINI }],
+    img: s => `img/mini_chibi_agente_${s.cor}.webp`,
+    alt: s => `Bonequinho de agente em ${s.nomes.cor.toLowerCase()}`,
+    preco: null
+  },
+  {
+    id: "mini-criatura", categoria: "brinquedinhos", codigo: "B-02",
+    nome: "Mini criatura", selo: "Bonequinho",
+    desc: "Uma criatura de sangue de olhos grandes e presinhas, sentada e bem menos assustadora que a original.",
+    medidas: [["Altura", "cerca de 5 cm"], ["Base", "redonda, 32 mm"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_MINI }],
+    img: s => `img/mini_chibi_criatura_${s.cor}.webp`,
+    alt: s => `Bonequinho de criatura em ${s.nomes.cor.toLowerCase()}`,
+    preco: null
+  },
+  {
+    id: "aneis", categoria: "acessorios", codigo: "A-01",
+    nome: "Anéis de condição", selo: "8 unidades",
+    desc: "Encaixam em volta da base da miniatura para marcar a condição: Morrendo, Sangrando, Abalado, Apavorado, Caído, Cego, Atordoado e Enlouquecendo.",
+    medidas: [["Base da miniatura", "25 mm"], ["Texto", "em relevo, 2 cores"], ["Quantidade", "8 anéis, 1 de cada"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
-      { id: "preto", nome: "Preto com texto branco", cor: [C.preto, C.branco] },
-      { id: "branco", nome: "Branco com texto preto", cor: [C.branco, C.preto] },
-      { id: "vermelho", nome: "Vermelho com texto branco", cor: [C.vermelho, C.branco] }] }],
+      { id: "preto", nome: "Preto e branco", cor: [C.preto, C.branco] },
+      { id: "branco", nome: "Branco e preto", cor: [C.branco, C.preto] },
+      { id: "vermelho", nome: "Vermelho e branco", cor: [C.vermelho, C.branco] }] }],
     img: s => `img/aneis_${s.cor}.webp`,
-    alt: s => `Anéis de condição na cor ${s.nomes.cor.toLowerCase()}`,
+    alt: s => `Anéis de condição em ${s.nomes.cor.toLowerCase()}`,
     preco: null
   },
   {
-    id: "caixa", categoria: "acessorios",
-    nome: "Caixa de dados com emblema", tag: "5 emblemas",
-    desc: "Guarda um jogo de 7 dados. Tampa de encaixe com o emblema em segunda cor.",
-    dims: [["Externo", "88 × 58 × 29 mm"], ["Interno", "84 × 54 × 24 mm"], ["Cabe", "1 jogo de 7 dados"]],
+    id: "caixa", categoria: "acessorios", codigo: "A-02",
+    nome: "Caixa de dados elemental", selo: "5 emblemas",
+    desc: "Guarda um jogo de 7 dados. Tampa de encaixe com o emblema do elemento em segunda cor.",
+    medidas: [["Externo", "88 × 58 × 29 mm"], ["Interno", "84 × 54 × 24 mm"], ["Cabe", "1 jogo de 7 dados"]],
     opcoes: [
-      { chave: "emblema", nome: "Emblema", itens: [
-        { id: "gota", nome: "Gota" }, { id: "ampulheta", nome: "Ampulheta" }, { id: "olho", nome: "Olho" }, { id: "raio", nome: "Raio" }, { id: "estrela", nome: "Estrela" }] },
+      { chave: "emblema", nome: "Elemento", itens: [
+        { id: "sangue", nome: "Sangue" }, { id: "morte", nome: "Morte" }, { id: "conhecimento", nome: "Conhecimento" },
+        { id: "energia", nome: "Energia" }, { id: "medo", nome: "Medo" }] },
       { chave: "cor", nome: "Cor", itens: [
         { id: "preta-vermelha", nome: "Preta e vermelha", cor: [C.preto, C.vermelho] },
         { id: "preta-branca", nome: "Preta e branca", cor: [C.preto, C.branco] },
         { id: "branca-preta", nome: "Branca e preta", cor: [C.branco, C.preto] },
         { id: "vermelha-preta", nome: "Vermelha e preta", cor: [C.vermelho, C.preto] }] }],
     img: s => `img/caixa_${s.emblema}_${s.cor}.webp`,
-    alt: s => `Caixa de dados ${s.nomes.cor.toLowerCase()} com emblema de ${s.nomes.emblema.toLowerCase()}`,
+    alt: s => `Caixa de dados ${s.nomes.cor.toLowerCase()} com o emblema de ${s.nomes.emblema.toLowerCase()}`,
     preco: null
   },
   {
-    id: "relicario", categoria: "acessorios",
-    nome: "Relicário de dados", tag: "Decorativo",
-    desc: "Caixa octogonal com selo de runas na tampa e painéis em relevo nas laterais. Para guardar os dados e deixar exposta na estante.",
-    dims: [["Fechado", "83 × 83 × 46 mm"], ["Cavidade", "70 mm, 26 mm de altura"], ["Tampa", "selo em 2 cores"]],
+    id: "relicario", categoria: "acessorios", codigo: "A-03",
+    nome: "Relicário de dados", selo: "Decorativo",
+    desc: "Caixa octogonal com selo de runas na tampa e painéis em relevo nas laterais. Guarda os dados e fica exposta na estante.",
+    medidas: [["Fechado", "83 × 83 × 46 mm"], ["Cavidade", "70 mm, 26 mm de altura"], ["Tampa", "selo em 2 cores"]],
     opcoes: [
-      { chave: "selo", nome: "Selo", itens: [{ id: "gota", nome: "Gota" }, { id: "espiral", nome: "Espiral" }, { id: "estrela", nome: "Estrela" }] },
+      { chave: "selo", nome: "Selo", itens: [{ id: "sangue", nome: "Sangue" }, { id: "morte", nome: "Morte" }, { id: "medo", nome: "Medo" }] },
       { chave: "cor", nome: "Cor", itens: [
         { id: "preto-vermelho", nome: "Preto e vermelho", cor: [C.preto, C.vermelho] },
         { id: "preto-branco", nome: "Preto e branco", cor: [C.preto, C.branco] },
@@ -465,21 +458,10 @@ const PRODUTOS = [
 const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
 const reais = v => "R$ " + v.toFixed(2).replace(".", ",");
 const linkWhats = msg => WHATSAPP ? "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg) : "#contato";
-
-function bolinha(cor) {
-  if (!cor) return "";
-  const bg = cor[1] ? `linear-gradient(135deg,${cor[0]} 50%,${cor[1]} 50%)` : cor[0];
-  return `<i style="background:${bg}"></i>`;
-}
-function preco(p) {
-  return p == null
-    ? '<span class="price">Sob consulta<small>valor e frete na conversa</small></span>'
-    : `<span class="price">${reais(p)}<small>+ frete</small></span>`;
-}
-// desenho neutro para produto ainda sem imagem
-function semFoto(titulo) {
-  return "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200"><rect width="320" height="200" fill="#f7f8f7"/><g fill="none" stroke="#9aa8a1" stroke-width="3" stroke-linejoin="round"><ellipse cx="160" cy="160" rx="44" ry="10"/><path d="M144 152v-40l-10-8 6-22h40l6 22-10 8v40"/><circle cx="160" cy="62" r="14"/></g><text x="160" y="190" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#56645d">${titulo} · foto em breve</text></svg>`);
-}
+const bolinha = cor => !cor ? "" : `<i style="background:${cor[1] ? `linear-gradient(135deg,${cor[0]} 50%,${cor[1]} 50%)` : cor[0]}"></i>`;
+const preco = p => p == null
+  ? '<span class="preco">Sob consulta<small>valor e frete na conversa</small></span>'
+  : `<span class="preco">${reais(p)}<small>+ frete</small></span>`;
 
 function escolha(p) {
   const s = { nomes: {} };
@@ -491,35 +473,35 @@ function escolha(p) {
   return s;
 }
 
-function cartao(p) {
+function ficha(p) {
   return `
-  <article class="card" id="p-${p.id}">
-    <div class="card-img"><img alt="" loading="lazy"><span class="aviso" hidden></span></div>
-    <div class="card-body">
-      <span class="tag">${esc(p.tag)}</span>
+  <article class="ficha" id="p-${p.id}">
+    <div class="foto"><img alt="" loading="lazy"><span class="codigo">${esc(p.codigo)}</span></div>
+    <div class="corpo">
+      <span class="selo">${esc(p.selo)}</span>
       <h3>${esc(p.nome)}</h3>
       <p>${esc(p.desc)}</p>
-      <dl class="dims">${p.dims.map(d => `<dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd>`).join("")}</dl>
+      <dl class="medidas">${p.medidas.map(d => `<dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd>`).join("")}</dl>
       ${p.opcoes.map(g => `
       <fieldset class="opcoes">
         <legend>${esc(g.nome)}: <b data-rotulo="${g.chave}"></b></legend>
         ${g.itens.map((it, i) => `<label class="opcao"><input type="radio" id="${p.id}-${g.chave}-${it.id}" name="${p.id}-${g.chave}" value="${it.id}"${i === 0 ? " checked" : ""}><span>${bolinha(it.cor)}${esc(it.nome)}</span></label>`).join("")}
       </fieldset>`).join("")}
       <p class="dica">Também em branco para pintar ou em outra cor, com pequena taxa. <a href="#personalizados">Saiba mais</a></p>
-      <div class="card-foot">
+      <div class="rodape-ficha">
         ${preco(p.preco)}
-        <a class="btn btn-cta js-pedido" href="#contato">Encomendar</a>
+        <a class="btn btn-sangue js-pedido" href="#contato">Encomendar</a>
       </div>
     </div>
   </article>`;
 }
 
 function atualizar(p, animar) {
-  const card = document.getElementById("p-" + p.id);
+  const el = document.getElementById("p-" + p.id);
   const s = escolha(p);
-  p.opcoes.forEach(g => { card.querySelector(`[data-rotulo="${g.chave}"]`).textContent = s.nomes[g.chave]; });
-  const img = card.querySelector(".card-img img");
-  const src = p.img(s) || semFoto(Object.values(s.nomes)[0]);
+  p.opcoes.forEach(g => { el.querySelector(`[data-rotulo="${g.chave}"]`).textContent = s.nomes[g.chave]; });
+  const img = el.querySelector(".foto img");
+  const src = p.img(s);
   if (img.getAttribute("src") !== src) {
     if (animar) {
       img.classList.add("trocando");
@@ -529,23 +511,15 @@ function atualizar(p, animar) {
     } else img.src = src;
   }
   img.alt = p.alt(s);
-  const aviso = card.querySelector(".aviso");
-  aviso.hidden = !!p.img(s);
-  aviso.textContent = "Imagem ilustrativa";
-  const pedido = card.querySelector(".js-pedido");
   const detalhes = p.opcoes.map(g => `${g.nome.toLowerCase()} ${s.nomes[g.chave]}`).join(", ");
+  const pedido = el.querySelector(".js-pedido");
   pedido.href = linkWhats(`Olá! Quero encomendar: ${p.nome} (${detalhes}).`);
   if (WHATSAPP) { pedido.target = "_blank"; pedido.rel = "noopener"; }
 }
 
 document.querySelectorAll("[data-categoria]").forEach(lista => {
   const itens = PRODUTOS.filter(p => p.categoria === lista.dataset.categoria);
-  if (!itens.length) {
-    lista.classList.remove("catalog");
-    lista.innerHTML = `<div class="vazio"><p><strong>Novidades chegando</strong>Os primeiros modelos desta categoria entram aqui em breve. Quer algo específico? Peça pelo WhatsApp ou mande o seu .STL.</p><a class="btn btn-cta js-whats" data-msg="Olá! Quero saber dos brinquedinhos da Mesa3D." href="#contato">Perguntar</a></div>`;
-    return;
-  }
-  lista.innerHTML = itens.map(cartao).join("");
+  lista.innerHTML = itens.map(ficha).join("");
   itens.forEach(p => atualizar(p, false));
   lista.addEventListener("change", e => {
     const p = itens.find(x => e.target.name && e.target.name.startsWith(x.id + "-"));
@@ -557,15 +531,63 @@ document.querySelectorAll(".js-whats").forEach(a => {
   a.href = linkWhats(a.dataset.msg);
   if (WHATSAPP) { a.target = "_blank"; a.rel = "noopener"; }
 });
+const consulta = v => v == null ? "sob consulta" : reais(v);
 document.getElementById("valor-stl").textContent = "Valor: só a impressão, calculado pelo arquivo";
-document.getElementById("valor-pers").textContent =
-  "Taxa de personalização: " + (TAXA_PERSONALIZACAO == null ? "sob consulta" : reais(TAXA_PERSONALIZACAO)) +
-  " · mudança extra: " + (ADICIONAL_MUDANCA == null ? "sob consulta" : reais(ADICIONAL_MUDANCA));
-document.getElementById("valor-cor").textContent =
-  "Taxa de cor: " + (TAXA_COR == null ? "sob consulta" : reais(TAXA_COR));
+document.getElementById("valor-pers").textContent = `Taxa de personalização: ${consulta(TAXA_PERSONALIZACAO)} · cada mudança extra: ${consulta(ADICIONAL_MUDANCA)}`;
+document.getElementById("valor-cor").textContent = `Taxa de cor: ${consulta(TAXA_COR)}`;
 document.getElementById("contato-num").textContent = WHATSAPP
   ? "+" + WHATSAPP.slice(0, 2) + " (" + WHATSAPP.slice(2, 4) + ") " + WHATSAPP.slice(4, -4) + "-" + WHATSAPP.slice(-4)
   : "Número do WhatsApp em breve.";
+
+// ---------- círculo de ritual (desenho próprio, gerado) ----------
+(function () {
+  const cv = document.getElementById("ritual");
+  const ctx = cv.getContext("2d");
+  const parado = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let semente = 7;
+  const r = () => (semente = (semente * 16807) % 2147483647) / 2147483647;
+  // runas: traços curtos aleatórios, sempre iguais (semente fixa)
+  const runas = Array.from({ length: 40 }, () => Array.from({ length: 2 + Math.floor(r() * 3) }, () => [r() - 0.5, r() - 0.5, r() - 0.5, r() - 0.5]));
+  function tamanho() {
+    const d = Math.min(devicePixelRatio || 1, 2);
+    const w = cv.clientWidth || 600;
+    cv.width = cv.height = Math.round(w * d);
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+  }
+  function anel(c, rad, rot, n, larg, cor) {
+    ctx.save(); ctx.translate(c, c); ctx.rotate(rot);
+    ctx.strokeStyle = cor; ctx.lineWidth = larg;
+    ctx.beginPath(); ctx.arc(0, 0, rad, 0, Math.PI * 2); ctx.stroke();
+    ctx.beginPath(); ctx.arc(0, 0, rad + 30, 0, Math.PI * 2); ctx.stroke();
+    for (let i = 0; i < n; i++) {
+      ctx.save(); ctx.rotate(i / n * Math.PI * 2); ctx.translate(0, -rad - 15);
+      ctx.beginPath();
+      runas[i % runas.length].forEach(s => { ctx.moveTo(s[0] * 16, s[1] * 16); ctx.lineTo(s[2] * 16, s[3] * 16); });
+      ctx.stroke(); ctx.restore();
+    }
+    ctx.restore();
+  }
+  function desenhar(t) {
+    const w = cv.clientWidth || 600, c = w / 2, R = w * 0.4;
+    ctx.clearRect(0, 0, w, w);
+    const verm = "rgba(195, 20, 31, 0.5)", osso = "rgba(233, 228, 218, 0.12)";
+    anel(c, R, t * 0.00003, 34, 1.4, verm);
+    anel(c, R * 0.7, -t * 0.00005, 22, 1.1, osso);
+    ctx.save(); ctx.translate(c, c); ctx.rotate(t * 0.00002);
+    ctx.strokeStyle = verm; ctx.lineWidth = 1.4;
+    for (const k of [4, 3]) {
+      ctx.beginPath();
+      for (let i = 0; i <= k; i++) { const a = i / k * Math.PI * 2 + (k === 3 ? Math.PI / 6 : Math.PI / 4); ctx[i ? "lineTo" : "moveTo"](Math.cos(a) * R * 0.58, Math.sin(a) * R * 0.58); }
+      ctx.stroke();
+    }
+    ctx.beginPath(); ctx.arc(0, 0, R * 0.15, 0, Math.PI * 2); ctx.stroke();
+    ctx.restore();
+    if (!parado) requestAnimationFrame(desenhar);
+  }
+  tamanho();
+  addEventListener("resize", tamanho);
+  requestAnimationFrame(desenhar);
+})();
 </script>
 </body>
 </html>
