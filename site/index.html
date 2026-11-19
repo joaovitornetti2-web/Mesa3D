@@ -498,8 +498,10 @@ const PRODUTOS = [
     if (!alvo) return;
     e.preventDefault();
     const parado = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const y = alvo.getBoundingClientRect().top + scrollY - barra.offsetHeight - 12;
-    scrollTo({ top: Math.max(0, y), behavior: parado ? "auto" : "smooth" });
+    // scrollIntoView rola também a página de fora quando o site está dentro de um quadro (prévia);
+    // a folga da barra fixa vem do scroll-margin-top das seções
+    alvo.scrollIntoView({ behavior: parado ? "auto" : "smooth", block: "start" });
+    if (history.replaceState) history.replaceState(null, "", a.getAttribute("href"));
     if (a.closest("#menu")) { links.forEach(l => l.classList.toggle("ativo", l === a)); }
   });
 })();
