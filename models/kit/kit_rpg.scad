@@ -125,7 +125,19 @@ module sino() {
 CONDICOES = TEMA == "paranormal" ? ["MORRENDO", "SANGRANDO", "ABALADO", "APAVORADO", "CAÍDO", "CEGO", "ATORDOADO", "ENLOUQUECENDO"]
   : ["CAÍDO", "ATORDOADO", "CEGO", "ENVENENADO", "AGARRADO", "AMEDRONTADO", "INVISÍVEL", "PARALISADO"];
 A_ID = 25.8; A_OD = 37; A_H = 2.4;
-module anel_base() { difference() { cylinder(d = A_OD, h = A_H, $fn = 96); translate([0, 0, -1]) cylinder(d = A_ID, h = A_H + 2, $fn = 96); } }
+module anel_base() {
+  if (TEMA == "paranormal")
+    difference() {   // borda chanfrada e dois sulcos finos acompanhando o anel
+      rotate_extrude($fn = 128) polygon([[A_ID / 2, 0], [A_OD / 2 - 0.6, 0], [A_OD / 2, 0.6], [A_OD / 2, A_H - 0.7], [A_OD / 2 - 0.7, A_H], [A_ID / 2 + 0.5, A_H], [A_ID / 2, A_H - 0.5]]);
+      for (rr = [A_ID / 2 + 1.1, A_OD / 2 - 1.3]) translate([0, 0, A_H - 0.4]) rotate_extrude($fn = 128) translate([rr, 0]) square([0.45, 1]);
+    }
+  else difference() { cylinder(d = A_OD, h = A_H, $fn = 96); translate([0, 0, -1]) cylinder(d = A_ID, h = A_H + 2, $fn = 96); }
+}
+// runa original: 2-3 traços sorteados (semente fixa por índice)
+module runa2d(k, t = 2.4) {
+  v = rands(-1, 1, 12, k * 7 + 3);
+  for (j = [0:2]) if (j < 2 || v[11] > 0) hull() { translate([v[j * 4] * t / 2, v[j * 4 + 1] * t / 2]) circle(d = 0.6, $fn = 8); translate([v[j * 4 + 2] * t / 2, v[j * 4 + 3] * t / 2]) circle(d = 0.6, $fn = 8); }
+}
 function larg_letra(c) = (c == "I" || c == "Í") ? 0.42 : (c == "M" || c == "W") ? 1.12 : (c == "C" || c == "D" || c == "G" || c == "O" || c == "N" || c == "A" || c == "V") ? 0.94 : 0.84;
 function soma(v, n) = n <= 0 ? 0 : v[n - 1] + soma(v, n - 1);
 module anel_texto(i = ANEL) {
@@ -136,7 +148,11 @@ module anel_texto(i = ANEL) {
   translate([0, 0, A_H - 0.01]) linear_extrude(0.6) {
     for (k = [0:n - 1]) let(meio = soma(w, k) + w[k] / 2)
       rotate(90 + total * grau / 2 - meio * grau) translate([r, 0]) rotate(-90) text(s[k], size = 3.1, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
-    for (a = [-90 - 34, -90, -90 + 34]) rotate(a) translate([r, 0]) circle(d = 1.6, $fn = 16);   // pontos decorativos embaixo
+    if (TEMA == "paranormal") {   // runas em volta e sigilo embaixo
+      rotate(-90) translate([r, 0]) rotate(90) sigilo2d(2.6);
+      for (k = [0:9]) let(a = -90 + (k < 5 ? -1 : 1) * (18 + (k % 5) * 15)) rotate(a) translate([r, 0]) rotate(a + 90) runa2d(k + i * 10);
+    } else
+      for (a = [-90 - 34, -90, -90 + 34]) rotate(a) translate([r, 0]) circle(d = 1.6, $fn = 16);   // pontos decorativos embaixo
   }
 }
 module grade(f) { for (i = [0:7]) translate([(i % 4) * 42, floor(i / 4) * 42, 0]) f(i); }

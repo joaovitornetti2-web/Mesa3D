@@ -56,8 +56,8 @@ PRODUTOS["torre"] = dict(
 
 PRODUTOS["aneis"] = dict(
     grupos={
-        "c1": kit(" ".join(f"translate([{(k % 2) * 34}, {-(k // 2) * 34}, 0]) anel_base();" for k, i in enumerate(ANEIS))),
-        "c2": kit(" ".join(f"translate([{(k % 2) * 34}, {-(k // 2) * 34}, 0]) anel_texto({i});" for k, i in enumerate(ANEIS))),
+        "c1": kit(" ".join(f"translate([{(k % 2) * 40}, {-(k // 2) * 40}, 0]) anel_base();" for k, i in enumerate(ANEIS))),
+        "c2": kit(" ".join(f"translate([{(k % 2) * 40}, {-(k // 2) * 40}, 0]) anel_texto({i});" for k, i in enumerate(ANEIS))),
     },
     variantes={"preto": dict(c1=PRETO, c2=BRANCO), "branco": dict(c1=BRANCO, c2=PRETO), "vermelho": dict(c1=VERMELHO, c2=BRANCO)},
     cam=dict(elevacao=52, azimute=-20, tamanho=[1200, 960], folga=1.08))
@@ -80,6 +80,16 @@ for e in ["sangue", "morte", "medo"]:
             "c2": relic(e, "translate([0, 0, H + 0.2]) translate([0, 0, ZT - ASSENTO]) corte(true) medalhao();"),
         },
         variantes=CORES_RELIC, cam=dict(elevacao=32, azimute=-24, tamanho=[1200, 1000], folga=1.1))
+
+# peças esculpidas no Meshy e tornadas funcionais (torre_meshy.py, bau_meshy.py)
+CORES_ESC = {"preta": dict(c1=PRETO, c2=PRETO), "cinza": dict(c1=CINZA, c2=CINZA), "branca": dict(c1=BRANCO, c2=BRANCO),
+             "preta-vermelha": dict(c1=PRETO, c2=VERMELHO)}
+PRODUTOS["ritual"] = dict(stl={"c1": os.path.join(CACHE, "ritual_torre_montada.stl"), "c2": os.path.join(M, "torre", "ritual", "bandeja.stl")},
+                          suave=True, variantes=CORES_ESC, cam=dict(elevacao=20, azimute=-28, tamanho=[1000, 1200], folga=1.0))
+PRODUTOS["bau"] = dict(stl={"c1": os.path.join(M, "kit", "bau", "bau_base.stl"), "c2": os.path.join(M, "kit", "bau", "bau_tampa.stl")},
+                       suave=True, variantes={"preto": dict(c1=PRETO, c2=PRETO), "cinza": dict(c1=CINZA, c2=CINZA),
+                                              "branco": dict(c1=BRANCO, c2=BRANCO), "preto-vermelho": dict(c1=PRETO, c2=VERMELHO)},
+                       cam=dict(elevacao=22, azimute=-30, tamanho=[1200, 1000], folga=1.05))
 
 # miniaturas e brinquedinhos do Meshy (STL já preparado em models/kit/meshy_op/<nome>_pronto.stl)
 CORES_MINI = {"cinza": dict(c1=CINZA), "branco": dict(c1=BRANCO), "preto": dict(c1=PRETO)}

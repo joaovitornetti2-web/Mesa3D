@@ -191,8 +191,8 @@ footer { margin-top: 96px; border-top: 1px solid var(--linha); background: linea
         </div>
       </div>
       <figure class="hero-img">
-        <img src="img/torre_preta.webp" alt="Torre do Ritual preta com brasão vermelho e sigilo branco, sobre a bandeja, em fundo escuro com luz vermelha" width="833" height="1000">
-        <figcaption>Torre do Ritual · 15 × 15 × 22 cm</figcaption>
+        <img src="img/ritual_preta-vermelha.webp" alt="Torre do Ritual esculpida, preta, com sigilo entalhado e caveiras na base, sobre a bandeja vermelha" width="833" height="1000">
+        <figcaption>Torre do Ritual · 18 cm de altura</figcaption>
       </figure>
     </div>
 
@@ -361,14 +361,15 @@ const CORES_MINI = [
 const PRODUTOS = [
   {
     id: "torre", categoria: "torres", codigo: "T-01",
-    nome: "Torre do Ritual", selo: "Desmontável",
-    desc: "Torre de pedra com rampas internas, campanário com sino e brasão com sigilo próprio. O mesmo sigilo vem gravado na bandeja, onde os dados param. Desmonta em bandeja, torre e telhado.",
-    medidas: [["Bandeja", "150 × 150 × 18 mm"], ["Torre", "70 × 70 × 130 mm"], ["Dado máximo", "d20 de 26 mm"], ["Peças", "bandeja, torre, telhado, sino, brasão"]],
+    nome: "Torre do Ritual", selo: "Esculpida",
+    desc: "Torre de pedra rachada com sigilo entalhado, correntes, sangue escorrendo e caveiras na base. Por dentro, duas rampas embaralham os dados, que saem pela porta e param sobre o círculo de runas gravado na bandeja.",
+    medidas: [["Torre", "100 × 79 × 180 mm"], ["Bandeja", "160 × 178 × 16 mm"], ["Dado máximo", "d20 de 26 mm"], ["Peças", "torre e bandeja com encaixe"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
-      { id: "preta", nome: "Preta e vermelha", cor: [C.preto, C.vermelho] },
-      { id: "branca", nome: "Branca e vermelha", cor: [C.branco, C.vermelho] },
-      { id: "vermelha", nome: "Vermelha e preta", cor: [C.vermelho, C.preto] }] }],
-    img: s => `img/torre_${s.cor}.webp`,
+      { id: "preta-vermelha", nome: "Preta, bandeja vermelha", cor: [C.preto, C.vermelho] },
+      { id: "preta", nome: "Preta", cor: [C.preto] },
+      { id: "cinza", nome: "Cinza pedra", cor: [C.cinza] },
+      { id: "branca", nome: "Branca", cor: [C.branco] }] }],
+    img: s => `img/ritual_${s.cor}.webp`,
     alt: s => `Torre do Ritual na cor ${s.nomes.cor.toLowerCase()}`,
     preco: null
   },
@@ -407,9 +408,23 @@ const PRODUTOS = [
     preco: null
   },
   {
+    id: "bau", categoria: "acessorios", codigo: "A-00",
+    nome: "Baú de ritual", selo: "Esculpido",
+    desc: "Baú de pedra e ferro com círculo de runas na frente, caveiras, correntes e cantoneiras. A tampa encaixa numa borda da base e cabe mais de um jogo de dados.",
+    medidas: [["Fechado", "104 × 82 × 89 mm"], ["Espaço interno", "83 × 57 × 54 mm"], ["Peças", "base e tampa com encaixe"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: [
+      { id: "preto", nome: "Preto", cor: [C.preto] },
+      { id: "preto-vermelho", nome: "Preto, tampa vermelha", cor: [C.preto, C.vermelho] },
+      { id: "cinza", nome: "Cinza pedra", cor: [C.cinza] },
+      { id: "branco", nome: "Branco", cor: [C.branco] }] }],
+    img: s => `img/bau_${s.cor}.webp`,
+    alt: s => `Baú de ritual em ${s.nomes.cor.toLowerCase()}`,
+    preco: null
+  },
+  {
     id: "aneis", categoria: "acessorios", codigo: "A-01",
     nome: "Anéis de condição", selo: "8 unidades",
-    desc: "Encaixam em volta da base da miniatura para marcar a condição: Morrendo, Sangrando, Abalado, Apavorado, Caído, Cego, Atordoado e Enlouquecendo.",
+    desc: "Anéis chanfrados com runas e sigilo em relevo, que encaixam em volta da base da miniatura para marcar a condição: Morrendo, Sangrando, Abalado, Apavorado, Caído, Cego, Atordoado e Enlouquecendo.",
     medidas: [["Base da miniatura", "25 mm"], ["Texto", "em relevo, 2 cores"], ["Quantidade", "8 anéis, 1 de cada"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
       { id: "preto", nome: "Preto e branco", cor: [C.preto, C.branco] },
