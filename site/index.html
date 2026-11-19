@@ -43,14 +43,18 @@ a { color: inherit; }
 /* ---------- topo ---------- */
 header { position: relative; overflow: hidden; }
 header::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(165, 140, 240, 0.09) 0 1px, transparent 1px 8px); pointer-events: none; }
-.nav { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 14px 24px; padding-block: 18px; flex-wrap: wrap; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(31, 22, 51, 0.92); }
+.barra { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: rgba(31, 22, 51, 0.88); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
+.barra.rolou { border-bottom-color: var(--linha); }
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; padding-block: 12px; flex-wrap: wrap; }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo svg { width: 40px; height: 40px; flex: none; }
-.logo span { font-family: var(--font-titulo); font-weight: 700; font-size: 1.5rem; line-height: 1; }
-.nav-links { display: flex; flex-wrap: wrap; gap: 6px 20px; font-weight: 700; font-size: 0.95rem; }
-.nav-links a { text-decoration: none; color: var(--creme-2); }
-.nav-links a:hover { color: var(--amarelo); }
-
+.logo svg { width: 38px; height: 38px; flex: none; }
+.logo span { font-family: var(--font-titulo); font-weight: 700; font-size: 1.45rem; line-height: 1; }
+.menu { display: flex; align-items: center; gap: 6px; background: var(--ameixa-2); border: 1px solid var(--linha); border-radius: 999px; padding: 5px; }
+.menu a { text-decoration: none; color: var(--creme-2); font-weight: 700; font-size: 0.92rem; padding: 7px 14px; border-radius: 999px; white-space: nowrap; transition: background 0.15s ease, color 0.15s ease; }
+.menu a:hover { color: var(--creme); background: var(--ameixa-3); }
+.menu a.ativo { background: var(--amarelo); color: var(--ameixa); }
+.nav .btn-whats { padding: 9px 18px; font-size: 0.95rem; }
 .hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 36px; align-items: center; padding-block: 24px 60px; }
 .hero > * { min-width: 0; }
 .selinho { display: inline-flex; align-items: center; gap: 8px; background: var(--ameixa-3); color: var(--amarelo); font-weight: 800; font-size: 0.82rem; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.02em; }
@@ -70,7 +74,7 @@ h1 em { font-style: normal; color: var(--amarelo); }
 .ficha-tecnica span { background: var(--ameixa-2); border: 1px solid var(--linha); color: var(--creme-2); font-size: 0.85rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
 
 /* ---------- seções ---------- */
-section { padding-block: 72px 8px; scroll-margin-top: 8px; }
+section { padding-block: 72px 8px; scroll-margin-top: 84px; }
 .cabeca { display: flex; justify-content: space-between; align-items: end; gap: 12px 32px; flex-wrap: wrap; margin-bottom: 28px; }
 .cabeca .sobre { color: var(--amarelo); font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
 h2 { font-family: var(--font-titulo); font-weight: 700; font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem); line-height: 1.05; margin: 4px 0 0; text-wrap: balance; }
@@ -140,6 +144,9 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
 .letras svg { width: 22px; height: 22px; }
 
 @media (max-width: 900px) {
+  .nav { flex-wrap: wrap; }
+  .menu { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; border-radius: 14px; }
+  .menu::-webkit-scrollbar { display: none; }
   .hero { grid-template-columns: 1fr; }
   .hero-img img { aspect-ratio: 4 / 3; }
   .catalogo, .catalogo.largo .ficha, .planos { grid-template-columns: 1fr; }
@@ -152,22 +159,28 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
 </head>
 <body>
 
-<header>
+<div class="barra" id="barra">
   <div class="wrap">
     <nav class="nav" aria-label="Principal">
-      <a class="logo" href="#topo" id="topo" aria-label="Ateliê do Mestre, início">
+      <a class="logo" href="#topo" aria-label="Ateliê do Mestre, início">
         <svg viewBox="0 0 64 64" aria-hidden="true" data-logo></svg>
         <span>Ateliê do Mestre</span>
       </a>
-      <div class="nav-links">
+      <div class="menu" id="menu">
         <a href="#torres">Torres</a>
         <a href="#miniaturas">Miniaturas</a>
         <a href="#brinquedinhos">Brinquedinhos</a>
         <a href="#acessorios">Acessórios</a>
         <a href="#personalizados">Seu .STL</a>
+        <a href="#duvidas">Dúvidas</a>
       </div>
+      <a class="btn btn-whats js-whats" data-msg="Oi! Vi o site do Ateliê do Mestre e quero fazer uma encomenda." href="#contato">WhatsApp</a>
     </nav>
+  </div>
+</div>
 
+<header id="topo">
+  <div class="wrap">
     <div class="hero">
       <div>
         <span class="selinho">Impressão 3D sob encomenda</span>
@@ -461,6 +474,23 @@ const PRODUTOS = [
   }
 ];
 // ==========================================================================
+
+// menu: destaca a seção visível e mostra a borda da barra ao rolar
+(function () {
+  const links = [...document.querySelectorAll("#menu a")];
+  const barra = document.getElementById("barra");
+  const secoes = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+  function marcar() {
+    barra.classList.toggle("rolou", scrollY > 8);
+    let atual = null;
+    for (const s of secoes) if (s.getBoundingClientRect().top < 140) atual = s;
+    links.forEach(a => a.classList.toggle("ativo", atual && a.getAttribute("href") === "#" + atual.id));
+    const ativo = links.find(a => a.classList.contains("ativo"));
+    if (ativo && innerWidth <= 900) ativo.scrollIntoView({ block: "nearest", inline: "center" });
+  }
+  addEventListener("scroll", marcar, { passive: true });
+  marcar();
+})();
 
 // logo: d20 de camadas (linhas amarelas, triângulo creme)
 const LOGO = `<clipPath id="LID"><path d="M32 4 56 18v28L32 60 8 46V18Z"/></clipPath><g clip-path="url(#LID)" fill="#ffcf3f">${Array.from({ length: 10 }, (_, i) => `<rect x="0" y="${4 + i * 6}" width="64" height="4"/>`).join("")}</g><path d="M32 18 44 40H20Z" fill="#fff6e8"/>`;
