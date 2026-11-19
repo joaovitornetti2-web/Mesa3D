@@ -81,3 +81,80 @@ preço = custo ÷ (1 − tarifa do ML)
 - **Tarifa do ML:** cerca de 10–14% no anúncio Clássico e 15–19% no Premium, conforme a categoria, mais custo de envio/fixo em itens baratos. Os valores mudam – **confira no simulador oficial** da Central de Vendedores antes de fechar o preço.
 - **O filamento é a parte barata.** Um tile 2×2 gasta só uns R$ 1,50–2,80 de plástico. O que pesa é o seu tempo e a tarifa. Cobre a modelagem de peças personalizadas à parte (ou embuta no preço da primeira unidade).
 - Itens abaixo de ~R$ 79 sofrem mais com a tarifa fixa: prefira vender **kits** (ex.: 10 tiles, conjunto de paredes) em vez de peças avulsas.
+
+## 6. Anúncios prontos com preço (copie e cole)
+
+> **Estes preços são estimativas, ainda não testadas na impressora.** O peso vem do volume dos modelos (calculado com
+> `check_mesh.py` e com o OpenSCAD), não do Bambu Studio. Assim que imprimir a amostra, troque pelo peso e tempo reais
+> que o Bambu Studio mostra e refaça a conta. Confira as tarifas no **simulador oficial** antes de publicar.
+
+**O que a conta considera:**
+- Filamento a R$ 0,15/g + 15% de perda por falhas.
+- Energia ≈ R$ 0,10 por hora de impressão.
+- Seu tempo a **R$ 30/h** (acabamento, embalagem, ir aos Correios).
+- Anúncio **Clássico, com tarifa de 14%** (o teto da faixa, para não ter surpresa).
+- **Abaixo de R$ 79:** soma ~R$ 7 de custo adicional por venda (desde 2026 ele varia com peso e tamanho).
+- **R$ 79 ou mais:** o frete grátis é obrigatório, e o vendedor paga uma parte. Estimei R$ 25 para caixa grande e R$ 15 para caixa pequena (depende da sua reputação).
+- **Preço mínimo** é o valor que só empata. O **preço sugerido** já inclui o lucro.
+
+| Produto | Peso est. | Tempo est. | Custo total* | Preço mínimo | **Preço sugerido** | Lucro por venda |
+|---|---|---|---|---|---|---|
+| Kit torre de dados desmontável (bandeja + torre + telhado + sino + brasão) | ~330 g | ~18 h | ~R$ 117 | R$ 136 | **R$ 199,90** | ~R$ 55 |
+| Anéis de condição (8 un., 2 cores) | ~12 g | ~1,5 h | ~R$ 15 | R$ 18 | **R$ 34,90** | ~R$ 15 |
+| Caixa de dados com tampa em 2 cores (cabe 7 dados) | ~40 g | ~3 h | ~R$ 25 | R$ 29 | **R$ 49,90** | ~R$ 18 |
+| Mini quadro em relevo do seu desenho (personalizado, ~17×13 cm) | ~80 g | ~4 h | ~R$ 52 | R$ 60 | **R$ 89,90** | ~R$ 25 |
+| Kit 10 tiles 2×2 para mapa de RPG | ~120 g | ~6 h | ~R$ 51 | R$ 59 | **R$ 69,90** | ~R$ 9 |
+
+\* Custo total = filamento + perda + energia + seu tempo + embalagem + custo fixo ou frete. A tarifa de 14% já está no preço mínimo.
+
+**Por que esses números:**
+- A torre é o produto com mais lucro. Uma torre de marca (não impressa) custa ~R$ 300, então R$ 199,90 é competitivo. Ela ocupa a impressora por quase um dia, e o filamento é ~R$ 50 só nela.
+- Os anéis e a caixa servem de "porta de entrada" baratos. Anuncie também um **combo torre + anéis + caixa por R$ 259,90**.
+- Os tiles dão pouco lucro avulsos. Se quiser vender mais deles, faça kits de 20 por R$ 119,90.
+- O quadro personalizado leva ~20 min de preparo do desenho por pedido, e isso já está no custo.
+
+### Títulos (até 60 caracteres)
+- `Torre De Dados Rpg Desmontável Impressão 3d Bandeja Dnd`
+- `Anéis De Condição Rpg 8 Marcadores Miniatura 25mm Dnd`
+- `Caixa Porta Dados Rpg 7 Dados Tampa 2 Cores Impressão 3d`
+- `Quadro Personalizado Do Seu Desenho Em Relevo 3d Presente`
+- `Kit 10 Tiles Mapa Rpg 3d Grade 25mm Masmorra Dnd`
+
+> Na caixa de dados, **não use "Ordem Paranormal"** no título nem na descrição. É marca registrada, e os emblemas
+> são originais e só *inspirados* nos elementos. Escreva "elementos paranormais" ou "Sangue, Morte, Medo…".
+
+### Descrições curtas (adicione o bloco "Material e cores / Prazo / Importante" da seção 4)
+
+**Torre de dados:**
+```
+TORRE DE DADOS DESMONTÁVEL PARA RPG – DESIGN EXCLUSIVO
+• Bandeja 15 × 15 cm + torre de 13 cm com campanário, telhado, sino e brasão de d20
+• Rampas internas que embaralham os dados; a saída cabe até d20 de 26 mm
+• Desmonta em 5 peças e cabe na mochila. Não precisa de cola
+• Fica ótima em PLA preto, ou em branco para pintar
+```
+
+**Anéis de condição:**
+```
+8 ANÉIS DE CONDIÇÃO PARA MINIATURAS (BASE 25 MM)
+• Encaixe na base da miniatura e marque a condição na hora
+• Texto em relevo em 2 cores: Atordoado, Caído, Cego, Envenenado, etc.
+• Serve para D&D, Tormenta20, Pathfinder e outros sistemas
+```
+
+**Caixa de dados:**
+```
+CAIXA PORTA-DADOS COM TAMPA EM 2 CORES
+• Cabe um jogo completo de 7 dados (interno 84 × 54 × 24 mm)
+• Escolha o emblema: Sangue, Morte, Conhecimento, Energia ou Medo
+• Tampa com encaixe por pressão
+```
+
+**Quadro em relevo:**
+```
+TRANSFORME UM DESENHO EM QUADRO 3D
+• Desenho de filho, pet, logo ou assinatura vira um quadro em relevo de 2 cores
+• Cerca de 17 × 13 cm, com moldura, furo para pendurar e suporte de mesa
+• Depois da compra, envie a foto do desenho pelas mensagens do Mercado Livre
+• Funciona melhor com desenho em linha escura sobre papel branco
+```
