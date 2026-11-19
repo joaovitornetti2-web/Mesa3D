@@ -332,7 +332,7 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
 <script>
 // ================= Configuração: troque pelos dados reais =================
 // Número com DDI e DDD, só dígitos. Ex.: "5511912345678"
-const WHATSAPP = "";
+const WHATSAPP = "5547996316880";
 // Arroba do Instagram, sem o @ (confira se está livre antes de publicar). Vazio esconde.
 const INSTAGRAM = "ateliedomestre3d";
 // Valores em reais, ou null para "sob consulta"
@@ -375,6 +375,7 @@ const PRODUTOS = [
         { id: "especialista", nome: "Especialista" }, { id: "criatura", nome: "Criatura de sangue" }] },
       { chave: "cor", nome: "Cor", itens: CORES_MINI }],
     img: s => `img/mini_${s.personagem}_${s.cor}.webp`,
+    pedido: s => `miniatura ${s.nomes.personagem} (cor ${s.nomes.cor})`,
     alt: s => `Miniatura ${s.nomes.personagem.toLowerCase()} em ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
   },
@@ -523,7 +524,8 @@ function atualizar(p, animar) {
   img.alt = p.alt(s);
   const detalhes = p.opcoes.map(g => `${g.nome.toLowerCase()} ${s.nomes[g.chave]}`).join(", ");
   const pedido = el.querySelector(".js-pedido");
-  pedido.href = linkWhats(`Oi! Quero encomendar: ${p.nome} (${detalhes}).`);
+  const item = p.pedido ? p.pedido(s) : `${p.nome} (${detalhes})`;
+  pedido.href = linkWhats(`Oi! Vim pelo site do Ateliê do Mestre e quero encomendar: ${item}${p.preco != null ? ` – ${reais(p.preco)}` : ""}.`);
   if (WHATSAPP) { pedido.target = "_blank"; pedido.rel = "noopener"; }
 }
 
