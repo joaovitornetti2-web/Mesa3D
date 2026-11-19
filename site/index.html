@@ -74,7 +74,7 @@ h1 em { font-style: normal; color: var(--amarelo); }
 .ficha-tecnica span { background: var(--ameixa-2); border: 1px solid var(--linha); color: var(--creme-2); font-size: 0.85rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
 
 /* ---------- seções ---------- */
-section { padding-block: 72px 8px; scroll-margin-top: 84px; }
+section { padding-block: 72px 8px; scroll-margin-top: 96px; }
 .cabeca { display: flex; justify-content: space-between; align-items: end; gap: 12px 32px; flex-wrap: wrap; margin-bottom: 28px; }
 .cabeca .sobre { color: var(--amarelo); font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
 h2 { font-family: var(--font-titulo); font-weight: 700; font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem); line-height: 1.05; margin: 4px 0 0; text-wrap: balance; }
@@ -490,6 +490,18 @@ const PRODUTOS = [
   }
   addEventListener("scroll", marcar, { passive: true });
   marcar();
+  // clique em qualquer link interno (#secao): rola até a seção, descontando a altura da barra
+  document.addEventListener("click", e => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute("href") === "#contato" && a.classList.contains("js-whats")) return;
+    const alvo = document.querySelector(a.getAttribute("href"));
+    if (!alvo) return;
+    e.preventDefault();
+    const parado = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const y = alvo.getBoundingClientRect().top + scrollY - barra.offsetHeight - 12;
+    scrollTo({ top: Math.max(0, y), behavior: parado ? "auto" : "smooth" });
+    if (a.closest("#menu")) { links.forEach(l => l.classList.toggle("ativo", l === a)); }
+  });
 })();
 
 // logo: d20 de camadas (linhas amarelas, triângulo creme)
