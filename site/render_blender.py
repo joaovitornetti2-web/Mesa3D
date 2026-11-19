@@ -79,13 +79,18 @@ centro = Vector((0, 0, (mx.z - mn.z) / 2))
 # chão infinito escuro (ciclorama) com leve brilho
 bpy.ops.mesh.primitive_plane_add(size=200, location=(0, 0, 0))
 chao = bpy.context.object
-mchao = material("chao", (0.006, 0.006, 0.006), 0.75)
+ESTUDIO = cfg.get("estudio", "escuro")   # escuro (luz vermelha) | creme (claro, luz neutra)
+COR_CHAO = (0.66, 0.56, 0.42) if ESTUDIO == "creme" else (0.006, 0.006, 0.006)
+mchao = material("chao", COR_CHAO, 0.85)
+if ESTUDIO == "creme":
+    cena.view_settings.exposure = -0.9
 chao.data.materials.append(mchao)
 
 mundo = bpy.data.worlds.new("mundo")
 cena.world = mundo
 mundo.use_nodes = True
-mundo.node_tree.nodes["Background"].inputs["Color"].default_value = (0.004, 0.004, 0.004, 1)
+mundo.node_tree.nodes["Background"].inputs["Color"].default_value = ((0.66, 0.56, 0.42, 1) if ESTUDIO == "creme" else (0.004, 0.004, 0.004, 1))
+mundo.node_tree.nodes["Background"].inputs["Strength"].default_value = 0.35 if ESTUDIO == "creme" else 1
 mundo.node_tree.nodes["Background"].inputs["Strength"].default_value = 1
 
 
@@ -106,8 +111,9 @@ def luz(nome, tipo, energia, cor, pos, tam=1.0):
 r = max(raio, 0.2)
 luz("principal", "AREA", 300 * r * r, (1.0, 0.95, 0.88), (-2.2 * r, -2.6 * r, 2.8 * r), 2.4 * r)
 luz("preenchimento", "AREA", 45 * r * r, (0.85, 0.9, 1.0), (2.8 * r, -1.6 * r, 1.2 * r), 3 * r)
-luz("contorno", "AREA", 140 * r * r, (1.0, 0.05, 0.03), (1.4 * r, 3.4 * r, 1.4 * r), 1.0 * r)
-luz("contorno2", "AREA", 60 * r * r, (1.0, 0.05, 0.03), (-3.0 * r, 2.6 * r, 1.2 * r), 0.8 * r)
+CONTORNO = (0.75, 0.62, 1.0) if ESTUDIO == "creme" else (1.0, 0.05, 0.03)
+luz("contorno", "AREA", (90 if ESTUDIO == "creme" else 140) * r * r, CONTORNO, (1.4 * r, 3.4 * r, 1.4 * r), 1.0 * r)
+luz("contorno2", "AREA", 60 * r * r, CONTORNO, (-3.0 * r, 2.6 * r, 1.2 * r), 0.8 * r)
 luz("topo", "AREA", 60 * r * r, (1.0, 1.0, 1.0), (0, 0, 4 * r), 2 * r)
 
 # câmera

@@ -115,7 +115,7 @@ def renderizar(nome):
     partes = [{"stl": s, "papel": k.split(":")[0], "suave": p.get("suave", False)} for k, s in p["stls"].items()]
     pngs = {os.path.join(CACHE, f"{nome}_{v}.png"): cores for v, cores in p["variantes"].items()}
     trab = os.path.join(CACHE, f"{nome}.json")
-    json.dump({"partes": partes, "variantes": pngs, "amostras": 72, **p["cam"]}, open(trab, "w"))
+    json.dump({"partes": partes, "variantes": pngs, "amostras": 72, "estudio": "creme", **p["cam"]}, open(trab, "w"))
     r = subprocess.run(["blender", "-b", "-noaudio", "-P", os.path.join(SITE, "render_blender.py"), "--", trab],
                        capture_output=True, text=True)
     if r.returncode:
