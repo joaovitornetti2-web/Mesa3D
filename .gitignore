@@ -30,3 +30,4 @@ models/presentes/*/saida/
 models/presentes/*/desenho_*
 site/.cache/
 models/kit/meshy_op/
+models/dados/emblemas/
