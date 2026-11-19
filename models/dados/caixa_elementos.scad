@@ -12,6 +12,7 @@ include <../../.claude/skills/mesa3d-print/lib/mesa3d.scad>
 
 ELEMENTO = "sangue";   // sangue | morte | conhecimento | energia | medo
 PARTE    = "caixa";
+NOME     = true;   // false: só o emblema, centralizado (versão da loja, sem nomes)
 
 // ---- medidas (mm) ----
 INT = [84, 54, 24];    // espaço interno: cabe um jogo de 7 dados de ~16-22 mm
@@ -74,8 +75,8 @@ function nome(e) = e == "conhecimento" ? "CONHECIMENTO" : e == "sangue" ? "SANGU
 
 // Arte completa da tampa (emblema + nome), em coordenadas da face de cima da tampa.
 module arte2d(e) {
-  translate([EXT[0] / 2, EXT[1] / 2 + 5]) scale(0.95) emblema2d(e);
-  translate([EXT[0] / 2, 6.5])
+  translate([EXT[0] / 2, EXT[1] / 2 + (NOME ? 5 : 0)]) scale(NOME ? 0.95 : 1.1) emblema2d(e);
+  if (NOME) translate([EXT[0] / 2, 6.5])
     text(nome(e), size = e == "conhecimento" ? 5 : 5.5, halign = "center", valign = "center",
          font = "Liberation Sans:style=Bold", spacing = 1.1);
 }
