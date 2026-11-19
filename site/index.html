@@ -361,7 +361,7 @@ const CORES_MINI = [
 const PRODUTOS = [
   {
     id: "torre", categoria: "torres", codigo: "T-01",
-    nome: "Torre do Ritual", selo: "Esculpida",
+    nome: "Torre do Ritual", selo: "Esculpida", unidade: "torre e bandeja",
     desc: "Torre de pedra rachada com sigilo entalhado, correntes, sangue escorrendo e caveiras na base. Por dentro, duas rampas embaralham os dados, que saem pela porta e param sobre o círculo de runas gravado na bandeja.",
     medidas: [["Torre", "100 × 79 × 180 mm"], ["Bandeja", "160 × 178 × 16 mm"], ["Dado máximo", "d20 de 26 mm"], ["Peças", "torre e bandeja com encaixe"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
@@ -371,11 +371,11 @@ const PRODUTOS = [
       { id: "branca", nome: "Branca", cor: [C.branco] }] }],
     img: s => `img/ritual_${s.cor}.webp`,
     alt: s => `Torre do Ritual na cor ${s.nomes.cor.toLowerCase()}`,
-    preco: null
+    preco: 289.90
   },
   {
     id: "agentes", categoria: "miniaturas", codigo: "M-01",
-    nome: "Agentes e criatura", selo: "4 miniaturas",
+    nome: "Agentes e criatura", selo: "4 miniaturas", unidade: "cada miniatura",
     desc: "A ocultista com grimório e velas sobre o círculo de ritual, o combatente com facão e espingarda, o especialista com lanterna e câmera, e uma criatura de sangue para o mestre.",
     medidas: [["Escala", "28 a 32 mm"], ["Base", "redonda, 25 mm (ocultista: 40 mm)"], ["Acabamento", "uma cor, sem pintura"]],
     opcoes: [
@@ -385,7 +385,7 @@ const PRODUTOS = [
       { chave: "cor", nome: "Cor", itens: CORES_MINI }],
     img: s => `img/mini_${s.personagem}_${s.cor}.webp`,
     alt: s => `Miniatura ${s.nomes.personagem.toLowerCase()} em ${s.nomes.cor.toLowerCase()}`,
-    preco: null
+    preco: 19.90
   },
   {
     id: "mini-agente", categoria: "brinquedinhos", codigo: "B-01",
@@ -395,7 +395,7 @@ const PRODUTOS = [
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_MINI }],
     img: s => `img/mini_chibi_agente_${s.cor}.webp`,
     alt: s => `Bonequinho de agente em ${s.nomes.cor.toLowerCase()}`,
-    preco: null
+    preco: 19.90
   },
   {
     id: "mini-criatura", categoria: "brinquedinhos", codigo: "B-02",
@@ -405,7 +405,7 @@ const PRODUTOS = [
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_MINI }],
     img: s => `img/mini_chibi_criatura_${s.cor}.webp`,
     alt: s => `Bonequinho de criatura em ${s.nomes.cor.toLowerCase()}`,
-    preco: null
+    preco: 19.90
   },
   {
     id: "bau", categoria: "acessorios", codigo: "A-00",
@@ -419,11 +419,11 @@ const PRODUTOS = [
       { id: "branco", nome: "Branco", cor: [C.branco] }] }],
     img: s => `img/bau_${s.cor}.webp`,
     alt: s => `Baú de ritual em ${s.nomes.cor.toLowerCase()}`,
-    preco: null
+    preco: 99.90
   },
   {
     id: "aneis", categoria: "acessorios", codigo: "A-01",
-    nome: "Anéis de condição", selo: "8 unidades",
+    nome: "Anéis de condição", selo: "8 unidades", unidade: "o jogo com 8",
     desc: "Anéis chanfrados com runas e sigilo em relevo, que encaixam em volta da base da miniatura para marcar a condição: Morrendo, Sangrando, Abalado, Apavorado, Caído, Cego, Atordoado e Enlouquecendo.",
     medidas: [["Base da miniatura", "25 mm"], ["Texto", "em relevo, 2 cores"], ["Quantidade", "8 anéis, 1 de cada"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
@@ -432,7 +432,7 @@ const PRODUTOS = [
       { id: "vermelho", nome: "Vermelho e branco", cor: [C.vermelho, C.branco] }] }],
     img: s => `img/aneis_${s.cor}.webp`,
     alt: s => `Anéis de condição em ${s.nomes.cor.toLowerCase()}`,
-    preco: null
+    preco: 29.90
   },
   {
     id: "caixa", categoria: "acessorios", codigo: "A-02",
@@ -450,7 +450,7 @@ const PRODUTOS = [
         { id: "vermelha-preta", nome: "Vermelha e preta", cor: [C.vermelho, C.preto] }] }],
     img: s => `img/caixa_${s.emblema}_${s.cor}.webp`,
     alt: s => `Caixa de dados ${s.nomes.cor.toLowerCase()} com o emblema de ${s.nomes.emblema.toLowerCase()}`,
-    preco: null
+    preco: 39.90
   },
   {
     id: "relicario", categoria: "acessorios", codigo: "A-03",
@@ -465,7 +465,7 @@ const PRODUTOS = [
         { id: "branco-preto", nome: "Branco e preto", cor: [C.branco, C.preto] }] }],
     img: s => `img/relicario_${s.selo}_${s.cor}.webp`,
     alt: s => `Relicário ${s.nomes.cor.toLowerCase()} com selo de ${s.nomes.selo.toLowerCase()}`,
-    preco: null
+    preco: 59.90
   }
 ];
 // ==========================================================================
@@ -474,9 +474,9 @@ const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;"
 const reais = v => "R$ " + v.toFixed(2).replace(".", ",");
 const linkWhats = msg => WHATSAPP ? "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg) : "#contato";
 const bolinha = cor => !cor ? "" : `<i style="background:${cor[1] ? `linear-gradient(135deg,${cor[0]} 50%,${cor[1]} 50%)` : cor[0]}"></i>`;
-const preco = p => p == null
+const preco = (p, unidade = "a peça") => p == null
   ? '<span class="preco">Sob consulta<small>valor e frete na conversa</small></span>'
-  : `<span class="preco">${reais(p)}<small>+ frete</small></span>`;
+  : `<span class="preco">${reais(p)}<small>${unidade} · + frete</small></span>`;
 
 function escolha(p) {
   const s = { nomes: {} };
@@ -504,7 +504,7 @@ function ficha(p) {
       </fieldset>`).join("")}
       <p class="dica">Também em branco para pintar ou em outra cor, com pequena taxa. <a href="#personalizados">Saiba mais</a></p>
       <div class="rodape-ficha">
-        ${preco(p.preco)}
+        ${preco(p.preco, p.unidade)}
         <a class="btn btn-sangue js-pedido" href="#contato">Encomendar</a>
       </div>
     </div>
