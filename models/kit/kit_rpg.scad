@@ -145,7 +145,7 @@ module anel_texto(i = ANEL) {
   w = [for (k = [0:n - 1]) larg_letra(s[k])];
   total = soma(w, n);
   grau = min(12.5 / 0.86, 205 / total);      // graus por unidade de largura
-  translate([0, 0, A_H - 0.01]) linear_extrude(0.6) {
+  translate([0, 0, A_H - 0.01]) linear_extrude(0.6) offset(delta = 0.01) {   // offset limpa o contorno 2D (evita malha aberta)
     for (k = [0:n - 1]) let(meio = soma(w, k) + w[k] / 2)
       rotate(90 + total * grau / 2 - meio * grau) translate([r, 0]) rotate(-90) text(s[k], size = 3.1, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
     if (TEMA == "paranormal") {   // runas em volta e sigilo embaixo
