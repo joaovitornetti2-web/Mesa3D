@@ -64,13 +64,11 @@ PRODUTOS["aneis"] = dict(
 
 CORES_CAIXA = {"preta-vermelha": dict(c1=PRETO, c2=VERMELHO), "preta-branca": dict(c1=PRETO, c2=BRANCO),
                "branca-preta": dict(c1=BRANCO, c2=PRETO), "vermelha-preta": dict(c1=VERMELHO, c2=PRETO)}
-for e in ["sangue", "morte", "conhecimento", "energia", "medo"]:
-    PRODUTOS[f"caixa_{e}"] = dict(
-        grupos={
-            "c1": caixa(e, f"caixa(); {TAMPA_CX} difference() {{ tampa_corpo(); translate([0, 0, -0.01]) linear_extrude(INLAY + 0.01) arte_impressao(ELEMENTO); }}"),
-            "c2": caixa(e, f"{TAMPA_CX} translate([0, 0, -0.02]) linear_extrude(INLAY + 0.02) arte_impressao(ELEMENTO);"),
-        },
-        variantes=CORES_CAIXA, cam=dict(elevacao=38, azimute=-28, tamanho=[1200, 960], folga=1.12))
+for e in ["sangue", "morte", "conhecimento", "energia", "medo"]:   # caixa rúnica esculpida (models/dados/caixa_meshy.py)
+    R = os.path.join(M, "dados", "runica")
+    PRODUTOS[f"caixa_{e}"] = dict(stl={"c1": os.path.join(R, f"base_{e}_cor1.stl"), "c1:tampa": os.path.join(R, "caixa_tampa.stl"),
+                                       "c2": os.path.join(R, f"base_{e}_cor2.stl")}, suave=True,
+                                  variantes=CORES_CAIXA, cam=dict(elevacao=20, azimute=-24, tamanho=[1200, 1000], folga=1.02))
 
 CORES_RELIC = {"preto-vermelho": dict(c1=PRETO, c2=VERMELHO), "preto-branco": dict(c1=PRETO, c2=BRANCO), "branco-preto": dict(c1=BRANCO, c2=PRETO)}
 for e in ["sangue", "morte", "medo"]:

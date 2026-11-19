@@ -4,6 +4,8 @@ Cada link abre uma conversa com +55 47 99631-6880 já com a mensagem escrita. O 
 
 ## Gerais
 
+- **WhatsApp** — Oi! Vi o site do Ateliê do Mestre e quero fazer uma encomenda.
+  https://wa.me/5547996316880?text=Oi!%20Vi%20o%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20fazer%20uma%20encomenda.
 - **Enviar o meu .STL** — Oi! Tenho um arquivo .STL para imprimir no Ateliê do Mestre. Vou mandar o arquivo aqui.
   https://wa.me/5547996316880?text=Oi!%20Tenho%20um%20arquivo%20.STL%20para%20imprimir%20no%20Ateli%C3%AA%20do%20Mestre.%20Vou%20mandar%20o%20arquivo%20aqui.
 - **Pedir orçamento** — Oi! Quero orçar uma peça personalizada no Ateliê do Mestre. A ideia é:
@@ -92,45 +94,45 @@ Cada link abre uma conversa com +55 47 99631-6880 já com a mensagem escrita. O 
 ## Caixa de dados elemental
 
 - Sangue · Preta e vermelha
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Sangue%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Sangue%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%20109%2C90.
 - Sangue · Preta e branca
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Sangue%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Sangue%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%20109%2C90.
 - Sangue · Branca e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Sangue%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Sangue%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Sangue · Vermelha e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Sangue%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Sangue%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Morte · Preta e vermelha
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Morte%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Morte%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%20109%2C90.
 - Morte · Preta e branca
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Morte%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Morte%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%20109%2C90.
 - Morte · Branca e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Morte%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Morte%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Morte · Vermelha e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Morte%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Morte%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Conhecimento · Preta e vermelha
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Conhecimento%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Conhecimento%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%20109%2C90.
 - Conhecimento · Preta e branca
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Conhecimento%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Conhecimento%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%20109%2C90.
 - Conhecimento · Branca e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Conhecimento%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Conhecimento%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Conhecimento · Vermelha e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Conhecimento%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Conhecimento%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Energia · Preta e vermelha
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Energia%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Energia%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%20109%2C90.
 - Energia · Preta e branca
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Energia%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Energia%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%20109%2C90.
 - Energia · Branca e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Energia%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Energia%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Energia · Vermelha e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Energia%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Energia%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Medo · Preta e vermelha
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Medo%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Medo%2C%20cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%20109%2C90.
 - Medo · Preta e branca
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Medo%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Medo%2C%20cor%20Preta%20e%20branca)%20%E2%80%93%20R%24%20109%2C90.
 - Medo · Branca e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Medo%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Medo%2C%20cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 - Medo · Vermelha e preta
-  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Medo%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%2039%2C90.
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Caixa%20de%20dados%20elemental%20(elemento%20Medo%2C%20cor%20Vermelha%20e%20preta)%20%E2%80%93%20R%24%20109%2C90.
 
 ## Cofre de Runas
 

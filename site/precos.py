@@ -52,7 +52,7 @@ PRODUTOS = {
     "torre": ([os.path.join(M, "torre", "ritual", "torre_ritual.stl"), os.path.join(M, "torre", "ritual", "bandeja.stl")], 1, 14.0, 1),
     "bau": ([os.path.join(M, "kit", "bau", "bau_base.stl"), os.path.join(M, "kit", "bau", "bau_tampa.stl")], 1, 9.0, 1),
     "aneis": ([c("aneis_c1.stl"), c("aneis_c2.stl")], 2, 3.0, 2),          # malha tem 4 anéis; o conjunto tem 8
-    "caixa": ([c("caixa_sangue_c1.stl"), c("caixa_sangue_c2.stl")], 2, 3.5, 1),
+    "caixa": ([os.path.join(M, "dados", "runica", "base_sangue_cor1.stl"), os.path.join(M, "dados", "runica", "caixa_tampa.stl")], 2, 8.0, 1),
     "relicario": ([c("relicario_sangue_c1.stl"), c("relicario_sangue_c2.stl")], 2, 6.0, 1),
     "agentes": ([os.path.join(M, "kit", "meshy_op", "combatente_pronto.stl")], 1, 1.5, 1),
     "mini-agente": ([os.path.join(M, "kit", "meshy_op", "chibi_agente_pronto.stl")], 1, 3.0, 1),

@@ -441,9 +441,9 @@ const PRODUTOS = [
   },
   {
     id: "caixa", categoria: "acessorios",
-    nome: "Caixa de dados elemental", selo: "5 elementos",
-    desc: "Guarda um jogo de 7 dados. A tampa tem o emblema do elemento num anel de runas, com moldura na segunda cor, e a base tem painéis de runas e cantoneiras com rebites.",
-    medidas: [["Externo", "88 × 58 × 29 mm"], ["Interno", "84 × 54 × 24 mm"], ["Cabe", "1 jogo de 7 dados"]],
+    nome: "Caixa de dados elemental", selo: "Esculpida",
+    desc: "Caixa esculpida em pedra rúnica, com caveiras, cantoneiras e um medalhão de runas na frente, onde vai o emblema do elemento na segunda cor. A tampa encaixa numa borda da base.",
+    medidas: [["Fechada", "104 × 88 × 92 mm"], ["Espaço interno", "70 × 56 × 34 mm"], ["Cabe", "1 a 2 jogos de 7 dados"]],
     opcoes: [
       { chave: "emblema", nome: "Elemento", itens: [
         { id: "sangue", nome: "Sangue" }, { id: "morte", nome: "Morte" }, { id: "conhecimento", nome: "Conhecimento" },
@@ -455,7 +455,7 @@ const PRODUTOS = [
         { id: "vermelha-preta", nome: "Vermelha e preta", cor: [C.vermelho, C.preto] }] }],
     img: s => `img/caixa_${s.emblema}_${s.cor}.webp`,
     alt: s => `Caixa de dados ${s.nomes.cor.toLowerCase()} com o emblema de ${s.nomes.emblema.toLowerCase()}`,
-    preco: 39.90
+    preco: 109.90
   },
   {
     id: "cofre", categoria: "acessorios",
