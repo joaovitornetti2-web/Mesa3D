@@ -60,7 +60,7 @@ PRODUTOS["aneis"] = dict(
         "c2": kit(" ".join(f"translate([{(k % 2) * 34}, {-(k // 2) * 34}, 0]) anel_texto({i});" for k, i in enumerate(ANEIS))),
     },
     variantes={"preto": dict(c1=PRETO, c2=BRANCO), "branco": dict(c1=BRANCO, c2=PRETO), "vermelho": dict(c1=VERMELHO, c2=BRANCO)},
-    cam=dict(elevacao=52, azimute=-20, tamanho=[1200, 960], folga=1.0))
+    cam=dict(elevacao=52, azimute=-20, tamanho=[1200, 960], folga=1.08))
 
 CORES_CAIXA = {"preta-vermelha": dict(c1=PRETO, c2=VERMELHO), "preta-branca": dict(c1=PRETO, c2=BRANCO),
                "branca-preta": dict(c1=BRANCO, c2=PRETO), "vermelha-preta": dict(c1=VERMELHO, c2=PRETO)}
@@ -70,7 +70,7 @@ for e in ["sangue", "morte", "conhecimento", "energia", "medo"]:
             "c1": caixa(e, f"caixa(); {TAMPA_CX} difference() {{ tampa_corpo(); translate([0, 0, -0.01]) linear_extrude(INLAY + 0.01) arte_impressao(ELEMENTO); }}"),
             "c2": caixa(e, f"{TAMPA_CX} translate([0, 0, -0.02]) linear_extrude(INLAY + 0.02) arte_impressao(ELEMENTO);"),
         },
-        variantes=CORES_CAIXA, cam=dict(elevacao=38, azimute=-28, tamanho=[1200, 960], folga=1.0))
+        variantes=CORES_CAIXA, cam=dict(elevacao=38, azimute=-28, tamanho=[1200, 960], folga=1.12))
 
 CORES_RELIC = {"preto-vermelho": dict(c1=PRETO, c2=VERMELHO), "preto-branco": dict(c1=PRETO, c2=BRANCO), "branco-preto": dict(c1=BRANCO, c2=PRETO)}
 for e in ["sangue", "morte", "medo"]:
@@ -79,7 +79,7 @@ for e in ["sangue", "morte", "medo"]:
             "c1": relic(e, "corpo(); translate([0, 0, H + 0.2]) { tampa_uso(); translate([0, 0, ZT - ASSENTO]) corte(false) medalhao(); }"),
             "c2": relic(e, "translate([0, 0, H + 0.2]) translate([0, 0, ZT - ASSENTO]) corte(true) medalhao();"),
         },
-        variantes=CORES_RELIC, cam=dict(elevacao=32, azimute=-24, tamanho=[1200, 1000], folga=1.0))
+        variantes=CORES_RELIC, cam=dict(elevacao=32, azimute=-24, tamanho=[1200, 1000], folga=1.1))
 
 # miniaturas e brinquedinhos do Meshy (STL já preparado em models/kit/meshy_op/<nome>_pronto.stl)
 CORES_MINI = {"cinza": dict(c1=CINZA), "branco": dict(c1=BRANCO), "preto": dict(c1=PRETO)}

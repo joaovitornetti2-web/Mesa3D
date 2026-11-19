@@ -33,7 +33,7 @@ cena.view_settings.view_transform = "AgX" if "AgX" in vt else "Filmic"
 cena.view_settings.look = "None"
 
 
-def material(nome, cor, rough=0.46):
+def material(nome, cor, rough=0.62):
     m = bpy.data.materials.new(nome)
     m.use_nodes = True
     b = m.node_tree.nodes["Principled BSDF"]
@@ -41,7 +41,7 @@ def material(nome, cor, rough=0.46):
     b.inputs["Roughness"].default_value = rough
     for k in ("Specular IOR Level", "Specular"):
         if k in b.inputs:
-            b.inputs[k].default_value = 0.35
+            b.inputs[k].default_value = 0.25
     return m
 
 
@@ -104,10 +104,10 @@ def luz(nome, tipo, energia, cor, pos, tam=1.0):
 
 
 r = max(raio, 0.2)
-luz("principal", "AREA", 260 * r * r, (1.0, 0.95, 0.88), (-2.2 * r, -2.6 * r, 2.8 * r), 2.4 * r)
+luz("principal", "AREA", 300 * r * r, (1.0, 0.95, 0.88), (-2.2 * r, -2.6 * r, 2.8 * r), 2.4 * r)
 luz("preenchimento", "AREA", 45 * r * r, (0.85, 0.9, 1.0), (2.8 * r, -1.6 * r, 1.2 * r), 3 * r)
-luz("contorno", "AREA", 300 * r * r, (1.0, 0.05, 0.03), (1.0 * r, 3.0 * r, 3.2 * r), 1.2 * r)
-luz("contorno2", "AREA", 120 * r * r, (1.0, 0.05, 0.03), (-2.6 * r, 2.2 * r, 2.4 * r), 1.0 * r)
+luz("contorno", "AREA", 140 * r * r, (1.0, 0.05, 0.03), (1.4 * r, 3.4 * r, 1.4 * r), 1.0 * r)
+luz("contorno2", "AREA", 60 * r * r, (1.0, 0.05, 0.03), (-3.0 * r, 2.6 * r, 1.2 * r), 0.8 * r)
 luz("topo", "AREA", 60 * r * r, (1.0, 1.0, 1.0), (0, 0, 4 * r), 2 * r)
 
 # câmera
