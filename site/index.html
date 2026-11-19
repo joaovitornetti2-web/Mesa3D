@@ -67,6 +67,11 @@ h1 em { font-style: normal; color: var(--amarelo); }
 .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--sombra-brinquedo); }
 .btn-creme { background: var(--creme); color: var(--ameixa); }
 .btn-contorno { background: transparent; color: var(--creme); box-shadow: inset 0 0 0 2px var(--linha), 0 4px 0 var(--sombra-brinquedo); }
+.mosaico { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; aspect-ratio: 1 / 1; max-width: 100%; }
+.mosaico a { position: relative; display: block; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 0 var(--sombra-brinquedo); background: #d6c7b2; min-height: 0; }
+.mosaico img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.25s ease; }
+.mosaico a:hover img { transform: scale(1.04); }
+.mosaico span { position: absolute; left: 10px; bottom: 10px; background: var(--ameixa); color: var(--creme); font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; }
 .hero-img { margin: 0; position: relative; }
 .hero-img img { width: 100%; aspect-ratio: 5 / 6; object-fit: cover; border-radius: 22px; box-shadow: 0 8px 0 var(--sombra-brinquedo); }
 .hero-img figcaption { position: absolute; left: 14px; bottom: 14px; background: var(--ameixa); color: var(--creme); font-weight: 700; font-size: 0.85rem; padding: 6px 12px; border-radius: 999px; }
@@ -148,13 +153,13 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
   .menu { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; border-radius: 14px; }
   .menu::-webkit-scrollbar { display: none; }
   .hero { grid-template-columns: 1fr; }
-  .hero-img img { aspect-ratio: 4 / 3; }
+  .mosaico { aspect-ratio: 1 / 1; }
   .catalogo, .catalogo.largo .ficha, .planos { grid-template-columns: 1fr; }
   .catalogo.largo .foto { min-height: 0; aspect-ratio: 4 / 5; }
   .passos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 480px) { .passos { grid-template-columns: 1fr; } }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .foto img, .btn { transition: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .foto img, .btn, .mosaico img { transition: none; } }
 </style>
 </head>
 <body>
@@ -191,10 +196,12 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
           <a class="btn btn-contorno" href="#personalizados">Imprimir o meu .STL</a>
         </div>
       </div>
-      <figure class="hero-img">
-        <img src="img/ritual_preta-vermelha.webp" alt="Torre Rúnica esculpida, preta, sobre a bandeja vermelha" width="833" height="1000">
-        <figcaption>Torre Rúnica · 18 cm</figcaption>
-      </figure>
+      <div class="mosaico" aria-label="Algumas peças do ateliê">
+        <a href="#acessorios" class="m-a"><img src="img/caixa_sangue_preta-vermelha.webp" alt="Caixa de dados elemental com emblema vermelho"><span>Caixa elemental</span></a>
+        <a href="#brinquedinhos" class="m-b"><img src="img/mini_chibi_criatura_branco.webp" alt="Criaturinha branca"><span>Criaturinha</span></a>
+        <a href="#miniaturas" class="m-c"><img src="img/mini_ocultista_cinza.webp" alt="Miniatura da ocultista"><span>Ocultista</span></a>
+        <a href="#acessorios" class="m-d"><img src="img/bau_preto-vermelho.webp" alt="Baú do Mestre preto com tampa vermelha"><span>Baú do Mestre</span></a>
+      </div>
     </div>
 
     <div class="ficha-tecnica" aria-label="Como imprimimos">
@@ -486,9 +493,11 @@ const PRODUTOS = [
     for (const s of secoes) if (s.getBoundingClientRect().top < 140) atual = s;
     links.forEach(a => a.classList.toggle("ativo", atual && a.getAttribute("href") === "#" + atual.id));
     const ativo = links.find(a => a.classList.contains("ativo"));
-    if (ativo && innerWidth <= 900) ativo.scrollIntoView({ block: "nearest", inline: "center" });
+    const menu = document.getElementById("menu");
+    if (ativo && menu.scrollWidth > menu.clientWidth) menu.scrollLeft = ativo.offsetLeft - (menu.clientWidth - ativo.offsetWidth) / 2;
   }
-  addEventListener("scroll", marcar, { passive: true });
+  let pedido = 0;
+  addEventListener("scroll", () => { if (!pedido) pedido = requestAnimationFrame(() => { pedido = 0; marcar(); }); }, { passive: true });
   marcar();
   // clique em qualquer link interno (#secao): rola até a seção, descontando a altura da barra
   document.addEventListener("click", e => {
