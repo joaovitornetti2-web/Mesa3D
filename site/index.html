@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mesa3D</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Torres de dados, caixas, anéis de condição e peças sob encomenda impressas em 3D para mesas de RPG.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: mesa de jogo — faixa de feltro com grade de 25,4 mm no topo, catálogo em cartões sobre fundo claro, rodapé de pedido. */
+:root {
+  --bg: #f2f4f1;
+  --surface: #ffffff;
+  --ink: #16201c;
+  --muted: #56645d;
+  --line: #d4dbd5;
+  --felt: #1d4a3c;
+  --felt-ink: #eef3ef;
+  --felt-grid: rgba(238, 243, 239, 0.09);
+  --brass: #a8761c;
+  --brass-soft: #f4e6c8;
+  --plate: #f7f8f7;
+  --cta: #1d4a3c;
+  --cta-ink: #ffffff;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: 1.6rem;
+  --step-3: clamp(2rem, 1.3rem + 3.2vw, 3.4rem);
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1613; --surface: #16201c; --ink: #e6ece8; --muted: #9aa8a1; --line: #2a3832;
+    --felt: #153a2f; --felt-ink: #e6ece8; --felt-grid: rgba(230, 236, 232, 0.08);
+    --brass: #dcaa4c; --brass-soft: #3a2f18; --plate: #e4e8e5; --cta: #79c2a5; --cta-ink: #0f1613;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1613; --surface: #16201c; --ink: #e6ece8; --muted: #9aa8a1; --line: #2a3832;
+  --felt: #153a2f; --felt-ink: #e6ece8; --felt-grid: rgba(230, 236, 232, 0.08);
+  --brass: #dcaa4c; --brass-soft: #3a2f18; --plate: #e4e8e5; --cta: #79c2a5; --cta-ink: #0f1613;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--brass); outline-offset: 2px; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* ---------- topo: feltro com grade de 1 polegada ---------- */
+.felt {
+  background-color: var(--felt);
+  background-image:
+    linear-gradient(var(--felt-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--felt-grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  color: var(--felt-ink);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; flex-wrap: wrap; }
+.logo { font-family: var(--font-display); font-weight: 800; font-size: 1.35rem; letter-spacing: -0.01em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.logo svg { width: 28px; height: 28px; }
+.nav-links { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.95rem; }
+.nav-links a { text-decoration: none; opacity: 0.85; }
+.nav-links a:hover { opacity: 1; text-decoration: underline; }
+
+.hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; padding-block: 28px 56px; }
+.hero > * { min-width: 0; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brass); }
+.felt .eyebrow { color: #e7c27a; }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: var(--step-3); line-height: 1.04; letter-spacing: -0.02em; margin: 12px 0 16px; text-wrap: balance; }
+.lede { font-size: var(--step-1); max-width: 34em; opacity: 0.9; margin: 0 0 24px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px;
+  font-weight: 600; text-decoration: none; border: 0; cursor: pointer; font: inherit; font-weight: 600;
+}
+.btn-light { background: var(--felt-ink); color: var(--felt); }
+.btn-ghost { background: transparent; color: var(--felt-ink); box-shadow: inset 0 0 0 1.5px rgba(238, 243, 239, 0.45); }
+.btn-cta { background: var(--cta); color: var(--cta-ink); }
+.btn:hover { filter: brightness(1.06); }
+.hero-figure { background: var(--plate); border-radius: 14px; padding: 12px; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, 0.55); }
+.hero-figure img { margin: 0 auto; max-height: 420px; width: auto; }
+.hero-figure figcaption { font-family: var(--font-mono); font-size: 0.72rem; color: #56645d; text-align: center; padding-top: 6px; }
+
+.specs { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 0.8rem; padding-block: 14px; border-top: 1px solid rgba(238, 243, 239, 0.18); opacity: 0.9; }
+
+/* ---------- seções ---------- */
+section { padding-block: 64px 8px; }
+.section-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--step-2); letter-spacing: -0.01em; margin: 6px 0 0; text-wrap: balance; }
+.section-note { color: var(--muted); max-width: 36em; margin: 0; font-size: 0.95rem; }
+
+/* ---------- catálogo ---------- */
+.catalog { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  display: grid; grid-template-rows: auto 1fr; overflow: hidden;
+}
+.card-img { background: var(--plate); aspect-ratio: 16 / 10; padding: 12px; max-width: 100%; overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: contain; }
+.card-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.card h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; margin: 0; line-height: 1.2; }
+.card p { margin: 0; color: var(--muted); }
+.tag { align-self: flex-start; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; background: var(--brass-soft); color: var(--brass); }
+dl.dims { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; margin: 0; font-size: 0.88rem; }
+dl.dims dt { color: var(--muted); }
+dl.dims dd { margin: 0; font-family: var(--font-mono); font-size: 0.82rem; font-variant-numeric: tabular-nums; }
+.colors { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border: 0; padding: 0; margin: 0; }
+.colors legend { font-size: 0.82rem; color: var(--muted); padding: 0; margin-bottom: 6px; width: 100%; }
+.swatch { position: relative; }
+.swatch input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.swatch span {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 5px; border-radius: 999px;
+  border: 1px solid var(--line); font-size: 0.82rem; cursor: pointer;
+}
+.swatch i { width: 16px; height: 16px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25); display: inline-block; }
+.swatch input:checked + span { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.swatch input:focus-visible + span { outline: 3px solid var(--brass); outline-offset: 2px; }
+.card-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 6px; }
+.price { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; }
+.price small { font-family: var(--font-body); font-weight: 500; font-size: 0.8rem; color: var(--muted); display: block; }
+
+/* ---------- personalizado ---------- */
+.custom { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.custom article { border-top: 2px solid var(--ink); padding-top: 14px; min-width: 0; }
+.custom h3 { font-family: var(--font-display); font-size: 1.15rem; margin: 0 0 6px; }
+.custom p { margin: 0; color: var(--muted); }
+
+/* ---------- como encomendar ---------- */
+.steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; counter-reset: passo; }
+.steps li { counter-increment: passo; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; min-width: 0; }
+.steps li::before { content: "Passo " counter(passo); display: block; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass); margin-bottom: 6px; }
+.steps strong { display: block; font-family: var(--font-display); font-size: 1.05rem; margin-bottom: 4px; }
+.steps span { color: var(--muted); font-size: 0.93rem; }
+
+.faq { display: grid; gap: 10px; max-width: 760px; }
+.faq details { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; }
+.faq summary { cursor: pointer; font-weight: 600; }
+.faq p { margin: 10px 0 0; color: var(--muted); }
+
+footer { margin-top: 72px; }
+.foot { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: center; padding-block: 36px; }
+.foot h2 { color: var(--felt-ink); margin: 0 0 6px; }
+.foot p { margin: 0; opacity: 0.85; }
+.contact { font-family: var(--font-mono); font-size: 0.9rem; user-select: all; }
+.fine { font-size: 0.8rem; opacity: 0.7; padding-block: 0 24px; }
+
+@media (max-width: 860px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-figure img { max-height: 320px; }
+  .catalog { grid-template-columns: 1fr; }
+  .custom { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .steps { grid-template-columns: 1fr; }
+  .nav-links { gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition: none !important; } }
+html { scroll-behavior: smooth; }
+</style>
+</head>
+<body>
+
+<header class="felt">
+  <div class="wrap">
+    <nav class="nav" aria-label="Principal">
+      <a class="logo" href="#topo" id="topo">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 29 9.5v13L16 30 3 22.5v-13Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 8 23 20H9Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        Mesa3D
+      </a>
+      <div class="nav-links">
+        <a href="#catalogo">Catálogo</a>
+        <a href="#sob-medida">Sob medida</a>
+        <a href="#como-encomendar">Como encomendar</a>
+        <a href="#duvidas">Dúvidas</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Impressão 3D para mesa de RPG</div>
+        <h1>Acessórios para a sua mesa, impressos sob encomenda</h1>
+        <p class="lede">Torre de dados, caixas, anéis de condição e peças personalizadas. Desenho próprio, impressão em PLA e até 4 cores na mesma peça.</p>
+        <div class="hero-actions">
+          <a class="btn btn-light" href="#catalogo">Ver o catálogo</a>
+          <a class="btn btn-ghost js-whats" data-msg="Olá! Vi o site da Mesa3D e quero fazer uma encomenda." href="#contato">Falar no WhatsApp</a>
+        </div>
+      </div>
+      <figure class="hero-figure" style="margin:0">
+        <img src="img/torre_dados.png" alt="Torre de dados desmontável preta com campanário, sino branco e brasão vermelho com um d20, sobre bandeja com encaixes para anéis de condição" width="880" height="1083">
+        <figcaption>Torre de dados desmontável · 15 × 15 × 22 cm</figcaption>
+      </figure>
+    </div>
+
+    <div class="specs" aria-label="Especificações de impressão">
+      <span>PLA · bico 0,4 mm</span>
+      <span>camada 0,2 mm</span>
+      <span>grade de 25,4 mm (1")</span>
+      <span>até 4 cores (AMS lite)</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="catalogo" aria-labelledby="t-catalogo">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Catálogo</div>
+        <h2 id="t-catalogo">Peças prontas para encomendar</h2>
+      </div>
+      <p class="section-note">As imagens são renders 3D dos modelos. Escolha a cor e o botão já monta a mensagem do pedido.</p>
+    </div>
+
+    <div class="catalog" id="lista"></div>
+  </section>
+
+  <section id="sob-medida" aria-labelledby="t-sob">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Sob medida</div>
+        <h2 id="t-sob">Peças feitas a partir da sua ideia</h2>
+      </div>
+      <p class="section-note">Mande a referência e eu devolvo uma prévia 3D para você aprovar antes de imprimir.</p>
+    </div>
+    <div class="custom">
+      <article>
+        <h3>Quadro em relevo de 2 cores</h3>
+        <p>Um desenho em linha vira um mini quadro com o traço em relevo. Funciona bem para presente, brasão de grupo ou o símbolo da sua campanha.</p>
+      </article>
+      <article>
+        <h3>Nome e emblema na peça</h3>
+        <p>Nome do personagem na base, emblema próprio na tampa da caixa ou no brasão da torre. Use um símbolo seu ou criado por você.</p>
+      </article>
+      <article>
+        <h3>Medidas para o seu jogo</h3>
+        <p>Caixa para outro tamanho de dados, anéis com as condições do seu sistema, bandeja maior. O modelo é paramétrico e muda de tamanho sem refazer o desenho.</p>
+      </article>
+    </div>
+    <p style="margin-top:24px"><a class="btn btn-cta js-whats" data-msg="Olá! Quero orçar uma peça personalizada na Mesa3D. A ideia é:" href="#contato">Pedir orçamento personalizado</a></p>
+  </section>
+
+  <section id="como-encomendar" aria-labelledby="t-como">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Como encomendar</div>
+        <h2 id="t-como">Do pedido à sua mesa</h2>
+      </div>
+    </div>
+    <ol class="steps">
+      <li><strong>Escolha a peça e a cor</strong><span>No catálogo, ou descreva a ideia para uma peça sob medida.</span></li>
+      <li><strong>Combine pelo WhatsApp</strong><span>Valor, prazo e frete são confirmados na conversa. Pagamento por Pix.</span></li>
+      <li><strong>Impressão</strong><span>Cada peça é impressa depois do pedido. Você recebe uma foto antes do envio.</span></li>
+      <li><strong>Envio ou retirada</strong><span>Envio pelos Correios para todo o Brasil, ou retirada combinada.</span></li>
+    </ol>
+  </section>
+
+  <section id="duvidas" aria-labelledby="t-duvidas">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Dúvidas</div>
+        <h2 id="t-duvidas">Perguntas frequentes</h2>
+      </div>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Qual material é usado?</summary>
+        <p>PLA, um plástico rígido e leve, bom para peças de mesa. Não deixe as peças dentro do carro no sol ou perto de fonte de calor, porque o PLA amolece acima de uns 55 °C.</p>
+      </details>
+      <details>
+        <summary>A peça vem pintada?</summary>
+        <p>As cores vêm do próprio filamento: cada parte é impressa na sua cor, sem tinta. Se quiser um acabamento envelhecido com pincel seco, peça na conversa.</p>
+      </details>
+      <details>
+        <summary>A peça fica igual à imagem?</summary>
+        <p>A forma e as medidas são as do modelo. Peças impressas em camadas mostram linhas finas na superfície, o que é normal na impressão 3D.</p>
+      </details>
+      <details>
+        <summary>Vocês imprimem personagens de jogos, filmes ou séries?</summary>
+        <p>Não vendemos peças com personagens, logos ou símbolos de outras marcas. Fazemos desenhos próprios e peças a partir de desenhos que são seus.</p>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer class="felt" id="contato">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h2>Vamos montar a sua mesa?</h2>
+        <p>Encomendas e orçamentos pelo WhatsApp.</p>
+        <p class="contact" id="contato-num"></p>
+      </div>
+      <a class="btn btn-light js-whats" data-msg="Olá! Vi o site da Mesa3D e quero fazer uma encomenda." href="#contato">Abrir conversa no WhatsApp</a>
+    </div>
+    <p class="fine">Mesa3D · peças de desenho próprio impressas em 3D.</p>
+  </div>
+</footer>
+
+<script>
+// ===== Configuração: troque pelos dados reais =====
+// Número com DDI e DDD, só dígitos. Ex.: "5511912345678"
+const WHATSAPP = "";
+
+// Preço: número em reais ou null para "sob consulta"
+const PRODUTOS = [
+  {
+    id: "torre",
+    nome: "Torre de dados desmontável",
+    tag: "Mais completa",
+    img: "img/torre_dados.png",
+    alt: "Torre de dados com campanário, sino e brasão de d20 sobre a bandeja",
+    desc: "Torre de castelo com rampas internas, campanário com sino e brasão de d20. Desmonta em bandeja, torre e telhado para guardar.",
+    dims: [["Bandeja", "150 × 150 × 18 mm"], ["Torre", "70 × 70 × 130 mm"], ["Dado máximo", "d20 de 26 mm"], ["Peças", "bandeja, torre, telhado, sino, brasão"]],
+    cores: [["Preta e vermelha", "#1b1b1b", "#c0171d"], ["Cinza pedra", "#8a8d8f"], ["Branca e preta", "#f2f2f2", "#1b1b1b"]],
+    preco: null
+  },
+  {
+    id: "aneis",
+    nome: "Anéis de condição (8 un.)",
+    tag: "Para miniaturas",
+    img: "img/aneis_condicao.png",
+    alt: "Quatro anéis pretos com as palavras Caído, Atordoado, Cego e Envenenado em relevo branco",
+    desc: "Anéis que encaixam em volta da base da miniatura para marcar a condição na hora: Caído, Atordoado, Cego, Envenenado, Agarrado, Amedrontado, Invisível e Paralisado.",
+    dims: [["Base da miniatura", "25 mm"], ["Texto", "em relevo, 2 cores"], ["Quantidade", "8 anéis, 1 de cada condição"]],
+    cores: [["Preto com texto branco", "#1b1b1b", "#f2f2f2"], ["Branco com texto preto", "#f2f2f2", "#1b1b1b"], ["Vermelho com texto preto", "#c0171d", "#1b1b1b"]],
+    preco: null
+  },
+  {
+    id: "caixa",
+    nome: "Caixa de dados com emblema",
+    tag: "5 emblemas",
+    img: "img/caixas_dados.png",
+    alt: "Cinco caixas de dados com tampa e emblemas de gota, ampulheta, olho, raio e estrela",
+    desc: "Guarda um jogo de 7 dados. Tampa de encaixe com emblema em segunda cor: gota, ampulheta, olho, raio ou estrela.",
+    dims: [["Externo", "88 × 58 × 29 mm"], ["Interno", "84 × 54 × 24 mm"], ["Cabe", "1 jogo de 7 dados"]],
+    cores: [["Preta e vermelha", "#1b1b1b", "#c0171d"], ["Preta e branca", "#1b1b1b", "#f2f2f2"], ["Branca e preta", "#f2f2f2", "#1b1b1b"], ["Vermelha e preta", "#c0171d", "#1b1b1b"]],
+    preco: null
+  },
+  {
+    id: "relicario",
+    nome: "Relicário de dados",
+    tag: "Decorativo",
+    img: "img/relicarios.png",
+    alt: "Três caixas octogonais com selos de runas na tampa e painéis em relevo nas laterais",
+    desc: "Caixa octogonal com selo de runas na tampa e oito painéis em relevo. Para guardar os dados e deixar exposta na estante.",
+    dims: [["Fechado", "83 × 83 × 46 mm"], ["Cavidade", "70 mm, 26 mm de altura"], ["Tampa", "selo em 2 cores"]],
+    cores: [["Preto e vermelho", "#1b1b1b", "#c0171d"], ["Preto e branco", "#1b1b1b", "#f2f2f2"], ["Branco e preto", "#f2f2f2", "#1b1b1b"]],
+    preco: null
+  }
+];
+// ==================================================
+
+function linkWhats(msg) {
+  return WHATSAPP ? "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg) : "#contato";
+}
+function preco(p) {
+  if (p == null) return '<span class="price">Sob consulta<small>valor e frete na conversa</small></span>';
+  return '<span class="price">R$ ' + p.toFixed(2).replace(".", ",") + '<small>+ frete</small></span>';
+}
+function bolinha(c) {
+  const bg = c[2] ? "linear-gradient(135deg," + c[1] + " 50%," + c[2] + " 50%)" : c[1];
+  return '<i style="background:' + bg + '"></i>';
+}
+function esc(s) { return String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch])); }
+
+const lista = document.getElementById("lista");
+lista.innerHTML = PRODUTOS.map(p => `
+  <article class="card" id="p-${p.id}">
+    <div class="card-img"><img src="${p.img}" alt="${esc(p.alt)}" loading="lazy"></div>
+    <div class="card-body">
+      <span class="tag">${esc(p.tag)}</span>
+      <h3>${esc(p.nome)}</h3>
+      <p>${esc(p.desc)}</p>
+      <dl class="dims">${p.dims.map(d => `<dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd>`).join("")}</dl>
+      <fieldset class="colors">
+        <legend>Cor</legend>
+        ${p.cores.map((c, i) => `<label class="swatch"><input type="radio" id="cor-${p.id}-${i}" name="cor-${p.id}" value="${esc(c[0])}"${i === 0 ? " checked" : ""}><span>${bolinha(c)}${esc(c[0])}</span></label>`).join("")}
+      </fieldset>
+      <div class="card-foot">
+        ${preco(p.preco)}
+        <a class="btn btn-cta js-pedido" data-id="${p.id}" href="#contato" target="_blank" rel="noopener">Encomendar</a>
+      </div>
+    </div>
+  </article>`).join("");
+
+function atualizarPedido(id) {
+  const p = PRODUTOS.find(x => x.id === id);
+  const cor = document.querySelector(`input[name="cor-${id}"]:checked`).value;
+  const a = document.querySelector(`.js-pedido[data-id="${id}"]`);
+  a.href = linkWhats(`Olá! Quero encomendar: ${p.nome}, cor ${cor}.`);
+  if (!WHATSAPP) a.removeAttribute("target");
+}
+PRODUTOS.forEach(p => atualizarPedido(p.id));
+lista.addEventListener("change", e => {
+  if (e.target.name && e.target.name.startsWith("cor-")) atualizarPedido(e.target.name.slice(4));
+});
+
+document.querySelectorAll(".js-whats").forEach(a => {
+  a.href = linkWhats(a.dataset.msg);
+  if (WHATSAPP) { a.target = "_blank"; a.rel = "noopener"; }
+});
+const num = document.getElementById("contato-num");
+num.textContent = WHATSAPP
+  ? "+" + WHATSAPP.slice(0, 2) + " (" + WHATSAPP.slice(2, 4) + ") " + WHATSAPP.slice(4, -4) + "-" + WHATSAPP.slice(-4)
+  : "Número do WhatsApp em breve.";
+</script>
+</body>
+</html>
