@@ -71,6 +71,110 @@ Cada link abre uma conversa com +55 47 99631-6880 já com a mensagem escrita. O 
 - Preto
   https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Criaturinha%20(cor%20Preto)%20%E2%80%93%20R%24%2019%2C90.
 
+## Spinner Rúnico
+
+- Preto, tampinha vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Spinner%20R%C3%BAnico%20(cor%20Preto%2C%20tampinha%20vermelha)%20%E2%80%93%20R%24%2029%2C90.
+- Branco, tampinha preta
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Spinner%20R%C3%BAnico%20(cor%20Branco%2C%20tampinha%20preta)%20%E2%80%93%20R%24%2029%2C90.
+- Vermelho, tampinha preta
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Spinner%20R%C3%BAnico%20(cor%20Vermelho%2C%20tampinha%20preta)%20%E2%80%93%20R%24%2029%2C90.
+- Cinza, tampinha vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Spinner%20R%C3%BAnico%20(cor%20Cinza%2C%20tampinha%20vermelha)%20%E2%80%93%20R%24%2029%2C90.
+
+## Cone Espiral
+
+- Cinza
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Cone%20Espiral%20(cor%20Cinza)%20%E2%80%93%20R%24%2029%2C90.
+- Preto
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Cone%20Espiral%20(cor%20Preto)%20%E2%80%93%20R%24%2029%2C90.
+- Branco
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Cone%20Espiral%20(cor%20Branco)%20%E2%80%93%20R%24%2029%2C90.
+- Vermelho
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Cone%20Espiral%20(cor%20Vermelho)%20%E2%80%93%20R%24%2029%2C90.
+
+## Serpente Articulada
+
+- Preta
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Serpente%20Articulada%20(cor%20Preta)%20%E2%80%93%20R%24%2029%2C90.
+- Vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Serpente%20Articulada%20(cor%20Vermelha)%20%E2%80%93%20R%24%2029%2C90.
+- Preta e vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Serpente%20Articulada%20(cor%20Preta%20e%20vermelha)%20%E2%80%93%20R%24%2029%2C90.
+- Branca e preta
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Serpente%20Articulada%20(cor%20Branca%20e%20preta)%20%E2%80%93%20R%24%2029%2C90.
+
+## Dado Sensorial
+
+- Cinza
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Dado%20Sensorial%20(cor%20Cinza)%20%E2%80%93%20R%24%2024%2C90.
+- Preto
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Dado%20Sensorial%20(cor%20Preto)%20%E2%80%93%20R%24%2024%2C90.
+- Branco
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Dado%20Sensorial%20(cor%20Branco)%20%E2%80%93%20R%24%2024%2C90.
+- Vermelho
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Dado%20Sensorial%20(cor%20Vermelho)%20%E2%80%93%20R%24%2024%2C90.
+
+## Anel Giratório
+
+- P (17 mm) · Preto
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20P%20(17%20mm)%2C%20cor%20Preto)%20%E2%80%93%20R%24%2019%2C90.
+- P (17 mm) · Branco
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20P%20(17%20mm)%2C%20cor%20Branco)%20%E2%80%93%20R%24%2019%2C90.
+- P (17 mm) · Preto, faixa vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20P%20(17%20mm)%2C%20cor%20Preto%2C%20faixa%20vermelha)%20%E2%80%93%20R%24%2019%2C90.
+- P (17 mm) · Branco, faixa vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20P%20(17%20mm)%2C%20cor%20Branco%2C%20faixa%20vermelha)%20%E2%80%93%20R%24%2019%2C90.
+- M (19 mm) · Preto
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20M%20(19%20mm)%2C%20cor%20Preto)%20%E2%80%93%20R%24%2019%2C90.
+- M (19 mm) · Branco
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20M%20(19%20mm)%2C%20cor%20Branco)%20%E2%80%93%20R%24%2019%2C90.
+- M (19 mm) · Preto, faixa vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20M%20(19%20mm)%2C%20cor%20Preto%2C%20faixa%20vermelha)%20%E2%80%93%20R%24%2019%2C90.
+- M (19 mm) · Branco, faixa vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20M%20(19%20mm)%2C%20cor%20Branco%2C%20faixa%20vermelha)%20%E2%80%93%20R%24%2019%2C90.
+- G (21 mm) · Preto
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20G%20(21%20mm)%2C%20cor%20Preto)%20%E2%80%93%20R%24%2019%2C90.
+- G (21 mm) · Branco
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20G%20(21%20mm)%2C%20cor%20Branco)%20%E2%80%93%20R%24%2019%2C90.
+- G (21 mm) · Preto, faixa vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20G%20(21%20mm)%2C%20cor%20Preto%2C%20faixa%20vermelha)%20%E2%80%93%20R%24%2019%2C90.
+- G (21 mm) · Branco, faixa vermelha
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Anel%20Girat%C3%B3rio%20(tamanho%20G%20(21%20mm)%2C%20cor%20Branco%2C%20faixa%20vermelha)%20%E2%80%93%20R%24%2019%2C90.
+
+## Pedra de Runas
+
+- Cinza
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Pedra%20de%20Runas%20(cor%20Cinza)%20%E2%80%93%20R%24%2019%2C90.
+- Preto
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Pedra%20de%20Runas%20(cor%20Preto)%20%E2%80%93%20R%24%2019%2C90.
+- Branco
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Pedra%20de%20Runas%20(cor%20Branco)%20%E2%80%93%20R%24%2019%2C90.
+- Vermelho
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Pedra%20de%20Runas%20(cor%20Vermelho)%20%E2%80%93%20R%24%2019%2C90.
+
+## Pião Rúnico
+
+- Cinza
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Pi%C3%A3o%20R%C3%BAnico%20(cor%20Cinza)%20%E2%80%93%20R%24%2019%2C90.
+- Preto
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Pi%C3%A3o%20R%C3%BAnico%20(cor%20Preto)%20%E2%80%93%20R%24%2019%2C90.
+- Branco
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Pi%C3%A3o%20R%C3%BAnico%20(cor%20Branco)%20%E2%80%93%20R%24%2019%2C90.
+- Vermelho
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Pi%C3%A3o%20R%C3%BAnico%20(cor%20Vermelho)%20%E2%80%93%20R%24%2019%2C90.
+
+## Chaveiro d20
+
+- Cinza
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Chaveiro%20d20%20(cor%20Cinza)%20%E2%80%93%20R%24%2014%2C90.
+- Preto
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Chaveiro%20d20%20(cor%20Preto)%20%E2%80%93%20R%24%2014%2C90.
+- Branco
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Chaveiro%20d20%20(cor%20Branco)%20%E2%80%93%20R%24%2014%2C90.
+- Vermelho
+  https://wa.me/5547996316880?text=Oi!%20Vim%20pelo%20site%20do%20Ateli%C3%AA%20do%20Mestre%20e%20quero%20encomendar%3A%20Chaveiro%20d20%20(cor%20Vermelho)%20%E2%80%93%20R%24%2014%2C90.
+
 ## Baú do Mestre
 
 - Preto
