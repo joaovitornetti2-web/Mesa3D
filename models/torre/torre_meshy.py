@@ -20,6 +20,7 @@ ap.add_argument("--largura", type=float, default=86, help="maior lado da base (m
 ap.add_argument("--girar", type=float, default=0, help="giro em Z (graus) para escolher a face da frente")
 ap.add_argument("--passo", type=float, default=0.4, help="tamanho do voxel (mm)")
 ap.add_argument("--faces", type=int, default=400000)
+ap.add_argument("--suavizar", type=int, default=6, help="passadas de suavização (menos = mais detalhe)")
 a = ap.parse_args()
 
 CANAL = 50.0        # canal interno (mm); d20 de 26 mm passa folgado
@@ -104,7 +105,7 @@ v, f, _, _ = measure.marching_cubes(np.pad(S, 1).astype(np.float32), 0.5)
 v = (v - 1) * P + o
 v[v[:, 2] < P, 2] = 0
 r = trimesh.Trimesh(v, f)
-r = trimesh.smoothing.filter_taubin(r, iterations=6)
+r = trimesh.smoothing.filter_taubin(r, iterations=a.suavizar)
 if a.faces and len(r.faces) > a.faces:
     r = r.simplify_quadric_decimation(face_count=a.faces)
 r.fix_normals()

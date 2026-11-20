@@ -82,7 +82,7 @@ for e in ["sangue", "morte", "medo"]:
 # peças esculpidas no Meshy e tornadas funcionais (torre_meshy.py, bau_meshy.py)
 CORES_ESC = {"preta": dict(c1=PRETO, c2=PRETO), "cinza": dict(c1=CINZA, c2=CINZA), "branca": dict(c1=BRANCO, c2=BRANCO),
              "preta-vermelha": dict(c1=PRETO, c2=VERMELHO)}
-PRODUTOS["ritual"] = dict(stl={"c1": os.path.join(CACHE, "ritual_torre_montada.stl"), "c2": os.path.join(M, "torre", "ritual", "bandeja.stl")},
+PRODUTOS["ritual"] = dict(stl={"c1": os.path.join(CACHE, "ritual_torre_montada.stl"), "c2": os.path.join(M, "torre", "ritual", "bandeja_esculpida.stl")},
                           suave=True, variantes=CORES_ESC, cam=dict(elevacao=20, azimute=-28, tamanho=[1000, 1200], folga=1.0))
 PRODUTOS["bau"] = dict(stl={"c1": os.path.join(M, "kit", "bau", "bau_base.stl"), "c2": os.path.join(M, "kit", "bau", "bau_tampa.stl")},
                        suave=True, variantes={"preto": dict(c1=PRETO, c2=PRETO), "cinza": dict(c1=CINZA, c2=CINZA),

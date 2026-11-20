@@ -1,21 +1,25 @@
-# Torre do Ritual (esculpida)
+# Torre do Ritual (Torre Rúnica no site)
 
-Torre de dados com escultura gerada no Meshy (desenho original: pedra rachada, sigilo entalhado, correntes,
-sangue escorrendo, caveiras na base) e tornada funcional por `../torre_meshy.py`: corpo preenchido,
-canal de 50 mm aberto em cima, duas rampas a 50° sem suporte, piso inclinado e porta de 40 × 38 mm na frente.
+Torre e bandeja esculpidas no Meshy (desenho original: pedra rachada, sigilo entalhado, correntes, sangue escorrendo,
+caveiras) e tornadas funcionais:
 
-| Arquivo | Peça | Medidas |
-|---|---|---|
-| `torre_ritual.3mf` | torre | 100 × 79 × 180 mm |
-| `bandeja_ritual.3mf` | bandeja com sigilo e anel de runas gravados e moldura de encaixe da torre | 160 × 178 × 16 mm |
+- **Torre** (`../torre_meshy.py`, voxel 0,25 mm): corpo preenchido, canal de 50 mm aberto em cima, duas rampas a 50°
+  sem suporte, piso inclinado e porta de 40 × 38 mm na frente.
+- **Bandeja** (`../bandeja_meshy.py`): borda esculpida com caveiras e correntes, fundo liso de 158 × 154 mm (3 mm),
+  sigilo com anel de runas gravado (0,8 mm) e moldura de encaixe da torre (1,6 mm). Máscaras do fundo em
+  `../bandeja_mascaras.scad` → `mascaras/`.
 
-Imprimir (A1, PLA): torre em pé, camada 0.16–0.2 mm, sem suporte (as rampas são a 50°; se o fatiador pedir,
-use suporte em árvore só na porta). Bandeja: 0.2 mm, sem suporte. Dado máximo: d20 de 26 mm.
+| Arquivo | Peça | Medidas | Fatiado (8 %) |
+|---|---|---|---|
+| `torre_ritual.3mf` | torre | 100 × 79 × 180 mm | ~223 g, ~11h20 |
+| `bandeja_esculpida.3mf` | bandeja | 193 × 188 × 41 mm | ~126 g, ~4h30 |
 
-Refazer a bandeja: `openscad -o bandeja.stl ../torre_ritual.scad`.
-Refazer a torre a partir da escultura: `python3 ../torre_meshy.py <escultura>.stl torre_ritual.stl --largura 86`
-(a escultura original fica em `models/kit/meshy_op/torre_ritual.stl`, fora do git; o Meshy guarda a tarefa).
+Imprimir (A1, PLA, camada 0.2, 2 paredes, **8 % gyroid**): torre em pé, sem suporte (se o fatiador pedir, suporte em
+árvore só na porta). Bandeja deitada, sem suporte (as correntes externas podem pedir suporte em árvore).
+Dado máximo: d20 de 26 mm.
 
-**Ainda não testado na impressora:** queda dos dados pelas rampas e encaixe da torre na moldura (folga 0.3 mm).
+Refazer: `python3 ../torre_meshy.py <torre>.stl torre_ritual.stl --largura 86 --passo 0.25 --suavizar 2 --faces 900000`
+e `python3 ../bandeja_meshy.py <bandeja>.stl bandeja_esculpida.stl --faces 900000` (esculturas em
+`models/kit/meshy_op/`, fora do git; o Meshy guarda as tarefas).
 
-**Preenchimento recomendado:** 8% gyroid, 2 paredes. Leve e resistente para peças de mesa (é o que os preços do site consideram).
+**Ainda não testado na impressora:** queda dos dados pelas rampas e encaixe da torre na moldura (folga 0,3 mm).
