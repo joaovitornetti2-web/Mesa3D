@@ -17,3 +17,5 @@ Refazer a torre a partir da escultura: `python3 ../torre_meshy.py <escultura>.st
 (a escultura original fica em `models/kit/meshy_op/torre_ritual.stl`, fora do git; o Meshy guarda a tarefa).
 
 **Ainda não testado na impressora:** queda dos dados pelas rampas e encaixe da torre na moldura (folga 0.3 mm).
+
+**Preenchimento recomendado:** 8% gyroid, 2 paredes. Leve e resistente para peças de mesa (é o que os preços do site consideram).

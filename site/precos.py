@@ -4,7 +4,7 @@
 Uso: python3 site/precos.py      (lê as malhas de models/ e site/.cache/; rode antes site/gerar_imagens.py)
 
 Como o preço é calculado (ajuste as constantes abaixo):
-  gramas    = (cascas de 0,8 mm + 15 % de preenchimento no miolo) × 1,24 g/cm³ × perdas
+  gramas    = (cascas de 0,8 mm + 8 % de preenchimento no miolo) × 1,24 g/cm³ × perdas
               (perdas: 5 % em peça de 1 cor; 2 cores no AMS gastam filamento na purga: +12 g por troca de cor por camada, estimado)
   filamento = gramas × R$ 149 / 1000 g
   máquina   = horas × R$ 1,50 (energia e desgaste); horas = estimativa da peça, no mínimo gramas / 25 g/h
@@ -23,7 +23,7 @@ CACHE = os.path.join(RAIZ, "site", ".cache")
 FILAMENTO_KG = 149.0
 DENSIDADE = 1.24          # g/cm³ (PLA)
 CASCA_MM = 0.8            # 2 paredes de 0,4 mm
-PREENCHIMENTO = 0.15
+PREENCHIMENTO = 0.08         # 8 %: leve e resistente para peças de mesa
 MAQUINA_HORA = 1.50
 MULTIPLICADOR = 3.0
 MINIMO = 19.90
@@ -59,7 +59,26 @@ PRODUTOS = {
     "mini-criatura": ([os.path.join(M, "kit", "meshy_op", "chibi_criatura_pronto.stl")], 1, 3.0, 1),
 }
 
+# Valores do fatiador (PrusaSlicer com site/a1_pla_8.ini: A1, PLA, camada 0,2, 2 paredes, 8 % gyroid).
+# gramas, horas, purga extra do AMS (g) estimada para peças de 2 cores. Atualize com o Bambu Studio quando fatiar lá.
+FATIADO = {
+    "torre": (270.2 + 90.0, 11.86 + 2.33, 0),            # torre + bandeja (cores em peças separadas: sem purga)
+    "bau": (68.8 + 35.1, 2.74 + 1.43, 0),                # base + tampa
+    "caixa": (87.9 + 22.1, 3.28 + 0.72, 60),             # base + tampa; emblema na frente troca de cor ~140 camadas
+    "relicario": (58.8 + 0.9, 2.08 + 0.09, 3),           # corpo/tampa + topo do medalhão
+    "aneis": ((5.62 + 0.25) * 2, (0.20 + 0.05) * 2, 5),  # 8 anéis; texto nas 3 últimas camadas
+    "agentes": (3.7, 0.5, 0),                            # miniatura com suporte orgânico
+    "mini-agente": (10.8, 0.97, 0),
+    "mini-criatura": (9.5, 0.78, 0),
+}
+
 if __name__ == "__main__":
+    print("== pelo fatiador ==")
+    print(f"{'produto':<14}{'gramas':>8}{'horas':>7}{'custo':>10}{'preço':>10}")
+    for pid, (g, h, purga) in FATIADO.items():
+        custo, p = preco(g + purga, h)
+        print(f"{pid:<14}{g + purga:>8.0f}{h:>7.1f}{custo:>10.2f}{p:>10.2f}")
+    print("== estimativa pelo volume (antiga) ==")
     print(f"{'produto':<14}{'gramas':>8}{'horas':>7}{'custo':>10}{'preço':>10}")
     for pid, (malhas, cores, horas, copias) in PRODUTOS.items():
         g = gramas(malhas, cores) * copias if cores == 1 else (gramas(malhas, 1) * copias + (cores - 1) * 12)

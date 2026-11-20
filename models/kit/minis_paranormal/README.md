@@ -24,3 +24,5 @@ normalmente não permite).
 
 Os STL originais e os prontos ficam em `models/kit/meshy_op/` (fora do git). Para refazer:
 `python3 ../preparar_mini.py <nome>.stl <nome>_pronto.stl --altura 31` (brinquedinhos: `--altura 50 --base 32`).
+
+**Preenchimento recomendado:** 8% gyroid, 2 paredes. Leve e resistente para peças de mesa (é o que os preços do site consideram).

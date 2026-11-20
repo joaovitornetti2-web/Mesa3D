@@ -16,3 +16,5 @@ Refazer: `python3 ../caixa_meshy.py <escultura>.stl runica` (escultura em `model
 
 **Ainda não testado na impressora:** encaixe da tampa e o emblema de 2 cores na frente (troca de cor em várias camadas:
 gasta mais filamento na purga do AMS).
+
+**Preenchimento recomendado:** 8% gyroid, 2 paredes. Leve e resistente para peças de mesa (é o que os preços do site consideram).

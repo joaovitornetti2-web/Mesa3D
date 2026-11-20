@@ -16,3 +16,5 @@ em árvore só no rebaixo de baixo. As duas peças já estão na posição monta
 Refazer: `python3 ../bau_meshy.py meshy_op/bau.stl bau --largura 104` (escultura original fora do git).
 
 **Ainda não testado na impressora:** encaixe da tampa.
+
+**Preenchimento recomendado:** 8% gyroid, 2 paredes. Leve e resistente para peças de mesa (é o que os preços do site consideram).
