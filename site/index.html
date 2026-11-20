@@ -175,6 +175,7 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
         <a href="#torres">Torres</a>
         <a href="#miniaturas">Miniaturas</a>
         <a href="#brinquedinhos">Brinquedinhos</a>
+        <a href="#sensoriais">Sensoriais</a>
         <a href="#acessorios">Acessórios</a>
         <a href="#personalizados">Seu .STL</a>
         <a href="#duvidas">Dúvidas</a>
@@ -237,6 +238,14 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
       <p>Bonequinhos de uns 5 cm para a estante, a mesa do computador ou para dar de presente.</p>
     </div>
     <div class="catalogo" data-categoria="brinquedinhos"></div>
+  </section>
+
+  <section id="sensoriais" aria-labelledby="t-sens">
+    <div class="cabeca">
+      <div><div class="sobre">Brinquedos sensoriais</div><h2 id="t-sens">Para girar, apertar e não largar mais</h2></div>
+      <p>Fidgets de desenho próprio, com runas do ateliê. Vários já saem da impressora montados, sem cola e sem peça solta.</p>
+    </div>
+    <div class="catalogo" data-categoria="sensoriais"></div>
   </section>
 
   <section id="acessorios" aria-labelledby="t-acess">
@@ -367,6 +376,12 @@ const CORES_MINI = [
   { id: "branco", nome: "Branco", cor: [C.branco] },
   { id: "preto", nome: "Preto", cor: [C.preto] }];
 
+const CORES_SENS = [
+  { id: "cinza", nome: "Cinza", cor: [C.cinza] },
+  { id: "preto", nome: "Preto", cor: [C.preto] },
+  { id: "branco", nome: "Branco", cor: [C.branco] },
+  { id: "vermelho", nome: "Vermelho", cor: [C.vermelho] }];
+
 // Cada produto: opcoes (grupos de escolha) e img(escolha) com a imagem da combinação.
 // Imagens geradas por site/gerar_imagens.py. Preços: site/precos.py.
 const PRODUTOS = [
@@ -418,6 +433,100 @@ const PRODUTOS = [
     img: s => `img/mini_chibi_criatura_${s.cor}.webp`,
     alt: s => `Bonequinho Criaturinha em ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
+  },
+  {
+    id: "spinner", categoria: "sensoriais",
+    nome: "Spinner Rúnico", selo: "Com rolamento",
+    desc: "Spinner de três pontas com rolamento de aço no centro e runas em volta. Gira liso e por bastante tempo.",
+    medidas: [["Tamanho", "84 × 77 × 7 mm"], ["Rolamento", "608, incluso"], ["Peças", "corpo, 2 tampinhas e rolamento"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: [
+      { id: "preto", nome: "Preto, tampinha vermelha", cor: [C.preto, C.vermelho] },
+      { id: "branco", nome: "Branco, tampinha preta", cor: [C.branco, C.preto] },
+      { id: "vermelho", nome: "Vermelho, tampinha preta", cor: [C.vermelho, C.preto] },
+      { id: "cinza", nome: "Cinza, tampinha vermelha", cor: [C.cinza, C.vermelho] }] }],
+    img: s => `img/sens_spinner_${s.cor}.webp`,
+    alt: s => `Spinner Rúnico ${s.nomes.cor.toLowerCase()}`,
+    preco: 29.90
+  },
+  {
+    id: "cone", categoria: "sensoriais",
+    nome: "Cone Espiral", selo: "Sai montado",
+    desc: "Um cone feito de uma espiral só. Empurre a ponta e ela atravessa as voltas, num vai e vem que prende a atenção.",
+    medidas: [["Tamanho", "46 mm de base, 50 mm de altura"], ["Peças", "uma, impressa já montada"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
+    img: s => `img/sens_cone_${s.cor}.webp`,
+    alt: s => `Cone Espiral ${s.nomes.cor.toLowerCase()}`,
+    preco: 29.90
+  },
+  {
+    id: "serpente", categoria: "sensoriais",
+    nome: "Serpente Articulada", selo: "Sai montada",
+    desc: "Doze segmentos ligados por pinos, que dobram para os dois lados. Sai da impressora já articulada, com uma runa em cada segmento.",
+    medidas: [["Comprimento", "cerca de 20 cm"], ["Peças", "uma, impressa já montada"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: [
+      { id: "preta", nome: "Preta", cor: [C.preto] },
+      { id: "vermelha", nome: "Vermelha", cor: [C.vermelho] },
+      { id: "preta-vermelha", nome: "Preta e vermelha", cor: [C.preto, C.vermelho] },
+      { id: "branca-preta", nome: "Branca e preta", cor: [C.branco, C.preto] }] }],
+    img: s => `img/sens_serpente_${s.cor}.webp`,
+    alt: s => `Serpente Articulada ${s.nomes.cor.toLowerCase()}`,
+    preco: 29.90
+  },
+  {
+    id: "dado-sensorial", categoria: "sensoriais",
+    nome: "Dado Sensorial", selo: "6 texturas",
+    desc: "Cada face tem uma textura: anéis, ondas, sigilo, covinhas, bolinhas e pontinhos. Para girar na mão durante a sessão.",
+    medidas: [["Tamanho", "30 mm"], ["Peças", "uma"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
+    img: s => `img/sens_dado_${s.cor}.webp`,
+    alt: s => `Dado Sensorial ${s.nomes.cor.toLowerCase()}`,
+    preco: 24.90
+  },
+  {
+    id: "anel-giratorio", categoria: "sensoriais",
+    nome: "Anel Giratório", selo: "Sai montado",
+    desc: "A faixa de fora, com runas, gira em volta do aro de dentro. Discreto para usar no dedo e mexer sem ninguém ver.",
+    medidas: [["Largura", "10 mm"], ["Peças", "uma, impressa já montada"]],
+    opcoes: [
+      { chave: "tamanho", nome: "Tamanho", itens: [{ id: "p", nome: "P (17 mm)" }, { id: "m", nome: "M (19 mm)" }, { id: "g", nome: "G (21 mm)" }] },
+      { chave: "cor", nome: "Cor", itens: [
+        { id: "preto", nome: "Preto", cor: [C.preto] },
+        { id: "branco", nome: "Branco", cor: [C.branco] },
+        { id: "preto-vermelho", nome: "Preto, faixa vermelha", cor: [C.preto, C.vermelho] },
+        { id: "branco-vermelho", nome: "Branco, faixa vermelha", cor: [C.branco, C.vermelho] }] }],
+    img: s => `img/sens_anel_${s.cor}.webp`,
+    alt: s => `Anel Giratório ${s.nomes.cor.toLowerCase()}`,
+    preco: 19.90
+  },
+  {
+    id: "pedra", categoria: "sensoriais",
+    nome: "Pedra de Runas", selo: "De bolso",
+    desc: "Pedrinha lisa com encaixe para o polegar e um anel de runas em relevo para passar o dedo. Boa para acalmar e concentrar.",
+    medidas: [["Tamanho", "56 × 42 × 17 mm"], ["Peças", "uma"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
+    img: s => `img/sens_pedra_${s.cor}.webp`,
+    alt: s => `Pedra de Runas ${s.nomes.cor.toLowerCase()}`,
+    preco: 19.90
+  },
+  {
+    id: "piao", categoria: "sensoriais",
+    nome: "Pião Rúnico", selo: "Clássico",
+    desc: "Pião de 44 mm com runas na face de cima e haste encaixada. Gira firme por bastante tempo.",
+    medidas: [["Tamanho", "44 mm de diâmetro"], ["Peças", "corpo e haste"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
+    img: s => `img/sens_piao_${s.cor}.webp`,
+    alt: s => `Pião Rúnico ${s.nomes.cor.toLowerCase()}`,
+    preco: 19.90
+  },
+  {
+    id: "chaveiro-d20", categoria: "sensoriais",
+    nome: "Chaveiro d20", selo: "Chaveiro",
+    desc: "Um d20 de 23 mm com argola, para levar a mesa no bolso.",
+    medidas: [["Tamanho", "23 mm"], ["Peças", "uma"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
+    img: s => `img/sens_d20_${s.cor}.webp`,
+    alt: s => `Chaveiro d20 ${s.nomes.cor.toLowerCase()}`,
+    preco: 14.90
   },
   {
     id: "bau", categoria: "acessorios",

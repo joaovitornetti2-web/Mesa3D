@@ -89,6 +89,30 @@ PRODUTOS["bau"] = dict(stl={"c1": os.path.join(M, "kit", "bau", "bau_base.stl"),
                                               "branco": dict(c1=BRANCO, c2=BRANCO), "preto-vermelho": dict(c1=PRETO, c2=VERMELHO)},
                        cam=dict(elevacao=22, azimute=-30, tamanho=[1200, 1000], folga=1.05))
 
+# brinquedos sensoriais (models/sensoriais)
+RS = os.path.join(M, "sensoriais", "stl", "render")
+METAL = (0.5, 0.51, 0.53)
+UMA_COR = {"preto": dict(c1=PRETO), "branco": dict(c1=BRANCO), "vermelho": dict(c1=VERMELHO), "cinza": dict(c1=CINZA)}
+SENS = {
+    "spinner": ({"c1": "spinner_c1", "c2": "spinner_tampa", "c3": "spinner_rol"},
+                {"preto": dict(c1=PRETO, c2=VERMELHO, c3=METAL), "branco": dict(c1=BRANCO, c2=PRETO, c3=METAL),
+                 "vermelho": dict(c1=VERMELHO, c2=PRETO, c3=METAL), "cinza": dict(c1=CINZA, c2=VERMELHO, c3=METAL)}, 55, 1.0),
+    "cone": ({"c1": "cone_c1"}, UMA_COR, 22, 1.05),
+    "pedra": ({"c1": "pedra_c1"}, UMA_COR, 35, 1.0),
+    "serpente": ({"c1": "serpente_c1", "c2": "serpente_c2"},
+                 {"preta": dict(c1=PRETO, c2=PRETO), "vermelha": dict(c1=VERMELHO, c2=VERMELHO),
+                  "preta-vermelha": dict(c1=PRETO, c2=VERMELHO), "branca-preta": dict(c1=BRANCO, c2=PRETO)}, 50, 0.95),
+    "dado": ({"c1": "dado_c1"}, UMA_COR, 28, 1.05),
+    "anel": ({"c1": "anel_c1", "c2": "anel_c2"},
+             {"preto": dict(c1=PRETO, c2=PRETO), "branco": dict(c1=BRANCO, c2=BRANCO),
+              "preto-vermelho": dict(c1=PRETO, c2=VERMELHO), "branco-vermelho": dict(c1=BRANCO, c2=VERMELHO)}, 35, 1.05),
+    "piao": ({"c1": "piao_c1"}, UMA_COR, 18, 1.05),
+    "d20": ({"c1": "d20_c1"}, UMA_COR, 22, 1.1),
+}
+for n, (partes, variantes, el, folga) in SENS.items():
+    PRODUTOS[f"sens_{n}"] = dict(stl={k: os.path.join(RS, v + ".stl") for k, v in partes.items()}, suave=False,
+                                 variantes=variantes, cam=dict(elevacao=el, azimute=-24, tamanho=[1200, 1000], folga=folga))
+
 # miniaturas e brinquedinhos do Meshy (STL já preparado em models/kit/meshy_op/<nome>_pronto.stl)
 CORES_MINI = {"cinza": dict(c1=CINZA), "branco": dict(c1=BRANCO), "preto": dict(c1=PRETO)}
 for n in ["ocultista", "combatente", "especialista", "criatura", "chibi_agente", "chibi_criatura"]:
