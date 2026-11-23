@@ -96,9 +96,19 @@ def turma_cores(corpo, bochecha=ROSA):
     return dict(c1=corpo, c2=PRETO, c3=BRANCO, c4=bochecha)
 TURMA_VAR = {"rosa": turma_cores(ROSA, VERMELHO), "laranja": turma_cores(LARANJA), "branco": turma_cores(BRANCO),
              "preto": turma_cores(PRETO), "vermelho": turma_cores(VERMELHO, ROSA)}
-for n in ["fantasminha", "gosminha", "olhinho", "caveirinha", "morceguinho"]:
-    PRODUTOS[f"turma_{n}"] = dict(stl={f"c{c}": os.path.join(RT, f"{n}_c{c}.stl") for c in range(1, 5)}, suave=True,
-                                  variantes=TURMA_VAR, cam=dict(elevacao=14, azimute=-20, tamanho=[1000, 1100], folga=1.02))
+# a Turma esculpida (models/esculpidos): c1 corpo, c2 olhos/boca, c3 brilhos, c4 acento (chapéu, dado, gorro, flores...)
+RE = os.path.join(M, "esculpidos", "stl")
+def esc_cores(corpo, acento, olhos=PRETO, brilho=BRANCO):
+    return dict(c1=corpo, c2=olhos, c3=brilho, c4=acento)
+ESC_VAR = {"rosa": esc_cores(ROSA, VERMELHO), "laranja": esc_cores(LARANJA, VERMELHO), "branco": esc_cores(BRANCO, LARANJA),
+           "preto": esc_cores(PRETO, LARANJA, BRANCO, PRETO), "vermelho": esc_cores(VERMELHO, LARANJA)}
+OLHO_VAR = dict(ESC_VAR, preto=esc_cores(PRETO, VERMELHO), vermelho=esc_cores(VERMELHO, LARANJA))
+CAM_ESC = {"fantasminha": (14, -24), "gosminha": (14, -24), "olhinho": (14, -18), "caveirinha": (16, -20), "morceguinho": (14, -20)}
+for n, arq in [("fantasminha", "boo"), ("gosminha", "gosminha"), ("olhinho", "olhinho"), ("caveirinha", "caveirinha"), ("morceguinho", "morceguinho")]:
+    el, az = CAM_ESC[n]
+    PRODUTOS[f"turma_{n}"] = dict(stl={f"c{c}": os.path.join(RE, f"{arq}_c{c}.stl") for c in range(1, 5)}, suave=True,
+                                  variantes=OLHO_VAR if n == "olhinho" else ESC_VAR,
+                                  cam=dict(elevacao=el, azimute=az, tamanho=[1000, 1100], folga=1.02))
 
 # brinquedos sensoriais (models/sensoriais)
 RS = os.path.join(M, "sensoriais", "stl", "render")

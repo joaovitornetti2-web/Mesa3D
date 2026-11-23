@@ -70,6 +70,13 @@ FATIADO = {
     "agentes": (3.7, 0.5, 0),                            # miniatura com suporte orgânico
     "mini-agente": (10.8, 0.97, 0),
     "mini-criatura": (9.5, 0.78, 0),
+    # Turma esculpida (models/esculpidos), 4 cores no AMS: PrusaSlicer + purga e trocas estimadas
+    # (~25 g de purga/torre de limpeza e ~1 h a mais pelas trocas de cor em cada figura).
+    "fantasminha": (20.9 + 25, 1.34 + 1.0, 0),
+    "gosminha": (9.6 + 25, 0.46 + 1.0, 0),
+    "olhinho": (11.0 + 25, 0.85 + 1.0, 0),
+    "caveirinha": (6.9 + 25, 0.45 + 1.0, 0),
+    "morceguinho": (8.6 + 25, 0.61 + 1.0, 0),
 }
 
 if __name__ == "__main__":

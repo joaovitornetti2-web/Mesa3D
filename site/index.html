@@ -180,7 +180,7 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
         <a href="#brinquedinhos">Turma</a>
         <a href="#sensoriais">Sensoriais</a>
         <a href="#plaquinhas">Plaquinhas</a>
-        <a href="#decoracao">Decoração</a>
+        <!-- <a href="#decoracao">Decoração</a> (em breve: refazendo no estilo esculpido) -->
         <a href="#acessorios">Acessórios</a>
         <a href="#personalizados">Seu .STL</a>
         <a href="#duvidas">Dúvidas</a>
@@ -261,7 +261,7 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
     <div class="catalogo" data-categoria="plaquinhas"></div>
   </section>
 
-  <section id="decoracao" aria-labelledby="t-deco">
+  <section id="decoracao" hidden aria-labelledby="t-deco">
     <div class="cabeca">
       <div><div class="sobre">Decoração</div><h2 id="t-deco">Peças que dão vida ao ambiente</h2></div>
       <p>Umas no clima do Ateliê, outras para qualquer cantinho do dia a dia. Todas com um toque de personalidade.</p>
@@ -484,58 +484,58 @@ const PRODUTOS = [
   },
   {
     id: "fantasminha", categoria: "brinquedinhos",
-    nome: "Boo, o fantasminha", selo: "Envergonhado",
-    desc: "Some quando tem visita e aparece quando ninguém está olhando. Bracinhos para cima, bochechas sempre coradas.",
-    fala: "Bu! …desculpa, foi sem querer.",
-    medidas: [["Tamanho", "32 × 30 × 44 mm"], ["Cores", "corpo + olhos, boca e bochechas"]],
+    nome: "Boo, o fantasminha", selo: "Aprendiz de mago",
+    desc: "Esculpido à mão (digitalmente): chapéu de mago torto e grande demais, uma mão acenando e o d20 da sorte na outra. Sobrancelha levantada, língua de fora e um rabinho de fumaça atrás.",
+    fala: "Eu juro que o feitiço era pra dar certo!",
+    medidas: [["Tamanho", "48 × 44 × 67 mm"], ["Cores", "corpo + olhos/boca + brilho + chapéu e d20 (AMS)"]],
     opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
     img: s => `img/turma_fantasminha_${s.cor}.webp`,
     alt: s => `Boo, o fantasminha na cor ${s.nomes.cor.toLowerCase()}`,
-    preco: 24.90
+    preco: 39.90
   },
   {
     id: "gosminha", categoria: "brinquedinhos",
-    nome: "Gosminha", selo: "Grudenta",
-    desc: "Uma slimezinha que escorre de alegria. Sorriso largo e pinguinho no topo da cabeça.",
-    fala: "Posso grudar em você?",
-    medidas: [["Tamanho", "38 × 38 × 30 mm"], ["Cores", "corpo + olhos, boca e bochechas"]],
+    nome: "Gosminha", selo: "Gulosa",
+    desc: "Uma slime que tentou engolir um d6 e ele ficou preso na cabeça. Escorre pelos lados, tem bolhas presas na gosma, topete enrolado e lambe o canto da boca.",
+    fala: "Não fui eu que comi o dado.",
+    medidas: [["Tamanho", "48 × 48 × 36 mm"], ["Cores", "corpo + olhos/boca + brilho + dado e língua (AMS)"]],
     opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
     img: s => `img/turma_gosminha_${s.cor}.webp`,
     alt: s => `Gosminha na cor ${s.nomes.cor.toLowerCase()}`,
-    preco: 24.90
+    preco: 29.90
   },
   {
     id: "olhinho", categoria: "brinquedinhos",
-    nome: "Olhinho", selo: "Vigia",
-    desc: "Um olho com asinhas de morcego e chifrinhos que fica de olho na sua mesa. Nada passa despercebido.",
-    fala: "Eu vi isso.",
-    medidas: [["Tamanho", "50 × 30 × 44 mm"], ["Cores", "corpo + olhos, boca e bochechas"]],
+    nome: "Olhinho", selo: "Desconfiado",
+    desc: "Um olho com pálpebra meio caída, veinhas, chifrinhos curvos e asas de morcego, de pé numa pedrinha. Olha de lado para você o tempo todo.",
+    fala: "Eu vi isso. Eu vi TUDO.",
+    medidas: [["Tamanho", "64 × 30 × 48 mm"], ["Cores", "corpo + pupila + branco do olho + íris e veinhas (AMS)"]],
     opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
     img: s => `img/turma_olhinho_${s.cor}.webp`,
     alt: s => `Olhinho na cor ${s.nomes.cor.toLowerCase()}`,
-    preco: 24.90
+    preco: 29.90
   },
   {
     id: "caveirinha", categoria: "brinquedinhos",
     nome: "Caveirinha", selo: "Florida",
-    desc: "Uma caveirinha simpática com uma florzinha na cabeça. Prova de que dá para ser macabra e fofa ao mesmo tempo.",
+    desc: "Caveirinha de órbitas fundas e nariz de coração, com dentinhos marcados, uma rachadinha no crânio e coroa de florzinhas. Sentada em dois ossinhos cruzados.",
     fala: "Ossos do ofício!",
-    medidas: [["Tamanho", "30 × 30 × 41 mm"], ["Cores", "corpo + olhos, boca e bochechas"]],
+    medidas: [["Tamanho", "34 × 28 × 33 mm"], ["Cores", "osso + órbitas + miolo das flores + pétalas (AMS)"]],
     opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
     img: s => `img/turma_caveirinha_${s.cor}.webp`,
     alt: s => `Caveirinha na cor ${s.nomes.cor.toLowerCase()}`,
-    preco: 24.90
+    preco: 29.90
   },
   {
     id: "morceguinho", categoria: "brinquedinhos",
     nome: "Morceguinho", selo: "Notívago",
-    desc: "Acorda à meia-noite, dorme de dia e tem presinhas que não mordem ninguém. Asinhas abertas para um abraço.",
+    desc: "De gorro de dormir com pompom e acordadíssimo à meia-noite. Orelhonas, presinha, asas abertas para um abraço e de pé numa lua.",
     fala: "Já é de noite? Já é de noite?",
-    medidas: [["Tamanho", "64 × 30 × 42 mm"], ["Cores", "corpo + olhos, boca e bochechas"]],
+    medidas: [["Tamanho", "64 × 28 × 45 mm"], ["Cores", "corpo + olhos/boca + presinha e pompom + gorro e lua (AMS)"]],
     opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
     img: s => `img/turma_morceguinho_${s.cor}.webp`,
     alt: s => `Morceguinho na cor ${s.nomes.cor.toLowerCase()}`,
-    preco: 24.90
+    preco: 29.90
   },
   {
     id: "placa-nao_perturbe", categoria: "plaquinhas", estilo: "Estilo Ateliê",
