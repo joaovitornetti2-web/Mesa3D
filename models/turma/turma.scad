@@ -18,7 +18,7 @@ module olho(x, z, R, zc, r = 4.2, cor = 3, olhar = [0, 0]) {
 module bochecha(x, z, R, zc) { y = sup(x, z, R, zc); translate([x, y + 0.5, z]) rotate([90, 0, 0]) scale([1.4, 0.9, 0.35]) sphere(r = 2.4); }
 module boca_aberta(z, R, zc, w = 3.4, h = 2.6) { y = sup(0, z, R, zc); translate([0, y + 0.2, z]) rotate([90, 0, 0]) scale([w, h, 1.6]) sphere(r = 1); }
 module sorriso(z, R, zc, larg = 7) {   // arco feito de bolinhas
-  for (t = [-60:10:60]) let(x = sin(t) * larg / 2, zz = z - (1 - cos(t)) * larg * 0.35) {
+  for (t = [-60:10:60]) let(x = sin(t) * larg / 2, zz = z + (1 - cos(t)) * larg * 0.35) {
     y = sup(x, zz, R, zc); translate([x, y + 0.4, zz]) sphere(r = 0.75);
   }
 }
@@ -28,7 +28,7 @@ module base_disco(r) { cylinder(r = r, h = 2.2, $fn = 64); }
 FR = 16; FZ = 30;
 module fantasminha_detalhes(cor) {
   for (s = [-1, 1]) olho(s * 6, FZ + 1, FR, FZ, 4.4, cor, [s * 0.4, -0.3]);
-  if (cor == 2) boca_aberta(FZ - 7, FR, FZ, 2.6, 2.4);
+  if (cor == 2) boca_aberta(FZ - 7, FR, FZ, 3.2, 3.2);
   if (cor == 4) for (s = [-1, 1]) bochecha(s * 10.5, FZ - 4.5, FR, FZ);
 }
 module fantasminha_corpo() {
@@ -39,7 +39,7 @@ module fantasminha_corpo() {
       for (s = [-1, 1]) translate([s * 15, -2, 22]) rotate([0, s * 35, 0]) scale([0.6, 0.6, 1.2]) sphere(r = 5); // bracinhos
       base_disco(14);
     }
-    translate([0, 0, -10]) cube(40, center = true);
+    translate([0, 0, -30]) cube(60, center = true);
     for (c = [2, 3, 4]) fantasminha_detalhes(c);
   }
 }
@@ -61,7 +61,7 @@ module gosminha_corpo() {
       }
       translate([0, 0, GZ + GR * 0.9]) hull() { sphere(r = 3.2); translate([2, 0, 5]) sphere(r = 1.6); }   // pingo no topo
     }
-    translate([0, 0, -10]) cube(60, center = true);
+    translate([0, 0, -30]) cube(60, center = true);
     for (c = [2, 3, 4]) gosminha_detalhes(c);
   }
 }
@@ -89,7 +89,7 @@ module olhinho_corpo() {
       }
       base_disco(12);
     }
-    translate([0, 0, -10]) cube(60, center = true);
+    translate([0, 0, -30]) cube(60, center = true);
     for (c = [2, 3, 4]) olhinho_detalhes(c);
   }
 }
@@ -116,7 +116,7 @@ module caveirinha_corpo() {
       base_disco(12);
       translate([0, 0, 0]) cylinder(r = 6, h = 12);
     }
-    translate([0, 0, -10]) cube(60, center = true);
+    translate([0, 0, -30]) cube(60, center = true);
     for (c = [2, 3]) caveirinha_detalhes(c);
   }
   // a flor fica por cima (cor 4), sem furar o crânio
@@ -142,7 +142,7 @@ module morceguinho_corpo() {
       }
       base_disco(12);
     }
-    translate([0, 0, -10]) cube(60, center = true);
+    translate([0, 0, -30]) cube(60, center = true);
     for (c = [2, 3, 4]) morceguinho_detalhes(c);
   }
 }
