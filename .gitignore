@@ -32,3 +32,5 @@ site/.cache/
 models/kit/meshy_op/
 models/dados/emblemas/
 models/sensoriais/stl/
+models/turma/stl/
+models/decor/stl/

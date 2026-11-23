@@ -1,5 +1,5 @@
 // Brinquedos sensoriais do Ateliê do Mestre – desenho próprio, estilo rúnico.
-// PARTE: s_spinner | s_spinner_tampa | s_pedra | s_serpente | s_dado | s_anel | s_piao | s_piao_haste | s_d20
+// PARTE: s_spinner | s_spinner_tampa | s_pedra | s_pedra_c2 | s_pedra_c4 | s_serpente | s_serpente_c2 | s_serpente_c3 | s_serpente_c4 | s_dado | s_anel | s_piao | s_piao_haste | s_d20
 // (nomes com s_ porque o kit incluído também lê PARTE). Cone espiral: cone_espiral.py.
 include <../kit/kit_rpg.scad>
 PARTE = "s_spinner";
@@ -53,6 +53,15 @@ module pedra() {
   }
 }
 
+// carinha da pedra: olhos fechados (cor 2) e bochechas (cor 4), na encosta da frente
+function pedra_sup(x, z) = -21 * sqrt(max(0, 1 - (x / 28) * (x / 28) - (z / 11) * (z / 11)));
+module pedra_det(cor) {
+  if (cor == 2) for (s = [-1, 1]) for (t = [-70:14:70]) let(x = s * 8 + sin(t) * 3.4, z = 3.2 - (1 - cos(t)) * 1.6)
+    translate([x, pedra_sup(x, z) + 0.15, z]) sphere(r = 0.75, $fn = 12);
+  if (cor == 2) for (t = [-50:12:50]) let(x = sin(t) * 2.2, z = -0.6 - (1 - cos(t)) * 1.4) translate([x, pedra_sup(x, z) + 0.15, z]) sphere(r = 0.6, $fn = 12);
+  if (cor == 4) for (s = [-1, 1]) let(x = s * 14, z = 1.2) translate([x, pedra_sup(x, z) + 0.4, z]) rotate([90, 0, 0]) scale([1.5, 0.9, 0.35]) sphere(r = 2.4, $fn = 24);
+}
+
 // ---------------- SERPENTE ARTICULADA (impressa já montada, pinos verticais, curva em S) ----------------
 SG_N = 12; SG_W = 16; SG_H = 9; SG_L = 18; SG_RP = 4; SG_PINO = 3.2; G = FOLGA_PIP;
 function sg_ang(i) = 28 * sin(i * 55);
@@ -85,6 +94,18 @@ module segmento_s(i) {
   if (i > 0) em(jf, 0, SG_H, SG_PINO / 2);                                                              // pino do garfo
 }
 module serpente() { for (i = [0:SG_N - 1]) segmento_s(i); }
+// olhos (cor 3 + pupila cor 2) e linguinha bifurcada (cor 4) na cabeça
+module serpente_det(cor) {
+  c = SGL[0][0]; t = SGL[0][2]; d = sg_dir(t); n = sg_dir(t + 90);
+  for (s = [-1, 1]) let(o = c + 4.5 * d + s * 3.5 * n) translate([o[0], o[1], SG_H - 1.4]) {
+    if (cor == 3) scale([1, 1, 0.75]) sphere(r = 2.6, $fn = 24);
+    if (cor == 2) translate([1.1 * d[0], 1.1 * d[1], 1.2]) sphere(r = 1.3, $fn = 16);
+  }
+  if (cor == 4) let(p = c + (SG_W / 2 - 1) * d) translate([p[0], p[1], 3.4]) rotate(t) {
+    translate([0, -0.8, 0]) cube([6, 1.6, 1.6]);
+    for (s = [-1, 1]) translate([6, 0, 0]) rotate(s * 30) translate([0, -0.6, 0]) cube([3.5, 1.2, 1.6]);
+  }
+}
 
 // ---------------- DADO SENSORIAL (uma textura por face) ----------------
 DD = 30;
@@ -150,8 +171,13 @@ module chaveiro_d20() {
 
 if (PARTE == "s_spinner") spinner();
 if (PARTE == "s_spinner_tampa") spinner_tampa();
-if (PARTE == "s_pedra") pedra();
-if (PARTE == "s_serpente") serpente();
+if (PARTE == "s_pedra") difference() { pedra(); pedra_det(2); pedra_det(4); }
+if (PARTE == "s_pedra_c2") pedra_det(2);
+if (PARTE == "s_pedra_c4") pedra_det(4);
+if (PARTE == "s_serpente") difference() { serpente(); serpente_det(2); serpente_det(3); }
+if (PARTE == "s_serpente_c2") serpente_det(2);
+if (PARTE == "s_serpente_c3") serpente_det(3);
+if (PARTE == "s_serpente_c4") serpente_det(4);
 if (PARTE == "s_dado") dado();
 if (PARTE == "s_anel") anel();
 if (PARTE == "s_piao") piao();
