@@ -112,6 +112,9 @@ dl.medidas dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums;
 .opcao input:checked + span { border-color: var(--amarelo); color: #fff; }
 .opcao input:focus-visible + span { outline: 3px solid var(--amarelo); outline-offset: 2px; }
 .ficha p.dica { font-size: 0.86rem; }
+.ficha p.fala { position: relative; align-self: flex-start; background: var(--creme); color: var(--ameixa); font-weight: 800; font-size: 0.92rem; padding: 8px 14px; border-radius: 16px; max-width: 100%; }
+.ficha p.fala::before { content: ""; position: absolute; left: 18px; top: -7px; border: 7px solid transparent; border-top: 0; border-bottom-color: var(--creme); }
+.estilo { align-self: flex-start; font-size: 0.75rem; font-weight: 800; padding: 2px 10px; border-radius: 999px; border: 1.5px solid var(--linha); color: var(--creme-2); }
 .dica a { color: var(--amarelo); font-weight: 700; }
 .rodape-ficha { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 6px; }
 .preco { font-family: var(--font-titulo); font-weight: 700; font-size: 1.45rem; color: var(--amarelo); line-height: 1.1; }
@@ -174,8 +177,10 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
       <div class="menu" id="menu">
         <a href="#torres">Torres</a>
         <a href="#miniaturas">Miniaturas</a>
-        <a href="#brinquedinhos">Brinquedinhos</a>
+        <a href="#brinquedinhos">Turma</a>
         <a href="#sensoriais">Sensoriais</a>
+        <a href="#plaquinhas">Plaquinhas</a>
+        <!-- <a href="#decoracao">Decoração</a> (em breve: refazendo no estilo esculpido) -->
         <a href="#acessorios">Acessórios</a>
         <a href="#personalizados">Seu .STL</a>
         <a href="#duvidas">Dúvidas</a>
@@ -198,10 +203,10 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
         </div>
       </div>
       <div class="mosaico" aria-label="Algumas peças do ateliê">
-        <a href="#acessorios" class="m-a"><img src="https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/caixa_sangue_preta-vermelha.webp" alt="Caixa de dados elemental com emblema vermelho"><span>Caixa elemental</span></a>
-        <a href="#brinquedinhos" class="m-b"><img src="https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/mini_chibi_criatura_branco.webp" alt="Criaturinha branca"><span>Criaturinha</span></a>
-        <a href="#miniaturas" class="m-c"><img src="https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/mini_ocultista_cinza.webp" alt="Miniatura da ocultista"><span>Ocultista</span></a>
-        <a href="#acessorios" class="m-d"><img src="https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/bau_preto-vermelho.webp" alt="Baú do Mestre preto com tampa vermelha"><span>Baú do Mestre</span></a>
+        <a href="#acessorios" class="m-a"><img src="https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/caixa_sangue_preta-vermelha.webp" alt="Caixa de dados elemental com emblema vermelho"><span>Caixa elemental</span></a>
+        <a href="#brinquedinhos" class="m-b"><img src="https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/mini_chibi_criatura_branco.webp" alt="Criaturinha branca"><span>Criaturinha</span></a>
+        <a href="#miniaturas" class="m-c"><img src="https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/mini_ocultista_cinza.webp" alt="Miniatura da ocultista"><span>Ocultista</span></a>
+        <a href="#acessorios" class="m-d"><img src="https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/bau_preto-vermelho.webp" alt="Baú do Mestre preto com tampa vermelha"><span>Baú do Mestre</span></a>
       </div>
     </div>
 
@@ -234,8 +239,8 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
 
   <section id="brinquedinhos" aria-labelledby="t-brinq">
     <div class="cabeca">
-      <div><div class="sobre">Brinquedinhos</div><h2 id="t-brinq">Pequenos, fofos e colecionáveis</h2></div>
-      <p>Bonequinhos de uns 5 cm para a estante, a mesa do computador ou para dar de presente.</p>
+      <div><div class="sobre">A Turma do Ateliê</div><h2 id="t-brinq">Bichinhos com personalidade (e um pouco de assombração)</h2></div>
+      <p>Cada um tem nome, jeitinho e até bordão. Saem em até 4 cores direto da impressora: corpo, olhinhos, boca e bochechas.</p>
     </div>
     <div class="catalogo" data-categoria="brinquedinhos"></div>
   </section>
@@ -246,6 +251,22 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
       <p>Fidgets de desenho próprio, com runas do ateliê. Vários já saem da impressora montados, sem cola e sem peça solta.</p>
     </div>
     <div class="catalogo" data-categoria="sensoriais"></div>
+  </section>
+
+  <section id="plaquinhas" aria-labelledby="t-plaq">
+    <div class="cabeca">
+      <div><div class="sobre">Plaquinhas</div><h2 id="t-plaq">Para a porta, a parede ou a mesa</h2></div>
+      <p>Base em uma cor e letras em relevo em outra. Para o covil do mestre ou para a casa toda. Com furos para prego ou fita dupla face.</p>
+    </div>
+    <div class="catalogo" data-categoria="plaquinhas"></div>
+  </section>
+
+  <section id="decoracao" hidden aria-labelledby="t-deco">
+    <div class="cabeca">
+      <div><div class="sobre">Decoração</div><h2 id="t-deco">Peças que dão vida ao ambiente</h2></div>
+      <p>Umas no clima do Ateliê, outras para qualquer cantinho do dia a dia. Todas com um toque de personalidade.</p>
+    </div>
+    <div class="catalogo" data-categoria="decoracao"></div>
   </section>
 
   <section id="acessorios" aria-labelledby="t-acess">
@@ -370,17 +391,41 @@ const ADICIONAL_MUDANCA = null;     // cada mudança depois do 1º projeto
 const TAXA_COR = null;              // peça branca para pintar ou em cor fora do catálogo
 
 // Amostras de cor de filamento
-const C = { preto: "#1a1a1a", branco: "#ece9e2", vermelho: "#c0141c", cinza: "#77797b" };
+const C = { preto: "#1a1a1a", branco: "#ece9e2", vermelho: "#c0141c", laranja: "#f26b1d", rosa: "#f28bb0" };
 const CORES_MINI = [
-  { id: "cinza", nome: "Cinza (para pintar)", cor: [C.cinza] },
+  { id: "branco", nome: "Branco (para pintar)", cor: [C.branco] },
+  { id: "preto", nome: "Preto", cor: [C.preto] },
+  { id: "vermelho", nome: "Vermelho", cor: [C.vermelho] }];
+const CORES_CHIBI = [
+  { id: "rosa", nome: "Rosa", cor: [C.rosa] },
+  { id: "laranja", nome: "Laranja", cor: [C.laranja] },
   { id: "branco", nome: "Branco", cor: [C.branco] },
   { id: "preto", nome: "Preto", cor: [C.preto] }];
+const CORES_TURMA = [
+  { id: "rosa", nome: "Rosa", cor: [C.rosa] },
+  { id: "laranja", nome: "Laranja", cor: [C.laranja] },
+  { id: "branco", nome: "Branco", cor: [C.branco] },
+  { id: "preto", nome: "Preto", cor: [C.preto] },
+  { id: "vermelho", nome: "Vermelho", cor: [C.vermelho] }];
+const CORES_PLACA = [
+  { id: "vermelha-branca", nome: "Vermelha e branca", cor: [C.vermelho, C.branco] },
+  { id: "preta-laranja", nome: "Preta e laranja", cor: [C.preto, C.laranja] },
+  { id: "rosa-branca", nome: "Rosa e branca", cor: [C.rosa, C.branco] },
+  { id: "branca-preta", nome: "Branca e preta", cor: [C.branco, C.preto] },
+  { id: "laranja-preta", nome: "Laranja e preta", cor: [C.laranja, C.preto] }];
+const CINCO = [
+  { id: "laranja", nome: "Laranja", cor: [C.laranja] },
+  { id: "rosa", nome: "Rosa", cor: [C.rosa] },
+  { id: "vermelho", nome: "Vermelho", cor: [C.vermelho] },
+  { id: "preto", nome: "Preto", cor: [C.preto] },
+  { id: "branco", nome: "Branco", cor: [C.branco] }];
 
 const CORES_SENS = [
-  { id: "cinza", nome: "Cinza", cor: [C.cinza] },
+  { id: "laranja", nome: "Laranja", cor: [C.laranja] },
+  { id: "rosa", nome: "Rosa", cor: [C.rosa] },
+  { id: "vermelho", nome: "Vermelho", cor: [C.vermelho] },
   { id: "preto", nome: "Preto", cor: [C.preto] },
-  { id: "branco", nome: "Branco", cor: [C.branco] },
-  { id: "vermelho", nome: "Vermelho", cor: [C.vermelho] }];
+  { id: "branco", nome: "Branco", cor: [C.branco] }];
 
 // Cada produto: opcoes (grupos de escolha) e img(escolha) com a imagem da combinação.
 // Imagens geradas por site/gerar_imagens.py. Preços: site/precos.py.
@@ -393,23 +438,24 @@ const PRODUTOS = [
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
       { id: "preta-vermelha", nome: "Preta, bandeja vermelha", cor: [C.preto, C.vermelho] },
       { id: "preta", nome: "Preta", cor: [C.preto] },
-      { id: "cinza", nome: "Cinza pedra", cor: [C.cinza] },
+      { id: "preta-laranja", nome: "Preta, bandeja laranja", cor: [C.preto, C.laranja] },
       { id: "branca", nome: "Branca", cor: [C.branco] }] }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/ritual_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/ritual_${s.cor}.webp`,
     alt: s => `Torre Rúnica na cor ${s.nomes.cor.toLowerCase()}`,
     preco: 229.90
   },
   {
     id: "agentes", categoria: "miniaturas",
-    nome: "Agentes e criatura", selo: "4 miniaturas", unidade: "cada miniatura",
-    desc: "A ocultista com grimório e velas no círculo de ritual, o combatente com facão e espingarda, o especialista com lanterna e câmera, e uma criatura de sangue para o mestre.",
+    nome: "Agentes e criaturas", selo: "5 miniaturas", unidade: "cada miniatura",
+    desc: "A ocultista com grimório e velas no círculo de ritual, o combatente com facão e espingarda, o especialista com lanterna e câmera, e duas ameaças para o mestre: a criatura de sangue e a criatura das sombras, um vulto de capa rasgada com garras.",
     medidas: [["Escala", "28 a 32 mm"], ["Base", "redonda, 25 mm (ocultista: 40 mm)"], ["Acabamento", "uma cor, sem pintura"]],
     opcoes: [
       { chave: "personagem", nome: "Miniatura", itens: [
         { id: "ocultista", nome: "Ocultista" }, { id: "combatente", nome: "Combatente" },
-        { id: "especialista", nome: "Especialista" }, { id: "criatura", nome: "Criatura de sangue" }] },
+        { id: "especialista", nome: "Especialista" }, { id: "criatura", nome: "Criatura de sangue" },
+        { id: "sombra", nome: "Criatura das sombras" }] },
       { chave: "cor", nome: "Cor", itens: CORES_MINI }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/mini_${s.personagem}_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/mini_${s.personagem}_${s.cor}.webp`,
     pedido: s => `miniatura ${s.nomes.personagem} (cor ${s.nomes.cor})`,
     alt: s => `Miniatura ${s.nomes.personagem.toLowerCase()} em ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
@@ -418,9 +464,10 @@ const PRODUTOS = [
     id: "agentinho", categoria: "brinquedinhos",
     nome: "Agentinho", selo: "Bonequinho",
     desc: "De capuz e cachecol, segurando a lanterna com as duas mãos, pronto para descer ao porão.",
+    fala: "Eu vou na frente… ou melhor, vai você?",
     medidas: [["Altura", "cerca de 5 cm"], ["Base", "redonda, 32 mm"]],
-    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_MINI }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/mini_chibi_agente_${s.cor}.webp`,
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_CHIBI }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/mini_chibi_agente_${s.cor}.webp`,
     alt: s => `Bonequinho Agentinho em ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
   },
@@ -428,11 +475,189 @@ const PRODUTOS = [
     id: "criaturinha", categoria: "brinquedinhos",
     nome: "Criaturinha", selo: "Bonequinho",
     desc: "Olhão, presinhas e cara de quem não assusta ninguém. Sentadinha e pronta para a estante.",
+    fala: "Rawr! …assustei?",
     medidas: [["Altura", "cerca de 5 cm"], ["Base", "redonda, 32 mm"]],
-    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_MINI }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/mini_chibi_criatura_${s.cor}.webp`,
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_CHIBI }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/mini_chibi_criatura_${s.cor}.webp`,
     alt: s => `Bonequinho Criaturinha em ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
+  },
+  {
+    id: "fantasminha", categoria: "brinquedinhos",
+    nome: "Boo, o fantasminha", selo: "Aprendiz de mago",
+    desc: "Esculpido à mão (digitalmente): chapéu de mago torto e grande demais, uma mão acenando e o d20 da sorte na outra. Sobrancelha levantada, língua de fora e um rabinho de fumaça atrás.",
+    fala: "Eu juro que o feitiço era pra dar certo!",
+    medidas: [["Tamanho", "48 × 44 × 67 mm"], ["Cores", "corpo + olhos/boca + brilho + chapéu e d20 (AMS)"]],
+    opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/turma_fantasminha_${s.cor}.webp`,
+    alt: s => `Boo, o fantasminha na cor ${s.nomes.cor.toLowerCase()}`,
+    preco: 39.90
+  },
+  {
+    id: "gosminha", categoria: "brinquedinhos",
+    nome: "Gosminha", selo: "Gulosa",
+    desc: "Uma slime que tentou engolir um d6 e ele ficou preso na cabeça. Escorre pelos lados, tem bolhas presas na gosma, topete enrolado e lambe o canto da boca.",
+    fala: "Não fui eu que comi o dado.",
+    medidas: [["Tamanho", "48 × 48 × 36 mm"], ["Cores", "corpo + olhos/boca + brilho + dado e língua (AMS)"]],
+    opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/turma_gosminha_${s.cor}.webp`,
+    alt: s => `Gosminha na cor ${s.nomes.cor.toLowerCase()}`,
+    preco: 29.90
+  },
+  {
+    id: "olhinho", categoria: "brinquedinhos",
+    nome: "Olhinho", selo: "Desconfiado",
+    desc: "Um olho com pálpebra meio caída, veinhas, chifrinhos curvos e asas de morcego, de pé numa pedrinha. Olha de lado para você o tempo todo.",
+    fala: "Eu vi isso. Eu vi TUDO.",
+    medidas: [["Tamanho", "64 × 30 × 48 mm"], ["Cores", "corpo + pupila + branco do olho + íris e veinhas (AMS)"]],
+    opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/turma_olhinho_${s.cor}.webp`,
+    alt: s => `Olhinho na cor ${s.nomes.cor.toLowerCase()}`,
+    preco: 29.90
+  },
+  {
+    id: "caveirinha", categoria: "brinquedinhos",
+    nome: "Caveirinha", selo: "Florida",
+    desc: "Caveirinha de órbitas fundas e nariz de coração, com dentinhos marcados, uma rachadinha no crânio e coroa de florzinhas. Sentada em dois ossinhos cruzados.",
+    fala: "Ossos do ofício!",
+    medidas: [["Tamanho", "34 × 28 × 33 mm"], ["Cores", "osso + órbitas + miolo das flores + pétalas (AMS)"]],
+    opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/turma_caveirinha_${s.cor}.webp`,
+    alt: s => `Caveirinha na cor ${s.nomes.cor.toLowerCase()}`,
+    preco: 29.90
+  },
+  {
+    id: "morceguinho", categoria: "brinquedinhos",
+    nome: "Morceguinho", selo: "Notívago",
+    desc: "De gorro de dormir com pompom e acordadíssimo à meia-noite. Orelhonas, presinha, asas abertas para um abraço e de pé numa lua.",
+    fala: "Já é de noite? Já é de noite?",
+    medidas: [["Tamanho", "64 × 28 × 45 mm"], ["Cores", "corpo + olhos/boca + presinha e pompom + gorro e lua (AMS)"]],
+    opcoes: [{ chave: "cor", nome: "Cor do corpo", itens: CORES_TURMA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/turma_morceguinho_${s.cor}.webp`,
+    alt: s => `Morceguinho na cor ${s.nomes.cor.toLowerCase()}`,
+    preco: 29.90
+  },
+  {
+    id: "placa-nao_perturbe", categoria: "plaquinhas", estilo: "Estilo Ateliê",
+    nome: "Não Perturbe", selo: "Plaquinha",
+    desc: "“NÃO PERTURBE: sessão em andamento”, com um d20 em relevo. Para a porta do quarto ou da sala na noite de jogo.",
+    medidas: [["Tamanho", "160 × 60 × 5 mm"], ["Fixação", "2 furos ou fita dupla face"]],
+    opcoes: [{ chave: "cor", nome: "Cores", itens: CORES_PLACA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/placa_nao_perturbe_${s.cor}.webp`,
+    alt: s => `Plaquinha Não Perturbe ${s.nomes.cor.toLowerCase()}`,
+    preco: 34.90
+  },
+  {
+    id: "placa-covil", categoria: "plaquinhas", estilo: "Estilo Ateliê",
+    nome: "Covil do Mestre", selo: "Plaquinha",
+    desc: "A placa oficial do seu espaço de jogo, com o sigilo do Ateliê e moldura dupla de cantos chanfrados.",
+    medidas: [["Tamanho", "160 × 60 × 5 mm"], ["Fixação", "2 furos ou fita dupla face"]],
+    opcoes: [{ chave: "cor", nome: "Cores", itens: CORES_PLACA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/placa_covil_${s.cor}.webp`,
+    alt: s => `Plaquinha Covil do Mestre ${s.nomes.cor.toLowerCase()}`,
+    preco: 34.90
+  },
+  {
+    id: "placa-criaturas", categoria: "plaquinhas", estilo: "Estilo Ateliê",
+    nome: "Cuidado: Criaturas Soltas", selo: "Plaquinha",
+    desc: "Para avisar as visitas. Com o Boo, o fantasminha, de guarda.",
+    medidas: [["Tamanho", "160 × 60 × 5 mm"], ["Fixação", "2 furos ou fita dupla face"]],
+    opcoes: [{ chave: "cor", nome: "Cores", itens: CORES_PLACA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/placa_criaturas_${s.cor}.webp`,
+    alt: s => `Plaquinha Cuidado: Criaturas Soltas ${s.nomes.cor.toLowerCase()}`,
+    preco: 34.90
+  },
+  {
+    id: "placa-bem_vindos", categoria: "plaquinhas", estilo: "Dia a dia",
+    nome: "Bem-vindos", selo: "Plaquinha",
+    desc: "Em formato de nuvem, com dois coraçõezinhos. Para a porta de entrada.",
+    medidas: [["Tamanho", "160 × 60 × 5 mm"], ["Fixação", "2 furos ou fita dupla face"]],
+    opcoes: [{ chave: "cor", nome: "Cores", itens: CORES_PLACA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/placa_bem_vindos_${s.cor}.webp`,
+    alt: s => `Plaquinha Bem-vindos ${s.nomes.cor.toLowerCase()}`,
+    preco: 34.90
+  },
+  {
+    id: "placa-home_office", categoria: "plaquinhas", estilo: "Dia a dia",
+    nome: "Home Office", selo: "Plaquinha",
+    desc: "“Home Office: em reunião, volto já!”, com uma xícara de café fumegando.",
+    medidas: [["Tamanho", "160 × 60 × 5 mm"], ["Fixação", "2 furos ou fita dupla face"]],
+    opcoes: [{ chave: "cor", nome: "Cores", itens: CORES_PLACA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/placa_home_office_${s.cor}.webp`,
+    alt: s => `Plaquinha Home Office ${s.nomes.cor.toLowerCase()}`,
+    preco: 34.90
+  },
+  {
+    id: "placa-nome", categoria: "plaquinhas", estilo: "Dia a dia · personalizada",
+    nome: "Plaquinha com nome", selo: "Plaquinha",
+    desc: "Com o nome que você quiser e duas estrelinhas, para o quarto, a porta ou a mesa. Escreva o texto na mensagem do pedido.",
+    medidas: [["Tamanho", "160 × 60 × 5 mm"], ["Fixação", "2 furos ou fita dupla face"]],
+    opcoes: [{ chave: "cor", nome: "Cores", itens: CORES_PLACA }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/placa_nome_${s.cor}.webp`,
+    alt: s => `Plaquinha Plaquinha com nome ${s.nomes.cor.toLowerCase()}`,
+    preco: 39.90
+  },
+  {
+    id: "lanterna", categoria: "decoracao", estilo: "Estilo Ateliê",
+    nome: "Lanterna Rúnica", selo: "Luminária",
+    desc: "Cilindro com janelas em forma de runa: com uma vela de LED dentro, projeta runas de luz pela parede.",
+    medidas: [["Tamanho", "78 × 96 mm"], ["Luz", "vela de LED de até 38 mm (não inclusa)"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CINCO }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/dec_lanterna_${s.cor}.webp`,
+    alt: s => `Lanterna Rúnica ${s.nomes.cor.toLowerCase()}`,
+    preco: 49.90
+  },
+  {
+    id: "monstrinho", categoria: "decoracao", estilo: "Estilo Ateliê",
+    nome: "Monstrinho Porta-Trecos", selo: "Organizador",
+    desc: "Guarda canetas, pincéis e dados na boca. Olhões, chifrinhos e um sorriso dentuço que alegra qualquer mesa.",
+    fala: "Me dá caneta! Eu como caneta.",
+    medidas: [["Tamanho", "91 × 74 × 105 mm"], ["Cabe", "canetas, pincéis, dados"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CINCO }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/dec_monstrinho_${s.cor}.webp`,
+    alt: s => `Monstrinho Porta-Trecos ${s.nomes.cor.toLowerCase()}`,
+    preco: 49.90
+  },
+  {
+    id: "porta-chaves", categoria: "decoracao", estilo: "Estilo Ateliê",
+    nome: "Porta-Chaves Rúnico", selo: "De parede",
+    desc: "Quatro ganchos em forma de garra, moldura chanfrada e sigilos nos cantos. Nunca mais perca a chave antes da sessão.",
+    medidas: [["Tamanho", "176 × 76 mm"], ["Ganchos", "4"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: [{ id: "preto-laranja", nome: "Preto e laranja", cor: [C.preto, C.laranja] }, { id: "preto-vermelho", nome: "Preto e vermelho", cor: [C.preto, C.vermelho] }, { id: "branco-preto", nome: "Branco e preto", cor: [C.branco, C.preto] }, { id: "rosa-branco", nome: "Rosa e branco", cor: [C.rosa, C.branco] }] }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/dec_porta_chaves_${s.cor}.webp`,
+    alt: s => `Porta-Chaves Rúnico ${s.nomes.cor.toLowerCase()}`,
+    preco: 29.90
+  },
+  {
+    id: "vaso", categoria: "decoracao", estilo: "Dia a dia",
+    nome: "Vaso Torcido", selo: "Vaso",
+    desc: "Estrela de 8 pontas que gira enquanto sobe. Para flores secas ou artificiais, ou como capa de vaso com a plantinha no pote dentro.",
+    medidas: [["Tamanho", "100 × 130 mm"], ["Uso", "flores secas/artificiais ou capa de vaso"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: CINCO }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/dec_vaso_${s.cor}.webp`,
+    alt: s => `Vaso Torcido ${s.nomes.cor.toLowerCase()}`,
+    preco: 79.90
+  },
+  {
+    id: "porta-copos", categoria: "decoracao", estilo: "Dia a dia",
+    nome: "Porta-Copos", selo: "Jogo com 4",
+    desc: "Dois com flor e dois com ondas, em duas cores. Protegem a mesa e deixam a sala mais alegre.",
+    medidas: [["Tamanho", "96 mm cada"], ["Quantidade", "4"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: [{ id: "rosa-branco", nome: "Rosa e branco", cor: [C.rosa, C.branco] }, { id: "laranja-branco", nome: "Laranja e branco", cor: [C.laranja, C.branco] }, { id: "branco-preto", nome: "Branco e preto", cor: [C.branco, C.preto] }, { id: "preto-rosa", nome: "Preto e rosa", cor: [C.preto, C.rosa] }] }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/dec_porta_copos_${s.cor}.webp`,
+    alt: s => `Porta-Copos ${s.nomes.cor.toLowerCase()}`,
+    preco: 49.90
+  },
+  {
+    id: "gatinho", categoria: "decoracao", estilo: "Dia a dia",
+    nome: "Gatinho Suporte de Celular", selo: "Suporte",
+    desc: "Um gatinho de bochechas rosadas que segura o celular em pé, com espaço para o cabo do carregador.",
+    fala: "Pode deixar que eu seguro!",
+    medidas: [["Tamanho", "80 × 93 × 101 mm"], ["Serve", "celulares de até 12 mm de espessura"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: [{ id: "laranja", nome: "Laranja", cor: [C.laranja] }, { id: "rosa", nome: "Rosa", cor: [C.rosa] }, { id: "branco", nome: "Branco", cor: [C.branco] }, { id: "preto", nome: "Preto", cor: [C.preto] }] }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/dec_gatinho_${s.cor}.webp`,
+    alt: s => `Gatinho Suporte de Celular ${s.nomes.cor.toLowerCase()}`,
+    preco: 39.90
   },
   {
     id: "spinner", categoria: "sensoriais",
@@ -443,8 +668,9 @@ const PRODUTOS = [
       { id: "preto", nome: "Preto, tampinha vermelha", cor: [C.preto, C.vermelho] },
       { id: "branco", nome: "Branco, tampinha preta", cor: [C.branco, C.preto] },
       { id: "vermelho", nome: "Vermelho, tampinha preta", cor: [C.vermelho, C.preto] },
-      { id: "cinza", nome: "Cinza, tampinha vermelha", cor: [C.cinza, C.vermelho] }] }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/sens_spinner_${s.cor}.webp`,
+      { id: "laranja", nome: "Laranja, tampinha preta", cor: [C.laranja, C.preto] },
+      { id: "rosa", nome: "Rosa, tampinha branca", cor: [C.rosa, C.branco] }] }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/sens_spinner_${s.cor}.webp`,
     alt: s => `Spinner Rúnico ${s.nomes.cor.toLowerCase()}`,
     preco: 29.90
   },
@@ -454,21 +680,23 @@ const PRODUTOS = [
     desc: "Um cone feito de uma espiral só. Empurre a ponta e ela atravessa as voltas, num vai e vem que prende a atenção.",
     medidas: [["Tamanho", "46 mm de base, 50 mm de altura"], ["Peças", "uma, impressa já montada"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/sens_cone_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/sens_cone_${s.cor}.webp`,
     alt: s => `Cone Espiral ${s.nomes.cor.toLowerCase()}`,
     preco: 29.90
   },
   {
     id: "serpente", categoria: "sensoriais",
-    nome: "Serpente Articulada", selo: "Sai montada",
-    desc: "Doze segmentos ligados por pinos, que dobram para os dois lados. Sai da impressora já articulada, com uma runa em cada segmento.",
+    nome: "Sibila, a serpente", selo: "Sai montada",
+    desc: "A Sibila é curiosa: doze segmentos ligados por pinos, olhinhos espertos e a linguinha bifurcada para fora. Sai da impressora já articulada e se enrola na mão.",
+    fala: "Ssssó mais uma volta na sua mão…",
     medidas: [["Comprimento", "cerca de 20 cm"], ["Peças", "uma, impressa já montada"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
-      { id: "preta", nome: "Preta", cor: [C.preto] },
-      { id: "vermelha", nome: "Vermelha", cor: [C.vermelho] },
-      { id: "preta-vermelha", nome: "Preta e vermelha", cor: [C.preto, C.vermelho] },
-      { id: "branca-preta", nome: "Branca e preta", cor: [C.branco, C.preto] }] }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/sens_serpente_${s.cor}.webp`,
+      { id: "preta-laranja", nome: "Preta e laranja", cor: [C.preto, C.laranja] },
+      { id: "rosa-branca", nome: "Rosa e branca", cor: [C.rosa, C.branco] },
+      { id: "vermelha-preta", nome: "Vermelha e preta", cor: [C.vermelho, C.preto] },
+      { id: "rosa", nome: "Rosa", cor: [C.rosa] },
+      { id: "preta", nome: "Preta", cor: [C.preto] }] }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/sens_serpente_${s.cor}.webp`,
     alt: s => `Serpente Articulada ${s.nomes.cor.toLowerCase()}`,
     preco: 29.90
   },
@@ -478,7 +706,7 @@ const PRODUTOS = [
     desc: "Cada face tem uma textura: anéis, ondas, sigilo, covinhas, bolinhas e pontinhos. Para girar na mão durante a sessão.",
     medidas: [["Tamanho", "30 mm"], ["Peças", "uma"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/sens_dado_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/sens_dado_${s.cor}.webp`,
     alt: s => `Dado Sensorial ${s.nomes.cor.toLowerCase()}`,
     preco: 24.90
   },
@@ -490,21 +718,23 @@ const PRODUTOS = [
     opcoes: [
       { chave: "tamanho", nome: "Tamanho", itens: [{ id: "p", nome: "P (17 mm)" }, { id: "m", nome: "M (19 mm)" }, { id: "g", nome: "G (21 mm)" }] },
       { chave: "cor", nome: "Cor", itens: [
-        { id: "preto", nome: "Preto", cor: [C.preto] },
-        { id: "branco", nome: "Branco", cor: [C.branco] },
+        { id: "preto-laranja", nome: "Preto, faixa laranja", cor: [C.preto, C.laranja] },
+        { id: "branco-rosa", nome: "Branco, faixa rosa", cor: [C.branco, C.rosa] },
+        { id: "rosa-branco", nome: "Rosa, faixa branca", cor: [C.rosa, C.branco] },
         { id: "preto-vermelho", nome: "Preto, faixa vermelha", cor: [C.preto, C.vermelho] },
-        { id: "branco-vermelho", nome: "Branco, faixa vermelha", cor: [C.branco, C.vermelho] }] }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/sens_anel_${s.cor}.webp`,
+        { id: "preto", nome: "Preto", cor: [C.preto] }] }],
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/sens_anel_${s.cor}.webp`,
     alt: s => `Anel Giratório ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
   },
   {
     id: "pedra", categoria: "sensoriais",
-    nome: "Pedra de Runas", selo: "De bolso",
-    desc: "Pedrinha lisa com encaixe para o polegar e um anel de runas em relevo para passar o dedo. Boa para acalmar e concentrar.",
+    nome: "Pedrinha Sonolenta", selo: "De bolso",
+    desc: "Ela vive cochilando: pedrinha lisa com carinha dormindo, encaixe para o polegar e runas em relevo para passar o dedo. Acalma só de olhar.",
+    fala: "Zzz… me aperta que passa…",
     medidas: [["Tamanho", "56 × 42 × 17 mm"], ["Peças", "uma"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/sens_pedra_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/sens_pedra_${s.cor}.webp`,
     alt: s => `Pedra de Runas ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
   },
@@ -514,7 +744,7 @@ const PRODUTOS = [
     desc: "Pião de 44 mm com runas na face de cima e haste encaixada. Gira firme por bastante tempo.",
     medidas: [["Tamanho", "44 mm de diâmetro"], ["Peças", "corpo e haste"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/sens_piao_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/sens_piao_${s.cor}.webp`,
     alt: s => `Pião Rúnico ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
   },
@@ -524,7 +754,7 @@ const PRODUTOS = [
     desc: "Um d20 de 23 mm com argola, para levar a mesa no bolso.",
     medidas: [["Tamanho", "23 mm"], ["Peças", "uma"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/sens_d20_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/sens_d20_${s.cor}.webp`,
     alt: s => `Chaveiro d20 ${s.nomes.cor.toLowerCase()}`,
     preco: 14.90
   },
@@ -536,9 +766,9 @@ const PRODUTOS = [
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
       { id: "preto", nome: "Preto", cor: [C.preto] },
       { id: "preto-vermelho", nome: "Preto, tampa vermelha", cor: [C.preto, C.vermelho] },
-      { id: "cinza", nome: "Cinza pedra", cor: [C.cinza] },
+      { id: "preto-laranja", nome: "Preto, tampa laranja", cor: [C.preto, C.laranja] },
       { id: "branco", nome: "Branco", cor: [C.branco] }] }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/bau_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/bau_${s.cor}.webp`,
     alt: s => `Baú do Mestre em ${s.nomes.cor.toLowerCase()}`,
     preco: 69.90
   },
@@ -551,7 +781,7 @@ const PRODUTOS = [
       { id: "preto", nome: "Preto e branco", cor: [C.preto, C.branco] },
       { id: "branco", nome: "Branco e preto", cor: [C.branco, C.preto] },
       { id: "vermelho", nome: "Vermelho e branco", cor: [C.vermelho, C.branco] }] }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/aneis_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/aneis_${s.cor}.webp`,
     alt: s => `Anéis de condição em ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
   },
@@ -569,7 +799,7 @@ const PRODUTOS = [
         { id: "preta-branca", nome: "Preta e branca", cor: [C.preto, C.branco] },
         { id: "branca-preta", nome: "Branca e preta", cor: [C.branco, C.preto] },
         { id: "vermelha-preta", nome: "Vermelha e preta", cor: [C.vermelho, C.preto] }] }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/caixa_${s.emblema}_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/caixa_${s.emblema}_${s.cor}.webp`,
     alt: s => `Caixa de dados ${s.nomes.cor.toLowerCase()} com o emblema de ${s.nomes.emblema.toLowerCase()}`,
     preco: 99.90
   },
@@ -584,7 +814,7 @@ const PRODUTOS = [
         { id: "preto-vermelho", nome: "Preto e vermelho", cor: [C.preto, C.vermelho] },
         { id: "preto-branco", nome: "Preto e branco", cor: [C.preto, C.branco] },
         { id: "branco-preto", nome: "Branco e preto", cor: [C.branco, C.preto] }] }],
-    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/3e5e6aa2e9d1b238344effe8527fc97f4ef90691/site/img/relicario_${s.selo}_${s.cor}.webp`,
+    img: s => `https://raw.githubusercontent.com/joaovitornetti2-web/mesa3d/c4e48ceb1ab0441a61f070e340922c6d57eab1a4/site/img/relicario_${s.selo}_${s.cor}.webp`,
     alt: s => `Cofre de Runas ${s.nomes.cor.toLowerCase()} com selo de ${s.nomes.selo.toLowerCase()}`,
     preco: 39.90
   }
@@ -651,8 +881,9 @@ function ficha(p) {
   <article class="ficha" id="p-${p.id}">
     <div class="foto"><img alt="" loading="lazy"></div>
     <div class="corpo">
-      <span class="selo">${esc(p.selo)}</span>
+      <span class="selo">${esc(p.selo)}</span>${p.estilo ? `<span class="estilo">${esc(p.estilo)}</span>` : ""}
       <h3>${esc(p.nome)}</h3>
+      ${p.fala ? `<p class="fala">“${esc(p.fala)}”</p>` : ""}
       <p>${esc(p.desc)}</p>
       <dl class="medidas">${p.medidas.map(d => `<dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd>`).join("")}</dl>
       ${p.opcoes.map(g => `
