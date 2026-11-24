@@ -148,16 +148,23 @@ def dec(partes, variantes, el=24, folga=1.05, suave=False):
                 cam=dict(elevacao=el, azimute=-24, tamanho=[1000, 1100], folga=folga))
 CINCO = {"preto": dict(c1=PRETO), "branco": dict(c1=BRANCO), "vermelho": dict(c1=VERMELHO), "laranja": dict(c1=LARANJA), "rosa": dict(c1=ROSA)}
 ROSTO = lambda corpo, acento=ROSA: dict(c1=corpo, c2=PRETO, c3=BRANCO, c4=acento)
-PRODUTOS["dec_lanterna"] = dec({"c1": "lanterna_c1"}, CINCO, 22)
-PRODUTOS["dec_monstrinho"] = dec({"c1": "monstrinho_c1", "c2": "monstrinho_c2", "c3": "monstrinho_c3"},
-                                 {"laranja": ROSTO(LARANJA), "rosa": ROSTO(ROSA), "vermelho": ROSTO(VERMELHO), "preto": dict(c1=PRETO, c2=VERMELHO, c3=BRANCO), "branco": ROSTO(BRANCO)}, 16)
-PRODUTOS["dec_porta_chaves"] = dec({"c1": "porta_chaves_runa_c1", "c2": "porta_chaves_runa_c2"},
-                                   {"preto-laranja": dict(c1=PRETO, c2=LARANJA), "preto-vermelho": dict(c1=PRETO, c2=VERMELHO), "branco-preto": dict(c1=BRANCO, c2=PRETO), "rosa-branco": dict(c1=ROSA, c2=BRANCO)}, 50, 1.0)
-PRODUTOS["dec_vaso"] = dec({"c1": "vaso_c1"}, CINCO, 18, 1.05, True)
-PRODUTOS["dec_porta_copos"] = dec({"c1": "porta_copos_c1", "c2": "porta_copos_c2"},
-                                  {"branco-preto": dict(c1=BRANCO, c2=PRETO), "rosa-branco": dict(c1=ROSA, c2=BRANCO), "laranja-branco": dict(c1=LARANJA, c2=BRANCO), "preto-rosa": dict(c1=PRETO, c2=ROSA)}, 45, 1.0)
-PRODUTOS["dec_gatinho"] = dec({"c1": "gatinho_c1", "c2": "gatinho_c2", "c3": "gatinho_c3", "c4": "gatinho_c4"},
-                              {"laranja": ROSTO(LARANJA), "rosa": ROSTO(ROSA, VERMELHO), "branco": ROSTO(BRANCO), "preto": dict(c1=PRETO, c2=BRANCO, c3=BRANCO, c4=ROSA)}, 18)
+# decoração esculpida (models/esculpidos/decor/stl)
+RDE = os.path.join(M, "esculpidos", "decor", "stl")
+def dece(nome, papeis, variantes, el=20, az=-24, folga=1.05):
+    return dict(stl={c: os.path.join(RDE, f"{nome}_{c}.stl") for c in papeis}, suave=True, variantes=variantes,
+                cam=dict(elevacao=el, azimute=az, tamanho=[1000, 1100], folga=folga))
+C4 = ("c1", "c2", "c3", "c4")
+FACE = lambda corpo, acento, olhos=PRETO, brilho=BRANCO: dict(c1=corpo, c2=olhos, c3=brilho, c4=acento)
+PRODUTOS["dec_lanterna"] = dece("lanterna", ("c1",), CINCO, 18, -15, 1.05)
+PRODUTOS["dec_monstrinho"] = dece("monstrinho", C4, {"laranja": FACE(LARANJA, VERMELHO), "rosa": FACE(ROSA, VERMELHO), "vermelho": FACE(VERMELHO, ROSA),
+                                                     "preto": FACE(PRETO, LARANJA), "branco": FACE(BRANCO, ROSA)}, 16, -24)
+PRODUTOS["dec_porta_chaves"] = dece("porta_chaves", ("c1", "c2"), {"preto-laranja": dict(c1=PRETO, c2=LARANJA), "preto-vermelho": dict(c1=PRETO, c2=VERMELHO),
+                                                                  "branco-preto": dict(c1=BRANCO, c2=PRETO), "rosa-branco": dict(c1=ROSA, c2=BRANCO)}, 40, -25, 1.0)
+PRODUTOS["dec_vaso"] = dece("vaso", ("c1",), CINCO, 16, -20)
+PRODUTOS["dec_porta_copos"] = dece("porta_copos", ("c1", "c2"), {"branco-preto": dict(c1=BRANCO, c2=PRETO), "rosa-branco": dict(c1=ROSA, c2=BRANCO),
+                                                                "laranja-branco": dict(c1=LARANJA, c2=BRANCO), "preto-rosa": dict(c1=PRETO, c2=ROSA)}, 42, -20, 1.0)
+PRODUTOS["dec_gatinho"] = dece("gatinho", C4, {"laranja": FACE(LARANJA, VERMELHO), "rosa": FACE(ROSA, VERMELHO), "branco": FACE(BRANCO, LARANJA),
+                                               "preto": FACE(PRETO, LARANJA, BRANCO, PRETO)}, 26, -40)
 
 # miniaturas e brinquedinhos do Meshy (STL já preparado em models/kit/meshy_op/<nome>_pronto.stl)
 CORES_MINI = {"branco": dict(c1=BRANCO), "preto": dict(c1=PRETO), "vermelho": dict(c1=VERMELHO)}

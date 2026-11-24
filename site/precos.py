@@ -77,6 +77,13 @@ FATIADO = {
     "olhinho": (11.0 + 25, 0.85 + 1.0, 0),
     "caveirinha": (6.9 + 25, 0.45 + 1.0, 0),
     "morceguinho": (8.6 + 25, 0.61 + 1.0, 0),
+    # Decoração esculpida (models/esculpidos/decor), PrusaSlicer; purga/trocas do AMS estimadas onde há mais de 1 cor
+    "lanterna": (93.8, 3.95, 0),
+    "monstrinho": (74.0 + 25, 3.06 + 1.0, 0),
+    "porta-chaves": (50.1 + 30, 2.64 + 1.0, 0),       # metal (2ª cor) aparece em quase todas as camadas
+    "vaso": (97.8, 3.97, 0),
+    "porta-copos": (140.0 + 10, 4.6 + 0.3, 0),        # 4 porta-copos + suporte; cor só no topo
+    "gatinho": (57.2 + 25, 2.44 + 1.0, 0),
 }
 
 if __name__ == "__main__":

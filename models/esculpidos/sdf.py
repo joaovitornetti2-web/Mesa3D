@@ -170,6 +170,10 @@ def malha(g, campo, suaviza=6, faces=None):
     m = trimesh.Trimesh(v, f[:, ::-1], process=True)
     m.update_faces(m.nondegenerate_faces())
     m.remove_unreferenced_vertices()
+    partes = m.split(only_watertight=False)
+    if len(partes) > 1:                      # joga fora farelos soltos (lascas de borda entre cores)
+        boas = [p for p in partes if p.area >= 4.0]
+        m = trimesh.util.concatenate(boas) if boas else m
     if faces and len(m.faces) > faces:
         try:
             import fast_simplification
@@ -188,7 +192,7 @@ def exportar(g, partes, base, faces=250000, ordem=None):
     os.makedirs(os.path.dirname(base) or ".", exist_ok=True)
     feitos = {}
     for nome, campo in partes.items():
-        m = malha(g, campo, faces=faces if nome == "c1" else faces // 3)
+        m = malha(g, campo, faces=(faces if nome == "c1" else faces // 3) if faces else None)
         if m is None:
             continue
         caminho = f"{base}_{nome}.stl"
