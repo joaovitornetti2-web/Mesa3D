@@ -63,6 +63,7 @@ PRODUTOS = {
 # gramas, horas, purga extra do AMS (g) estimada para peças de 2 cores. Atualize com o Bambu Studio quando fatiar lá.
 FATIADO = {
     "torre": (223.0 + 125.6, 11.29 + 4.51, 0),           # torre + bandeja esculpida (cores em peças separadas: sem purga)
+    "porteiro": (203.0 + 35, 11.0 + 4.0, 30),             # torre/bandeja/telhado/sino/lápide pelo volume + Deus da Morte (3 cores) estimado; refazer no fatiador
     "bau": (68.8 + 35.1, 2.74 + 1.43, 0),                # base + tampa
     "caixa": (87.9 + 22.1, 3.28 + 0.72, 60),             # base + tampa; emblema na frente troca de cor ~140 camadas
     "relicario": (58.8 + 0.9, 2.08 + 0.09, 3),           # corpo/tampa + topo do medalhão

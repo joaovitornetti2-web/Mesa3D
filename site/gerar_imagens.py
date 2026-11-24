@@ -85,6 +85,20 @@ CORES_ESC = {"preta": dict(c1=PRETO, c2=PRETO), "preta-laranja": dict(c1=PRETO, 
              "preta-vermelha": dict(c1=PRETO, c2=VERMELHO)}
 PRODUTOS["ritual"] = dict(stl={"c1": os.path.join(CACHE, "ritual_torre_montada.stl"), "c2": os.path.join(M, "torre", "ritual", "bandeja_esculpida.stl")},
                           suave=True, variantes=CORES_ESC, cam=dict(elevacao=20, azimute=-28, tamanho=[1000, 1200], folga=1.0))
+# Torre do Porteiro (models/torre/torre_porteiro.scad): c1 torre/bandeja/telhado, c2 sino e lápide, c3 texto da lápide
+def porteiro(corpo):
+    return f'include <{M}/torre/torre_porteiro.scad>\nPARTE = "nada";\n{corpo}\n'
+LAPIDE = "translate([26, 26, BF - 2]) rotate([90, 0, 0]) translate([0, 2.5, -3])"
+PRODUTOS["porteiro"] = dict(
+    grupos={
+        "c1": porteiro("bandeja(); translate([TX, TY, BF]) torre(); translate([TX, TY, BF + TH]) telhado();"),
+        "c2:sino": porteiro("translate([TX + T / 2, TY + T - 6, BF + TH + DECK_H + 10]) sino();"),
+        "c2:lapide": porteiro(f"{LAPIDE} lapide_base();"),
+        "c3": porteiro(f"{LAPIDE} lapide_texto();"),
+    },
+    variantes={"preta": dict(c1=PRETO, c2=BRANCO, c3=VERMELHO), "branca": dict(c1=BRANCO, c2=PRETO, c3=VERMELHO),
+               "vermelha": dict(c1=VERMELHO, c2=BRANCO, c3=PRETO)},
+    cam=dict(elevacao=24, azimute=-30, tamanho=[1000, 1200], folga=1.02))
 PRODUTOS["bau"] = dict(stl={"c1": os.path.join(M, "kit", "bau", "bau_base.stl"), "c2": os.path.join(M, "kit", "bau", "bau_tampa.stl")},
                        suave=True, variantes={"preto": dict(c1=PRETO, c2=PRETO), "preto-laranja": dict(c1=PRETO, c2=LARANJA),
                                               "branco": dict(c1=BRANCO, c2=BRANCO), "preto-vermelho": dict(c1=PRETO, c2=VERMELHO)},

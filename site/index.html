@@ -445,6 +445,19 @@ const PRODUTOS = [
     preco: 229.90
   },
   {
+    id: "porteiro", categoria: "torres",
+    nome: "Torre do Porteiro", selo: "Ordem Paranormal", unidade: "torre, bandeja e Deus da Morte",
+    desc: "O campanário de Santo Berço, de O Segredo na Floresta: torre de pedra com o Lodo escorrendo do telhado e das janelas, sino no alto e o Deus da Morte apoiado nas ameias. Na bandeja, o Labirinto Infinito gravado no fundo e a lápide do Thiago Fritz. Os dados entram pelas janelas do campanário, batem em duas rampas e saem pela porta. A foto mostra a torre sem a figura.",
+    medidas: [["Torre montada", "80 × 80 × 175 mm"], ["Bandeja", "150 × 150 × 18 mm"], ["Deus da Morte", "cerca de 65 mm, 3 cores"], ["Dado máximo", "d20 de 26 mm"], ["Peças", "bandeja, torre, telhado, sino, lápide, emblema e figura, com encaixe"]],
+    opcoes: [{ chave: "cor", nome: "Cor", itens: [
+      { id: "preta", nome: "Preta, lápide branca", cor: [C.preto, C.branco] },
+      { id: "branca", nome: "Branca, lápide preta", cor: [C.branco, C.preto] },
+      { id: "vermelha", nome: "Vermelha, lápide branca", cor: [C.vermelho, C.branco] }] }],
+    img: s => `img/porteiro_${s.cor}.webp`,
+    alt: s => `Torre do Porteiro na cor ${s.nomes.cor.toLowerCase()}`,
+    preco: 189.90
+  },
+  {
     id: "agentes", categoria: "miniaturas",
     nome: "Agentes e criaturas", selo: "5 miniaturas", unidade: "cada miniatura",
     desc: "A ocultista com grimório e velas no círculo de ritual, o combatente com facão e espingarda, o especialista com lanterna e câmera, e duas ameaças para o mestre: a criatura de sangue e a criatura das sombras, um vulto de capa rasgada com garras.",
