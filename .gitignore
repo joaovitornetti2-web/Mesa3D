@@ -29,3 +29,12 @@ models/kit/stl/
 models/presentes/*/saida/
 models/presentes/*/desenho_*
 models/presentes/*/saida_*/
+site/.cache/
+models/kit/meshy_op/
+models/dados/emblemas/
+models/sensoriais/stl/
+models/turma/stl/
+models/decor/stl/
+models/esculpidos/stl/
+models/esculpidos/decor/stl/
+models/esculpidos/decor/stl_imprimir/
