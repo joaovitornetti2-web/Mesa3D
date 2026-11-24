@@ -4,7 +4,8 @@
 include <../kit/kit_rpg.scad>
 PARTE = "s_spinner";
 TEMA = "paranormal";
-FOLGA_PIP = 0.4;    // folga das peças impressas já montadas (print-in-place)
+FOLGA_PIP = 0.4;
+DECOR = true;      // false: só a mecânica (a versão esculpida põe a decoração por cima)
 ARO = 19;           // anel giratório: diâmetro interno (17 P, 19 M, 21 G)
 
 // ---------------- SPINNER RÚNICO (rolamento 608: 22 × 8 × 7 mm) ----------------
@@ -87,8 +88,8 @@ module segmento_s(i) {
       for (z = [-1, 2 * t3 - G]) em(j, z, t3 + 1 + G, SG_RP + G);                                     // espaço do garfo do próximo
     }
     if (i > 0) em(jf, t3, t3, SG_RP + G);                                                               // espaço da língua do anterior
-    translate([c[0], c[1], SG_H - 0.6]) linear_extrude(1) rotate(SGL[i][2]) runa2d(i * 3 + 11, 7);   // runa no topo
-    if (i == 0) for (s = [-1, 1]) let(o = c + 4.5 * sg_dir(SGL[0][2]) + s * 3.5 * sg_dir(SGL[0][2] + 90))
+    if (DECOR) translate([c[0], c[1], SG_H - 0.6]) linear_extrude(1) rotate(SGL[i][2]) runa2d(i * 3 + 11, 7);   // runa no topo
+    if (DECOR && i == 0) for (s = [-1, 1]) let(o = c + 4.5 * sg_dir(SGL[0][2]) + s * 3.5 * sg_dir(SGL[0][2] + 90))
       translate([o[0], o[1], SG_H - 1]) cylinder(d = 2.6, h = 2, $fn = 20);                            // olhos
   }
   if (i > 0) em(jf, 0, SG_H, SG_PINO / 2);                                                              // pino do garfo
@@ -137,7 +138,7 @@ module anel() {
     rotate_extrude($fn = 128) polygon([
       [ri + e + g, 0], [ri + e + 3.6, 0], [ri + e + 3.6, AN_W], [ri + e + g, AN_W],
       [ri + e + g, AN_W / 2 + 2.2 + g], [ri + e + 2.2 + g, AN_W / 2], [ri + e + g, AN_W / 2 - 2.2 - g]]);
-    for (k = [0:15]) rotate(k * 360 / 16) translate([ri + e + 3.6 - 0.5, 0, 1.6]) rotate([0, 90, 0]) linear_extrude(1) rotate(90) runa2d(k + 200, 3.6);
+    if (DECOR) for (k = [0:15]) rotate(k * 360 / 16) translate([ri + e + 3.6 - 0.5, 0, 1.6]) rotate([0, 90, 0]) linear_extrude(1) rotate(90) runa2d(k + 200, 3.6);
   }
 }
 
@@ -175,6 +176,8 @@ if (PARTE == "s_pedra") difference() { pedra(); pedra_det(2); pedra_det(4); }
 if (PARTE == "s_pedra_c2") pedra_det(2);
 if (PARTE == "s_pedra_c4") pedra_det(4);
 if (PARTE == "s_serpente") difference() { serpente(); serpente_det(2); serpente_det(3); }
+if (PARTE == "s_serpente_par") for (i = [0:2:SG_N - 1]) segmento_s(i);
+if (PARTE == "s_serpente_impar") for (i = [1:2:SG_N - 1]) segmento_s(i);
 if (PARTE == "s_serpente_c2") serpente_det(2);
 if (PARTE == "s_serpente_c3") serpente_det(3);
 if (PARTE == "s_serpente_c4") serpente_det(4);

@@ -205,7 +205,7 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
       <div class="mosaico" aria-label="Algumas peças do ateliê">
         <a href="#acessorios" class="m-a"><img src="img/caixa_sangue_preta-vermelha.webp" alt="Caixa de dados elemental com emblema vermelho"><span>Caixa elemental</span></a>
         <a href="#brinquedinhos" class="m-b"><img src="img/mini_chibi_criatura_branco.webp" alt="Criaturinha branca"><span>Criaturinha</span></a>
-        <a href="#miniaturas" class="m-c"><img src="img/mini_ocultista_cinza.webp" alt="Miniatura da ocultista"><span>Ocultista</span></a>
+        <a href="#miniaturas" class="m-c"><img src="img/mini_ocultista_branco.webp" alt="Miniatura da ocultista"><span>Ocultista</span></a>
         <a href="#acessorios" class="m-d"><img src="img/bau_preto-vermelho.webp" alt="Baú do Mestre preto com tampa vermelha"><span>Baú do Mestre</span></a>
       </div>
     </div>
@@ -232,7 +232,7 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
   <section id="miniaturas" aria-labelledby="t-minis">
     <div class="cabeca">
       <div><div class="sobre">Miniaturas</div><h2 id="t-minis">Agentes e criaturas para a sua mesa</h2></div>
-      <p>Escala de 28 a 32 mm, base redonda de 25 mm. Vêm em uma cor só: pede em cinza ou branco se quiser pintar.</p>
+      <p>Escala de 28 a 32 mm, base redonda de 25 mm. Vêm em uma cor só: pede em branco se quiser pintar.</p>
     </div>
     <div class="catalogo largo" data-categoria="miniaturas"></div>
   </section>
@@ -675,9 +675,10 @@ const PRODUTOS = [
   },
   {
     id: "spinner", categoria: "sensoriais",
-    nome: "Spinner Rúnico", selo: "Com rolamento",
-    desc: "Spinner de três pontas com rolamento de aço no centro e runas em volta. Gira liso e por bastante tempo.",
-    medidas: [["Tamanho", "84 × 77 × 7 mm"], ["Rolamento", "608, incluso"], ["Peças", "corpo, 2 tampinhas e rolamento"]],
+    nome: "Spinner Ciranda dos Gatinhos", selo: "Com rolamento",
+    desc: "Três cabecinhas de gato girando em volta de um rolamento de aço: orelhinhas, olhões, nariz, boquinha e bigodes em relevo. Gira liso e por bastante tempo, e as tampinhas têm uma estrelinha.",
+    fala: "Miau, miau, miaaaaau (girando).",
+    medidas: [["Tamanho", "82 × 71 × 8 mm"], ["Rolamento", "608, incluso"], ["Peças", "corpo, 2 tampinhas e rolamento"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
       { id: "preto", nome: "Preto, tampinha vermelha", cor: [C.preto, C.vermelho] },
       { id: "branco", nome: "Branco, tampinha preta", cor: [C.branco, C.preto] },
@@ -685,25 +686,26 @@ const PRODUTOS = [
       { id: "laranja", nome: "Laranja, tampinha preta", cor: [C.laranja, C.preto] },
       { id: "rosa", nome: "Rosa, tampinha branca", cor: [C.rosa, C.branco] }] }],
     img: s => `img/sens_spinner_${s.cor}.webp`,
-    alt: s => `Spinner Rúnico ${s.nomes.cor.toLowerCase()}`,
+    alt: s => `Spinner Ciranda dos Gatinhos ${s.nomes.cor.toLowerCase()}`,
     preco: 29.90
   },
   {
     id: "cone", categoria: "sensoriais",
-    nome: "Cone Espiral", selo: "Sai montado",
-    desc: "Um cone feito de uma espiral só. Empurre a ponta e ela atravessa as voltas, num vai e vem que prende a atenção.",
-    medidas: [["Tamanho", "46 mm de base, 50 mm de altura"], ["Peças", "uma, impressa já montada"]],
+    nome: "Chapéu de Mago Espiral", selo: "Sai montado",
+    desc: "O cone espiral virou um chapéu de mago de aba larga, curvinho para dentro, com estrelinhas e uma lua em relevo. É uma fita em espiral só: empurre a ponta e ela atravessa as voltas, num vai e vem que prende a atenção.",
+    fala: "Abracadabra… e lá vai a ponta!",
+    medidas: [["Tamanho", "62 mm de aba, 55 mm de altura"], ["Peças", "uma, impressa já montada"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
     img: s => `img/sens_cone_${s.cor}.webp`,
-    alt: s => `Cone Espiral ${s.nomes.cor.toLowerCase()}`,
-    preco: 29.90
+    alt: s => `Chapéu de Mago Espiral ${s.nomes.cor.toLowerCase()}`,
+    preco: 19.90
   },
   {
     id: "serpente", categoria: "sensoriais",
     nome: "Sibila, a serpente", selo: "Sai montada",
-    desc: "A Sibila é curiosa: doze segmentos ligados por pinos, olhinhos espertos e a linguinha bifurcada para fora. Sai da impressora já articulada e se enrola na mão.",
-    fala: "Ssssó mais uma volta na sua mão…",
-    medidas: [["Comprimento", "cerca de 20 cm"], ["Peças", "uma, impressa já montada"]],
+    desc: "Doze segmentos ligados por pinos, cada um com uma cúpula de escamas em relevo. A cabeça tem focinho, olhões, sobrancelha de quem está tramando algo e a linguinha bifurcada para fora. Sai da impressora já articulada e se enrola na mão.",
+    fala: "Ssssó mais um pouquinho de cafuné…",
+    medidas: [["Comprimento", "cerca de 21 cm"], ["Peças", "uma, impressa já montada"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: [
       { id: "preta-laranja", nome: "Preta e laranja", cor: [C.preto, C.laranja] },
       { id: "rosa-branca", nome: "Rosa e branca", cor: [C.rosa, C.branco] },
@@ -712,22 +714,23 @@ const PRODUTOS = [
       { id: "preta", nome: "Preta", cor: [C.preto] }] }],
     img: s => `img/sens_serpente_${s.cor}.webp`,
     alt: s => `Serpente Articulada ${s.nomes.cor.toLowerCase()}`,
-    preco: 29.90
+    preco: 39.90
   },
   {
     id: "dado-sensorial", categoria: "sensoriais",
     nome: "Dado Sensorial", selo: "6 texturas",
-    desc: "Cada face tem uma textura: anéis, ondas, sigilo, covinhas, bolinhas e pontinhos. Para girar na mão durante a sessão.",
-    medidas: [["Tamanho", "30 mm"], ["Peças", "uma"]],
+    desc: "Cubo de cantos macios com uma textura em cada face: escamas de dragão, plástico-bolha, ondas zen, espiral para seguir com o dedo, covinhas e uma carinha sorrindo.",
+    fala: "Escolhe uma face, qualquer face.",
+    medidas: [["Tamanho", "32 mm"], ["Peças", "uma"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
     img: s => `img/sens_dado_${s.cor}.webp`,
     alt: s => `Dado Sensorial ${s.nomes.cor.toLowerCase()}`,
-    preco: 24.90
+    preco: 19.90
   },
   {
     id: "anel-giratorio", categoria: "sensoriais",
     nome: "Anel Giratório", selo: "Sai montado",
-    desc: "A faixa de fora, com runas, gira em volta do aro de dentro. Discreto para usar no dedo e mexer sem ninguém ver.",
+    desc: "A faixa de fora gira em volta do aro de dentro e traz uma ciranda de fantasminhas com estrelinhas entre eles. Discreto para usar no dedo e mexer sem ninguém ver.",
     medidas: [["Largura", "10 mm"], ["Peças", "uma, impressa já montada"]],
     opcoes: [
       { chave: "tamanho", nome: "Tamanho", itens: [{ id: "p", nome: "P (17 mm)" }, { id: "m", nome: "M (19 mm)" }, { id: "g", nome: "G (21 mm)" }] },
@@ -744,33 +747,35 @@ const PRODUTOS = [
   {
     id: "pedra", categoria: "sensoriais",
     nome: "Pedrinha Sonolenta", selo: "De bolso",
-    desc: "Ela vive cochilando: pedrinha lisa com carinha dormindo, encaixe para o polegar e runas em relevo para passar o dedo. Acalma só de olhar.",
-    fala: "Zzz… me aperta que passa…",
-    medidas: [["Tamanho", "56 × 42 × 17 mm"], ["Peças", "uma"]],
+    desc: "Ela vive cochilando: enrolada num cobertorzinho, de touquinha com pompom, olhinhos fechados e um “z” flutuando. Tem uma covinha no topo do tamanho certo para o polegar.",
+    fala: "Só mais cinco minutinhos…",
+    medidas: [["Tamanho", "59 × 44 × 25 mm"], ["Peças", "uma"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
     img: s => `img/sens_pedra_${s.cor}.webp`,
     alt: s => `Pedra de Runas ${s.nomes.cor.toLowerCase()}`,
-    preco: 19.90
+    preco: 29.90
   },
   {
     id: "piao", categoria: "sensoriais",
-    nome: "Pião Rúnico", selo: "Clássico",
-    desc: "Pião de 44 mm com runas na face de cima e haste encaixada. Gira firme por bastante tempo.",
-    medidas: [["Tamanho", "44 mm de diâmetro"], ["Peças", "corpo e haste"]],
+    nome: "Pião Abóbora", selo: "Clássico",
+    desc: "Uma abobrinha de gomos com carinha de lanterna de Halloween e cabinho torcido, que é por onde se gira. Gira firme por bastante tempo.",
+    fala: "Gira, gira, abóbora!",
+    medidas: [["Tamanho", "44 mm de diâmetro, 59 mm de altura"], ["Peças", "uma"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
     img: s => `img/sens_piao_${s.cor}.webp`,
-    alt: s => `Pião Rúnico ${s.nomes.cor.toLowerCase()}`,
+    alt: s => `Pião Abóbora ${s.nomes.cor.toLowerCase()}`,
     preco: 19.90
   },
   {
     id: "chaveiro-d20", categoria: "sensoriais",
-    nome: "Chaveiro d20", selo: "Chaveiro",
-    desc: "Um d20 de 23 mm com argola, para levar a mesa no bolso.",
-    medidas: [["Tamanho", "23 mm"], ["Peças", "uma"]],
+    nome: "Chaveiro d20 Criaturinha", selo: "Chaveiro",
+    desc: "Um d20 que ganhou vida: carinha marota com presinha, asinhas de morcego, dois chifrinhos e argola para a chave. Leva a mesa no bolso.",
+    fala: "Rolei um 20 só de te ver!",
+    medidas: [["Tamanho", "48 × 21 × 33 mm"], ["Peças", "uma"]],
     opcoes: [{ chave: "cor", nome: "Cor", itens: CORES_SENS }],
     img: s => `img/sens_d20_${s.cor}.webp`,
-    alt: s => `Chaveiro d20 ${s.nomes.cor.toLowerCase()}`,
-    preco: 14.90
+    alt: s => `Chaveiro d20 Criaturinha ${s.nomes.cor.toLowerCase()}`,
+    preco: 19.90
   },
   {
     id: "bau", categoria: "acessorios",
