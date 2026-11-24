@@ -8,10 +8,10 @@ n = os.path.basename(n)
 el, az = (float(sys.argv[2]), float(sys.argv[3])) if len(sys.argv) > 3 else (14, -24)
 PRETO, BRANCO, VERMELHO = (0.018, 0.018, 0.02), (0.78, 0.78, 0.76), (0.42, 0.008, 0.012)
 LARANJA, ROSA = (0.80, 0.18, 0.012), (0.85, 0.28, 0.42)
-var = {"branco": dict(c1=BRANCO, c2=PRETO, c3=BRANCO, c4=LARANJA), "rosa": dict(c1=ROSA, c2=PRETO, c3=BRANCO, c4=VERMELHO),
-       "preto": dict(c1=PRETO, c2=BRANCO, c3=PRETO, c4=LARANJA), "laranja": dict(c1=LARANJA, c2=PRETO, c3=BRANCO, c4=VERMELHO)}
+var = {"branco": dict(c1=BRANCO, c2=PRETO, c3=BRANCO, c4=LARANJA, c5=PRETO), "rosa": dict(c1=ROSA, c2=PRETO, c3=BRANCO, c4=VERMELHO, c5=PRETO),
+       "preto": dict(c1=PRETO, c2=BRANCO, c3=PRETO, c4=LARANJA, c5=BRANCO), "laranja": dict(c1=LARANJA, c2=PRETO, c3=BRANCO, c4=VERMELHO, c5=PRETO)}
 d = os.path.abspath(pasta)
-partes = [dict(stl=f"{d}/{n}_{c}.stl", papel=c) for c in ["c1", "c2", "c3", "c4"] if os.path.exists(f"{d}/{n}_{c}.stl")]
+partes = [dict(stl=f"{d}/{n}_{c}.stl", papel=c) for c in ["c1", "c2", "c3", "c4", "c5"] if os.path.exists(f"{d}/{n}_{c}.stl")]
 papeis = {p["papel"] for p in partes}
 job = dict(partes=partes, variantes={f"{S}/{n}_{k}.png": {c: v[c] for c in papeis} for k, v in var.items()}, elevacao=el, azimute=az,
            tamanho=[700, 770], folga=float(os.environ.get("FOLGA", 1.02)), amostras=32, estudio="vivo")

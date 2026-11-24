@@ -84,6 +84,15 @@ FATIADO = {
     "vaso": (97.8, 3.97, 0),
     "porta-copos": (140.0 + 10, 4.6 + 0.3, 0),        # 4 porta-copos + suporte; cor só no topo
     "gatinho": (57.2 + 25, 2.44 + 1.0, 0),
+    # Brinquedos sensoriais esculpidos (models/esculpidos/sensoriais), PrusaSlicer + purga/trocas estimadas
+    "spinner": (8.2 + 2 * 0.8 + 8, 0.35 + 0.06 + 0.3, 0),      # corpo + 2 tampinhas; carinhas só no topo; + rolamento
+    "cone": (29.3, 1.14, 0),
+    "serpente": (16.8 + 40, 1.07 + 2.0, 0),                     # segmentos alternando de cor em todas as camadas
+    "dado-sensorial": (9.5 + 15, 0.46 + 0.5, 0),
+    "anel-giratorio": (4.1 + 15, 0.22 + 0.8, 0),
+    "pedra": (9.1 + 25, 0.38 + 1.0, 0),
+    "piao": (11.1 + 15, 0.63 + 0.7, 0),
+    "chaveiro-d20": (4.1 + 25, 0.41 + 1.0, 0),
 }
 
 if __name__ == "__main__":

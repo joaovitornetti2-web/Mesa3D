@@ -114,26 +114,38 @@ for n, arq in [("fantasminha", "boo"), ("gosminha", "gosminha"), ("olhinho", "ol
 RS = os.path.join(M, "sensoriais", "stl", "render")
 METAL = (0.5, 0.51, 0.53)
 UMA_COR = {"preto": dict(c1=PRETO), "branco": dict(c1=BRANCO), "vermelho": dict(c1=VERMELHO), "laranja": dict(c1=LARANJA), "rosa": dict(c1=ROSA)}
+# brinquedos sensoriais esculpidos (models/esculpidos/sensoriais/stl)
+RSE = os.path.join(M, "esculpidos", "sensoriais", "stl")
+olho_de = lambda corpo: BRANCO if corpo == PRETO else PRETO
+def acento(corpo, padrao=LARANJA):
+    return {ROSA: VERMELHO, LARANJA: VERMELHO, VERMELHO: ROSA}.get(corpo, padrao)
+CORPOS = {"preto": PRETO, "branco": BRANCO, "vermelho": VERMELHO, "laranja": LARANJA, "rosa": ROSA}
+def var_face(papeis_extra=lambda c: {}):
+    return {k: dict(c1=c, c2=olho_de(c), **papeis_extra(c)) for k, c in CORPOS.items()}
 SENS = {
-    "spinner": ({"c1": "spinner_c1", "c2": "spinner_tampa", "c3": "spinner_rol"},
-                {"preto": dict(c1=PRETO, c2=VERMELHO, c3=METAL), "branco": dict(c1=BRANCO, c2=PRETO, c3=METAL),
-                 "vermelho": dict(c1=VERMELHO, c2=PRETO, c3=METAL), "laranja": dict(c1=LARANJA, c2=PRETO, c3=METAL), "rosa": dict(c1=ROSA, c2=BRANCO, c3=METAL)}, 55, 1.0),
-    "cone": ({"c1": "cone_c1"}, UMA_COR, 22, 1.05),
-    "pedra": ({"c1": "pedra_c1", "c2": "pedra_c2", "c4": "pedra_c4"}, {k: dict(v, c2=PRETO, c4=(VERMELHO if k == "rosa" else ROSA)) for k, v in UMA_COR.items()}, 35, 1.0),
-    "serpente": ({"c1": "serpente_c1", "c2": "serpente_c2", "c5": "serpente_d2", "c3": "serpente_d3", "c4": "serpente_d4"},
-                 {k: dict(v, c3=BRANCO, c4=ROSA if v["c1"] != ROSA else VERMELHO, c5=PRETO if v["c1"] != PRETO else BRANCO) for k, v in
+    "spinner": ({"c1": "spinner_c1", "c2": "spinner_c2", "c3": "spinner_c3", "c4": "spinner_c4", "c4:tampa": "spinner_tampa"},
+                {"preto": dict(c1=PRETO, c2=BRANCO, c3=METAL, c4=VERMELHO), "branco": dict(c1=BRANCO, c2=PRETO, c3=METAL, c4=PRETO),
+                 "vermelho": dict(c1=VERMELHO, c2=PRETO, c3=METAL, c4=PRETO), "laranja": dict(c1=LARANJA, c2=PRETO, c3=METAL, c4=PRETO),
+                 "rosa": dict(c1=ROSA, c2=PRETO, c3=METAL, c4=BRANCO)}, 50, -20, 1.0),
+    "cone": ({"c1": "cone_c1"}, UMA_COR, 16, -20, 1.05),
+    "pedra": ({"c1": "pedra_c1", "c2": "pedra_c2", "c3": "pedra_c3", "c4": "pedra_c4"},
+              var_face(lambda c: dict(c3=BRANCO if c != BRANCO else PRETO, c4=acento(c))), 28, -25, 1.02),
+    "serpente": ({"c1": "serpente_c1", "c2": "serpente_c2", "c3": "serpente_c3", "c4": "serpente_c4"},
+                 {k: dict(v, c3=BRANCO, c4=ROSA if v["c1"] != ROSA else VERMELHO) for k, v in
                   {"preta": dict(c1=PRETO, c2=PRETO), "rosa": dict(c1=ROSA, c2=ROSA), "preta-laranja": dict(c1=PRETO, c2=LARANJA),
-                   "rosa-branca": dict(c1=ROSA, c2=BRANCO), "vermelha-preta": dict(c1=VERMELHO, c2=PRETO)}.items()}, 50, 0.95),
-    "dado": ({"c1": "dado_c1"}, UMA_COR, 28, 1.05),
+                   "rosa-branca": dict(c1=ROSA, c2=BRANCO), "vermelha-preta": dict(c1=VERMELHO, c2=PRETO)}.items()}, 45, -20, 0.95),
+    "dado": ({"c1": "dado_c1", "c2": "dado_c2"}, var_face(), 24, -30, 1.1),
     "anel": ({"c1": "anel_c1", "c2": "anel_c2"},
              {"preto": dict(c1=PRETO, c2=PRETO), "preto-vermelho": dict(c1=PRETO, c2=VERMELHO), "branco-rosa": dict(c1=BRANCO, c2=ROSA),
-              "preto-laranja": dict(c1=PRETO, c2=LARANJA), "rosa-branco": dict(c1=ROSA, c2=BRANCO)}, 35, 1.05),
-    "piao": ({"c1": "piao_c1"}, UMA_COR, 18, 1.05),
-    "d20": ({"c1": "d20_c1"}, UMA_COR, 22, 1.1),
+              "preto-laranja": dict(c1=PRETO, c2=LARANJA), "rosa-branco": dict(c1=ROSA, c2=BRANCO)}, 30, -20, 1.1),
+    "piao": ({"c1": "piao_c1", "c2": "piao_c2", "c4": "piao_c4"},
+             var_face(lambda c: dict(c4={LARANJA: PRETO, ROSA: VERMELHO, VERMELHO: LARANJA}.get(c, LARANJA))), 14, -10, 1.1),
+    "d20": ({"c1": "chaveiro_c1", "c2": "chaveiro_c2", "c3": "chaveiro_c3", "c4": "chaveiro_c4"},
+            var_face(lambda c: dict(c3=BRANCO if c != BRANCO else PRETO, c4=acento(c))), 10, -12, 1.1),
 }
-for n, (partes, variantes, el, folga) in SENS.items():
-    PRODUTOS[f"sens_{n}"] = dict(stl={k: os.path.join(RS, v + ".stl") for k, v in partes.items()}, suave=False,
-                                 variantes=variantes, cam=dict(elevacao=el, azimute=-24, tamanho=[1200, 1000], folga=folga))
+for n, (partes, variantes, el, az, folga) in SENS.items():
+    PRODUTOS[f"sens_{n}"] = dict(stl={k: os.path.join(RSE, v + ".stl") for k, v in partes.items()}, suave=True,
+                                 variantes=variantes, cam=dict(elevacao=el, azimute=az, tamanho=[1200, 1000], folga=folga))
 
 # plaquinhas (models/decor/plaquinhas.scad): c1 base, c2 relevo
 RD = os.path.join(M, "decor", "stl")
