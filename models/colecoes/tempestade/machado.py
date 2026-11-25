@@ -54,7 +54,7 @@ def suporte(g, cx=0.0):
 
 
 if IMP:
-    g = Grade((-36, -40, 0), (36 + 160, 40, 10), passo)
+    g = Grade((-36, -40, 0), (36 + 160, 40, 18), passo)
     gv = Vista(g, (0, 0, 0), rot_x(90)); gv.z, gv.y = gv.z + 70, gv.y + 3.4     # machado deitado (eixo ao longo de y)
     tudo, lam, claro, couro = machado(gv, 0.0)
     tudo = np.maximum(tudo, -g.z)
