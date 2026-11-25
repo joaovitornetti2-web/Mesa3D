@@ -182,7 +182,12 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
         <a href="#plaquinhas">Plaquinhas</a>
         <a href="#decoracao">Decoração</a>
         <a href="#acessorios">Acessórios</a>
-        <!-- COLECOES-MENU --><!-- /COLECOES-MENU -->
+        <!-- COLECOES-MENU -->
+        <a href="#col-masmorra">Masmorra</a>
+        <a href="#col-paranormal">Arquivo</a>
+        <a href="#col-tempestade">Reinos</a>
+        <a href="#col-bicicleta">Anos 80</a>
+        <!-- /COLECOES-MENU -->
         <a href="#personalizados">Seu .STL</a>
         <a href="#duvidas">Dúvidas</a>
       </div>
@@ -277,7 +282,36 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
     <div class="catalogo" data-categoria="acessorios"></div>
   </section>
 
-  <!-- COLECOES --><!-- /COLECOES -->
+  <!-- COLECOES -->
+  <section id="col-masmorra" aria-labelledby="t-col-masmorra">
+    <div class="cabeca">
+      <div><div class="sobre">Coleção Masmorra & Dragão</div><h2 id="t-col-masmorra">Dragões, mímicos e cubos de gosma: a masmorra inteira na sua mesa</h2></div>
+      <p>Fantasia medieval de masmorra. Doze peças novas, cada cor com a sua foto.</p>
+    </div>
+    <div class="catalogo" data-categoria="col-masmorra"></div>
+  </section>
+  <section id="col-paranormal" aria-labelledby="t-col-paranormal">
+    <div class="cabeca">
+      <div><div class="sobre">Coleção Arquivo Paranormal</div><h2 id="t-col-paranormal">Para a mesa de quem investiga o que não devia existir</h2></div>
+      <p>Terror e investigação paranormal. Doze peças novas, cada cor com a sua foto.</p>
+    </div>
+    <div class="catalogo" data-categoria="col-paranormal"></div>
+  </section>
+  <section id="col-tempestade" aria-labelledby="t-col-tempestade">
+    <div class="cabeca">
+      <div><div class="sobre">Coleção Reinos da Tempestade</div><h2 id="t-col-tempestade">Minotauros, goblins inventores e a tempestade rubra no horizonte</h2></div>
+      <p>Fantasia épica brasileira. Doze peças novas, cada cor com a sua foto.</p>
+    </div>
+    <div class="catalogo" data-categoria="col-tempestade"></div>
+  </section>
+  <section id="col-bicicleta" aria-labelledby="t-col-bicicleta">
+    <div class="cabeca">
+      <div><div class="sobre">Coleção Turma da Bicicleta</div><h2 id="t-col-bicicleta">Walkie-talkie na mão, fita no bolso e a turma de bicicleta atrás do mistério</h2></div>
+      <p>Aventura anos 80. Doze peças novas, cada cor com a sua foto.</p>
+    </div>
+    <div class="catalogo" data-categoria="col-bicicleta"></div>
+  </section>
+  <!-- /COLECOES -->
 
   <section id="personalizados" aria-labelledby="t-pers">
     <div class="cabeca">
@@ -842,6 +876,2889 @@ const PRODUTOS = [
   }
 ];
 // COLECOES-JS
+const COLECOES = [
+ {
+  "id": "masmorra-torre_dragao",
+  "categoria": "col-masmorra",
+  "nome": "Torre do Dragão",
+  "selo": "Masmorra & Dragão",
+  "unidade": "torre e bandeja",
+  "desc": "Torre de dados redonda de pedra com um dragão enrolado em espiral da base ao topo; a cabeça apoia nas ameias, de boca aberta sobre a entrada. Por dentro, três rampas alternadas embaralham o dado, que sai pelo portão em arco para a bandeja (peça separada, com rebaixo onde a torre assenta). Torre: Ø 76 × 168 mm; bandeja 150 × 125 × 20 mm; dado máximo d20 de 26 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "148 × 167 × 190 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_torre_dragao_",
+  "preco": 179.9
+ },
+ {
+  "id": "masmorra-mimico",
+  "categoria": "col-masmorra",
+  "nome": "Mímico Porta-Dados",
+  "selo": "Masmorra & Dragão",
+  "unidade": "a peça",
+  "desc": "Baú de madeira com cintas de metal que na verdade é um monstro. Base oca guarda os dados; a tampa abaulada é peça separada, apoia num rebaixo e tem dentes que se intercalam com os da base. Língua vermelha sai da caixa e pende pela frente; dois olhos saltados na tampa.",
+  "medidas": [
+   [
+    "Tamanho",
+    "75 × 67 × 78 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_mimico_",
+  "preco": 59.9
+ },
+ {
+  "id": "masmorra-prisao",
+  "categoria": "col-masmorra",
+  "nome": "Prisão de Dados",
+  "selo": "Masmorra & Dragão",
+  "unidade": "a peça",
+  "desc": "Cela de masmorra para \"prender\" o dado que rolou mal. Paredes de pedra em blocos, frente com grades de ferro e portinha com cadeado, tocha acesa na lateral e uma caveira no chão. Aberta em cima: o dado entra por cima (cabe até 6 dados d20 de 22 mm).",
+  "medidas": [
+   [
+    "Tamanho",
+    "83 × 62 × 59 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_prisao_",
+  "preco": 49.9
+ },
+ {
+  "id": "masmorra-cubo",
+  "categoria": "col-masmorra",
+  "nome": "Cubo Gelatinoso Porta-Dados",
+  "selo": "Masmorra & Dragão",
+  "unidade": "a peça",
+  "desc": "O cubo de gosma em versão fofa: bordas moles que escorrem, olhinhos, sorriso e o que ele engoliu pela masmorra (espada atravessada, caveira e moedas meio afundadas). Em cima, um poço onde os dados \"afundam\". Cerca de 62 × 62 × 60 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "83 × 71 × 57 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_cubo_",
+  "preco": 49.9
+ },
+ {
+  "id": "masmorra-dragaozinho",
+  "categoria": "col-masmorra",
+  "nome": "Dragãozinho do Crítico",
+  "selo": "Masmorra & Dragão",
+  "unidade": "a peça",
+  "desc": "Filhote de dragão sentado em cima de um d20 gigante, abraçando o dado como tesouro. Chifrinhos, asinhas abertas, barriga listrada e rabo enrolado em volta do dado. Cerca de 60 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "51 × 40 × 66 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_dragaozinho_",
+  "preco": 29.9
+ },
+ {
+  "id": "masmorra-corujurso",
+  "categoria": "col-masmorra",
+  "nome": "Corujurso",
+  "selo": "Masmorra & Dragão",
+  "unidade": "a peça",
+  "desc": "Filhote de corujurso em estilo chibi: corpo de urso fofo, cara de coruja com disco facial, bico e olhões, orelhinhas de urso e tufos de pena, bracinhos com garras e asinhas nas costas. Cerca de 55 mm, base redonda de 32 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "33 × 34 × 56 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_corujurso_",
+  "preco": 29.9
+ },
+ {
+  "id": "masmorra-bandeja_escudo",
+  "categoria": "col-masmorra",
+  "nome": "Bandeja de Dados Escudo",
+  "selo": "Masmorra & Dragão",
+  "unidade": "a peça",
+  "desc": "Bandeja em forma de escudo de cavaleiro (heráldico), com borda de metal rebitada, fundo de tábuas e um brasão em relevo baixo no centro: duas espadas cruzadas atrás de um d20. 136 × 154 × 14 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "137 × 155 × 16 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_bandeja_escudo_",
+  "preco": 69.9
+ },
+ {
+  "id": "masmorra-contador",
+  "categoria": "col-masmorra",
+  "nome": "Contador de Vida",
+  "selo": "Masmorra & Dragão",
+  "unidade": "suporte, 2 rodas e pino",
+  "desc": "Marcador de pontos de vida de 0 a 99: duas rodas numeradas (dezenas e unidades) giram num eixo dentro de um suporte de pedra com frente de escudo; a janela do escudo mostra o número e as rodas saem por cima para girar com o polegar. Coração em relevo no topo do escudo. Peças: suporte, 2 rodas e o pino do eixo (Ø 3 mm, entra pela lateral). 66 × 34 × 52 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "63 × 37 × 46 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_contador_",
+  "preco": 39.9
+ },
+ {
+  "id": "masmorra-iniciativa",
+  "categoria": "col-masmorra",
+  "nome": "Estandartes de Iniciativa",
+  "selo": "Masmorra & Dragão",
+  "unidade": "conjunto de 8",
+  "desc": "Conjunto de 8 bandeirinhas numeradas (1 a 8) num mastro com base redonda de pedra (Ø 25 mm, cabe num quadrado da grade). Ponha na frente da miniatura ou na mesa para marcar a ordem do turno. Estandarte com rabo de andorinha e número em relevo dos dois lados. Cerca de 62 mm de altura.",
+  "medidas": [
+   [
+    "Tamanho",
+    "117 × 26 × 66 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_iniciativa_",
+  "preco": 39.9
+ },
+ {
+  "id": "masmorra-porta",
+  "categoria": "col-masmorra",
+  "nome": "Porta da Masmorra",
+  "selo": "Masmorra & Dragão",
+  "unidade": "a peça",
+  "desc": "Peça de cenário (escala 28–32 mm) e decoração: portal de pedra em arco com porta de tábuas, dobradiças de ferro, argola de caveira e tochas dos dois lados, sobre uma base de 2 × 1 quadrados (50,8 × 25,4 mm). Cerca de 76 mm de altura.",
+  "medidas": [
+   [
+    "Tamanho",
+    "52 × 26 × 66 mm"
+   ],
+   [
+    "Cores",
+    "5 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_porta_",
+  "preco": 39.9
+ },
+ {
+  "id": "masmorra-barril",
+  "categoria": "col-masmorra",
+  "nome": "Barril da Taverna",
+  "selo": "Masmorra & Dragão",
+  "unidade": "a peça",
+  "desc": "Porta-lápis e porta-dados em forma de barril de taverna: aduelas de madeira, três cintas de ferro, torneirinha na frente e uma caneca de espuma transbordando grudada ao lado (também oca, para dados). Barril de 62 mm de diâmetro e 90 mm de altura.",
+  "medidas": [
+   [
+    "Tamanho",
+    "95 × 73 × 90 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_barril_",
+  "preco": 69.9
+ },
+ {
+  "id": "masmorra-porta_copos",
+  "categoria": "col-masmorra",
+  "nome": "Porta-copos Brasão",
+  "selo": "Masmorra & Dragão",
+  "unidade": "4 porta-copos e suporte",
+  "desc": "4 porta-copos redondos (Ø 92 mm) com borda de corda e um brasão em relevo cada: d20, coroa, torre e espadas cruzadas. Guardados de pé num suporte em forma de muralha com ameias.",
+  "medidas": [
+   [
+    "Tamanho",
+    "104 × 125 × 94 mm"
+   ],
+   [
+    "Cores",
+    "3 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com branco",
+      "cor": [
+       "#1a1a1a",
+       "#ece9e2"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com preto",
+      "cor": [
+       "#c0141c",
+       "#1a1a1a"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com preto",
+      "cor": [
+       "#ece9e2",
+       "#1a1a1a"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com preto",
+      "cor": [
+       "#f26b1d",
+       "#1a1a1a"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_porta_copos_",
+  "preco": 109.9
+ },
+ {
+  "id": "paranormal-torre_ritual",
+  "categoria": "col-paranormal",
+  "nome": "Torre do Ritual",
+  "selo": "Arquivo Paranormal",
+  "unidade": "torre com bandeja",
+  "desc": "Torre de dados em forma de obelisco de pedra negra com runas gravadas, correntes atravessadas, um olho entalhado no alto e quatro velas derretidas nos cantos do topo. O dado entra pela boca no topo, desce por três rampas e sai pelo portal em arco para a bandeja embutida na frente, com um círculo de ritual no fundo. Dado máximo: d20 de 26 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "112 × 130 × 176 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_torre_ritual_",
+  "preco": 119.9
+ },
+ {
+  "id": "paranormal-livro",
+  "categoria": "col-paranormal",
+  "nome": "Livro Proibido",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Caixa porta-dados em forma de grimório: capa de couro gasto com cantoneiras de metal, tira com fivela, um olho aberto no meio da capa (pálpebra e veias em relevo) e bordas de páginas nas laterais. A tampa (capa + 1 cm de páginas) é maciça, com um tampão embaixo que entra na boca da caixa. 86 × 112 × 42 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "90 × 114 × 46 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_livro_",
+  "preco": 119.9
+ },
+ {
+  "id": "paranormal-caveira",
+  "categoria": "col-paranormal",
+  "nome": "Caveira Porta-Dados",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Crânio estilizado oco que guarda dados; o topo da cabeça é a tampa. Um anel no corpo entra por dentro da tampa. Velas derretidas em cima, cera escorrendo pela testa, rachadura e um símbolo de ritual gravado. Cerca de 70 × 80 × 100 mm (com as velas).",
+  "medidas": [
+   [
+    "Tamanho",
+    "62 × 73 × 103 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_caveira_",
+  "preco": 49.9
+ },
+ {
+  "id": "paranormal-evidencias",
+  "categoria": "col-paranormal",
+  "nome": "Caixa de Evidências",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Caixa de arquivo da investigação para guardar dados, cartas e fichas: aparência de papelão com abas, etiqueta \"EVIDÊNCIA / CASO Nº 13\" e uma fita de isolamento \"NÃO ULTRAPASSE\" atravessada. Tampa maciça com tampão que entra na boca. 100 × 76 × 62 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "102 × 80 × 63 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_evidencias_",
+  "preco": 89.9
+ },
+ {
+  "id": "paranormal-sanidade",
+  "categoria": "col-paranormal",
+  "nome": "Medidor de Sanidade",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Mostrador antigo de pressão adaptado para a mesa: ponteiro giratório (peça separada que encaixa num pino) marca a sanidade do personagem, de \"SÃO\" a \"PERDIDO\", com a faixa final em vermelho e uma caveirinha no fim da escala. Aro com parafusos e pé de apoio inclinado. Ø 84 × 96 mm de altura.",
+  "medidas": [
+   [
+    "Tamanho",
+    "84 × 39 × 93 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_sanidade_",
+  "preco": 39.9
+ },
+ {
+  "id": "paranormal-bandeja_ritual",
+  "categoria": "col-paranormal",
+  "nome": "Bandeja Círculo de Ritual",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Bandeja de dados redonda (Ø 160 mm) com um círculo de invocação em relevo no fundo: dois anéis com runas inventadas, um selo central (olho dentro de um triângulo de pontas abertas) e cinco velinhas derretidas na borda, com cera vermelha escorrendo para dentro.",
+  "medidas": [
+   [
+    "Tamanho",
+    "161 × 161 × 33 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_bandeja_ritual_",
+  "preco": 69.9
+ },
+ {
+  "id": "paranormal-entidade",
+  "categoria": "col-paranormal",
+  "nome": "Entidade das Sombras",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Figura de mesa (escala heroica, ~62 mm): vulto encapuzado de manto esfarrapado que flutua sobre uma névoa, rosto vazio com dois olhos acesos, mãos compridas com garras saindo das mangas e fiapos de sombra subindo. Base redonda de 32 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "36 × 35 × 64 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_entidade_",
+  "preco": 29.9
+ },
+ {
+  "id": "paranormal-olho",
+  "categoria": "col-paranormal",
+  "nome": "Olho Vigia",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça (vela de LED não inclusa)",
+  "desc": "Luminária: um globo ocular de parede fina (1,4 mm, brilha em PLA branco com uma vela de LED dentro) seguro por quatro garras que saem de um toco retorcido. A íris e as veias são relevo; a pupila é vazada, então a luz escapa pelo centro do olhar. Base oca com entrada por baixo para a vela de LED (Ø 40 mm). Ø 74 × 104 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "69 × 69 × 94 mm"
+   ],
+   [
+    "Cores",
+    "3 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_olho_",
+  "preco": 49.9
+ },
+ {
+  "id": "paranormal-velas",
+  "categoria": "col-paranormal",
+  "nome": "Velas de Ritual",
+  "selo": "Arquivo Paranormal",
+  "unidade": "prato e 3 velas (velinhas de LED não inclusas)",
+  "desc": "Trio de velas derretidas (porta-velas de LED tipo réchaud, Ø 38 mm) num prato com círculo de runas gravado. Cada vela tem um encaixe de 39,5 × 16 mm no topo para a velinha de LED; a cera vermelha escorre por cima da branca. Prato Ø 116 mm; velas de 42, 58 e 74 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "116 × 116 × 85 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_velas_",
+  "preco": 89.9
+ },
+ {
+  "id": "paranormal-mao",
+  "categoria": "col-paranormal",
+  "nome": "Mão do Além",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Suporte de celular: uma mão magra sai de um monte de terra de cemitério e segura o celular inclinado (cerca de 65°). O celular apoia na canaleta da frente (cabe capinha de até 13 mm) e encosta nos dedos. Lapidezinha torta e ossinhos na terra. 96 × 84 × 92 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "93 × 82 × 90 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_mao_",
+  "preco": 39.9
+ },
+ {
+  "id": "paranormal-gravador",
+  "categoria": "col-paranormal",
+  "nome": "Gravador da Investigação",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Gravador de fita portátil antigo que guarda cartas: fenda no topo para cartas de RPG/baralho (até 66 × 92 mm, ~30 cartas com capa), janela com a fita cassete e os carretéis, grade do alto-falante, teclas (a de gravar em vermelho) e alça. 112 × 44 × 76 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "112 × 47 × 80 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_gravador_",
+  "preco": 69.9
+ },
+ {
+  "id": "paranormal-mascara",
+  "categoria": "col-paranormal",
+  "nome": "Máscara do Ritual",
+  "selo": "Arquivo Paranormal",
+  "unidade": "a peça",
+  "desc": "Máscara de parede (decoração): rosto liso e sereno, com olhos vazados, marcas de ritual pintadas em relevo (arcos e pontos na testa e nas maçãs), rachaduras e lágrimas vermelhas escorrendo. Atrás é plana, com furo de prego. 92 × 124 × 24 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "88 × 128 × 23 mm"
+   ],
+   [
+    "Cores",
+    "3 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_mascara_",
+  "preco": 39.9
+ },
+ {
+  "id": "tempestade-torre_tempestade",
+  "categoria": "col-tempestade",
+  "nome": "Torre da Tempestade Rubra",
+  "selo": "Reinos da Tempestade",
+  "unidade": "torre com bandeja",
+  "desc": "Torre de dados redonda de pedra rachada, coroada por uma nuvem de tempestade vermelha de onde descem raios pelas paredes. O dado entra pelo olho da nuvem, desce por três rampas e sai pelo portão para a bandeja embutida, com o chão de lajes partidas. Dado máximo: d20 de 26 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "116 × 137 × 157 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_torre_tempestade_",
+  "preco": 119.9
+ },
+ {
+  "id": "tempestade-minotauro",
+  "categoria": "col-tempestade",
+  "nome": "Minotauro Guerreiro",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Figura chibi (~62 mm): minotauro troncudo de chifres grandes e argola no focinho, ombreira de metal, tanga de couro e um machado de duas lâminas apoiado no ombro. Base redonda de 32 mm com pedras.",
+  "medidas": [
+   [
+    "Tamanho",
+    "43 × 33 × 65 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_minotauro_",
+  "preco": 29.9
+ },
+ {
+  "id": "tempestade-goblin",
+  "categoria": "col-tempestade",
+  "nome": "Goblin Engenhoqueiro",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Figura chibi (~55 mm): goblin de orelhas enormes, nariz pontudo e sorriso de dentinhos, óculos de proteção na testa, avental de couro, uma chave inglesa gigante na mão e uma mochila de engrenagens com chaminé soltando fumaça. Base redonda de 32 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "56 × 33 × 51 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_goblin_",
+  "preco": 29.9
+ },
+ {
+  "id": "tempestade-aberracao",
+  "categoria": "col-tempestade",
+  "nome": "Aberração da Tempestade",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Criatura chibi (~58 mm) nascida da tempestade rubra: corpo de inseto com placas de carapaça, seis olhos, mandíbulas, quatro patas finas e cristais vermelhos brotando das costas. Base redonda de 42 mm com chão rachado.",
+  "medidas": [
+   [
+    "Tamanho",
+    "42 × 42 × 44 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_aberracao_",
+  "preco": 29.9
+ },
+ {
+  "id": "tempestade-bau",
+  "categoria": "col-tempestade",
+  "nome": "Baú do Tesouro",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Porta-dados em forma de baú aberto: tampa abaulada fixa a 110°, cintas de metal com rebites, fechadura, moedas empilhadas transbordando pela frente e uma gema no topo da pilha. O espaço atrás da pilha guarda os dados. 86 × 78 × 82 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "81 × 83 × 88 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_bau_",
+  "preco": 59.9
+ },
+ {
+  "id": "tempestade-elmo",
+  "categoria": "col-tempestade",
+  "nome": "Elmo Guarda-Dados",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Elmo de guerreiro com chifres curvos, viseira em T, rebites e crista de pelos, que cobre os dados como uma redoma: levante o elmo pela crista e os dados estão na base. 112 × 84 × 98 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "112 × 81 × 88 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_elmo_",
+  "preco": 59.9
+ },
+ {
+  "id": "tempestade-moedas",
+  "categoria": "col-tempestade",
+  "nome": "Moedas do Reino",
+  "selo": "Reinos da Tempestade",
+  "unidade": "conjunto de 30",
+  "desc": "Fichas de moeda para a mesa em três valores: coroa (Ø 32 mm, valor 10), espada (Ø 27 mm, valor 5) e torre (Ø 22 mm, valor 1). Borda serrilhada, símbolo de um lado e o número do outro, em relevo. Conjunto de 30 (10 de cada).",
+  "medidas": [
+   [
+    "Tamanho",
+    "86 × 57 × 19 mm"
+   ],
+   [
+    "Cores",
+    "2 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com branco",
+      "cor": [
+       "#1a1a1a",
+       "#ece9e2"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com preto",
+      "cor": [
+       "#c0141c",
+       "#1a1a1a"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com preto",
+      "cor": [
+       "#ece9e2",
+       "#1a1a1a"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com preto",
+      "cor": [
+       "#f26b1d",
+       "#1a1a1a"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_moedas_",
+  "preco": 49.9
+ },
+ {
+  "id": "tempestade-bandeja_nuvem",
+  "categoria": "col-tempestade",
+  "nome": "Bandeja Nuvem Rubra",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Bandeja de dados com a borda feita de nuvens de tempestade fofas e, no fundo, raios em relevo cruzando um céu rachado. 168 × 124 × 22 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "173 × 128 × 24 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_bandeja_nuvem_",
+  "preco": 69.9
+ },
+ {
+  "id": "tempestade-pergaminho",
+  "categoria": "col-tempestade",
+  "nome": "Pergaminho do Aventureiro",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Porta-lápis e porta-fichas deitado: um pergaminho enrolado com as pontas abertas em espiral, amarrado por uma fita com selo de cera; em cima, uma canaleta para lápis e borracha e uma fenda para fichas de personagem dobradas (até 6 mm). 140 × 48 × 42 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "129 × 46 × 40 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_pergaminho_",
+  "preco": 49.9
+ },
+ {
+  "id": "tempestade-gargula",
+  "categoria": "col-tempestade",
+  "nome": "Dragão de Pedra",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Gárgula de dragão agachada sobre um pedestal de pedra, asas meio abertas, chifres para trás, garras agarradas na borda, rabo enrolado na lateral e olhos acesos. Decoração de estante ou guardião da mesa. 78 × 72 × 104 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "70 × 54 × 81 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_gargula_",
+  "preco": 39.9
+ },
+ {
+  "id": "tempestade-arvore",
+  "categoria": "col-tempestade",
+  "nome": "Árvore dos Sussurros",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Porta-joias e decoração: árvore retorcida e sem folhas, com um rosto sonolento entalhado no tronco, galhos para pendurar anéis, colares e chaveiros, raízes num prato de musgo e um corvinho num galho. Ø 100 × 118 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "100 × 98 × 122 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_arvore_",
+  "preco": 59.9
+ },
+ {
+  "id": "tempestade-machado",
+  "categoria": "col-tempestade",
+  "nome": "Machado do Campeão",
+  "selo": "Reinos da Tempestade",
+  "unidade": "a peça",
+  "desc": "Réplica de mesa (decoração): machado de duas lâminas em lua com runas gravadas, cabo enrolado em couro e pomo de gema, em pé num suporte de pedra com um furo onde o cabo encaixa. 44 × 64 × 150 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "55 × 70 × 130 mm"
+   ],
+   [
+    "Cores",
+    "3 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_machado_",
+  "preco": 29.9
+ },
+ {
+  "id": "bicicleta-fliperama",
+  "categoria": "col-bicicleta",
+  "nome": "Torre Fliperama",
+  "selo": "Turma da Bicicleta",
+  "unidade": "torre com bandeja",
+  "desc": "Torre de dados em forma de máquina de fliperama dos anos 80: o dado entra pela boca do letreiro no topo, desce por três rampas dentro do gabinete e sai pela portinhola da ficha, caindo na bandeja embutida na frente. Tela com uma caveirinha pixelada, painel com manche e botões, entrada de ficha e adesivos laterais em raio. Dado máximo: d20 de 26 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "88 × 134 × 160 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_fliperama_",
+  "preco": 129.9
+ },
+ {
+  "id": "bicicleta-walkie",
+  "categoria": "col-bicicleta",
+  "nome": "Walkie-Talkie Porta-Celular",
+  "selo": "Turma da Bicicleta",
+  "unidade": "a peça",
+  "desc": "Rádio comunicador dos anos 80 deitado para trás, que segura o celular: o aparelho apoia no rebaixo da frente e encosta no corpo do rádio (cerca de 65°; capinha de até 13 mm). Antena, grade do alto-falante, botão de falar, botões de canal e uma luzinha. 92 × 84 × 150 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "80 × 118 × 147 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_walkie_",
+  "preco": 59.9
+ },
+ {
+  "id": "bicicleta-fita",
+  "categoria": "col-bicicleta",
+  "nome": "Fita Cassete Porta-Dados",
+  "selo": "Turma da Bicicleta",
+  "unidade": "a peça",
+  "desc": "Caixinha em forma de fita cassete gigante (e gordinha): etiqueta escrita \"MIXTAPE DA MESA – LADO A\", janela com os dois carretéis, parafusinhos e os furos da cabeça de leitura embaixo. A tampa (metade de cima) é maciça e tem um tampão que entra na boca da caixa. 104 × 66 × 34 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "104 × 66 × 36 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_fita_",
+  "preco": 69.9
+ },
+ {
+  "id": "bicicleta-boombox",
+  "categoria": "col-bicicleta",
+  "nome": "Boombox Porta-Trecos",
+  "selo": "Turma da Bicicleta",
+  "unidade": "a peça",
+  "desc": "Rádio-gravador de dois alto-falantes dos anos 80, aberto em cima para guardar dados, lápis e miniaturas. Alça cromada, dois cones de alto-falante, deck de fita no meio, botões e um equalizador. 128 × 50 × 92 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "124 × 48 × 94 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_boombox_",
+  "preco": 69.9
+ },
+ {
+  "id": "bicicleta-bmx",
+  "categoria": "col-bicicleta",
+  "nome": "BMX da Turma",
+  "selo": "Turma da Bicicleta",
+  "unidade": "a peça",
+  "desc": "Miniatura de decoração (110 mm de comprimento): bicicleta BMX dos anos 80 com rodas de magnésio de 5 raios, quadro de tubos, guidão alto, banco, pedais e placa de número \"85\", sobre uma base de terra com uma rampinha.",
+  "medidas": [
+   [
+    "Tamanho",
+    "117 × 44 × 62 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_bmx_",
+  "preco": 39.9
+ },
+ {
+  "id": "bicicleta-casa_arvore",
+  "categoria": "col-bicicleta",
+  "nome": "Casa na Árvore",
+  "selo": "Turma da Bicicleta",
+  "unidade": "a peça",
+  "desc": "Decoração e porta-dados: a sede secreta da turma, uma casinha de tábuas num tronco grosso, com telhado torto, janela redonda, plaquinha \"NÃO ENTRE\", escada de cordas pendurada e uma bicicleta encostada no tronco. O telhado sai (encaixe com tampão) e a casinha guarda dados. Ø 110 × 140 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "82 × 81 × 121 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_casa_arvore_",
+  "preco": 59.9
+ },
+ {
+  "id": "bicicleta-barra_vida",
+  "categoria": "col-bicicleta",
+  "nome": "Barra de Vida",
+  "selo": "Turma da Bicicleta",
+  "unidade": "régua e 10 corações",
+  "desc": "Marcador de pontos de vida no estilo videogame dos anos 80: régua com 10 encaixes de coração pixelado e a palavra \"VIDA\"; os corações são peças soltas que entram nos encaixes. Tirou dano, tira um coração. Régua 176 × 34 × 7 mm; corações 13 × 12 × 4 mm. Conjunto com 10 corações.",
+  "medidas": [
+   [
+    "Tamanho",
+    "176 × 34 × 8 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_barra_vida_",
+  "preco": 39.9
+ },
+ {
+  "id": "bicicleta-disquete",
+  "categoria": "col-bicicleta",
+  "nome": "Porta-copos Disquete",
+  "selo": "Turma da Bicicleta",
+  "unidade": "4 porta-copos e estojo",
+  "desc": "4 porta-copos em forma de disquete de 3½\" (94 × 90 × 4 mm) com etiqueta, janela de metal e trava de proteção em relevo, guardados de pé num estojo de arquivo com divisória e etiqueta \"SAVE\".",
+  "medidas": [
+   [
+    "Tamanho",
+    "105 × 142 × 95 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_disquete_",
+  "preco": 129.9
+ },
+ {
+  "id": "bicicleta-mochila",
+  "categoria": "col-bicicleta",
+  "nome": "Mochila da Aventura",
+  "selo": "Turma da Bicicleta",
+  "unidade": "a peça",
+  "desc": "Porta-lápis em forma de mochila escolar dos anos 80, aberta em cima: bolso da frente com zíper, alças, broches (um raio, uma estrela e um d20) e uma lanterna presa na lateral. 76 × 56 × 104 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "68 × 51 × 108 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_mochila_",
+  "preco": 59.9
+ },
+ {
+  "id": "bicicleta-lanterna",
+  "categoria": "col-bicicleta",
+  "nome": "Lanterna da Investigação",
+  "selo": "Turma da Bicicleta",
+  "unidade": "a peça",
+  "desc": "Porta-lápis em forma de lanterna de mão antiga, em pé com a cabeça para cima: corpo com anéis de borracha, botão deslizante, alça de pulso e a cabeça larga com vidro e refletor; a boca da lanterna é o copo dos lápis. Ø 64 × 118 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "63 × 63 × 118 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_lanterna_",
+  "preco": 69.9
+ },
+ {
+  "id": "bicicleta-placa_clube",
+  "categoria": "col-bicicleta",
+  "nome": "Placa do Clube",
+  "selo": "Turma da Bicicleta",
+  "unidade": "a peça",
+  "desc": "Plaquinha de porta feita de tábuas pregadas, pintada à mão: \"CLUBE SECRETO\" e, embaixo, \"PROIBIDO ADULTOS\", com um raio e pregos nos cantos. Dois furos para pendurar. 164 × 84 × 7 mm.",
+  "medidas": [
+   [
+    "Tamanho",
+    "158 × 72 × 7 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_placa_clube_",
+  "preco": 39.9
+ },
+ {
+  "id": "bicicleta-chaveiro_fita",
+  "categoria": "col-bicicleta",
+  "nome": "Chaveiro Fita Cassete",
+  "selo": "Turma da Bicicleta",
+  "unidade": "cada",
+  "desc": "Fitinha de 52 × 34 × 6 mm com etiqueta \"LADO A\", janela com carretéis e furo para argola no canto. Os dois lados são iguais. Conjunto de 4 na foto.",
+  "medidas": [
+   [
+    "Tamanho",
+    "116 × 81 × 7 mm"
+   ],
+   [
+    "Cores",
+    "4 cores no AMS"
+   ]
+  ],
+  "opcoes": [
+   {
+    "chave": "cor",
+    "nome": "Cor",
+    "itens": [
+     {
+      "id": "preto",
+      "nome": "Preto com vermelho",
+      "cor": [
+       "#1a1a1a",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "vermelho",
+      "nome": "Vermelho com laranja",
+      "cor": [
+       "#c0141c",
+       "#f26b1d"
+      ]
+     },
+     {
+      "id": "branco",
+      "nome": "Branco com vermelho",
+      "cor": [
+       "#ece9e2",
+       "#c0141c"
+      ]
+     },
+     {
+      "id": "laranja",
+      "nome": "Laranja com vermelho",
+      "cor": [
+       "#f26b1d",
+       "#c0141c"
+      ]
+     }
+    ]
+   }
+  ],
+  "_img": "img/col_chaveiro_fita_",
+  "preco": 19.9
+ }
+];
+COLECOES.forEach(p => { const base = p._img; p.img = s => base + s.cor + ".webp"; p.alt = s => p.nome + " na cor " + s.nomes.cor.toLowerCase(); PRODUTOS.push(p); });
 // /COLECOES-JS
 // ==========================================================================
 
