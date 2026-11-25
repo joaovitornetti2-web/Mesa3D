@@ -21,6 +21,9 @@ PECAS = {
     "tempestade": [("minotauro", 0.22, False), ("goblin", 0.22, False), ("aberracao", 0.22, False), ("bau", 0.3, False),
                    ("moedas", 0.15, True), ("elmo", 0.3, True), ("pergaminho", 0.3, False), ("bandeja_nuvem", 0.3, False),
                    ("arvore", 0.3, False), ("gargula", 0.25, False), ("machado", 0.25, True), ("torre_tempestade", 0.5, False)],
+    "bicicleta": [("walkie", 0.3, False), ("fita", 0.25, True), ("bmx", 0.2, False), ("fliperama", 0.5, False),
+                  ("boombox", 0.3, False), ("placa_clube", 0.2, False), ("lanterna", 0.3, False), ("disquete", 0.35, True),
+                  ("mochila", 0.3, False), ("chaveiro_fita", 0.15, False), ("casa_arvore", 0.35, True), ("barra_vida", 0.15, True)],
 }
 TRES_MF_ESPECIAL = {"torre_dragao": ["torre_dragao-torre", "torre_dragao-bandeja"]}
 
