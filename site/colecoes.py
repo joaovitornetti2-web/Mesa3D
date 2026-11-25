@@ -70,7 +70,7 @@ def papeis(corpo):
     """cor de cada papel para um corpo: c2 escuro/metal, c3 claro, c4 destaque, c5 chama/extra (sempre contrastando)."""
     return {"c1": corpo,
             "c2": "branco" if corpo == "preto" else "preto",
-            "c3": "branco" if corpo != "branco" else "preto",
+            "c3": "branco",                       # dentes, olhos, ossos, etiquetas: sempre brancos
             "c4": "laranja" if corpo == "vermelho" else "vermelho",
             "c5": "vermelho" if corpo == "laranja" else "laranja"}
 
@@ -118,7 +118,7 @@ def gramas_horas(col, n):
     cores = len({os.path.basename(m).split("_")[-1] for m in ms})
     g = precos.gramas(ms, 1) * AJUSTES.get(n, {}).get("mult", 1)
     purga = 6.0 * (cores - 1)
-    horas = g / 14 + 0.35 * (cores - 1) + 0.2
+    horas = g / (14 + min(g, 150) / 15) + 0.35 * (cores - 1) + 0.2   # peça grande imprime mais rápido por grama
     return g + purga, horas, cores
 
 
@@ -202,7 +202,7 @@ def cmd_site():
                 "opcoes": [{"chave": "cor", "nome": "Cor", "itens": itens}],
                 "_img": f"img/col_{n}_", "preco": round(preco(g, h), 2),
             })
-    js = "const COLECOES = " + json.dumps(prods, ensure_ascii=False, indent=1) + ";\n"
+    js = "const COLECOES = [\n" + ",\n".join(json.dumps(p, ensure_ascii=False) for p in prods) + "\n];\n"
     js += "COLECOES.forEach(p => { const base = p._img; p.img = s => base + s.cor + \".webp\"; p.alt = s => p.nome + \" na cor \" + s.nomes.cor.toLowerCase(); PRODUTOS.push(p); });\n"
     f = os.path.join(SITE, "index.html")
     s = open(f, encoding="utf-8").read()
