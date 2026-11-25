@@ -130,6 +130,29 @@ cam.location = centro + Vector((math.sin(az) * math.cos(el), -math.cos(az) * mat
 cam.rotation_euler = (centro - cam.location).to_track_quat("-Z", "Y").to_euler()
 cam_d.clip_start, cam_d.clip_end = 0.001, dist * 10
 
+if cfg.get("giro"):
+    # vídeo: a peça gira 360° em N quadros (uma variante de cor), salvando pasta/0000.png ...
+    import os
+    g_ = cfg["giro"]
+    piv = bpy.data.objects.new("piv", None)
+    cena.collection.objects.link(piv)
+    for o in objs:
+        o.parent = piv
+    cores = next(iter(cfg["variantes"].values()))
+    for papel, cor in cores.items():
+        mats[papel].node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*cor, 1)
+    os.makedirs(g_["pasta"], exist_ok=True)
+    n = g_["quadros"]
+    for i in range(g_.get("de", 0), g_.get("ate", n)):
+        f = os.path.join(g_["pasta"], f"{i:04d}.png")
+        if os.path.exists(f):
+            continue
+        piv.rotation_euler = (0, 0, g_.get("inicio", 0) + 2 * math.pi * i / n * g_.get("sentido", 1))
+        cena.render.filepath = f
+        bpy.ops.render.render(write_still=True)
+        print("QUADRO", i, flush=True)
+    raise SystemExit(0)
+
 for saida, cores in cfg["variantes"].items():
     for papel, cor in cores.items():
         mats[papel].node_tree.nodes["Principled BSDF"].inputs["Base Color"].default_value = (*cor, 1)

@@ -4,378 +4,397 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ateliê do Mestre</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Ateliê do Mestre: torres de dados, miniaturas, brinquedinhos e acessórios de RPG impressos em 3D sob encomenda. Do arquivo à sua mesa.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f1633'/%3E%3CclipPath id='h'%3E%3Cpath d='M32 6 54 19v26L32 58 10 45V19Z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23h)' fill='%23ffcf3f'%3E%3Crect y='6' width='64' height='4'/%3E%3Crect y='12' width='64' height='4'/%3E%3Crect y='18' width='64' height='4'/%3E%3Crect y='24' width='64' height='4'/%3E%3Crect y='30' width='64' height='4'/%3E%3Crect y='36' width='64' height='4'/%3E%3Crect y='42' width='64' height='4'/%3E%3Crect y='48' width='64' height='4'/%3E%3Crect y='54' width='64' height='4'/%3E%3C/g%3E%3Cpath d='M32 19 43 39H21Z' fill='%23fff6e8'/%3E%3C/svg%3E">
+<meta name="description" content="Ateliê do Mestre: criaturinhas, brinquedos sensoriais, decoração e peças de RPG impressas em 3D sob encomenda, com desenho próprio. Do arquivo à sua mesa.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2321172e'/%3E%3CclipPath id='h'%3E%3Cpath d='M32 6 54 19v26L32 58 10 45V19Z'/%3E%3C/clipPath%3E%3Cg clip-path='url(%23h)' fill='%23ffcf3f'%3E%3Crect y='6' width='64' height='4'/%3E%3Crect y='12' width='64' height='4'/%3E%3Crect y='18' width='64' height='4'/%3E%3Crect y='24' width='64' height='4'/%3E%3Crect y='30' width='64' height='4'/%3E%3Crect y='36' width='64' height='4'/%3E%3Crect y='42' width='64' height='4'/%3E%3Crect y='48' width='64' height='4'/%3E%3Crect y='54' width='64' height='4'/%3E%3C/g%3E%3Cpath d='M32 19 43 39H21Z' fill='%23fff6e8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,600&display=swap">
 <style>
-/* Ateliê do Mestre — identidade: roxo-escuro com texto creme, amarelo nos destaques, d20 de camadas,
-   Fredoka nos títulos e Nunito no texto, cantos suaves, botões em pílula com sombra de brinquedo,
-   linhas finas de camada no fundo. Visual escuro único, de propósito. */
+/* Ateliê do Mestre — papel creme com tinta roxo-escura, amarelo de marca-texto, d20 de camadas,
+   Fredoka nos títulos e Nunito no texto. Faixas em roxo-escuro no topo da loja e no rodapé.
+   Loja em grade enxuta: a ficha completa de cada peça abre ao clicar. */
 :root {
-  --ameixa: #1f1633;        /* fundo */
-  --ameixa-2: #2a1f45;      /* cartões */
-  --ameixa-3: #35285a;      /* opções, campos */
-  --linha: #44356f;
-  --creme: #fff6e8;         /* texto */
-  --creme-2: #d9cfe6;       /* texto secundário */
-  --amarelo: #ffcf3f;       /* destaque, botões */
-  --coral: #ff6b6b;         /* destaque 2 */
-  --lilas: #a58cf0;         /* detalhes */
-  --sombra-brinquedo: #0f0a1c;
-  --font-titulo: "Fredoka", "Trebuchet MS", system-ui, sans-serif;
-  --font-texto: "Nunito", "Segoe UI", system-ui, sans-serif;
-  --raio: 8px;
-  color-scheme: dark;
+  --papel: #f4ecdf;
+  --papel-2: #ebe0cd;
+  --cartao: #fbf7f0;
+  --tinta: #21172e;
+  --tinta-2: #5b4e68;
+  --linha: rgba(33, 23, 46, .16);
+  --amarelo: #ffcf3f;
+  --amarelo-2: #f2b705;
+  --ameixa: #21172e;
+  --creme: #fff6e8;
+  --preto: #1a1a1a; --branco: #ece9e2; --vermelho: #c0141c; --laranja: #f26b1d; --rosa: #f28bb0;
+  --raio: 14px;
+  --sombra-btn: 0 3px 0 var(--tinta);
 }
-
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--ameixa); color: var(--creme); font-family: var(--font-texto); font-size: 1rem; line-height: 1.6; }
-img { max-width: 100%; display: block; }
-a { color: inherit; }
-:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 3px; }
-::selection { background: var(--amarelo); color: var(--ameixa); }
-.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
-
-/* ---------- topo ---------- */
-header { position: relative; overflow: hidden; }
-header::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(165, 140, 240, 0.09) 0 1px, transparent 1px 8px); pointer-events: none; }
-body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: rgba(31, 22, 51, 0.92); }
-.barra { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: rgba(31, 22, 51, 0.88); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
-.barra.rolou { border-bottom-color: var(--linha); }
-.nav { display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; padding-block: 12px; flex-wrap: wrap; }
-.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.logo svg { width: 38px; height: 38px; flex: none; }
-.logo span { font-family: var(--font-titulo); font-weight: 700; font-size: 1.45rem; line-height: 1; }
-.menu { display: flex; align-items: center; gap: 6px; background: var(--ameixa-2); border: 1px solid var(--linha); border-radius: 999px; padding: 5px; }
-.menu a { text-decoration: none; color: var(--creme-2); font-weight: 700; font-size: 0.92rem; padding: 7px 14px; border-radius: 999px; white-space: nowrap; transition: background 0.15s ease, color 0.15s ease; }
-.menu a:hover { color: var(--creme); background: var(--ameixa-3); }
-.menu a.ativo { background: var(--amarelo); color: var(--ameixa); }
-.nav .btn-whats { padding: 9px 18px; font-size: 0.95rem; }
-.hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 36px; align-items: center; padding-block: 24px 60px; }
-.hero > * { min-width: 0; }
-.selinho { display: inline-flex; align-items: center; gap: 8px; background: var(--ameixa-3); color: var(--amarelo); font-weight: 800; font-size: 0.82rem; padding: 5px 12px; border-radius: 999px; letter-spacing: 0.02em; }
-h1 { font-family: var(--font-titulo); font-weight: 700; font-size: clamp(2.5rem, 1.5rem + 4.2vw, 4.6rem); line-height: 0.98; margin: 16px 0 16px; letter-spacing: -0.01em; text-wrap: balance; }
-h1 em { font-style: normal; color: var(--amarelo); }
-.lede { font-size: 1.15rem; color: var(--creme-2); max-width: 33em; margin: 0 0 28px; }
-.acoes { display: flex; gap: 14px; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; border: 0; cursor: pointer; font: inherit; font-family: var(--font-titulo); font-weight: 600; font-size: 1.02rem; text-decoration: none; background: var(--amarelo); color: var(--ameixa); box-shadow: 0 4px 0 var(--sombra-brinquedo); transition: transform 0.08s ease, box-shadow 0.08s ease; }
-.btn:hover { filter: brightness(1.05); }
-.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--sombra-brinquedo); }
-.btn-creme { background: var(--creme); color: var(--ameixa); }
-.btn-contorno { background: transparent; color: var(--creme); box-shadow: inset 0 0 0 2px var(--linha), 0 4px 0 var(--sombra-brinquedo); }
-.mosaico { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 12px; aspect-ratio: 1 / 1; max-width: 100%; }
-.mosaico a { position: relative; display: block; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 0 var(--sombra-brinquedo); background: #d6c7b2; min-height: 0; }
-.mosaico img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.25s ease; }
-.mosaico a:hover img { transform: scale(1.04); }
-.mosaico span { position: absolute; left: 10px; bottom: 10px; background: var(--ameixa); color: var(--creme); font-weight: 700; font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; }
-.hero-img { margin: 0; position: relative; }
-.hero-img img { width: 100%; aspect-ratio: 5 / 6; object-fit: cover; border-radius: 22px; box-shadow: 0 8px 0 var(--sombra-brinquedo); }
-.hero-img figcaption { position: absolute; left: 14px; bottom: 14px; background: var(--ameixa); color: var(--creme); font-weight: 700; font-size: 0.85rem; padding: 6px 12px; border-radius: 999px; }
-.ficha-tecnica { position: relative; display: flex; flex-wrap: wrap; gap: 8px; padding-block: 0 26px; }
-.ficha-tecnica span { background: var(--ameixa-2); border: 1px solid var(--linha); color: var(--creme-2); font-size: 0.85rem; font-weight: 700; padding: 4px 12px; border-radius: 999px; }
-
-/* ---------- seções ---------- */
-section { padding-block: 72px 8px; scroll-margin-top: 96px; }
-.cabeca { display: flex; justify-content: space-between; align-items: end; gap: 12px 32px; flex-wrap: wrap; margin-bottom: 28px; }
-.cabeca .sobre { color: var(--amarelo); font-weight: 800; font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
-h2 { font-family: var(--font-titulo); font-weight: 700; font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem); line-height: 1.05; margin: 4px 0 0; text-wrap: balance; }
-.cabeca p { margin: 0; max-width: 34em; color: var(--creme-2); }
-
-/* ---------- catálogo ---------- */
-.catalogo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
-.catalogo.largo { grid-template-columns: minmax(0, 1fr); }
-.ficha { background: var(--ameixa-2); border-radius: var(--raio); display: grid; grid-template-rows: auto 1fr; overflow: hidden; min-width: 0; box-shadow: 0 6px 0 var(--sombra-brinquedo); }
-.catalogo.largo .ficha { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); grid-template-rows: none; }
-.foto { position: relative; background: #d6c7b2; aspect-ratio: 5 / 4; overflow: hidden; max-width: 100%; }
-.catalogo.largo .foto { aspect-ratio: auto; min-height: 480px; }
-.foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.2s ease; }
-.foto img.trocando { opacity: 0.35; }
-.corpo { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.selo { align-self: flex-start; background: var(--ameixa-3); color: var(--amarelo); font-weight: 800; font-size: 0.78rem; padding: 3px 10px; border-radius: 999px; }
-.ficha h3 { font-family: var(--font-titulo); font-weight: 700; font-size: 1.6rem; line-height: 1.1; margin: 0; }
-.ficha p { margin: 0; color: var(--creme-2); }
-dl.medidas { display: grid; grid-template-columns: auto 1fr; gap: 3px 16px; margin: 0; font-size: 0.9rem; }
-dl.medidas dt { color: var(--creme-2); }
-dl.medidas dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
-.opcoes { display: flex; flex-wrap: wrap; gap: 8px; border: 0; padding: 0; margin: 0; min-width: 0; }
-.opcoes legend { width: 100%; padding: 0; margin-bottom: 6px; font-size: 0.85rem; color: var(--creme-2); font-weight: 700; }
-.opcoes legend b { color: var(--creme); }
-.opcao { position: relative; }
-.opcao input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
-.opcao span { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px; border-radius: 999px; background: var(--ameixa-3); border: 2px solid transparent; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
-.opcao span:has(i) { padding-left: 6px; }
-.opcao i { width: 18px; height: 18px; border-radius: 50%; display: inline-block; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.3); }
-.opcao input:checked + span { border-color: var(--amarelo); color: #fff; }
-.opcao input:focus-visible + span { outline: 3px solid var(--amarelo); outline-offset: 2px; }
-.ficha p.dica { font-size: 0.86rem; }
-.ficha p.fala { position: relative; align-self: flex-start; background: var(--creme); color: var(--ameixa); font-weight: 800; font-size: 0.92rem; padding: 8px 14px; border-radius: 16px; max-width: 100%; }
-.ficha p.fala::before { content: ""; position: absolute; left: 18px; top: -7px; border: 7px solid transparent; border-top: 0; border-bottom-color: var(--creme); }
-.estilo { align-self: flex-start; font-size: 0.75rem; font-weight: 800; padding: 2px 10px; border-radius: 999px; border: 1.5px solid var(--linha); color: var(--creme-2); }
-.dica a { color: var(--amarelo); font-weight: 700; }
-.rodape-ficha { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 6px; }
-.preco { font-family: var(--font-titulo); font-weight: 700; font-size: 1.45rem; color: var(--amarelo); line-height: 1.1; }
-.preco small { display: block; font-family: var(--font-texto); font-weight: 600; font-size: 0.8rem; color: var(--creme-2); }
-
-/* ---------- personalizados ---------- */
-.planos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
-.plano { background: var(--ameixa-2); border-radius: var(--raio); padding: 26px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0; box-shadow: 0 6px 0 var(--sombra-brinquedo); }
-.plano.destaque { box-shadow: inset 0 0 0 2px var(--amarelo), 0 6px 0 var(--sombra-brinquedo); }
-.plano h3 { font-family: var(--font-titulo); font-weight: 700; font-size: 1.4rem; line-height: 1.15; margin: 0; }
-.plano ul { margin: 0; padding-left: 1.1em; display: grid; gap: 7px; color: var(--creme-2); }
-.plano ul b { color: var(--creme); }
-.plano .valor { font-weight: 700; font-size: 0.92rem; border-top: 1px dashed var(--linha); padding-top: 12px; }
-.plano .btn { align-self: flex-start; margin-top: auto; }
-.arq { font-weight: 800; color: var(--amarelo); }
-
-/* ---------- passos e dúvidas ---------- */
-.passos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; counter-reset: p; }
-.passos li { counter-increment: p; background: var(--ameixa-2); border-radius: var(--raio); padding: 20px; min-width: 0; }
-.passos li::before { content: counter(p); display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--amarelo); color: var(--ameixa); font-family: var(--font-titulo); font-weight: 700; margin-bottom: 10px; box-shadow: 0 3px 0 var(--sombra-brinquedo); }
-.passos strong { display: block; font-family: var(--font-titulo); font-weight: 600; font-size: 1.15rem; margin-bottom: 4px; }
-.passos span { color: var(--creme-2); font-size: 0.93rem; }
-.duvidas { display: grid; gap: 10px; max-width: 780px; }
-.duvidas details { background: var(--ameixa-2); border-radius: var(--raio); padding: 14px 18px; }
-.duvidas summary { cursor: pointer; font-weight: 800; }
-.duvidas p { margin: 10px 0 0; color: var(--creme-2); }
-
-footer { margin-top: 96px; background: var(--ameixa-2); position: relative; overflow: hidden; }
-footer::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(180deg, rgba(165, 140, 240, 0.08) 0 1px, transparent 1px 8px); pointer-events: none; }
-.fim { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding-block: 44px 24px; }
-.fim h2 { margin: 0 0 6px; }
-.fim p { margin: 0; color: var(--creme-2); }
-.fim p.contato { color: var(--creme); font-weight: 700; user-select: all; }
-.letras { position: relative; font-size: 0.82rem; color: var(--creme-2); margin: 0; padding-block: 0 28px; display: flex; gap: 6px 16px; flex-wrap: wrap; align-items: center; }
-.letras svg { width: 22px; height: 22px; }
-
-@media (max-width: 900px) {
-  .nav { flex-wrap: wrap; }
-  .menu { order: 3; width: 100%; overflow-x: auto; scrollbar-width: none; border-radius: 14px; }
-  .menu::-webkit-scrollbar { display: none; }
-  .hero { grid-template-columns: 1fr; }
-  .mosaico { aspect-ratio: 1 / 1; }
-  .catalogo, .catalogo.largo .ficha, .planos { grid-template-columns: 1fr; }
-  .catalogo.largo .foto { min-height: 0; aspect-ratio: 4 / 5; }
-  .passos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font: 400 1rem/1.6 "Nunito", system-ui, sans-serif;
+  overflow-x: hidden;
 }
-@media (max-width: 480px) { .passos { grid-template-columns: 1fr; } }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .foto img, .btn, .mosaico img { transition: none; } }
+img { display: block; max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { font-family: "Fredoka", "Nunito", sans-serif; font-weight: 600; line-height: 1.08; margin: 0; letter-spacing: -.01em; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .wrap { padding: 0 28px; } }
+.marca { background: linear-gradient(transparent 58%, var(--amarelo) 58%, var(--amarelo) 90%, transparent 90%); padding: 0 .08em; }
+.nw { white-space: nowrap; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* botões: pílula com sombra de brinquedo */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+  font: 700 1rem/1 "Nunito", sans-serif; text-decoration: none; cursor: pointer;
+  padding: .85em 1.35em; border-radius: 999px; border: 2px solid var(--tinta);
+  background: var(--amarelo); color: var(--tinta); box-shadow: var(--sombra-btn);
+  transition: transform .12s, box-shadow .12s;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 0 var(--tinta); }
+.btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--tinta); }
+.btn.claro { background: var(--cartao); }
+.btn.escuro { background: var(--tinta); color: var(--creme); box-shadow: 0 3px 0 var(--amarelo-2); }
+.btn svg { width: 1.15em; height: 1.15em; }
+:focus-visible { outline: 3px solid var(--laranja); outline-offset: 2px; }
+
+/* topo */
+.topo { position: sticky; top: 0; z-index: 30; background: rgba(244, 236, 223, .94); backdrop-filter: blur(6px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+.topo.rolou { border-bottom-color: var(--linha); }
+.topo .wrap { display: flex; align-items: center; gap: 16px; height: 64px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 600 1.2rem/1 "Fredoka", sans-serif; white-space: nowrap; }
+.logo svg { width: 34px; height: 34px; }
+.logo .d20 { fill: var(--tinta); }
+.topo nav { display: none; gap: 22px; margin-left: auto; font-weight: 700; }
+.topo nav a { text-decoration: none; padding: 6px 0; border-bottom: 2px solid transparent; }
+.topo nav a:hover { border-bottom-color: var(--amarelo-2); }
+.topo .btn { margin-left: auto; padding: .6em 1em; font-size: .95rem; }
+@media (min-width: 900px) { .topo nav { display: flex; } .topo .btn { margin-left: 8px; } }
+
+/* abertura */
+.abertura { padding: 28px 0 8px; }
+.abertura .wrap { display: grid; gap: 22px; align-items: center; }
+.abertura .rotulo { font-weight: 800; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--tinta-2); }
+.abertura h1 { font-size: clamp(2.6rem, 9vw, 5.2rem); margin: 10px 0 14px; font-weight: 700; }
+.abertura p.lede { font-size: 1.12rem; max-width: 34em; margin: 0 0 22px; color: var(--tinta-2); }
+.abertura p.lede b { color: var(--tinta); }
+.abertura .acoes { display: flex; flex-wrap: wrap; gap: 12px; }
+.foto-abertura { margin: 0; position: relative; border-radius: 22px; overflow: hidden; background: var(--papel-2); aspect-ratio: 5 / 6; }
+.foto-abertura img { width: 100%; height: 100%; object-fit: cover; }
+.foto-abertura figcaption { position: absolute; left: 12px; bottom: 12px; background: var(--cartao); border: 1.5px solid var(--tinta); border-radius: 10px; padding: 6px 10px; font-size: .85rem; font-weight: 700; max-width: calc(100% - 24px); }
+@media (min-width: 900px) {
+  .abertura { padding: 44px 0 16px; }
+  .abertura .wrap { grid-template-columns: 1fr 1.25fr; gap: 40px; }
+  .foto-abertura { aspect-ratio: 16 / 10; }
+}
+.abertura .wrap.faixa-cores { display: block; }
+.cores-atelie { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin: 26px 0 0; padding: 14px 0; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); font-size: .92rem; }
+.cores-atelie strong { font-weight: 800; }
+.cores-atelie span { display: inline-flex; align-items: center; gap: 7px; }
+.cores-atelie i { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--tinta); display: inline-block; }
+
+/* loja */
+.loja { padding: 40px 0 20px; }
+.loja-cabeca { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 24px; margin-bottom: 8px; }
+.loja-cabeca h2 { font-size: clamp(2rem, 5vw, 2.8rem); }
+.loja-cabeca p { margin: 0; color: var(--tinta-2); max-width: 30em; }
+.filtros { position: sticky; top: 64px; z-index: 20; background: var(--papel); margin: 0 -16px; padding: 10px 16px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--linha); }
+.filtros::-webkit-scrollbar { display: none; }
+.filtros button {
+  flex: none; font: 700 .95rem/1 "Nunito", sans-serif; color: var(--tinta-2); background: none; border: 0; cursor: pointer;
+  padding: 10px 10px; border-radius: 8px; white-space: nowrap;
+}
+.filtros button small { font-weight: 600; opacity: .7; margin-left: 4px; }
+.filtros button[aria-pressed="true"] { color: var(--tinta); background: var(--amarelo); }
+.filtros button:hover:not([aria-pressed="true"]) { color: var(--tinta); background: var(--papel-2); }
+@media (min-width: 720px) { .filtros { margin: 0 -28px; padding: 10px 28px; } }
+
+.grupo { padding-top: 30px; scroll-margin-top: 130px; }
+.grupo[hidden] { display: none; }
+.grupo-cabeca { display: grid; gap: 4px; margin-bottom: 16px; }
+.grupo-cabeca h3 { font-size: 1.55rem; }
+.grupo-cabeca p { margin: 0; color: var(--tinta-2); max-width: 46em; }
+.grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; }
+@media (min-width: 720px) { .grade { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px 22px; } }
+@media (min-width: 1040px) { .grade { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.peca { display: block; text-decoration: none; color: inherit; background: none; border: 0; padding: 0; text-align: left; font: inherit; cursor: pointer; }
+.peca .img { position: relative; aspect-ratio: 4 / 5; border-radius: var(--raio); overflow: hidden; background: var(--papel-2); }
+.peca .img img { width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 80%; transform: scale(1.14); transition: transform .35s ease; }
+.peca:hover .img img { transform: scale(1.19); }
+.peca .tag { position: absolute; top: 10px; left: 10px; background: var(--cartao); border: 1.5px solid var(--tinta); border-radius: 8px; padding: 3px 8px; font-size: .75rem; font-weight: 800; }
+.peca .info { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; align-items: baseline; }
+.peca h4 { margin: 0; font: 600 1.05rem/1.2 "Fredoka", sans-serif; }
+.peca .valor { font-weight: 800; white-space: nowrap; }
+.peca .linha2 { margin: 3px 0 0; font-size: .88rem; color: var(--tinta-2); line-height: 1.35; }
+.peca .bolas { display: flex; gap: 5px; margin-top: 8px; }
+.bola { width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--tinta); display: inline-block; flex: none; }
+@media (max-width: 420px) { .peca h4 { font-size: .98rem; } .peca .linha2 { display: none; } }
+
+/* ficha (janela) */
+dialog.ficha { border: 0; padding: 0; margin: auto; width: min(980px, 100%); max-width: 100%; max-height: 100%; background: var(--cartao); color: var(--tinta); border-radius: 20px; overflow: hidden; }
+dialog.ficha::backdrop { background: rgba(33, 23, 46, .55); }
+.ficha-in { display: grid; max-height: 92vh; overflow: auto; }
+.ficha .foto { background: var(--papel-2); aspect-ratio: 1 / 1; position: relative; }
+.ficha .foto img { width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 80%; transform: scale(1.1); transition: opacity .2s; }
+.ficha .foto img.trocando { opacity: .35; }
+.ficha .texto { padding: 22px 20px 24px; display: grid; gap: 14px; align-content: start; }
+.ficha .sobre { font-size: .8rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-2); }
+.ficha h2 { font-size: clamp(1.7rem, 4vw, 2.3rem); }
+.ficha .fala { margin: 0; font-style: italic; font-weight: 600; font-size: 1.05rem; }
+.ficha .fala::before { content: "“"; } .ficha .fala::after { content: "”"; }
+.ficha p { margin: 0; }
+.ficha dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; margin: 0; font-size: .93rem; padding: 12px 0; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+.ficha dt { color: var(--tinta-2); } .ficha dd { margin: 0; font-weight: 700; }
+.ficha fieldset { border: 0; padding: 0; margin: 0; }
+.ficha legend { font-weight: 800; font-size: .9rem; margin-bottom: 8px; padding: 0; }
+.ficha legend b { font-weight: 600; color: var(--tinta-2); }
+.ops { display: flex; flex-wrap: wrap; gap: 8px; }
+.ops label { cursor: pointer; }
+.ops input { position: absolute; opacity: 0; pointer-events: none; }
+.ops span { display: inline-flex; align-items: center; gap: 7px; padding: 7px 11px; border: 1.5px solid var(--linha); border-radius: 10px; font-size: .9rem; font-weight: 700; background: var(--papel); }
+.ops input:checked + span { border-color: var(--tinta); background: var(--amarelo); }
+.ops input:focus-visible + span { outline: 3px solid var(--laranja); outline-offset: 2px; }
+.ficha .comprar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 4px; }
+.ficha .preco { font: 700 1.6rem/1 "Fredoka", sans-serif; }
+.ficha .preco small { display: block; font: 600 .8rem/1.4 "Nunito", sans-serif; color: var(--tinta-2); margin-top: 4px; }
+.ficha .dica { font-size: .85rem; color: var(--tinta-2); }
+.fechar { position: absolute; top: 12px; right: 12px; z-index: 2; width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--tinta); background: var(--cartao); cursor: pointer; font-size: 1.4rem; line-height: 1; color: var(--tinta); }
+@media (min-width: 820px) {
+  .ficha-in { grid-template-columns: 1.05fr 1fr; }
+  .ficha .foto { aspect-ratio: auto; min-height: 100%; }
+  .ficha .texto { padding: 34px 32px; }
+}
+@media (max-width: 819px) { dialog.ficha { border-radius: 18px 18px 0 0; margin: auto 0 0; width: 100%; max-height: 94vh; } .ficha-in { max-height: 94vh; } }
+
+/* vídeos */
+.giros { padding: 50px 0 10px; }
+.giros h2 { font-size: clamp(1.8rem, 4.5vw, 2.5rem); margin-bottom: 6px; }
+.giros > .wrap > p { margin: 0 0 18px; color: var(--tinta-2); }
+.fita { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: thin; }
+.fita figure { flex: none; width: min(62vw, 250px); margin: 0; scroll-snap-align: start; }
+.fita video { width: 100%; aspect-ratio: 9 / 16; border-radius: var(--raio); background: var(--papel-2); display: block; object-fit: cover; }
+.fita figcaption { font-weight: 700; font-size: .92rem; margin-top: 8px; }
+
+/* faixa escura: seu .STL / personalizado */
+.faixa { background: var(--ameixa); color: var(--creme); margin-top: 50px; padding: 54px 0; }
+.faixa h2 { font-size: clamp(2rem, 5vw, 2.9rem); max-width: 14em; }
+.faixa h2 .marca { color: var(--tinta); background: var(--amarelo); padding: 0 .14em; border-radius: 6px; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.faixa .lede { color: #d9cfe6; max-width: 38em; margin: 12px 0 30px; font-size: 1.08rem; }
+.planos { display: grid; gap: 0; border-top: 1px solid rgba(255, 246, 232, .2); }
+.plano { display: grid; gap: 8px 30px; padding: 22px 0; border-bottom: 1px solid rgba(255, 246, 232, .2); }
+.plano .n { font: 700 1rem/1 "Fredoka", sans-serif; color: var(--amarelo); }
+.plano h3 { font-size: 1.35rem; }
+.plano p { margin: 0; color: #d9cfe6; }
+.plano p b { color: var(--creme); }
+.plano .valor { font-size: .9rem; color: var(--amarelo); font-weight: 700; }
+.plano .btn { justify-self: start; margin-top: 6px; }
+@media (min-width: 820px) { .plano { grid-template-columns: 50px 1fr 1.4fr auto; align-items: center; } .plano .btn { margin: 0; } .plano .bloco { display: grid; gap: 6px; } }
+
+/* como funciona */
+.passos-sec { padding: 54px 0 10px; }
+.passos-sec h2 { font-size: clamp(1.8rem, 4.5vw, 2.5rem); margin-bottom: 20px; }
+.passos { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; counter-reset: p; }
+.passos li { counter-increment: p; display: grid; grid-template-columns: 46px 1fr; gap: 2px 14px; }
+.passos li::before { content: counter(p); grid-row: span 2; width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--tinta); display: grid; place-items: center; font: 700 1.25rem/1 "Fredoka", sans-serif; background: var(--cartao); }
+.passos strong { font-size: 1.08rem; padding-top: 4px; }
+.passos span { color: var(--tinta-2); }
+@media (min-width: 820px) { .passos { grid-template-columns: repeat(4, 1fr); gap: 24px; } .passos li { grid-template-columns: 1fr; } .passos li::before { grid-row: auto; margin-bottom: 10px; } }
+
+/* dúvidas */
+.duvidas { padding: 54px 0 10px; }
+.duvidas .wrap { display: grid; gap: 18px; }
+.duvidas h2 { font-size: clamp(1.8rem, 4.5vw, 2.5rem); }
+.duvidas details { border-bottom: 1px solid var(--linha); padding: 4px 0; }
+.duvidas summary { cursor: pointer; font-weight: 800; font-size: 1.05rem; padding: 12px 30px 12px 0; list-style: none; position: relative; }
+.duvidas summary::-webkit-details-marker { display: none; }
+.duvidas summary::after { content: "+"; position: absolute; right: 4px; top: 8px; font: 600 1.5rem/1 "Fredoka", sans-serif; }
+.duvidas details[open] summary::after { content: "–"; }
+.duvidas details p { margin: 0 0 14px; color: var(--tinta-2); max-width: 46em; }
+@media (min-width: 900px) { .duvidas .wrap { grid-template-columns: 1fr 2fr; gap: 40px; } }
+
+/* rodapé */
+footer { background: var(--ameixa); color: var(--creme); margin-top: 60px; padding: 50px 0 34px; }
+footer .wrap { display: grid; gap: 26px; }
+footer h2 { font-size: clamp(2rem, 6vw, 3.2rem); }
+footer p { margin: 6px 0 0; color: #d9cfe6; }
+footer a { color: var(--creme); }
+footer .linha-final { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding-top: 22px; border-top: 1px solid rgba(255, 246, 232, .2); font-size: .88rem; color: #bfb3cc; }
+footer .logo .d20 { fill: var(--creme); }
+@media (min-width: 820px) { footer .chamada { display: flex; justify-content: space-between; align-items: end; gap: 30px; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .peca .img img, .btn { transition: none; } }
 </style>
 </head>
 <body>
 
-<div class="barra" id="barra">
+<header class="topo" id="topo">
   <div class="wrap">
-    <nav class="nav" aria-label="Principal">
-      <a class="logo" href="#topo" aria-label="Ateliê do Mestre, início">
-        <svg viewBox="0 0 64 64" aria-hidden="true" data-logo></svg>
-        <span>Ateliê do Mestre</span>
-      </a>
-      <div class="menu" id="menu">
-        <a href="#torres">Torres</a>
-        <a href="#miniaturas">Miniaturas</a>
-        <a href="#brinquedinhos">Turma</a>
-        <a href="#sensoriais">Sensoriais</a>
-        <a href="#plaquinhas">Plaquinhas</a>
-        <a href="#decoracao">Decoração</a>
-        <a href="#acessorios">Acessórios</a>
-        <a href="#personalizados">Seu .STL</a>
-        <a href="#duvidas">Dúvidas</a>
-      </div>
-      <a class="btn btn-whats js-whats" data-msg="Oi! Vi o site do Ateliê do Mestre e quero fazer uma encomenda." href="#contato">WhatsApp</a>
+    <a class="logo" href="#inicio" aria-label="Ateliê do Mestre, início"><svg viewBox="0 0 64 64" aria-hidden="true" data-logo></svg><span>Ateliê do Mestre</span></a>
+    <nav aria-label="Principal">
+      <a href="#loja">Loja</a>
+      <a href="#giros">Vídeos</a>
+      <a href="#seu-stl">Seu .STL</a>
+      <a href="#como">Como funciona</a>
+      <a href="#duvidas">Dúvidas</a>
     </nav>
-  </div>
-</div>
-
-<header id="topo">
-  <div class="wrap">
-    <div class="hero">
-      <div>
-        <span class="selinho">Impressão 3D sob encomenda</span>
-        <h1>Do arquivo <em>à sua mesa</em></h1>
-        <p class="lede">Torres de dados, miniaturas, brinquedinhos e acessórios de RPG, impressos um a um aqui no ateliê. Tem um modelo seu? Manda o .STL que a gente imprime.</p>
-        <div class="acoes">
-          <a class="btn" href="#torres">Ver as peças</a>
-          <a class="btn btn-contorno" href="#personalizados">Imprimir o meu .STL</a>
-        </div>
-      </div>
-      <div class="mosaico" aria-label="Algumas peças do ateliê">
-        <a href="#acessorios" class="m-a"><img src="img/caixa_sangue_preta-vermelha.webp" alt="Caixa de dados elemental com emblema vermelho"><span>Caixa elemental</span></a>
-        <a href="#brinquedinhos" class="m-b"><img src="img/mini_chibi_criatura_branco.webp" alt="Criaturinha branca"><span>Criaturinha</span></a>
-        <a href="#miniaturas" class="m-c"><img src="img/mini_ocultista_branco.webp" alt="Miniatura da ocultista"><span>Ocultista</span></a>
-        <a href="#acessorios" class="m-d"><img src="img/bau_preto-vermelho.webp" alt="Baú do Mestre preto com tampa vermelha"><span>Baú do Mestre</span></a>
-      </div>
-    </div>
-
-    <div class="ficha-tecnica" aria-label="Como imprimimos">
-      <span>PLA</span>
-      <span>camada de 0,2 mm</span>
-      <span>base de miniatura 25 mm</span>
-      <span>até 4 cores na mesma peça</span>
-    </div>
+    <a class="btn js-whats" data-msg="Oi! Vi o site do Ateliê do Mestre e quero fazer uma encomenda." href="#contato">WhatsApp</a>
   </div>
 </header>
 
-<main class="wrap">
-
-  <section id="torres" aria-labelledby="t-torres">
-    <div class="cabeca">
-      <div><div class="sobre">Torres de dados</div><h2 id="t-torres">Joga o dado e deixa a torre decidir</h2></div>
-      <p>Escolhe a cor e a foto já mostra como a peça fica.</p>
+<main id="inicio">
+  <section class="abertura">
+    <div class="wrap">
+      <div>
+        <div class="rotulo">Impressão 3D sob encomenda</div>
+        <h1>Do arquivo <span class="marca nw">à sua mesa.</span></h1>
+        <p class="lede">Criaturinhas, brinquedos de mexer, decoração e peças de RPG. <b>Tudo com desenho nosso</b>, impresso uma peça por vez depois do pedido, nas cores do ateliê. Tem um arquivo seu? A gente imprime também.</p>
+        <div class="acoes">
+          <a class="btn" href="#loja">Ver a loja</a>
+          <a class="btn claro" href="#seu-stl">Imprimir meu .STL</a>
+        </div>
+      </div>
+      <figure class="foto-abertura">
+        <picture>
+          <source media="(min-width: 900px)" srcset="img/hero_turma.webp">
+          <img src="img/hero_turma_cel.webp" alt="Monstrinho porta-trecos, Boo o fantasminha, Morceguinho, Gosminha, Caveirinha, Pião Abóbora, chaveiro d20 e dado sensorial juntos numa mesa" fetchpriority="high">
+        </picture>
+        <figcaption>Monstrinho, Boo, Morceguinho, Gosminha, Caveirinha e amigos</figcaption>
+      </figure>
     </div>
-    <div class="catalogo largo" data-categoria="torres"></div>
-  </section>
-
-  <section id="miniaturas" aria-labelledby="t-minis">
-    <div class="cabeca">
-      <div><div class="sobre">Miniaturas</div><h2 id="t-minis">Agentes e criaturas para a sua mesa</h2></div>
-      <p>Escala de 28 a 32 mm, base redonda de 25 mm. Vêm em uma cor só: pede em branco se quiser pintar.</p>
-    </div>
-    <div class="catalogo largo" data-categoria="miniaturas"></div>
-  </section>
-
-  <section id="brinquedinhos" aria-labelledby="t-brinq">
-    <div class="cabeca">
-      <div><div class="sobre">A Turma do Ateliê</div><h2 id="t-brinq">Bichinhos com personalidade (e um pouco de assombração)</h2></div>
-      <p>Cada um tem nome, jeitinho e até bordão. Saem em até 4 cores direto da impressora: corpo, olhinhos, boca e bochechas.</p>
-    </div>
-    <div class="catalogo" data-categoria="brinquedinhos"></div>
-  </section>
-
-  <section id="sensoriais" aria-labelledby="t-sens">
-    <div class="cabeca">
-      <div><div class="sobre">Brinquedos sensoriais</div><h2 id="t-sens">Para girar, apertar e não largar mais</h2></div>
-      <p>Fidgets de desenho próprio, com runas do ateliê. Vários já saem da impressora montados, sem cola e sem peça solta.</p>
-    </div>
-    <div class="catalogo" data-categoria="sensoriais"></div>
-  </section>
-
-  <section id="plaquinhas" aria-labelledby="t-plaq">
-    <div class="cabeca">
-      <div><div class="sobre">Plaquinhas</div><h2 id="t-plaq">Para a porta, a parede ou a mesa</h2></div>
-      <p>Base em uma cor e letras em relevo em outra. Para o covil do mestre ou para a casa toda. Com furos para prego ou fita dupla face.</p>
-    </div>
-    <div class="catalogo" data-categoria="plaquinhas"></div>
-  </section>
-
-  <section id="decoracao" aria-labelledby="t-deco">
-    <div class="cabeca">
-      <div><div class="sobre">Decoração</div><h2 id="t-deco">Peças que dão vida ao ambiente</h2></div>
-      <p>Umas no clima do Ateliê, outras para qualquer cantinho do dia a dia. Todas com um toque de personalidade.</p>
-    </div>
-    <div class="catalogo" data-categoria="decoracao"></div>
-  </section>
-
-  <section id="acessorios" aria-labelledby="t-acess">
-    <div class="cabeca">
-      <div><div class="sobre">Acessórios</div><h2 id="t-acess">Para guardar e marcar o jogo</h2></div>
-    </div>
-    <div class="catalogo" data-categoria="acessorios"></div>
-  </section>
-
-  <section id="personalizados" aria-labelledby="t-pers">
-    <div class="cabeca">
-      <div><div class="sobre">Personalizados</div><h2 id="t-pers">Tem uma ideia? Traz pra cá</h2></div>
-      <p>Com o .STL pronto, você paga só a impressão. Sem arquivo, a gente modela para você.</p>
-    </div>
-    <div class="planos">
-      <article class="plano destaque">
-        <span class="selo">Sem taxa de projeto</span>
-        <h3>Você manda o .STL</h3>
-        <ul>
-          <li>Manda o <span class="arq">.STL</span> ou <span class="arq">.3MF</span> pelo WhatsApp.</li>
-          <li>Você paga <b>só a impressão</b>: material, tempo de máquina e frete.</li>
-          <li>Antes de imprimir, a gente confere se o modelo imprime bem e avisa se precisar de suporte.</li>
-        </ul>
-        <div class="valor" id="valor-stl"></div>
-        <a class="btn js-whats" data-msg="Oi! Tenho um arquivo .STL para imprimir no Ateliê do Mestre. Vou mandar o arquivo aqui." href="#contato">Enviar o meu .STL</a>
-      </article>
-      <article class="plano">
-        <span class="selo">Modelagem sob medida</span>
-        <h3>A gente cria o modelo</h3>
-        <ul>
-          <li>Manda a ideia, um desenho ou uma foto de referência.</li>
-          <li>Tem uma <b>taxa de personalização</b>. O 1º projeto inclui uma prévia 3D para você aprovar.</li>
-          <li>Depois do 1º projeto feito, <b>cada mudança tem um valor adicional</b>.</li>
-        </ul>
-        <div class="valor" id="valor-pers"></div>
-        <a class="btn js-whats" data-msg="Oi! Quero orçar uma peça personalizada no Ateliê do Mestre. A ideia é:" href="#contato">Pedir orçamento</a>
-      </article>
-      <article class="plano">
-        <span class="selo">Cor do seu jeito</span>
-        <h3>Branca para pintar ou na cor que você quiser</h3>
-        <ul>
-          <li>Qualquer peça do catálogo pode sair em <b>filamento branco, prontinha para pintar</b>.</li>
-          <li>Quer outra cor ou outra combinação além das mostradas? Também fazemos.</li>
-          <li>Como no projeto personalizado, entra uma <b>pequena taxa de personalização</b> pela troca de cor.</li>
-        </ul>
-        <div class="valor" id="valor-cor"></div>
-        <a class="btn js-whats" data-msg="Oi! Quero uma peça do Ateliê do Mestre em outra cor (ou branca para pintar). A peça é:" href="#contato">Pedir em outra cor</a>
-      </article>
+    <div class="wrap faixa-cores">
+      <div class="cores-atelie" aria-label="Cores de filamento do ateliê">
+        <strong>As cores do ateliê</strong>
+        <span><i style="background:var(--preto)"></i>Preto</span>
+        <span><i style="background:var(--branco)"></i>Branco</span>
+        <span><i style="background:var(--vermelho)"></i>Vermelho</span>
+        <span><i style="background:var(--laranja)"></i>Laranja</span>
+        <span><i style="background:var(--rosa)"></i>Rosa</span>
+        <span>até 4 na mesma peça, direto da impressora</span>
+      </div>
     </div>
   </section>
 
-  <section id="como-encomendar" aria-labelledby="t-como">
-    <div class="cabeca">
-      <div><div class="sobre">Como encomendar</div><h2 id="t-como">Do arquivo à sua mesa em 4 passos</h2></div>
-    </div>
-    <ol class="passos">
-      <li><strong>Escolhe a peça e a cor</strong><span>No catálogo, ou manda o seu .STL ou a sua ideia.</span></li>
-      <li><strong>Chama no WhatsApp</strong><span>Valor, prazo e frete a gente combina na conversa. Pagamento por Pix.</span></li>
-      <li><strong>A peça vai para a impressora</strong><span>Cada peça é impressa depois do pedido. Você recebe uma foto antes do envio.</span></li>
-      <li><strong>Chega na sua mesa</strong><span>Correios para todo o Brasil, ou retirada combinada.</span></li>
-    </ol>
-  </section>
-
-  <section id="duvidas" aria-labelledby="t-duvidas">
-    <div class="cabeca">
-      <div><div class="sobre">Dúvidas</div><h2 id="t-duvidas">Perguntas frequentes</h2></div>
-    </div>
-    <div class="duvidas">
-      <details>
-        <summary>Qual material vocês usam?</summary>
-        <p>PLA, um plástico rígido e leve. Só não deixa a peça no carro ao sol ou perto de fonte de calor, porque o PLA amolece acima de uns 55 °C.</p>
-      </details>
-      <details>
-        <summary>A peça vem pintada?</summary>
-        <p>As cores vêm do próprio filamento: cada parte é impressa na sua cor, sem tinta. Se quiser pintar, a gente imprime em filamento branco. Peça branca ou em cor fora do catálogo tem uma pequena taxa de personalização.</p>
-      </details>
-      <details>
-        <summary>Quanto custa imprimir o meu .STL?</summary>
-        <p>Depende do tamanho, do tempo de impressão e de quantas cores a peça tem. Manda o arquivo que a gente responde com o valor. Não tem taxa de projeto quando o arquivo já vem pronto.</p>
-      </details>
-      <details>
-        <summary>Posso pedir mudanças no modelo personalizado?</summary>
-        <p>Pode. O 1º projeto inclui a prévia 3D para você aprovar. Depois que esse projeto é entregue, cada mudança tem um valor adicional, combinado antes de fazer.</p>
-      </details>
-      <details>
-        <summary>As fotos são da peça impressa?</summary>
-        <p>São imagens 3D dos modelos, com as cores de filamento que usamos. A peça impressa tem linhas finas de camada na superfície, o que é normal na impressão 3D.</p>
-      </details>
-      <details>
-        <summary>São peças oficiais de algum jogo?</summary>
-        <p>Não. As peças são de desenho próprio. Não usamos logos, símbolos nem personagens oficiais de nenhum jogo, série ou canal.</p>
-      </details>
+  <section class="loja" id="loja" aria-labelledby="t-loja">
+    <div class="wrap">
+      <div class="loja-cabeca">
+        <h2 id="t-loja">Loja</h2>
+        <p>Toca numa peça para ver as cores, as medidas e pedir pelo WhatsApp.</p>
+      </div>
+      <div class="filtros" role="group" aria-label="Categorias" id="filtros"></div>
+      <div id="vitrine"></div>
     </div>
   </section>
 
+  <section class="giros" id="giros" aria-labelledby="t-giros" hidden>
+    <div class="wrap">
+      <h2 id="t-giros">Vê girando</h2>
+      <p>As peças de todos os lados, do jeito que saem da impressora.</p>
+      <div class="fita" id="fita"></div>
+    </div>
+  </section>
+
+  <section class="faixa" id="seu-stl" aria-labelledby="t-stl">
+    <div class="wrap">
+      <h2 id="t-stl">Tem uma ideia ou um arquivo? <span class="marca">Traz pra cá.</span></h2>
+      <p class="lede">Com o .STL pronto, você paga só a impressão. Sem arquivo, a gente modela para você. E qualquer peça da loja sai em branco para pintar ou em outra cor.</p>
+      <div class="planos">
+        <article class="plano">
+          <span class="n">01</span>
+          <h3>Você manda o .STL</h3>
+          <div class="bloco">
+            <p>Manda o .STL ou .3MF pelo WhatsApp e paga <b>só a impressão</b>: material, tempo de máquina e frete. Antes de imprimir, a gente confere o modelo e avisa se precisar de suporte.</p>
+            <span class="valor" id="valor-stl"></span>
+          </div>
+          <a class="btn js-whats" data-msg="Oi! Tenho um arquivo .STL para imprimir no Ateliê do Mestre. Vou mandar o arquivo aqui." href="#contato">Enviar meu .STL</a>
+        </article>
+        <article class="plano">
+          <span class="n">02</span>
+          <h3>A gente cria o modelo</h3>
+          <div class="bloco">
+            <p>Manda a ideia, um desenho ou uma foto. Tem uma <b>taxa de personalização</b> e o 1º projeto inclui uma prévia 3D para você aprovar. Depois dele, <b>cada mudança tem um valor adicional</b>.</p>
+            <span class="valor" id="valor-pers"></span>
+          </div>
+          <a class="btn js-whats" data-msg="Oi! Quero orçar uma peça personalizada no Ateliê do Mestre. A ideia é:" href="#contato">Pedir orçamento</a>
+        </article>
+        <article class="plano">
+          <span class="n">03</span>
+          <h3>Branca para pintar ou na sua cor</h3>
+          <div class="bloco">
+            <p>Qualquer peça sai em <b>filamento branco, pronta para pintar</b>, ou numa combinação de cores fora da loja, com uma <b>pequena taxa de personalização</b>.</p>
+            <span class="valor" id="valor-cor"></span>
+          </div>
+          <a class="btn js-whats" data-msg="Oi! Quero uma peça do Ateliê do Mestre em outra cor (ou branca para pintar). A peça é:" href="#contato">Pedir em outra cor</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="passos-sec" id="como" aria-labelledby="t-como">
+    <div class="wrap">
+      <h2 id="t-como">Como funciona</h2>
+      <ol class="passos">
+        <li><strong>Escolhe a peça e a cor</strong><span>Na loja, ou manda o seu arquivo ou a sua ideia.</span></li>
+        <li><strong>Chama no WhatsApp</strong><span>Valor, prazo e frete a gente combina na conversa. Pagamento por Pix.</span></li>
+        <li><strong>Vai para a impressora</strong><span>Cada peça é impressa depois do pedido. Você recebe uma foto antes do envio.</span></li>
+        <li><strong>Chega na sua mesa</strong><span>Correios para todo o Brasil, ou retirada combinada.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="duvidas" id="duvidas" aria-labelledby="t-duvidas">
+    <div class="wrap">
+      <h2 id="t-duvidas">Dúvidas</h2>
+      <div>
+        <details>
+          <summary>Qual material vocês usam?</summary>
+          <p>PLA, um plástico rígido e leve. Só não deixa a peça no carro ao sol ou perto de fonte de calor: o PLA amolece acima de uns 55 °C.</p>
+        </details>
+        <details>
+          <summary>A peça vem pintada?</summary>
+          <p>Não precisa: as cores vêm do próprio filamento, cada parte impressa na sua cor. Se quiser pintar, a gente imprime em branco, com uma pequena taxa.</p>
+        </details>
+        <details>
+          <summary>As fotos são da peça impressa?</summary>
+          <p>São imagens 3D dos modelos, com as cores de filamento que usamos. A peça impressa tem linhas finas de camada na superfície, normal na impressão 3D. Antes do envio você recebe uma foto da sua.</p>
+        </details>
+        <details>
+          <summary>Quanto custa imprimir o meu .STL?</summary>
+          <p>Depende do tamanho, do tempo de máquina e de quantas cores a peça tem. Manda o arquivo que a gente responde com o valor. Sem taxa de projeto quando o arquivo já vem pronto.</p>
+        </details>
+        <details>
+          <summary>Os brinquedos que saem montados funcionam mesmo?</summary>
+          <p>Sim: a serpente, o anel e o chapéu espiral saem da impressora já articulados. Na primeira vez, é só mexer com cuidado para soltar as partes.</p>
+        </details>
+        <details>
+          <summary>São peças oficiais de algum jogo?</summary>
+          <p>Não. Tudo é desenho próprio, sem logos, símbolos ou personagens oficiais de jogo, série ou canal.</p>
+        </details>
+      </div>
+    </div>
+  </section>
 </main>
+
+<dialog class="ficha" id="ficha" aria-labelledby="ficha-nome">
+  <button class="fechar" type="button" aria-label="Fechar" data-fechar>×</button>
+  <div class="ficha-in" id="ficha-in"></div>
+</dialog>
 
 <footer id="contato">
   <div class="wrap">
-    <div class="fim">
+    <div class="chamada">
       <div>
         <h2>Bora montar a sua mesa?</h2>
-        <p>Encomendas, arquivos .STL e orçamentos pelo WhatsApp.</p>
-        <p class="contato" id="contato-num"></p>
-        <p class="contato" id="contato-insta"></p>
+        <p>Encomendas, arquivos e orçamentos pelo WhatsApp.</p>
+        <p id="contato-num"></p>
+        <p id="contato-insta"></p>
       </div>
       <a class="btn js-whats" data-msg="Oi! Vi o site do Ateliê do Mestre e quero fazer uma encomenda." href="#contato">Chamar no WhatsApp</a>
     </div>
-    <p class="letras"><svg viewBox="0 0 64 64" aria-hidden="true" data-logo></svg><span>Ateliê do Mestre · do arquivo à sua mesa</span><span>Peças impressas em 3D sob encomenda, com desenho próprio.</span></p>
+    <div class="linha-final">
+      <span class="logo"><svg viewBox="0 0 64 64" aria-hidden="true" data-logo></svg><span>Ateliê do Mestre</span></span>
+      <span>Do arquivo à sua mesa.</span>
+      <span>Peças impressas em 3D sob encomenda, com desenho próprio.</span>
+    </div>
   </div>
 </footer>
 
@@ -383,12 +402,12 @@ footer::before { content: ""; position: absolute; inset: 0; background: repeatin
 // ================= Configuração: troque pelos dados reais =================
 // Número com DDI e DDD, só dígitos. Ex.: "5511912345678"
 const WHATSAPP = "5547996316880";
-// Arroba do Instagram, sem o @ (confira se está livre antes de publicar). Vazio esconde.
+// Arroba do Instagram, sem o @. Vazio esconde.
 const INSTAGRAM = "ateliedomestre3d";
 // Valores em reais, ou null para "sob consulta"
 const TAXA_PERSONALIZACAO = null;   // projeto modelado pelo ateliê
 const ADICIONAL_MUDANCA = null;     // cada mudança depois do 1º projeto
-const TAXA_COR = null;              // peça branca para pintar ou em cor fora do catálogo
+const TAXA_COR = null;              // peça branca para pintar ou em cor fora da loja
 
 // Amostras de cor de filamento
 const C = { preto: "#1a1a1a", branco: "#ece9e2", vermelho: "#c0141c", laranja: "#f26b1d", rosa: "#f28bb0" };
@@ -827,124 +846,151 @@ const PRODUTOS = [
 ];
 // ==========================================================================
 
-// menu: destaca a seção visível e mostra a borda da barra ao rolar
-(function () {
-  const links = [...document.querySelectorAll("#menu a")];
-  const barra = document.getElementById("barra");
-  const secoes = links.map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
-  function marcar() {
-    barra.classList.toggle("rolou", scrollY > 8);
-    let atual = null;
-    for (const s of secoes) if (s.getBoundingClientRect().top < 140) atual = s;
-    links.forEach(a => a.classList.toggle("ativo", atual && a.getAttribute("href") === "#" + atual.id));
-    const ativo = links.find(a => a.classList.contains("ativo"));
-    const menu = document.getElementById("menu");
-    if (ativo && menu.scrollWidth > menu.clientWidth) menu.scrollLeft = ativo.offsetLeft - (menu.clientWidth - ativo.offsetWidth) / 2;
-  }
-  let pedido = 0;
-  addEventListener("scroll", () => { if (!pedido) pedido = requestAnimationFrame(() => { pedido = 0; marcar(); }); }, { passive: true });
-  marcar();
-  // clique em qualquer link interno (#secao): rola até a seção, descontando a altura da barra
-  document.addEventListener("click", e => {
-    const a = e.target.closest('a[href^="#"]');
-    if (!a || a.getAttribute("href") === "#contato" && a.classList.contains("js-whats")) return;
-    const alvo = document.querySelector(a.getAttribute("href"));
-    if (!alvo) return;
-    e.preventDefault();
-    const parado = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // scrollIntoView rola também a página de fora quando o site está dentro de um quadro (prévia);
-    // a folga da barra fixa vem do scroll-margin-top das seções
-    alvo.scrollIntoView({ behavior: parado ? "auto" : "smooth", block: "start" });
-    if (history.replaceState) history.replaceState(null, "", a.getAttribute("href"));
-    if (a.closest("#menu")) { links.forEach(l => l.classList.toggle("ativo", l === a)); }
-  });
-})();
+// grupos da loja (ordem e textos)
+const GRUPOS = [
+  { id: "turma", nome: "Turma", cats: ["brinquedinhos"], desc: "Criaturinhas em até 4 cores, direto da impressora. Cada uma tem nome, jeitinho e bordão." },
+  { id: "sensoriais", nome: "Sensoriais", cats: ["sensoriais"], desc: "Para girar, apertar e não largar mais. Vários saem da impressora já montados, sem cola e sem peça solta." },
+  { id: "decoracao", nome: "Decoração", cats: ["decoracao"], desc: "Peças com personalidade para a mesa, a estante e a parede." },
+  { id: "rpg", nome: "Mesa de RPG", cats: ["torres", "acessorios"], desc: "Torre de dados, caixas, cofre e marcadores para a sessão." },
+  { id: "miniaturas", nome: "Miniaturas", cats: ["miniaturas"], desc: "Escala de 28 a 32 mm, em uma cor só. Pede em branco se quiser pintar." },
+  { id: "plaquinhas", nome: "Plaquinhas", cats: ["plaquinhas"], desc: "Base numa cor e letras em relevo em outra, para a porta, a parede ou a mesa." }
+];
+// vídeos curtos (pasta site/vid): aparecem na seção "Vê girando"
+const VIDEOS = [];
 
-// logo: d20 de camadas (linhas amarelas, triângulo creme)
-const LOGO = `<clipPath id="LID"><path d="M32 4 56 18v28L32 60 8 46V18Z"/></clipPath><g clip-path="url(#LID)" fill="#ffcf3f">${Array.from({ length: 10 }, (_, i) => `<rect x="0" y="${4 + i * 6}" width="64" height="4"/>`).join("")}</g><path d="M32 18 44 40H20Z" fill="#fff6e8"/>`;
+// logo: d20 de camadas
+const LOGO = `<clipPath id="LID"><path d="M32 4 56 18v28L32 60 8 46V18Z"/></clipPath><path class="d20" d="M32 4 56 18v28L32 60 8 46V18Z"/><g clip-path="url(#LID)" fill="#ffcf3f">${Array.from({ length: 5 }, (_, i) => `<rect x="0" y="${10 + i * 11}" width="64" height="4"/>`).join("")}</g><path d="M32 17 45 41H19Z" fill="#fff6e8"/>`;
 document.querySelectorAll("[data-logo]").forEach((el, i) => { el.innerHTML = LOGO.replace(/LID/g, "logo" + i); });
 
 const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
 const reais = v => "R$ " + v.toFixed(2).replace(".", ",");
 const linkWhats = msg => WHATSAPP ? "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(msg) : "#contato";
-const bolinha = cor => !cor ? "" : `<i style="background:${cor[1] ? `linear-gradient(135deg,${cor[0]} 50%,${cor[1]} 50%)` : cor[0]}"></i>`;
-const preco = (p, unidade = "a peça") => p == null
-  ? '<span class="preco">Sob consulta<small>valor e frete na conversa</small></span>'
-  : `<span class="preco">${reais(p)}<small>${unidade} · + frete</small></span>`;
+const fundo = cor => !cor ? "" : cor[1] ? `linear-gradient(135deg,${cor[0]} 50%,${cor[1]} 50%)` : cor[0];
+const padrao = p => { const s = { nomes: {} }; p.opcoes.forEach(g => { s[g.chave] = g.itens[0].id; s.nomes[g.chave] = g.itens[0].nome; }); return s; };
+const grupoDe = p => GRUPOS.find(g => g.cats.includes(p.categoria));
 
-function escolha(p) {
+// ---------- vitrine ----------
+function cartao(p) {
+  const cores = (p.opcoes.find(g => g.itens.some(i => i.cor)) || { itens: [] }).itens.filter(i => i.cor);
+  const s = padrao(p);
+  return `<a class="peca" href="#p-${p.id}" data-id="${p.id}">
+    <div class="img"><img src="${p.img(s)}" alt="${esc(p.alt(s))}" loading="lazy" decoding="async">${p.estilo ? `<span class="tag">${esc(p.estilo.split(" ·")[0])}</span>` : ""}</div>
+    <div class="info"><h4>${esc(p.nome)}</h4><span class="valor">${p.preco != null ? reais(p.preco) : "consulte"}</span></div>
+    <p class="linha2">${esc(p.fala ? "“" + p.fala + "”" : p.selo)}</p>
+    ${cores.length ? `<div class="bolas" aria-label="${cores.length} opções de cor">${cores.slice(0, 6).map(c => `<i class="bola" style="background:${fundo(c.cor)}"></i>`).join("")}</div>` : ""}
+  </a>`;
+}
+const vitrine = document.getElementById("vitrine");
+vitrine.innerHTML = GRUPOS.map(g => {
+  const itens = PRODUTOS.filter(p => g.cats.includes(p.categoria));
+  return `<section class="grupo" id="g-${g.id}" data-grupo="${g.id}" aria-labelledby="h-${g.id}">
+    <div class="grupo-cabeca"><h3 id="h-${g.id}">${esc(g.nome)}</h3><p>${esc(g.desc)}</p></div>
+    <div class="grade">${itens.map(cartao).join("")}</div>
+  </section>`;
+}).join("");
+
+const filtros = document.getElementById("filtros");
+filtros.innerHTML = `<button type="button" data-f="" aria-pressed="true">Tudo<small>${PRODUTOS.length}</small></button>` +
+  GRUPOS.map(g => `<button type="button" data-f="${g.id}" aria-pressed="false">${esc(g.nome)}<small>${PRODUTOS.filter(p => g.cats.includes(p.categoria)).length}</small></button>`).join("");
+filtros.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const f = b.dataset.f;
+  filtros.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  vitrine.querySelectorAll(".grupo").forEach(s => { s.hidden = f && s.dataset.grupo !== f; });
+  const topo = document.getElementById("loja").getBoundingClientRect().top + scrollY - 70;
+  if (scrollY > topo) scrollTo({ top: topo, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+});
+
+// ---------- ficha (janela com opções) ----------
+const dlg = document.getElementById("ficha");
+const ficIn = document.getElementById("ficha-in");
+let atual = null;
+function abrir(id, empurrar = true) {
+  const p = PRODUTOS.find(x => x.id === id); if (!p) return;
+  atual = p;
+  const s = padrao(p);
+  ficIn.innerHTML = `
+    <div class="foto"><img id="ficha-img" src="${p.img(s)}" alt="${esc(p.alt(s))}"></div>
+    <div class="texto">
+      <div class="sobre">${esc(grupoDe(p).nome)} · ${esc(p.selo)}</div>
+      <h2 id="ficha-nome">${esc(p.nome)}</h2>
+      ${p.fala ? `<p class="fala">${esc(p.fala)}</p>` : ""}
+      <p>${esc(p.desc)}</p>
+      <dl>${p.medidas.map(d => `<dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd>`).join("")}</dl>
+      ${p.opcoes.map(g => `<fieldset><legend>${esc(g.nome)}: <b data-rot="${g.chave}">${esc(g.itens[0].nome)}</b></legend><div class="ops">
+        ${g.itens.map((it, i) => `<label><input type="radio" name="${g.chave}" value="${it.id}"${i === 0 ? " checked" : ""}><span>${it.cor ? `<i class="bola" style="background:${fundo(it.cor)}"></i>` : ""}${esc(it.nome)}</span></label>`).join("")}
+      </div></fieldset>`).join("")}
+      <div class="comprar">
+        <span class="preco">${p.preco != null ? reais(p.preco) : "Sob consulta"}<small>${esc(p.unidade || "a peça")} · + frete</small></span>
+        <a class="btn" id="ficha-pedir" href="#contato">Pedir no WhatsApp</a>
+      </div>
+      <p class="dica">Também sai em branco para pintar ou em outra cor, com uma pequena taxa. <a href="#seu-stl" data-fechar>Saiba mais</a></p>
+    </div>`;
+  atualizar(false);
+  if (!dlg.open) dlg.showModal();
+  ficIn.scrollTop = 0;
+  if (empurrar && history.replaceState) history.replaceState(null, "", "#p-" + p.id);
+}
+function escolhaAtual() {
   const s = { nomes: {} };
-  p.opcoes.forEach(g => {
-    const el = document.querySelector(`input[name="${p.id}-${g.chave}"]:checked`);
-    s[g.chave] = el.value;
-    s.nomes[g.chave] = g.itens.find(i => i.id === el.value).nome;
+  atual.opcoes.forEach(g => {
+    const v = ficIn.querySelector(`input[name="${g.chave}"]:checked`).value;
+    s[g.chave] = v; s.nomes[g.chave] = g.itens.find(i => i.id === v).nome;
   });
   return s;
 }
-
-function ficha(p) {
-  return `
-  <article class="ficha" id="p-${p.id}">
-    <div class="foto"><img alt="" loading="lazy"></div>
-    <div class="corpo">
-      <span class="selo">${esc(p.selo)}</span>${p.estilo ? `<span class="estilo">${esc(p.estilo)}</span>` : ""}
-      <h3>${esc(p.nome)}</h3>
-      ${p.fala ? `<p class="fala">“${esc(p.fala)}”</p>` : ""}
-      <p>${esc(p.desc)}</p>
-      <dl class="medidas">${p.medidas.map(d => `<dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd>`).join("")}</dl>
-      ${p.opcoes.map(g => `
-      <fieldset class="opcoes">
-        <legend>${esc(g.nome)}: <b data-rotulo="${g.chave}"></b></legend>
-        ${g.itens.map((it, i) => `<label class="opcao"><input type="radio" id="${p.id}-${g.chave}-${it.id}" name="${p.id}-${g.chave}" value="${it.id}"${i === 0 ? " checked" : ""}><span>${bolinha(it.cor)}${esc(it.nome)}</span></label>`).join("")}
-      </fieldset>`).join("")}
-      <p class="dica">Também sai em branco para pintar ou em outra cor, com uma pequena taxa. <a href="#personalizados">Saiba mais</a></p>
-      <div class="rodape-ficha">
-        ${preco(p.preco, p.unidade)}
-        <a class="btn js-pedido" href="#contato">Quero esta</a>
-      </div>
-    </div>
-  </article>`;
-}
-
-function atualizar(p, animar) {
-  const el = document.getElementById("p-" + p.id);
-  const s = escolha(p);
-  p.opcoes.forEach(g => { el.querySelector(`[data-rotulo="${g.chave}"]`).textContent = s.nomes[g.chave]; });
-  const img = el.querySelector(".foto img");
-  const src = p.img(s);
+function atualizar(animar) {
+  const p = atual, s = escolhaAtual();
+  p.opcoes.forEach(g => { ficIn.querySelector(`[data-rot="${g.chave}"]`).textContent = s.nomes[g.chave]; });
+  const img = document.getElementById("ficha-img"), src = p.img(s);
   if (img.getAttribute("src") !== src) {
-    if (animar) {
-      img.classList.add("trocando");
-      const novo = new Image();
-      novo.onload = novo.onerror = () => { img.src = src; img.classList.remove("trocando"); };
-      novo.src = src;
-    } else img.src = src;
+    if (animar) { img.classList.add("trocando"); const n = new Image(); n.onload = n.onerror = () => { img.src = src; img.classList.remove("trocando"); }; n.src = src; }
+    else img.src = src;
   }
   img.alt = p.alt(s);
   const detalhes = p.opcoes.map(g => `${g.nome.toLowerCase()} ${s.nomes[g.chave]}`).join(", ");
-  const pedido = el.querySelector(".js-pedido");
   const item = p.pedido ? p.pedido(s) : `${p.nome} (${detalhes})`;
-  pedido.href = linkWhats(`Oi! Vim pelo site do Ateliê do Mestre e quero encomendar: ${item}${p.preco != null ? ` – ${reais(p.preco)}` : ""}.`);
-  if (WHATSAPP) { pedido.target = "_blank"; pedido.rel = "noopener"; }
+  const a = document.getElementById("ficha-pedir");
+  a.href = linkWhats(`Oi! Vim pelo site do Ateliê do Mestre e quero encomendar: ${item}${p.preco != null ? ` – ${reais(p.preco)}` : ""}.`);
+  if (WHATSAPP) { a.target = "_blank"; a.rel = "noopener"; }
+}
+ficIn.addEventListener("change", () => atualizar(true));
+function fechar() { if (dlg.open) dlg.close(); }
+dlg.addEventListener("close", () => { if (location.hash.startsWith("#p-") && history.replaceState) history.replaceState(null, "", "#loja"); });
+dlg.addEventListener("click", e => {
+  if (e.target === dlg || e.target.closest("[data-fechar]")) {
+    const link = e.target.closest("a[href^='#']");
+    fechar();
+    if (link) { e.preventDefault(); document.querySelector(link.getAttribute("href")).scrollIntoView({ behavior: "smooth" }); }
+  }
+});
+vitrine.addEventListener("click", e => {
+  const a = e.target.closest(".peca"); if (!a) return;
+  e.preventDefault(); abrir(a.dataset.id);
+});
+if (location.hash.startsWith("#p-")) abrir(location.hash.slice(3), false);
+
+// ---------- vídeos ----------
+if (VIDEOS.length) {
+  document.getElementById("giros").hidden = false;
+  document.getElementById("fita").innerHTML = VIDEOS.map(v =>
+    `<figure><video src="${v.src}" poster="${v.poster}" muted loop playsinline preload="none" aria-label="${esc(v.legenda)}"></video><figcaption>${esc(v.legenda)}</figcaption></figure>`).join("");
+  const io = new IntersectionObserver(es => es.forEach(en => { const v = en.target; if (en.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: .4 });
+  document.querySelectorAll("#fita video").forEach(v => io.observe(v));
+} else {
+  document.querySelector('.topo nav a[href="#giros"]').remove();
 }
 
-document.querySelectorAll("[data-categoria]").forEach(lista => {
-  const itens = PRODUTOS.filter(p => p.categoria === lista.dataset.categoria);
-  lista.innerHTML = itens.map(ficha).join("");
-  itens.forEach(p => atualizar(p, false));
-  lista.addEventListener("change", e => {
-    const p = itens.find(x => e.target.name && e.target.name.startsWith(x.id + "-"));
-    if (p) atualizar(p, true);
-  });
-});
-
+// ---------- topo, WhatsApp e contato ----------
+const topo = document.getElementById("topo");
+addEventListener("scroll", () => topo.classList.toggle("rolou", scrollY > 8), { passive: true });
 document.querySelectorAll(".js-whats").forEach(a => {
   a.href = linkWhats(a.dataset.msg);
   if (WHATSAPP) { a.target = "_blank"; a.rel = "noopener"; }
 });
 const consulta = v => v == null ? "sob consulta" : reais(v);
 document.getElementById("valor-stl").textContent = "Valor: só a impressão, calculado pelo arquivo";
-document.getElementById("valor-pers").textContent = `Taxa de personalização: ${consulta(TAXA_PERSONALIZACAO)} · cada mudança extra: ${consulta(ADICIONAL_MUDANCA)}`;
+document.getElementById("valor-pers").textContent = `Taxa de personalização: ${consulta(TAXA_PERSONALIZACAO)} · mudança extra: ${consulta(ADICIONAL_MUDANCA)}`;
 document.getElementById("valor-cor").textContent = `Taxa de cor: ${consulta(TAXA_COR)}`;
 document.getElementById("contato-num").textContent = WHATSAPP
   ? "WhatsApp: +" + WHATSAPP.slice(0, 2) + " (" + WHATSAPP.slice(2, 4) + ") " + WHATSAPP.slice(4, -4) + "-" + WHATSAPP.slice(-4)
