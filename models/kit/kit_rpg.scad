@@ -31,12 +31,14 @@ module hera(comp) {   // ramo de hera em relevo descendo pela parede (normal -Y)
     translate([(k % 2 ? 2.2 : -2.2), 0, -1.5]) rotate([90, 0, k * 40]) scale([1, 0.65, 1]) cylinder(d = 4.2, h = 1.2, center = true, $fn = 6);
   }
 }
-module d20_2d(r) {   // ícone de d20 (hexágono com triângulo central), contorno
-  difference() { circle(r = r, $fn = 6); circle(r = r - 1.4, $fn = 6); }
-  pts = [for (a = [90, 210, 330]) [cos(a), sin(a)] * r * 0.55];
-  difference() { polygon(pts); offset(delta = -1.2) polygon(pts); }
-  for (i = [0:2]) hull() { translate(pts[i]) circle(d = 1.2, $fn = 12); translate([cos(90 + i * 120 - 60), sin(90 + i * 120 - 60)] * (r - 0.8) * 0.98) circle(d = 1.2, $fn = 12); }
-  for (i = [0:2]) hull() { translate(pts[i]) circle(d = 1.2, $fn = 12); translate([cos(90 + i * 120), sin(90 + i * 120)] * (r - 0.8)) circle(d = 1.2, $fn = 12); }
+module d20_2d(r, w = 1.3) {   // ícone de d20: hexágono de ponta para cima, triângulo central e 9 arestas
+  hexv = [for (k = [0:5]) [cos(30 + 60 * k), sin(30 + 60 * k)] * (r - w / 2)];
+  tri = [for (a = [90, 210, 330]) [cos(a), sin(a)] * r * 0.52];
+  module seg(p, q) { hull() { translate(p) circle(d = w, $fn = 16); translate(q) circle(d = w, $fn = 16); } }
+  for (k = [0:5]) seg(hexv[k], hexv[(k + 1) % 6]);
+  for (k = [0:2]) seg(tri[k], tri[(k + 1) % 3]);
+  // cada vértice do triângulo liga aos 3 vértices do hexágono mais próximos (90° → 30°, 90°, 150° …)
+  for (k = [0:2]) for (d = [-1, 0, 1]) seg(tri[k], hexv[(2 * k + 1 + d + 6) % 6]);
 }
 
 // ---------- TORRE ----------
