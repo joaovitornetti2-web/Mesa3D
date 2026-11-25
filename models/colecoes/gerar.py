@@ -18,6 +18,9 @@ PECAS = {
     "paranormal": [("caveira", 0.35, True), ("livro", 0.3, True), ("mao", 0.3, False), ("velas", 0.35, True),
                    ("gravador", 0.3, False), ("evidencias", 0.3, True), ("sanidade", 0.22, True), ("bandeja_ritual", 0.3, False),
                    ("entidade", 0.22, False), ("mascara", 0.3, False), ("olho", 0.3, False), ("torre_ritual", 0.5, False)],
+    "tempestade": [("minotauro", 0.22, False), ("goblin", 0.22, False), ("aberracao", 0.22, False), ("bau", 0.3, False),
+                   ("moedas", 0.15, True), ("elmo", 0.3, True), ("pergaminho", 0.3, False), ("bandeja_nuvem", 0.3, False),
+                   ("arvore", 0.3, False), ("gargula", 0.25, False), ("machado", 0.25, True), ("torre_tempestade", 0.5, False)],
 }
 TRES_MF_ESPECIAL = {"torre_dragao": ["torre_dragao-torre", "torre_dragao-bandeja"]}
 
