@@ -15,7 +15,7 @@ PECAS = {
                  ("dragaozinho", 0.22, False), ("bandeja_escudo", 0.3, False), ("barril", 0.3, False),
                  ("porta_copos", 0.4, True), ("iniciativa", 0.22, True), ("porta", 0.22, False), ("contador", 0.22, True),
                  ("torre_dragao", 0.6, False)],
-    "paranormal": [("caveira", 0.3, True), ("livro", 0.3, True), ("mao", 0.3, False), ("velas", 0.35, True),
+    "paranormal": [("caveira", 0.35, True), ("livro", 0.3, True), ("mao", 0.3, False), ("velas", 0.35, True),
                    ("gravador", 0.3, False), ("evidencias", 0.3, True), ("sanidade", 0.22, True), ("bandeja_ritual", 0.3, False),
                    ("entidade", 0.22, False), ("mascara", 0.3, False), ("olho", 0.3, False), ("torre_ritual", 0.5, False)],
 }
