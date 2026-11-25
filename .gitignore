@@ -39,3 +39,5 @@ models/esculpidos/stl/
 models/esculpidos/decor/stl/
 models/esculpidos/decor/stl_imprimir/
 models/esculpidos/sensoriais/stl/
+models/colecoes/*/stl/
+models/colecoes/*/stl_imprimir/
