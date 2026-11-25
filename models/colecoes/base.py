@@ -4,8 +4,73 @@ import sys
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(os.path.dirname(RAIZ), "esculpidos"))
+import sdf as _sdf
 from sdf import *  # noqa: F401,F403
 import numpy as np  # noqa: F401
+
+# ---- float32 em tudo: a Grade original soma um np.float64 às coordenadas e os parâmetros vindos de np.cos etc.
+# também são float64, o que dobra a memória de cada campo. Aqui os escalares viram float do Python.
+
+
+def _f(v):
+    if isinstance(v, np.generic):
+        return float(v)
+    if isinstance(v, (tuple, list)) and v and all(isinstance(t, (int, float, np.generic)) for t in v):
+        return tuple(float(t) for t in v)
+    if isinstance(v, np.ndarray) and v.ndim == 1 and v.size <= 4:
+        return tuple(float(t) for t in v)
+    return v
+
+
+class Grade(_sdf.Grade):
+    def __init__(self, mn, mx, passo=0.22):
+        super().__init__(_f(tuple(mn)), _f(tuple(mx)), float(passo))
+        self.x, self.y, self.z = (a.astype(np.float32) for a in (self.x, self.y, self.z))
+
+    def p(self, c=(0, 0, 0)):
+        c = _f(tuple(c))
+        return self.x - c[0], self.y - c[1], self.z - c[2]
+
+
+def _vista_p(self, c=(0, 0, 0)):
+    c = _f(tuple(c))
+    return self.x - c[0], self.y - c[1], self.z - c[2]
+
+
+_sdf.Vista.p = _vista_p
+
+
+def capsula(g, a, b, r1, r2=None):
+    a, b, r1 = _f(tuple(a)), _f(tuple(b)), float(r1)
+    r2 = r1 if r2 is None else float(r2)
+    ba = (b[0] - a[0], b[1] - a[1], b[2] - a[2])
+    L2 = ba[0] ** 2 + ba[1] ** 2 + ba[2] ** 2
+    x, y, z = g.p(a)
+    h = np.clip((x * ba[0] + y * ba[1] + z * ba[2]) / L2, 0, 1)
+    return np.sqrt((x - ba[0] * h) ** 2 + (y - ba[1] * h) ** 2 + (z - ba[2] * h) ** 2) - (r1 + (r2 - r1) * h)
+
+
+_sdf.capsula = capsula          # tubo() usa esta
+
+
+def _embrulha(fn):
+    def w(*a, **k):
+        return fn(*[_f(x) for x in a], **{kk: _f(v) for kk, v in k.items()})
+    w.__name__, w.__doc__ = fn.__name__, fn.__doc__
+    return w
+
+
+for _n in ["esfera", "elipsoide", "toro", "caixa", "cilindro", "smin", "smax", "menos", "casca"]:
+    globals()[_n] = _embrulha(getattr(_sdf, _n))
+    setattr(_sdf, _n, globals()[_n])
+
+
+def tubo(g, pontos, raios):
+    d = None
+    for i in range(len(pontos) - 1):
+        s = capsula(g, pontos[i], pontos[i + 1], raios[i], raios[i + 1])
+        d = s if d is None else np.minimum(d, s)
+    return d
 
 
 def args(padrao=0.3):
