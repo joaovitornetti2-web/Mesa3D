@@ -173,17 +173,9 @@ def cmd_imagens(so):
 
 
 def cmd_site():
-    prods, secoes, menu = [], [], []
+    prods, grupos = [], []
     for col, titulo, sobre, chamada in COLECOES:
-        menu.append(f'        <a href="#col-{col}">{titulo.split(" ")[0] if col != "bicicleta" else "Anos 80"}</a>')
-        secoes.append(f'''  <section id="col-{col}" aria-labelledby="t-col-{col}">
-    <div class="cabeca">
-      <div><div class="sobre">Coleção {titulo}</div><h2 id="t-col-{col}">{chamada}</h2></div>
-      <p>{sobre}. Doze peças novas, cada cor com a sua foto.</p>
-    </div>
-    <div class="catalogo" data-categoria="col-{col}"></div>
-  </section>
-''')
+        grupos.append({"id": col, "nome": titulo, "cats": [f"col-{col}"], "desc": f"{sobre}. {chamada}."})
         for n in ORDEM[col]:
             nome, desc = texto_cliente(docstring(col, n))
             g, h, cores = gramas_horas(col, n)
@@ -196,7 +188,7 @@ def cmd_site():
                 cor = [HEX[v]] + ([HEX[destaque]] if destaque and destaque != v else [])
                 itens.append({"id": v, "nome": NOME_COR[v] + (f" com {NOME_COR.get(destaque, destaque).lower()}" if destaque and destaque != v else ""), "cor": cor})
             prods.append({
-                "id": f"{col}-{n}", "categoria": f"col-{col}", "nome": nome, "selo": titulo,
+                "id": f"{col}-{n}", "categoria": f"col-{col}", "nome": nome, "selo": "Coleção nova",
                 "unidade": AJUSTES.get(n, {}).get("unidade", "a peça"), "desc": desc,
                 "medidas": [["Tamanho", f"{x} × {y} × {z} mm"], ["Cores", f"{cores} {'cor' if cores == 1 else 'cores'} no AMS"]],
                 "opcoes": [{"chave": "cor", "nome": "Cor", "itens": itens}],
@@ -204,6 +196,7 @@ def cmd_site():
             })
     js = "const COLECOES = [\n" + ",\n".join(json.dumps(p, ensure_ascii=False) for p in prods) + "\n];\n"
     js += "COLECOES.forEach(p => { const base = p._img; p.img = s => base + s.cor + \".webp\"; p.alt = s => p.nome + \" na cor \" + s.nomes.cor.toLowerCase(); PRODUTOS.push(p); });\n"
+    js += "GRUPOS.push(" + ", ".join(json.dumps(g, ensure_ascii=False) for g in grupos) + ");\n"
     f = os.path.join(SITE, "index.html")
     s = open(f, encoding="utf-8").read()
 
@@ -212,8 +205,6 @@ def cmd_site():
             a, b = s.index(ini) + len(ini), s.index(fim)
             return s[:a] + "\n" + novo + s[b:]
         raise SystemExit("marcador não encontrado: " + ini)
-    s = troca(s, "<!-- COLECOES-MENU -->", "<!-- /COLECOES-MENU -->", "\n".join(menu) + "\n        ")
-    s = troca(s, "<!-- COLECOES -->", "<!-- /COLECOES -->", "".join(secoes) + "  ")
     s = troca(s, "// COLECOES-JS", "// /COLECOES-JS", js)
     open(f, "w", encoding="utf-8").write(s)
     print("ok", len(prods), "produtos")

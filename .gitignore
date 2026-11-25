@@ -41,3 +41,6 @@ models/esculpidos/decor/stl_imprimir/
 models/esculpidos/sensoriais/stl/
 models/colecoes/*/stl/
 models/colecoes/*/stl_imprimir/
+videos/.quadros/
+videos/.giros.log
+videos/.cena.log
