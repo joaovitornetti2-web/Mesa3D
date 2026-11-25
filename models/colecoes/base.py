@@ -30,7 +30,15 @@ def montar_3mf(arquivo, nome, imprimir=True):
     for c in ["c1", "c2", "c3", "c4", "c5"]:
         f = f"{base}_{c}.stl"
         if os.path.exists(f):
-            s.add_geometry(trimesh.load(f), node_name=f"{nome}_{c}", geom_name=f"{nome}_{c}")
+            m = trimesh.load(f)
+            alvo = 120000 if c == "c1" else 40000
+            if len(m.faces) > alvo:             # simplifica: detalhe de sobra para bico de 0,4 mm, arquivo bem menor
+                import fast_simplification
+                v, fc = fast_simplification.simplify(m.vertices.astype(np.float32), m.faces, 1 - alvo / len(m.faces))
+                m = trimesh.Trimesh(v, fc, process=True)
+            trimesh.repair.fill_holes(m)          # fecha furinhos de triângulos degenerados
+            trimesh.repair.fix_normals(m)
+            s.add_geometry(m, node_name=f"{nome}_{c}", geom_name=f"{nome}_{c}")
     out = os.path.join(os.path.dirname(os.path.abspath(arquivo)), f"{nome}.3mf")
     open(out, "wb").write(trimesh.exchange.threemf.export_3MF(s))
     return out
@@ -46,3 +54,29 @@ class Escala:
 
     def p(self, c=(0, 0, 0)):
         return self.x - c[0], self.y - c[1], self.z - c[2]
+
+
+FONTES = {"serif": "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",
+          "redonda": os.path.join(os.path.dirname(RAIZ), "decor", "fontes", "Fredoka.ttf"),
+          "mono": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf"}
+
+
+def texto2d(u, v, texto, altura, fonte="serif", px_mm=12):
+    """campo de distância 2D (mm, < 0 dentro das letras) do texto centrado em (0, 0), letras com `altura` mm."""
+    from PIL import Image, ImageDraw, ImageFont
+    from scipy import ndimage
+    f = ImageFont.truetype(FONTES.get(fonte, fonte), int(altura * px_mm * 1.35))
+    x0, y0, x1, y1 = ImageDraw.Draw(Image.new("L", (1, 1))).textbbox((0, 0), texto, font=f)
+    pad = int(4 * px_mm)
+    im = Image.new("L", (x1 - x0 + 2 * pad, y1 - y0 + 2 * pad), 0)
+    ImageDraw.Draw(im).text((pad - x0, pad - y0), texto, font=f, fill=255)
+    a = np.array(im) > 127
+    sd = (ndimage.distance_transform_edt(~a) - ndimage.distance_transform_edt(a)) / px_mm
+    esc = altura / ((y1 - y0) / px_mm) if texto.strip() else 1.0
+    h, w = a.shape
+    # (u, v) em mm -> pixel (linha, coluna); v para cima
+    col = (np.asarray(u) / esc) * px_mm + w / 2
+    lin = -(np.asarray(v) / esc) * px_mm + h / 2
+    U, V = np.broadcast_arrays(col, lin)
+    out = ndimage.map_coordinates(sd, [V.ravel(), U.ravel()], order=1, mode="constant", cval=sd.max())
+    return (out.reshape(U.shape) * esc).astype(np.float32)
