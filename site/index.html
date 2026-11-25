@@ -173,7 +173,8 @@ dialog.ficha::backdrop { background: rgba(33, 23, 46, .55); }
 .giros > .wrap > p { margin: 0 0 18px; color: var(--tinta-2); }
 .fita { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: thin; }
 .fita figure { flex: none; width: min(62vw, 250px); margin: 0; scroll-snap-align: start; }
-.fita video { width: 100%; aspect-ratio: 9 / 16; border-radius: var(--raio); background: var(--papel-2); display: block; object-fit: cover; }
+.fita .tela { border-radius: var(--raio); overflow: hidden; background: #cfc5b6; aspect-ratio: 9 / 16; }
+.fita video { width: 100%; height: 100%; display: block; object-fit: cover; transform: scale(1.22); transform-origin: 50% 82%; }
 .fita figcaption { font-weight: 700; font-size: .92rem; margin-top: 8px; }
 
 /* faixa escura: seu .STL / personalizado */
@@ -856,7 +857,13 @@ const GRUPOS = [
   { id: "plaquinhas", nome: "Plaquinhas", cats: ["plaquinhas"], desc: "Base numa cor e letras em relevo em outra, para a porta, a parede ou a mesa." }
 ];
 // vídeos curtos (pasta site/vid): aparecem na seção "Vê girando"
-const VIDEOS = [];
+const VIDEOS = [
+  { src: "vid/boo.mp4", poster: "img/giro_boo.webp", legenda: "Boo, o fantasminha mago" },
+  { src: "vid/monstrinho.mp4", poster: "img/giro_monstrinho.webp", legenda: "Monstrinho Porta-Trecos" },
+  { src: "vid/gatinho.mp4", poster: "img/giro_gatinho.webp", legenda: "Gatinho Suporte de Celular" },
+  { src: "vid/porta_chaves.mp4", poster: "img/giro_porta_chaves.webp", legenda: "Porta-Chaves Mímico" },
+  { src: "vid/dado.mp4", poster: "img/giro_dado.webp", legenda: "Dado Sensorial" }
+];
 
 // logo: d20 de camadas
 const LOGO = `<clipPath id="LID"><path d="M32 4 56 18v28L32 60 8 46V18Z"/></clipPath><path class="d20" d="M32 4 56 18v28L32 60 8 46V18Z"/><g clip-path="url(#LID)" fill="#ffcf3f">${Array.from({ length: 5 }, (_, i) => `<rect x="0" y="${10 + i * 11}" width="64" height="4"/>`).join("")}</g><path d="M32 17 45 41H19Z" fill="#fff6e8"/>`;
@@ -974,7 +981,7 @@ if (location.hash.startsWith("#p-")) abrir(location.hash.slice(3), false);
 if (VIDEOS.length) {
   document.getElementById("giros").hidden = false;
   document.getElementById("fita").innerHTML = VIDEOS.map(v =>
-    `<figure><video src="${v.src}" poster="${v.poster}" muted loop playsinline preload="none" aria-label="${esc(v.legenda)}"></video><figcaption>${esc(v.legenda)}</figcaption></figure>`).join("");
+    `<figure><div class="tela"><video src="${v.src}" poster="${v.poster}" muted loop playsinline preload="none" aria-label="${esc(v.legenda)}"></video></div><figcaption>${esc(v.legenda)}</figcaption></figure>`).join("");
   const io = new IntersectionObserver(es => es.forEach(en => { const v = en.target; if (en.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: .4 });
   document.querySelectorAll("#fita video").forEach(v => io.observe(v));
 } else {
