@@ -34,3 +34,15 @@ def montar_3mf(arquivo, nome, imprimir=True):
     out = os.path.join(os.path.dirname(os.path.abspath(arquivo)), f"{nome}.3mf")
     open(out, "wb").write(trimesh.exchange.threemf.export_3MF(s))
     return out
+
+
+class Escala:
+    """a grade vista por um objeto ampliado `s` vezes em torno de `c`; multiplique o campo resultante por s."""
+    def __init__(self, g, c, s):
+        self.x = ((g.x - c[0]) / s + c[0]).astype(np.float32)
+        self.y = ((g.y - c[1]) / s + c[1]).astype(np.float32)
+        self.z = ((g.z - c[2]) / s + c[2]).astype(np.float32)
+        self.passo, self.shape, self.mn = g.passo / s, g.shape, g.mn
+
+    def p(self, c=(0, 0, 0)):
+        return self.x - c[0], self.y - c[1], self.z - c[2]
