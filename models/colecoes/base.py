@@ -123,7 +123,8 @@ class Escala:
 
 FONTES = {"serif": "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",
           "redonda": os.path.join(os.path.dirname(RAIZ), "decor", "fontes", "Fredoka.ttf"),
-          "mono": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf"}
+          "mono": "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
+          "sans": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"}
 
 
 def texto2d(u, v, texto, altura, fonte="serif", px_mm=12):
