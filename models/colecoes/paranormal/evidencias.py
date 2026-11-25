@@ -23,24 +23,23 @@ def caixa_ev(g):
         cx = menos(cx, caixa(g, (sx * LX, 0, 38), (3, 11, 3.6), 3.4), 0.4)
     # etiqueta na frente
     u, w = X + 8, Z - 30
-    etiq = np.maximum(caixa(g, (-8, -LY - 0.4, 30), (28, 1.0, 14), 2), -(Y + LY - 0.2))
+    etiq = np.maximum(caixa(g, (-8, -LY - 0.4, 30), (28, 1.0, 14), 2), Y + LY - 0.2)
     t1 = texto2d(u, w - 5.5, "EVIDÊNCIA", 7, "serif")
     t2 = texto2d(u, w + 6.0, "CASO Nº 13", 5.5, "mono")
-    letras = np.maximum(np.minimum(t1, t2), np.abs(Y + LY + 1.1) - 0.5)
-    letras = np.maximum(letras, -(Y + LY + 0.7))
+    letras = np.maximum(np.minimum(t1, t2), np.abs(Y + LY + 1.45) - 0.45)
     # fita de isolamento: diagonal na frente, contorna a lateral direita e passa por cima
-    d = (Z - 18) - (X - 10) * 0.42
+    d = (Z - 11) - (X - 10) * 0.42
     fita_f = np.maximum(np.abs(d) - 5.0, np.maximum(np.abs(Y + LY + 0.5) - 0.7, X - LX - 0.7))
-    fita_l = np.maximum(np.abs((Z - 18) - 40 * 0.42 - (Y + LY) * 0.05) - 5.0, np.maximum(np.abs(X - LX - 0.5) - 0.7, np.abs(Y) - LY - 0.7))
+    fita_l = np.maximum(np.abs((Z - 11) - 40 * 0.42 - (Y + LY) * 0.05) - 5.0, np.maximum(np.abs(X - LX - 0.5) - 0.7, np.abs(Y) - LY - 0.7))
     fita = np.minimum(fita_f, fita_l)
     fita = np.maximum(fita, -cx - 1.5)
     # texto da fita (inclinado): coordenadas ao longo da fita
     ang = np.arctan(0.42)
-    s = (X - 10) * np.cos(ang) + (Z - 18) * np.sin(ang)
-    tt = -(X - 10) * np.sin(ang) + (Z - 18) * np.cos(ang)
+    s = (X - 10) * np.cos(ang) + (Z - 11) * np.sin(ang)
+    tt = -(X - 10) * np.sin(ang) + (Z - 11) * np.cos(ang)
     txt = texto2d(s - 8, tt, "NÃO ULTRAPASSE", 4.2, "mono")
-    txt = np.maximum(txt, np.maximum(np.abs(Y + LY + 1.4) - 0.5, X - LX))
-    letras = np.minimum(letras, np.maximum(txt, -(Y + LY + 1.0)))
+    txt = np.maximum(txt, np.maximum(np.abs(Y + LY + 1.55) - 0.4, X - LX))
+    letras = np.minimum(letras, txt)
     tudo = np.minimum.reduce([cx, etiq, fita, letras])
     return tudo, letras, etiq, fita
 
