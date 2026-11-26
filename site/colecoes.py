@@ -24,10 +24,10 @@ IMG = os.path.join(SITE, "img")
 CACHE = os.path.join(SITE, ".cache")
 
 COLECOES = [
-    ("masmorra", "Masmorra & Dragão", "Fantasia medieval de masmorra", "Dragões, mímicos e cubos de gosma: a masmorra inteira na sua mesa"),
-    ("paranormal", "Arquivo Paranormal", "Terror e investigação paranormal", "Para a mesa de quem investiga o que não devia existir"),
-    ("tempestade", "Reinos da Tempestade", "Fantasia épica brasileira", "Minotauros, goblins inventores e a tempestade rubra no horizonte"),
-    ("bicicleta", "Turma da Bicicleta", "Aventura anos 80", "Walkie-talkie na mão, fita no bolso e a turma de bicicleta atrás do mistério"),
+    ("masmorra", "Dungeons & Dragons", "Peças da mesa de D&D", "Dragões, mímicos e cubos de gosma: a masmorra inteira na sua mesa"),
+    ("paranormal", "Ordem Paranormal", "Para os agentes da Ordo Realitas", "Para a mesa de quem investiga o que não devia existir"),
+    ("tempestade", "Tormenta 20", "Aventuras em Arton", "Minotauros, goblins inventores e a tempestade rubra no horizonte"),
+    ("bicicleta", "Kids on Bikes", "Aventura anos 80 de Kids on Bikes", "Walkie-talkie na mão, fita no bolso e a turma de bicicleta atrás do mistério"),
 ]
 ORDEM = {
     "masmorra": ["torre_dragao", "mimico", "prisao", "cubo", "dragaozinho", "corujurso", "bandeja_escudo", "contador", "iniciativa", "porta", "barril", "porta_copos"],
@@ -36,6 +36,14 @@ ORDEM = {
     "bicicleta": ["fliperama", "walkie", "fita", "boombox", "bmx", "casa_arvore", "barra_vida", "disquete", "mochila", "lanterna", "placa_clube", "chaveiro_fita"],
 }
 # ajustes por peça: unidade do preço, divisor/multiplicador do peso (conjuntos), malhas para o peso, câmera
+NOMES = {   # nomes oficiais dos sistemas (sobrepõem o nome do docstring)
+    "corujurso": "Urso-Coruja", "dragaozinho": "Dragãozinho do 20 Natural", "bandeja_escudo": "Bandeja Escudo do Mestre",
+    "torre_ritual": "Torre da Ordo Realitas", "livro": "Livro do Outro Lado", "sanidade": "Medidor de Sanidade",
+    "evidencias": "Caixa de Evidências da Ordo Realitas", "entidade": "Criatura do Outro Lado", "bandeja_ritual": "Bandeja Círculo de Ritual",
+    "torre_tempestade": "Torre da Tormenta", "minotauro": "Minotauro de Tapista", "aberracao": "Lefeu da Tormenta",
+    "bandeja_nuvem": "Bandeja da Tormenta", "moedas": "Tibares de Arton", "pergaminho": "Pergaminho de Arton",
+    "machado": "Machado de Tapista", "arvore": "Árvore de Arton",
+}
 AJUSTES = {
     "iniciativa": dict(unidade="conjunto de 8"),
     "moedas": dict(unidade="conjunto de 30", mult=10),
@@ -178,6 +186,7 @@ def cmd_site():
         grupos.append({"id": col, "nome": titulo, "cats": [f"col-{col}"], "desc": f"{sobre}. {chamada}."})
         for n in ORDEM[col]:
             nome, desc = texto_cliente(docstring(col, n))
+            nome = NOMES.get(n, nome)
             g, h, cores = gramas_horas(col, n)
             x, y, z = medidas(col, n)
             usados = {os.path.basename(s)[:-4].split("_")[-1] for s in stls(col, n)}
