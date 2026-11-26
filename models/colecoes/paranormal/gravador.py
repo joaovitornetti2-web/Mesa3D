@@ -7,7 +7,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 LX, LY, H = 56.0, 22.0, 62.0
 MN, MX = (-60, -26, 0), (60, 26, 80)
 
@@ -58,6 +58,13 @@ def campo(g):
     alca = np.maximum(alca, np.abs(X) - 34)
     corpo = smin(corpo, alca, 2)
     corpo = menos(corpo, caixa(g, (0, 4, H - 22), (47, 4.2, 30), 1.5))   # fenda livre mesmo com a alça
+    # parafusos de fenda cruzada nos cantos da frente e textura de plástico
+    for sx in (-1, 1):
+        for zz in (7, H - 8):
+            p = (sx * (LX - 6), fr - 0.2, zz)
+            corpo = smin(corpo, esfera(g, p, 1.6), 0.3)
+            corpo = menos(corpo, np.maximum(np.minimum(np.abs(X - p[0]) - 0.25, np.abs(Z - p[2]) - 0.25), np.maximum(np.hypot(X - p[0], Z - p[2]) - 1.1, Y - fr + 0.9)), 0.05)
+    corpo = corpo + 0.03 * ruido(g, 0.3, 67)
     tudo = np.minimum.reduce([corpo, escuro, fita, claro, vermelho])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c4": vermelho, "c3": claro, "c2": np.minimum(escuro, fita)}

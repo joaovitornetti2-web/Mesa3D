@@ -96,8 +96,8 @@ def montar_3mf(arquivo, nome, imprimir=True):
         f = f"{base}_{c}.stl"
         if os.path.exists(f):
             m = trimesh.load(f)
-            alvo = 120000 if c == "c1" else 40000
-            if len(m.faces) > alvo:             # simplifica: detalhe de sobra para bico de 0,4 mm, arquivo bem menor
+            alvo = 450000 if c == "c1" else 150000
+            if len(m.faces) > alvo:             # simplifica mantendo o detalhe fino (textura de 0,1–0,2 mm)
                 import fast_simplification
                 v, fc = fast_simplification.simplify(m.vertices.astype(np.float32), m.faces, 1 - alvo / len(m.faces))
                 m = trimesh.Trimesh(v, fc, process=True)

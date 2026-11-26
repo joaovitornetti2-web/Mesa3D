@@ -70,8 +70,13 @@ def _eixos(g):
 
 
 def ruido(g, escala=2.0, semente=1):
-    """substitui o ruído antigo: mesma assinatura, mas por coordenada (seguro em fatias).
-    Em grade alinhada aos eixos usa interpolação separável (rápida); em vistas giradas, o caminho geral."""
+    """substitui o ruído antigo (gaussiano com sigma = escala): mesma assinatura e mesmo 'tamanho de grão'."""
+    return ruido_cel(g, escala * 2.5, semente)
+
+
+def ruido_cel(g, escala=2.0, semente=1):
+    """ruído por coordenada com célula de `escala` mm (seguro em fatias). Grade alinhada aos eixos: interpolação
+    separável (rápida); vistas giradas: caminho geral."""
     e = _eixos(g)
     if e is None:
         return ruido_xyz(g.x, g.y, g.z, escala, semente)
@@ -88,7 +93,7 @@ def fbm(g, escala=2.0, semente=1, oitavas=3):
     """ruído com várias escalas (pedra, casca, pele)."""
     r, a, t = 0, 1.0, 0
     for o in range(oitavas):
-        r = r + a * ruido(g, escala / 2 ** o, semente + 17 * o)
+        r = r + a * ruido_cel(g, escala / 2 ** o, semente + 17 * o)
         t += a
         a *= 0.5
     return r / t
@@ -243,9 +248,14 @@ def _fatia(args):
     g = _GradeN((mn[0] + i0 * passo, mn[1], mn[2]), (i1 - i0 + 1, n[1], n[2]), passo)
     tudo, regioes = campo(g)
     tudo = np.asarray(tudo, np.float32)
-    bordas = [tudo[:, 0, :], tudo[:, -1, :], tudo[:, :, -1]] + ([tudo[0]] if i0 == 0 else []) + ([tudo[-1]] if i1 == nx - 1 else [])
-    if min(float(b.min()) for b in bordas) < 0:
-        print(f"AVISO: a peça encosta na borda da grade (fatia x {i0}-{i1}); aumente MN/MX", flush=True)
+    bordas = {"y-": tudo[:, 0, :], "y+": tudo[:, -1, :], "z+": tudo[:, :, -1]}
+    if i0 == 0:
+        bordas["x-"] = tudo[0]
+    if i1 == nx - 1:
+        bordas["x+"] = tudo[-1]
+    lados = [k for k, b in bordas.items() if float(b.min()) < 0]
+    if lados:
+        print(f"AVISO: a peça encosta na borda da grade em {lados}; aumente MN/MX", flush=True)
     partes = dividir(tudo, regioes)
     out = {}
     for cor, c in partes.items():

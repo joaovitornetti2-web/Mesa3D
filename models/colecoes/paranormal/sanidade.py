@@ -6,9 +6,9 @@ Impressão (--imprimir): medidor deitado de costas e o ponteiro ao lado, sem sup
 Ainda não testado: pino de 3 mm com folga 0,2 mm no furo do ponteiro (deve girar com atrito)."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from base import *
+from detalhe import *
 
-passo, IMP = args(0.22)
+passo, IMP = args(0.12)
 R, ESP, INC = 42.0, 14.0, 12.0          # raio, espessura, inclinação para trás (graus) na foto
 A0, A1 = 225.0, -45.0                    # ângulos da escala (graus, a partir do eixo x, sentido horário)
 MOSTRA = 0.72                            # posição do ponteiro na foto (0 a 1)
@@ -24,6 +24,7 @@ def medidor(g):
     corpo = menos(corpo, np.maximum(rad - R + 5, ESP - 3.2 - Z), 0.8)                 # vidro/rebaixo do mostrador
     aro = np.maximum(np.abs(rad - R + 2.5) - 2.5, np.abs(Z - ESP - 0.4) - 1.2)
     corpo = smin(corpo, aro, 0.8)
+    corpo = corpo + 0.25 * np.clip(1 - np.abs(rad - R) / 0.8, 0, 1) * (np.abs(np.mod(ang * 1.2, 3.0) - 1.5) / 1.5) * (Z > 2) * (Z < ESP - 1)   # serrilhado na lateral
     paraf = None
     for k in range(8):
         a = np.radians(k * 45 + 22.5)
@@ -73,25 +74,34 @@ def ponteiro(g, ang, z0):
     return p
 
 
-if IMP:
-    g = Grade((-44, -44, 0), (44 + 56, 44, ESP + 3), passo)
-    tudo, escuro, face, zona = medidor(g)
-    gv = Vista(g, (0, 0, 0), np.eye(3)); gv.x = gv.x - 62
-    pont = ponteiro(gv, 90, 0.0)
-else:
-    # foto: medidor em pé, inclinado para trás, sobre um pé; ponteiro montado
-    g = Grade((-46, -34, 0), (46, 30, 98), passo)
-    C = (0, 0, 50)
-    gv = Vista(g, C, mul(rot_x(90 - INC)))
-    gv.z = gv.z - C[2] + ESP / 2; gv.y = gv.y - C[1]
-    tudo, escuro, face, zona = medidor(gv)
-    zf = ESP - 3.2
-    pont = ponteiro(gv, A0 - MOSTRA * (A0 - A1), zf + 1.6)
-    pe = np.maximum(caixa(g, (0, 6, 4), (30, 16, 4), 3), -g.z)
-    pe = smin(pe, caixa(Vista(g, (0, 4, 18), rot_x(-INC)), (0, 4, 18), (14, 4, 14), 3), 3)
-    tudo = smin(tudo, pe, 2)
-escuro = np.minimum(escuro, pont)
-tudo = np.maximum(np.minimum(tudo, pont), -g.z)
-partes = dividir(tudo, {"c2": escuro, "c4": zona, "c3": face})
-for k, v in exportar(g, partes, saida(__file__, "sanidade", IMP), faces=None).items():
-    print(k, v)
+MN, MX = ((-44, -44, 0), (100, 44, ESP + 3)) if IMP else ((-46, -34, 0), (46, 30, 98))
+
+
+def campo(g):
+    if IMP:
+        tudo, escuro, face, zona = medidor(g)
+        gv = Vista(g, (0, 0, 0), np.eye(3))
+        gv.x = gv.x - 62
+        pont = ponteiro(gv, 90, 0.0)
+    else:
+        # foto: medidor em pé, inclinado para trás, sobre um pé; ponteiro montado
+        C = (0, 0, 50)
+        gv = Vista(g, C, mul(rot_x(90 - INC)))
+        gv.z = gv.z - C[2] + ESP / 2
+        gv.y = gv.y - C[1]
+        tudo, escuro, face, zona = medidor(gv)
+        zf = ESP - 3.2
+        pont = ponteiro(gv, A0 - MOSTRA * (A0 - A1), zf + 1.6)
+        pe = np.maximum(caixa(g, (0, 6, 4), (30, 16, 4), 3), -g.z)
+        pe = smin(pe, caixa(Vista(g, (0, 4, 18), rot_x(-INC)), (0, 4, 18), (14, 4, 14), 3), 3)
+        # Marca de Sangue gravada na frente do pé
+        pe = menos(pe, np.maximum(sigilo_sangue(g.x, g.z - 4, 6, 0.9), np.abs(g.y + 10) - 0.5), 0.1)
+        tudo = smin(tudo, pe, 2)
+    escuro = np.minimum(escuro, pont)
+    tudo = np.maximum(np.minimum(tudo, pont), -g.z)
+    return tudo, {"c2": escuro, "c4": zona, "c3": face}
+
+
+if __name__ == "__main__":
+    for k, v in esculpir(campo, MN, MX, passo, saida(__file__, "sanidade", IMP)).items():
+        print(k, v)

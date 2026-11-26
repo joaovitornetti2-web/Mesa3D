@@ -6,8 +6,8 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.22)
-MN, MX = (-30, -26, 0), (30, 26, 68)
+passo, IMP = args(0.12)
+MN, MX = (-30, -26, 0), (30, 26, 68 + 8)
 
 
 def campo(g):
@@ -50,6 +50,12 @@ def campo(g):
         r = np.radians(a)
         p0 = (10 * np.cos(r), 10 * np.sin(r) + 1, h)
         manto = smin(manto, tubo(g, [p0, (13 * np.cos(r), 13 * np.sin(r) + 3, h + 9), (12 * np.cos(r + 0.3), 15 * np.sin(r + 0.3) + 4, h + 18)], [2.2, 1.4, 0.4]), 1.5)
+    # dobras verticais do manto, pano puído e névoa em redemoinho
+    ang = np.arctan2(Y - 1, X)
+    perto = np.clip(1 - np.abs(manto) / 1.5, 0, 1)
+    manto = manto + perto * (0.45 * np.abs(np.sin(ang * 7 + 0.8 * np.sin(Z * 0.15))) * np.clip((40 - Z) / 20, 0, 1) + 0.1 * ruido(g, 0.6, 61))
+    manto = manto + 0.6 * np.clip(ruido(g, 0.8, 62) - 1.4, 0, None) * np.clip((20 - Z) / 8, 0, 1)        # rasgos na barra
+    nevoa = nevoa + 0.35 * np.sin(np.arctan2(Y, X) * 3 + np.hypot(X, Y) * 0.45) * np.clip(1 - np.abs(nevoa) / 1.5, 0, 1)
     tudo = np.minimum.reduce([nevoa, manto, vazio, olhos, garras])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c4": olhos, "c2": vazio, "c3": garras}

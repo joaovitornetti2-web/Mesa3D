@@ -7,7 +7,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.14)
 RO, CZ, E = 30.0, 64.0, 1.4
 MN, MX = (-40, -40, 0), (40, 40, 100)
 
@@ -21,6 +21,7 @@ def campo(g):
     toco = np.maximum(rad - (27 - Z * 0.12) - 1.5 * np.sin(tw * 5), np.maximum(-Z, Z - 41)) + rr * 0.4
     toco = smin(toco, np.maximum(rad - 33 - 2 * np.sin(np.arctan2(Y, X) * 6), np.maximum(-Z, Z - 5)) + rr * 0.5, 4)
     tunel = np.minimum(np.maximum(rad - 20.5, np.maximum(-1 - Z, Z - 20)), np.maximum(rad - (20.5 - (Z - 20) * 0.45), np.maximum(20 - Z, Z - 50)))
+    toco = toco + np.clip(1 - np.abs(toco) / 1.5, 0, 1) * (0.35 * np.abs(np.sin(tw * 22 + 1.5 * ruido(g, 1.0, 63))) + desgaste(g, 0.25, 64))   # casca retorcida
     toco = menos(toco, tunel)                                             # túnel da vela de LED, afunila até o globo
     toco = menos(toco, np.maximum(np.sqrt(X ** 2 + Y ** 2 + (Z - CZ) ** 2) - RO + 0.5, 30 - Z))   # não invade o globo
     # globo: casca fina com abertura embaixo

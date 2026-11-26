@@ -1,4 +1,4 @@
-"""Torre do Ritual – torre de dados em forma de obelisco de pedra negra com runas gravadas, correntes atravessadas,
+"""Torre da Ordo Realitas – torre de dados em forma de obelisco de pedra negra com Marcas de Sangue gravadas, correntes atravessadas,
 um olho entalhado no alto e quatro velas derretidas nos cantos do topo. O dado entra pela boca no topo, desce
 por três rampas e sai pelo portal em arco para a bandeja embutida na frente, com um círculo de ritual no fundo.
 Uma peça só: 120 × 150 × 170 mm (cabe na mesa da A1). Dado máximo: d20 de 26 mm.
@@ -7,9 +7,9 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.45)
+passo, IMP = args(0.2)
 A, AI, HT = 32.0, 27.0, 150.0           # meia largura externa na base, canal (meia largura), altura do corpo
-MN, MX = (-62, -96, 0), (62, 40, 176)
+MN, MX = (-62, -96, 0), (62, 40, 186)
 
 
 def campo(g):
@@ -41,6 +41,8 @@ def campo(g):
         a = k * np.pi / 4
         circ = np.minimum(circ, np.maximum(np.maximum(np.abs(-bx * np.sin(a) + by * np.cos(a)) - 0.5, np.abs(bx * np.cos(a) + by * np.sin(a) - 17.5) - 2), np.abs(Z - 2.4) - 0.6))
     corpo = np.minimum(corpo, band)
+    perto = np.clip(1 - np.abs(corpo) / 1.5, 0, 1)
+    corpo = corpo + perto * desgaste(g, 0.3, 92) * np.where(Z > 12, 1.0, 0.4)      # lascas na pedra (bem leves na bandeja)
     # runas gravadas nas 4 faces (colunas de traços) e olho no alto da frente
     runas = None
     for face in range(4):
@@ -49,16 +51,7 @@ def campo(g):
         u = X * np.cos(a) - Y * np.sin(a)
         prof = (X * n_x + Y * n_y) - A * afina
         for i, zz in enumerate(range(48, 120, 12)):
-            tipo = (i + face) % 4
-            tr = np.maximum(np.abs(u) - 0.7, np.abs(Z - zz) - 4)
-            if tipo == 0:
-                tr = np.minimum(tr, np.maximum(np.abs(u - (Z - zz) * 0.7) - 0.7, np.abs(Z - zz - 1) - 2.6))
-            elif tipo == 1:
-                tr = np.minimum(tr, np.maximum(np.abs(Z - zz) - 0.7, np.abs(u) - 3))
-            elif tipo == 2:
-                tr = np.minimum(tr, np.abs(np.sqrt((u - 2) ** 2 + (Z - zz - 1.5) ** 2) - 1.8) - 0.6)
-            else:
-                tr = np.minimum(tr, np.maximum(np.abs(u + (Z - zz) * 0.8) - 0.7, np.abs(Z - zz + 1) - 2.6))
+            tr = sigilo_sangue(u, -(Z - zz), 9.0, 1.4) if (i + face) % 2 == 0 else np.minimum(np.sqrt(u ** 2 + (Z - zz) ** 2) - 1.4, np.abs(np.sqrt(u ** 2 + (Z - zz) ** 2) - 3.4) - 0.5)
             tr = np.maximum(tr, np.abs(prof + 0.3) - 0.9)
             if face == 0 and zz < 60:
                 continue

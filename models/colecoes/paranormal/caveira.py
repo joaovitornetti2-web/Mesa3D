@@ -7,10 +7,10 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.15)
 CORTE, E, F = 46.0, 2.6, 0.25
 C0, R0 = (0, 2, 46), (31, 35, 31)
-MN, MX = (-40, -46, 0), (130 if IMP else 40, 40, 104)
+MN, MX = (-40, -46, 0), (130 if IMP else 40, 40, 112)
 
 
 def campo(g):
@@ -26,7 +26,11 @@ def campo(g):
         for sx in (-1, 1):
             cab = smin(cab, elipsoide(g, (sx * 21, -22, 28), (7, 8, 6)), 4)        # maçãs do rosto
             cab = menos(cab, elipsoide(g, (sx * 32.5, -2, 34), (3.2, 11, 8)), 3)     # têmporas (rasas)
-        cab = cab + ruido(g, 2.0, 21) * 0.15
+        cab = cab + ruido(g, 2.0, 21) * 0.15 + 0.07 * ruido(g, 0.5, 22) + 0.06 * np.clip(ruido(g, 0.35, 23) - 1.2, 0, None)   # osso poroso
+        # suturas do crânio (linha em zigue-zague no alto e atrás)
+        sut = np.abs(X - 1.2 * np.sin(Y * 1.6) - 0.6 * np.sin(Y * 4.1)) - 0.35
+        sut2 = np.abs((Z - 52) + 0.15 * Y - 1.0 * np.sin(X * 1.5)) - 0.35
+        cab = menos(cab, np.maximum(np.minimum(np.maximum(sut, Y + 18), np.maximum(sut2, -Y - 4)), -(cab + 0.9)), 0.15)
         orb = None
         for sx in (-1, 1):
             o = elipsoide(Vista(g, (sx * 12, -33, 38), rot_y(sx * 12)), (sx * 12, -33, 38), (8.2, 9, 9.5))
@@ -42,9 +46,8 @@ def campo(g):
         # rachadura e símbolo gravado na testa (círculo com triângulo vazado)
         rach = tubo(g, [(14, -26, 62), (17, -24, 56), (15, -27, 51), (19, -25, 46)], [0.7, 0.6, 0.5, 0.3])
         cab = menos(cab, np.maximum(rach, -(cab + 2.0)), 0.2)
-        u, w = X, Z - 58
-        tri = lambda r: np.maximum(-w - r, w * 0.5 + np.abs(u) * 0.866 - r)
-        simb = np.minimum(np.abs(np.sqrt(u ** 2 + w ** 2) - 7) - 0.6, np.maximum(tri(4.2), -tri(2.9)))
+        u, w = X, Z - 58                                        # Marca de Sangue num círculo, gravada na testa
+        simb = np.minimum(np.abs(np.sqrt(u ** 2 + w ** 2) - 8) - 0.6, sigilo_sangue(u, w, 12.0, 1.3))
         cab = menos(cab, np.maximum(simb, np.maximum(-(Y + 20), -(cab + 1.0))), 0.2)
         # oco
         oco = smin(elipsoide(g, C0, (R0[0] - E, R0[1] - E, R0[2] - E)), elipsoide(g, (0, -12, 26), (22, 18, 14)), 5)
@@ -59,8 +62,12 @@ def campo(g):
                 a = k * 2.1 + x
                 p0 = (x + r * np.cos(a), y + r * np.sin(a), z0 + h - 1)
                 v = smin(v, capsula(g, p0, (p0[0], p0[1], p0[2] - h * (0.4 + 0.2 * k)), 1.2, 1.5), 0.8)
+            v = v + 0.12 * np.abs(np.sin(np.arctan2(Y - y, X - x) * 7 + Z * 0.5)) * np.clip(1 - np.abs(v) / 1.0, 0, 1)   # cera em camadas
             velas = v if velas is None else np.minimum(velas, v)
-            ch = smin(elipsoide(g, (x, y, z0 + h + 3.2), (1.8, 1.8, 3.0)), capsula(g, (x, y, z0 + h + 4), (x, y, z0 + h + 7.5), 1.0, 0.2), 0.6)
+            ch = elipsoide(g, (x, y, z0 + h + 2.6), (1.7, 1.7, 2.2))
+            for (dx, dy, hh, rr_) in [(0, 0, 7.5, 1.1), (0.8, 0.5, 5, 0.7), (-0.8, 0.4, 5.5, 0.7)]:
+                ch = smin(ch, tubo(g, [(x + dx * 0.4, y + dy * 0.4, z0 + h + 2.5), (x + dx + 0.3, y + dy, z0 + h + 2.5 + hh * 0.6), (x + dx * 0.4 - 0.3, y + dy * 0.4, z0 + h + 2.5 + hh)], [rr_, rr_ * 0.6, 0.15]), 0.5)
+            ch = smin(ch, capsula(g, (x, y, z0 + h - 0.5), (x, y, z0 + h + 2.0), 0.35), 0.2)                                    # pavio
             chamas = ch if chamas is None else np.minimum(chamas, ch)
         for (x, c) in [(-6, 14), (4, 20), (10, 9)]:
             velas = np.minimum(velas, capsula(g, (x, -26, 66), (x, -31.5, 66 - c), 2.0, 2.6))

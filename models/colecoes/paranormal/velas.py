@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.35)
+passo, IMP = args(0.15)
 MN, MX = (-60, -60, 0), (60, 60, 88)
 
 
@@ -27,16 +27,7 @@ def campo(g):
         # coordenadas locais: t radial, s tangencial
         t = X * cu + Y * sv - 41
         s = -X * sv + Y * cu
-        tipo = k % 4
-        tr = np.maximum(np.abs(s) - 0.55, np.abs(t) - 3.2)                       # haste
-        if tipo == 0:
-            tr = np.minimum(tr, np.maximum(np.abs(s - t * 0.8 - 1) - 0.55, np.abs(t - 1.2) - 2))
-        elif tipo == 1:
-            tr = np.minimum(tr, np.maximum(np.abs(t) - 0.55, np.abs(s) - 2.2))
-        elif tipo == 2:
-            tr = np.minimum(tr, np.abs(np.sqrt((s - 1.6) ** 2 + (t - 1.2) ** 2) - 1.4) - 0.5)
-        else:
-            tr = np.minimum(tr, np.maximum(np.abs(s + t * 0.9) - 0.55, np.abs(t + 1) - 2))
+        tr = sigilo_sangue(s, t, 7.0, 1.0) if k % 2 == 0 else np.sqrt(s ** 2 + t ** 2) - 1.0     # Marcas de Sangue e pontos
         runas = tr if runas is None else np.minimum(runas, tr)
     desenho = np.minimum(aneis, runas)
     inlay = np.maximum(desenho, np.abs(Z - 3.4) - 0.6)
@@ -58,6 +49,7 @@ def campo(g):
             comp = 10 + 14 * ((k * 7 + sem * 3) % 5) / 4
             p0 = (x + (r + 0.3) * np.cos(a), y + (r + 0.3) * np.sin(a), h - 1.5)
             c = smin(c, capsula(g, p0, (p0[0] + 0.6 * np.cos(a), p0[1] + 0.6 * np.sin(a), h - comp), 1.6, 2.3), 0.8)
+        c = c + 0.06 * ruido(g, 0.6, 50 + sem)
         cera = c if cera is None else np.minimum(cera, c)
         if not IMP:   # só na foto: a velinha de LED no encaixe, com a chama
             led = np.maximum(cilindro(g, (x, y, h - 16), 19.0, 15.0, 1.0), -cilindro(g, (x, y, h - 2), 15, 4, 0.5))

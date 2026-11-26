@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 MN, MX = (-50, -66, 0), (50, 66, 28)
 
 
@@ -54,6 +54,12 @@ def campo(g):
     # furo de prego atrás (buraco de fechadura)
     prego = np.maximum(np.minimum(np.sqrt(X ** 2 + (Y - 40) ** 2) - 3.4, np.maximum(np.abs(X) - 1.6, np.abs(Y - 35) - 5)), Z - 5)
     rosto = menos(rosto, prego)
+    # Marca de Sangue pintada em relevo na testa; porcelana com craquelado fino
+    casca = np.maximum(rosto - 0.7, -rosto - 0.4)
+    marcas = np.minimum(marcas, np.maximum(np.maximum(sigilo_sangue(X, Y - 34, 16, 1.6), casca), 12 - Z))
+    rosto = rosto + 0.04 * ruido(g, 0.5, 65)
+    crq = np.abs(ruido_cel(g, 6.0, 66)) - 0.04
+    rosto = menos(rosto, np.maximum(crq, np.maximum(-(rosto + 0.35), 10 - Z)), 0.05)
     tudo = np.minimum.reduce([rosto, marcas, lagr])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c4": lagr, "c2": marcas}

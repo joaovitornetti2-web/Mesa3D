@@ -29,11 +29,11 @@ TRES_MF_ESPECIAL = {"torre_dragao": ["torre_dragao-torre", "torre_dragao-bandeja
 
 
 def limite():
-    resource.setrlimit(resource.RLIMIT_AS, (10_000_000_000, 10_000_000_000))
+    resource.setrlimit(resource.RLIMIT_AS, (13_000_000_000, 13_000_000_000))
 
 
 def roda(col, nome, passo, imprimir):
-    args = [sys.executable, os.path.join(RAIZ, col, nome + ".py"), str(passo)] + (["--imprimir"] if imprimir else [])
+    args = [sys.executable, os.path.join(RAIZ, col, nome + ".py")] + (["--imprimir"] if imprimir else [])   # passo: o padrão do script
     r = subprocess.run(args, capture_output=True, text=True, preexec_fn=limite)
     if r.returncode:
         print("FALHOU", nome, "imprimir" if imprimir else "foto", r.stderr[-800:], flush=True)

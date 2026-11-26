@@ -7,10 +7,10 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 LX, LY, H, CAPA = 43.0, 56.0, 42.0, 3.6
 CORTE, F, TP = 30.0, 0.25, 3.0          # altura do corte, folga, altura do tampão
-MN, MX = (-48, -60, 0), (48 + (100 if IMP else 0), 60, 46)
+MN, MX = (-48, -60, 0), (48 + (100 if IMP else 0), 60, 50)
 
 
 def campo(g):
@@ -22,12 +22,19 @@ def campo(g):
         capas = np.minimum(caixa(g, (0, 0, CAPA / 2), (LX, LY, CAPA / 2), 1.2), caixa(g, (0, 0, H - CAPA / 2), (LX, LY, CAPA / 2), 1.2))
         lombada = np.maximum(caixa(g, (-LX + 5, 0, H / 2), (5, LY, H / 2), 4.5), -X - LX)
         couro = np.minimum(capas, lombada) + rr * 0.25
+        couro = couro + 0.08 * ruido(g, 0.4, 32) + 0.18 * np.clip(np.abs(ruido(g, 3.0, 33)) - 0.9, 0, None)   # poros e vincos do couro
         for zz in (11, 21, 31):                                   # nervuras da lombada
             couro = smin(couro, capsula(g, (-LX - 0.3, -LY + 1, zz), (-LX - 0.3, LY - 1, zz), 1.3), 0.6)
         moldura = np.maximum(np.abs(np.maximum(np.abs(X - 3) - 32, np.abs(Y) - 46)) - 0.5, np.abs(Z - H) - 0.6)
         couro = menos(couro, moldura, 0.2)
+        for sy in (-1, 1):                                        # filete pontilhado gravado
+            for k in range(-9, 10):
+                couro = menos(couro, esfera(g, (3 + k * 3.4, sy * 49, H + 0.3), 0.55), 0.1)
+        # Marca de Sangue em relevo na lombada, dentro de um losango
+        sl = np.maximum(np.minimum(sigilo_sangue(Y, Z - H / 2, 18, 1.4), np.abs(np.abs(Y) + np.abs(Z - H / 2) - 12) - 0.7), np.abs(X + LX + 0.4) - 0.9)
+        couro = smin(couro, sl, 0.3)
         paginas = caixa(g, (2.2, 0, H / 2), (LX - 2.6, LY - 2.6, H / 2 - CAPA + 0.2), 0.6)
-        paginas = paginas + 0.25 * np.sin(Z * 4.5) * (paginas > -1.2)          # folhas nas bordas
+        paginas = paginas + (0.22 * np.sin(Z * 6.0) + 0.06 * np.sin(Z * 17)) * (paginas > -1.2) + 0.05 * ruido(g, 2, 34)   # folhas nas bordas
         # cantoneiras de metal
         metal = None
         for sy in (-1, 1):
@@ -39,6 +46,9 @@ def campo(g):
         tira = np.maximum(np.abs(Y) - 6, np.maximum(np.abs(np.maximum(X - LX, Z - H)) - 1.1, np.maximum(18 - X, 12 - Z)))
         fivela = np.maximum(caixa(g, (LX + 1.6, 0, 22), (1.2, 8.5, 6.5), 1.0), -caixa(g, (LX + 1.6, 0, 22), (3, 6.5, 4.5), 0.6))
         metal = np.minimum(metal, fivela)
+        metal = np.minimum(metal, rebites(g, [(LX - 2.2, sy * (LY - 8.5), zc) for sy in (-1, 1) for zc in (CAPA / 2, H - CAPA / 2)] +
+                                          [(LX - 8.5, sy * (LY - 2.2), zc) for sy in (-1, 1) for zc in (CAPA / 2, H - CAPA / 2)], 0.8))
+        metal = metal + 0.05 * ruido(g, 1.0, 35)
         # olho: amêndoa aberta na capa, globo, íris e pupila de gato; pálpebra e veias em relevo
         ox, oy = -2.0, 0.0
         amendoa = np.maximum(np.sqrt((Y - oy) ** 2 + (X - ox + 20) ** 2) - 28, np.sqrt((Y - oy) ** 2 + (X - ox - 20) ** 2) - 28)

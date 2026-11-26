@@ -1,12 +1,12 @@
 """Caixa de Evidências – caixa de arquivo da investigação para guardar dados, cartas e fichas: aparência de papelão
-com abas, etiqueta "EVIDÊNCIA / CASO Nº 13" e uma fita de isolamento "NÃO ULTRAPASSE" atravessada.
+com abas, etiqueta "ORDO REALITAS / CASO Nº 13" e uma fita de isolamento "NÃO ULTRAPASSE" atravessada.
 Tampa maciça com tampão que entra na boca (folga 0,25 mm). 100 × 76 × 62 mm.
 Cores: c1 caixa, c2 letras, c3 etiqueta, c4 fita. Impressão (--imprimir): corpo e tampa em pé, sem suporte."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.25)
+passo, IMP = args(0.14)
 LX, LY, H, CORTE, F, TP = 50.0, 38.0, 62.0, 50.0, 0.25, 3.0
 MN, MX = (-54, -42, 0), (54 + (112 if IMP else 0), 42, 66)
 
@@ -27,7 +27,7 @@ def campo(g):
         # etiqueta na frente
         u, w = X + 8, Z - 30
         etiq = np.maximum(caixa(g, (-8, -LY - 0.4, 30), (28, 1.0, 14), 2), Y + LY - 0.2)
-        t1 = texto2d(u, w - 5.5, "EVIDÊNCIA", 7, "serif")
+        t1 = texto2d(u, w - 5.5, "ORDO REALITAS", 5.6, "serif")
         t2 = texto2d(u, w + 6.0, "CASO Nº 13", 5.5, "mono")
         letras = np.maximum(np.minimum(t1, t2), np.abs(Y + LY + 1.45) - 0.45)
         # fita de isolamento: diagonal na frente, contorna a lateral direita e passa por cima
@@ -43,6 +43,7 @@ def campo(g):
         txt = texto2d(s - 8, tt, "NÃO ULTRAPASSE", 4.2, "mono")
         txt = np.maximum(txt, np.maximum(np.abs(Y + LY + 1.55) - 0.4, X - LX))
         letras = np.minimum(letras, txt)
+        cx = cx + np.clip(1 - np.abs(cx) / 1.0, 0, 1) * (0.06 * np.abs(np.sin(Z * 2.2)) + 0.12 * np.clip(ruido(g, 1.5, 81) - 1.0, 0, None) + 0.03 * ruido(g, 0.3, 82))   # papelão: ondas, amassados e fibra
         tudo = np.minimum.reduce([cx, etiq, fita, letras])
         return tudo, letras, etiq, fita
 
