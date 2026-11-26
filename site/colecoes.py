@@ -156,13 +156,28 @@ def cmd_precos():
         print(f"{col + '/' + n:<28}{g:>6.0f}{h:>6.1f}{c:>6}{preco(g, h):>9.2f}")
 
 
+def leve(stl, alvo=1_200_000):
+    """cópia simplificada do STL para a foto (o detalhe fino continua visível; o Blender fica leve)."""
+    import trimesh, fast_simplification
+    out = os.path.join(CACHE, "leve", os.path.basename(stl))
+    if os.path.exists(out) and os.path.getmtime(out) > os.path.getmtime(stl):
+        return out
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    m = trimesh.load(stl)
+    if len(m.faces) > alvo:
+        v, f = fast_simplification.simplify(m.vertices.astype("float32"), m.faces, 1 - alvo / len(m.faces))
+        m = trimesh.Trimesh(v, f, process=True)
+    m.export(out)
+    return out
+
+
 def cmd_imagens(so):
     from PIL import Image
     os.makedirs(CACHE, exist_ok=True)
     for col, n in pecas():
         if so and n not in so:
             continue
-        partes = [{"stl": s, "papel": os.path.basename(s)[:-4].split("_")[-1], "suave": True} for s in stls(col, n)]
+        partes = [{"stl": leve(s), "papel": os.path.basename(s)[:-4].split("_")[-1], "suave": True} for s in stls(col, n)]
         usados = {p["papel"] for p in partes}
         pngs = {os.path.join(CACHE, f"col_{n}_{v}.png"): {k: LIN[c] for k, c in papeis(v).items() if k in usados} for v in VARIANTES}
         el, az, folga = CAM.get(n, (18, -26, 1.02))
