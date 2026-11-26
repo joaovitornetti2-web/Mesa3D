@@ -5,7 +5,7 @@ from PIL import Image
 S = os.environ.get("PROVA_DIR", "/tmp/claude-0/-home-user-Mesa3D/aaf0298c-c06f-5f0d-adb0-1be93a15b87b/scratchpad/prova")
 os.makedirs(S, exist_ok=True)
 RAIZ = os.path.dirname(os.path.abspath(__file__))
-col, n = sys.argv[1].split("/")
+col, n = sys.argv[1].rsplit("/", 1)
 el, az = (float(sys.argv[2]), float(sys.argv[3])) if len(sys.argv) > 3 else (22, -28)
 PRETO, BRANCO, VERMELHO = (0.018, 0.018, 0.02), (0.78, 0.78, 0.76), (0.42, 0.008, 0.012)
 LARANJA, ROSA, CINZA = (0.80, 0.18, 0.012), (0.85, 0.28, 0.42), (0.2, 0.21, 0.22)
