@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 MN, MX = (-36, -36, 0), (36, 36, 122)
 
 
@@ -39,6 +39,8 @@ def campo(g):
     faixa = np.maximum(np.abs(rad - 30.6 - 0.2) - 0.8, np.abs(Z - 100) - 3)
     escuro = np.minimum.reduce([aneis, botao, alca])
     claro = np.minimum(vidro, refletor)
+    escuro = escuro + 0.15 * (np.abs(np.mod(np.arctan2(Y, X) * 48 / (2 * np.pi), 1) - 0.5) < 0.25) * np.clip(1 - np.abs(escuro) / 0.6, 0, 1)   # borracha estriada
+    corpo = corpo + 0.03 * ruido(g, 0.3, 230)
     tudo = np.minimum.reduce([corpo, escuro, claro, faixa])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c3": claro, "c2": escuro, "c4": faixa}

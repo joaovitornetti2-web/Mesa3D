@@ -5,9 +5,9 @@ Cores: c1 régua, c2 moldura pixelada e letras, c3 brilho dos corações, c4 cor
 Foto: 7 corações no lugar. Impressão (--imprimir): régua e os 10 corações deitados."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from base import *
+from detalhe import *
 
-passo, IMP = args(0.15)
+passo, IMP = args(0.1)
 PX = 1.45                             # tamanho do "pixel"
 CORACAO = [".XX.XX.", "XXXXXXX", "XXXXXXX", ".XXXXX.", "..XXX..", "...X..."]
 BRILHO = [(1, 1)]                     # (linha, coluna) do pixel de brilho
@@ -47,7 +47,9 @@ def regua(g):
     letras = np.maximum(texto2d(X + 73, Y, "VIDA", 5, "mono"), np.abs(Z - H - 0.4) - 0.6)
     for x in XS:
         r = menos(r, np.maximum(coracao2d(X - x, Y + 0.4, 0.2), H - HC + 0.4 - Z))          # encaixes
-    return np.minimum.reduce([r, mold, letras]), np.minimum(mold, letras)
+    hp = np.maximum(texto2d(X - 76, Y, "HP", 5, "mono"), np.abs(Z - H - 0.4) - 0.6)                 # "HP" no fim da régua
+    r = r + 0.03 * ruido(g, 0.3, 214)
+    return np.minimum.reduce([r, mold, letras, hp]), np.minimum.reduce([mold, letras, hp])
 
 
 def coracoes(g, centros, z0):
@@ -61,15 +63,19 @@ def coracoes(g, centros, z0):
     return cor, bri
 
 
-if IMP:
-    g = Grade((-92, -21, 0), (92, 21 + 26, H + 1.5), passo)
+MN, MX = ((-92, -21, 0), (92, 21 + 26, H + 1.5)) if IMP else ((-92, -21, 0), (92, 21, H + 2.5))
+
+
+def campo(g):
     tudo, escuro = regua(g)
-    cor, bri = coracoes(g, [(-60 + i * 13.5, 34) for i in range(10)], 0.0)
-else:
-    g = Grade((-92, -21, 0), (92, 21, H + 2.5), passo)
-    tudo, escuro = regua(g)
-    cor, bri = coracoes(g, [(x, -0.4) for x in XS[:7]], H - HC + 0.4)
-tudo = np.maximum(np.minimum.reduce([tudo, cor, bri]), -g.z)
-partes = dividir(tudo, {"c3": bri, "c4": cor, "c2": escuro})
-for k, vv in exportar(g, partes, saida(__file__, "barra_vida", IMP), faces=None).items():
-    print(k, vv)
+    if IMP:
+        cor, bri = coracoes(g, [(-60 + i * 13.5, 34) for i in range(10)], 0.0)
+    else:
+        cor, bri = coracoes(g, [(x, -0.4) for x in XS[:7]], H - HC + 0.4)
+    tudo = np.maximum(np.minimum.reduce([tudo, cor, bri]), -g.z)
+    return tudo, {"c3": bri, "c4": cor, "c2": escuro}
+
+
+if __name__ == "__main__":
+    for k, v in esculpir(campo, MN, MX, passo, saida(__file__, "barra_vida", IMP)).items():
+        print(k, v)

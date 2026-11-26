@@ -3,9 +3,9 @@ argola no canto. Os dois lados são iguais. Conjunto de 4 na foto.
 Cores: c1 fita, c2 janela e carretéis, c3 etiqueta, c4 letras. Deitado, sem suporte."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from base import *
+from detalhe import *
 
-passo, IMP = args(0.12)
+passo, IMP = args(0.1)
 LX, LY, E = 26.0, 17.0, 6.0
 
 
@@ -30,20 +30,31 @@ def chaveiro(g, cx, cy, rz):
         jan = j if jan is None else np.minimum(jan, j)
         carr = cr if carr is None else np.minimum(carr, cr)
         let = l_ if let is None else np.minimum(let, l_)
+    for (px, py) in [(-LX + 3.5, -LY + 3.5), (LX - 3.5, -LY + 3.5), (LX - 3.5, LY - 3.5)]:           # parafusinhos nas duas faces
+        for zz in (E, 0.0):
+            c = smin(c, esfera(v, (cx + px * np.cos(np.radians(rz)) - py * np.sin(np.radians(rz)), cy + px * np.sin(np.radians(rz)) + py * np.cos(np.radians(rz)), zz), 1.1), 0.2)
+    c = menos(c, np.maximum(np.maximum(np.abs(x) - 13, np.abs(y + LY - 2.5) - 1.6), np.minimum(face(E, 0.5), face(0.0, 0.5))), 0.1)   # rebaixo de baixo nas duas faces
+    c = c + 0.03 * ruido(v, 0.3, 213)
     escuro = menos(jan, carr)
     return np.minimum.reduce([c, etiq, escuro, let]), escuro, etiq, let
 
 
-g = Grade((-62, -46, 0), (62, 46, E + 1), passo if IMP else max(passo, 0.15))
-tudo = esc = et = le = None
-pos = [(-30, 20, 8), (30, 20, -6), (-30, -20, -4), (30, -20, 10)]
-for (cx, cy, rz) in pos:
-    a, b, c_, d = chaveiro(g, cx, cy, rz)
-    tudo = a if tudo is None else np.minimum(tudo, a)
-    esc = b if esc is None else np.minimum(esc, b)
-    et = c_ if et is None else np.minimum(et, c_)
-    le = d if le is None else np.minimum(le, d)
-tudo = np.maximum(np.maximum(tudo, -g.z), g.z - E - 0.6)
-partes = dividir(tudo, {"c4": le, "c3": et, "c2": esc})
-for k, vv in exportar(g, partes, saida(__file__, "chaveiro_fita", IMP), faces=None).items():
-    print(k, vv)
+MN, MX = (-62, -46, 0), (62, 46, E + 1)
+POS = [(-30, 20, 8), (30, 20, -6), (-30, -20, -4), (30, -20, 10)]
+
+
+def campo(g):
+    tudo = esc = et = le = None
+    for (cx, cy, rz) in POS:
+        a, b, c_, d = chaveiro(g, cx, cy, rz)
+        tudo = a if tudo is None else np.minimum(tudo, a)
+        esc = b if esc is None else np.minimum(esc, b)
+        et = c_ if et is None else np.minimum(et, c_)
+        le = d if le is None else np.minimum(le, d)
+    tudo = np.maximum(np.maximum(tudo, -g.z), g.z - E - 0.6)
+    return tudo, {"c4": le, "c3": et, "c2": esc}
+
+
+if __name__ == "__main__":
+    for k, v in esculpir(campo, MN, MX, passo, saida(__file__, "chaveiro_fita", IMP)).items():
+        print(k, v)

@@ -7,7 +7,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.25)
+passo, IMP = args(0.13)
 LX, LY, H, CORTE, F, TP = 52.0, 33.0, 34.0, 20.0, 0.25, 3.0
 MN, MX = (-56, -37, 0), (56 + (116 if IMP else 0), 37, 38)
 
@@ -48,6 +48,7 @@ def campo(g):
             casco = menos(casco, caixa(g, (xx, -LY, 8), (3 if abs(xx) > 10 else 4.5, 2.5, 3.5), 1.0), 0.4)
         escuro = np.minimum.reduce([janela, carr, paraf, letras])
         c4 = faixa
+        casco = casco + 0.03 * ruido(g, 0.3, 222)
         tudo = np.minimum.reduce([casco, etiq, escuro, c4])
         return tudo, escuro, etiq, c4
 

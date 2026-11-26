@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 MN, MX = (-42, -32, 0), (42, 32, 116)
 
 
@@ -53,6 +53,12 @@ def campo(g):
     lant = np.minimum(lant, caixa(g, (30, 4, 52), (2.4, 5.4, 1.4), 0.5))
     escuro = np.minimum.reduce([zip_, puxa, fivelas, lant, simb])
     c4 = np.minimum(bolso, alcas)
+    # trama do tecido (lona) e costuras pespontadas nas bordas do bolso
+    trama = 0.06 * (np.sin(X * 6.5) * np.sin(Z * 6.5))
+    corpo = corpo + trama * np.clip(1 - np.abs(corpo) / 0.8, 0, 1)
+    c4 = c4 + trama * np.clip(1 - np.abs(c4) / 0.8, 0, 1)
+    pesp = np.maximum(np.abs(np.maximum(np.abs(X) - 21.5, np.abs(Z - 28) - 18.5)) - 0.3, np.abs(Y + 20.2) - 0.4)
+    c4 = menos(c4, np.maximum(pesp, np.abs(np.mod(X + Z, 2.4) - 1.2) - 0.55), 0.05)
     tudo = np.minimum.reduce([corpo, c4, escuro, br])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c2": escuro, "c3": br, "c4": c4}

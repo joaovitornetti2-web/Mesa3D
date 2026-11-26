@@ -7,7 +7,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.45)
+passo, IMP = args(0.2)
 LX, LY = 34.0, 32.0             # meia largura e meia profundidade do gabinete
 MN, MX = (-48, -104, 0), (48, 40, 170)
 
@@ -80,6 +80,7 @@ def campo(g):
     escuro = np.minimum.reduce([tela, mold, ficha])
     claro = np.minimum(pix, letreiro)
     c4 = np.minimum.reduce([manche, botoes, raio])
+    gab = gab + np.clip(1 - np.abs(gab) / 1.0, 0, 1) * 0.03 * ruido(g, 0.3, 225)
     tudo = np.minimum.reduce([gab, escuro, claro, txt, c4])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c4": c4, "c3": menos(claro, txt), "c2": np.minimum(escuro, txt)}

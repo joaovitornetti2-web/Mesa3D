@@ -7,7 +7,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 INC = 25.0                       # inclinação do rádio para trás (graus)
 MN, MX = (-48, -50, 0), (48, 90, 150)
 
@@ -39,6 +39,7 @@ def campo(g):
         antena = smin(capsula(g, (11, 2, 112), (11, 2, 150), 2.4, 1.6), esfera(g, (11, 2, 150.5), 2.6), 1)
         antena = smin(antena, cilindro(g, (11, 2, 110), 4.2, 8, 1.2), 1)
         escuro = np.minimum.reduce([grade, bot, antena])
+        corpo = corpo + 0.03 * ruido(g, 0.3, 221)                                      # plástico texturizado
         tudo = np.minimum.reduce([corpo, etiq, letras, luz, escuro, falar])
         return tudo, escuro, etiq, letras, np.minimum(luz, falar)
 

@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 LX, LY, H = 62.0, 22.0, 62.0
 MN, MX = (-66, -26, 0), (66, 26, 104)
 
@@ -47,6 +47,8 @@ def campo(g):
     alca = smin(alca, np.minimum(caixa(g, (-42, 0, H), (5, 5, 3), 1.5), caixa(g, (42, 0, H), (5, 5, 3), 1.5)), 1.5)
     alca = menos(alca, caixa(g, (0, 2, H / 2 + 6), (LX - 3, LY - 5, H / 2), 4))
     escuro = np.minimum.reduce([alto, deck, alca])
+    cones = cones + 0.18 * np.abs(np.sin(np.sqrt(np.minimum((X + 34) ** 2, (X - 34) ** 2) + (Z - 42) ** 2) * 2.6)) * np.clip(1 - np.abs(cones) / 0.8, 0, 1)   # anéis do cone
+    corpo = corpo + 0.03 * ruido(g, 0.3, 226)
     tudo = np.minimum.reduce([corpo, escuro, cones, fita, bot])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c4": bot, "c3": np.minimum(cones, fita), "c2": escuro}

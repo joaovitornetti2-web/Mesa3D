@@ -5,7 +5,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.2)
+passo, IMP = args(0.12)
 MN, MX = (-84, -44, 0), (84, 44, 9)
 
 
@@ -45,6 +45,8 @@ def campo(g):
     # furos para pendurar
     for x in (-70, 70):
         tabuas = menos(tabuas, np.sqrt((X - x) ** 2 + (Y - 22) ** 2) - 2.2)
+    tabuas = tabuas + np.clip(1 - np.abs(tabuas) / 1.2, 0, 1) * (madeira(X, Y + 40, tabua=24, fenda=0.01, prof=0.0, veio=0.14, semente=227) + desgaste(g, 0.25, 228))
+    letras = letras + 0.08 * np.abs(np.sin(X * 1.7 + 0.6 * ruido(g, 1.0, 229)))      # pinceladas na tinta
     tudo = np.minimum.reduce([tabuas, letras, c4, pregos])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c3": pregos, "c2": letras, "c4": c4}

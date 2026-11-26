@@ -7,7 +7,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.35)
+passo, IMP = args(0.18)
 ZC, LX, LY, HC = 62.0, 26.0, 22.0, 34.0      # piso da casa, meia largura, meia profundidade, altura das paredes
 ZT = ZC + HC                                  # onde o telhado assenta
 F = 0.25
@@ -29,6 +29,7 @@ def campo(g):
         # galhos sustentando o piso
         for a in (0.6, 2.5, 4.3):
             tronco = smin(tronco, tubo(g, [(0, 0, ZC - 18), (18 * np.cos(a), 18 * np.sin(a), ZC - 4), (24 * np.cos(a), 24 * np.sin(a), ZC - 1)], [4.5, 3, 2]), 2)
+        tronco = tronco + np.clip(1 - np.abs(tronco) / 1.5, 0, 1) * (0.35 * np.abs(np.sin(ang * 16 + Z * 0.06 + ruido(g, 2, 231))) + desgaste(g, 0.2, 232))   # casca
         base = np.maximum(rad - 40 - 2 * np.sin(ang * 5), np.maximum(-Z, Z - 3)) + rr * 0.3
         tronco = smin(tronco, base, 2)
         # casa: piso, paredes de tábuas, janela redonda, porta
@@ -36,6 +37,8 @@ def campo(g):
         casa = smin(casa, caixa(g, (0, 0, ZC + 1.5), (LX + 4, LY + 4, 1.5), 1), 0.6)          # piso com beiral
         tab = np.minimum(np.mod(Z - ZC, 6.0), 6.0 - np.mod(Z - ZC, 6.0)) - 0.4
         casa = menos(casa, np.maximum(tab, np.maximum(-(np.maximum(np.abs(X) - LX + 0.6, np.abs(Y) - LY + 0.6)), np.maximum(ZC + 3 - Z, Z - ZT + 1))), 0.2)
+        u = np.where(np.abs(X) / LX > np.abs(Y) / LY, Y, X)
+        casa = casa + np.clip(1 - np.abs(casa) / 1.2, 0, 1) * (madeira(u, Z - ZC, tabua=6, fenda=0.01, prof=0.0, veio=0.12, semente=233) + desgaste(g, 0.2, 234))
         casa = menos(casa, np.maximum(caixa(g, (0, 0, ZC + HC / 2 + 2), (LX - 2.6, LY - 2.6, HC / 2), 1), ZC + 3 - Z))   # oca
         casa = menos(casa, np.maximum(np.sqrt((X - 12) ** 2 + (Z - ZC - 20) ** 2) - 6, Y + 10))                         # janela
         casa = menos(casa, caixa(g, (-12, -LY, ZC + 12), (6, 4, 10), 2))                                  # porta

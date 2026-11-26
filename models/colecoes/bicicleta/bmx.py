@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.2)
+passo, IMP = args(0.12)
 RR, ZR = 21.0, 25.0          # raio da roda (com pneu) e altura do eixo
 XT, XD = -34.0, 34.0         # eixo traseiro e dianteiro
 MN, MX = (-62, -22, 0), (62, 22, 92)
@@ -70,6 +70,12 @@ def campo(g):
     num = np.maximum(texto2d(-Y, Z - 53, "85", 8, "redonda"), np.abs(X - guidao_c[0] - 5.4) - 0.5)
     escuro = np.minimum.reduce([pneus, banco, manoplas, num])
     c4 = np.minimum(placa, base)
+    # cravos do pneu (no plano da roda: ângulo em volta de cada eixo), terra da base com pedrinhas
+    for (cxr, czr) in [(-34, 13), (34, 13)]:
+        a_ = np.arctan2(Z - czr, X - cxr)
+        pneus = pneus + 0.45 * (np.abs(np.mod(a_ * 40 / (2 * np.pi), 1) - 0.5) < 0.2) * np.clip(1 - np.abs(pneus) / 0.8, 0, 1) * (np.hypot(X - cxr, Z - czr) > 10)
+    base = base - 0.4 * np.clip(fbm(g, 2.0, 223, 3) - 0.3, 0, None) * np.clip(1 - np.abs(base) / 1.5, 0, 1)
+    banco = banco + 0.04 * ruido(g, 0.3, 224)
     tudo = np.minimum.reduce([base, pneus, rodas, q, banco, manoplas, placa, num])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c2": escuro, "c3": rodas, "c4": c4}
