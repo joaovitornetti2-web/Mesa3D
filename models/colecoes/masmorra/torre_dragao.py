@@ -6,24 +6,16 @@ Cores: c1 pedra, c2 dragão, c3 chifres, dentes, garras e olhos, c4 barriga e as
 Impressão: torre em pé, suporte em árvore só sob a cabeça e as asas; bandeja deitada, sem suporte."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from base import *
+from detalhe import *
 import trimesh
 
-passo, IMP = args(0.4)
+passo, IMP = args(0.2)
 RE, RI, HT = 34.0, 29.5, 150.0         # raio externo, canal, altura do corpo
 BY = 30.0                              # a torre fica em y = +BY na bandeja (fundo)
 ZB = 4.0                               # torre apoiada no rebaixo da bandeja (z = 4 na foto)
 
 
-def blocos(u, z, alt=9.0, comp=16.0, larg=0.8):
-    fila = np.floor(z / alt)
-    du = np.mod(u + np.mod(fila, 2) * comp / 2, comp)
-    dz = np.mod(z, alt)
-    return np.minimum(np.minimum(dz, alt - dz), np.minimum(du, comp - du)) - larg / 2
-
-
-def torre():
-    g = Grade((-70, -62, 0), (70, 62, 200), passo)
+def torre(g):
     X, Y, Z = g.x, g.y, g.z
     rad = np.sqrt(X ** 2 + Y ** 2)
     ang = np.arctan2(Y, X)
@@ -35,9 +27,10 @@ def torre():
     for k in range(10):
         a = k * 2 * np.pi / 10
         corpo = np.minimum(corpo, caixa(Vista(g, (0, 0, 0), rot_z(np.degrees(a))), ((RE + 0.5), 0, HT + 5), (3.6, 5.5, 5), 1.0))
-    # blocos de pedra
-    sul = blocos(ang * RE, Z - 8)
-    corpo = menos(corpo, np.maximum(-sul, np.maximum(-(rad - RE + 0.8), np.maximum(9 - Z, Z - HT + 6.5))), 0.2)
+    # blocos de pedra irregulares, lascados
+    perto = np.clip(1 - np.abs(corpo) / 2.0, 0, 1)
+    na_parede = (Z > 9) & (Z < HT - 6.5)
+    corpo = corpo + perto * (np.where(na_parede, tijolos(ang * RE, Z - 8, larg=15, alt=8.5, junta=0.7, prof=0.8, semente=3, irregular=0.35), 0) + desgaste(g, 0.4, 4))
     # canal interno
     corpo = menos(corpo, np.maximum(rad - RI, -1 - Z))
     # rampas alternadas (inclinação 50°), da parede até passar do centro
@@ -72,6 +65,8 @@ def torre():
         raios.append(4.0 + 5.5 * np.sin(np.pi * min(1, t * 1.25)) ** 0.7 if t < 0.95 else 6.5)
     raios[0] = 1.2
     dr = tubo(g, pts, raios)
+    # escamas: coordenadas ao redor da torre (ângulo x altura); barriga lisa do lado da torre
+    dr = dr + np.clip(1 - np.abs(dr) / 1.2, 0, 1) * escamas(ang * (RE + 5), Z, r=1.7, prof=0.45) * np.clip((rad - RE - 3) / 2, 0, 1) + pele(g, 0.06, 5)
     # pescoço e cabeça: do fim da espiral até a frente, sobre a entrada
     pf = np.array(pts[-1])
     cab_c = np.array([0, -RE - 6, HT + 16])
@@ -126,20 +121,21 @@ def torre():
         mem = np.maximum(np.abs(v.y - 6) - 1.0, np.maximum(np.sqrt((v.x - sx * 14) ** 2 + (v.z - HT - 8) ** 2) - 16,
                                                            -(np.sqrt((v.x - sx * 22) ** 2 + (v.z - HT + 6) ** 2) - 12))) * 1.6
         osso = tubo(v, [(sx * 6, 6, HT + 8), (sx * 16, 6, HT + 24), (sx * 30, 6, HT + 14)], [2.2, 1.6, 0.8]) * 1.6
-        pass  # (sem osso aparente: só a membrana)
+        for (px, pz) in [(sx * 30, HT + 14), (sx * 24, HT + 2), (sx * 17, HT - 4)]:       # dedos da asa (nervuras)
+            osso = np.minimum(osso, tubo(v, [(sx * 16, 6, HT + 24), (px * 0.85 + sx * 2, 6.6, (pz + HT + 24) / 2), (px, 6.8, pz)], [1.2, 0.9, 0.4]) * 1.6)
+        mem = mem + 0.1 * ruido(g, 1.0, 6 + sx)
         asas = mem if asas is None else np.minimum(asas, mem)
+        dr = smin(dr, np.maximum(osso, -Z + HT - 30), 0.8)
     # barriga (faixa clara do lado de dentro do corpo, encostada na torre)
     barriga = np.maximum(dr + 0.0, rad - RE - 3.2)
     barriga = np.maximum(barriga, -dr - 1.8)
     tudo = np.minimum.reduce([corpo, dr, claro, asas])
     tudo = np.maximum(tudo, -Z)
     escuro = np.maximum(pup, olhos)
-    partes = dividir(tudo, {"c3": np.minimum(claro, olhos), "c4": np.minimum(asas, np.maximum(barriga, Z - HT)), "c2": np.minimum(dr, escuro)})
-    return g, partes
+    return tudo, {"c3": np.minimum(claro, olhos), "c4": np.minimum(asas, np.maximum(barriga, Z - HT)), "c2": np.minimum(dr, escuro)}
 
 
-def bandeja():
-    g = Grade((-80, -102, 0), (80, 30 + 42, 22), passo)
+def bandeja(g):
     X, Y, Z = g.x, g.y, g.z
     rad = np.sqrt(X ** 2 + (Y - BY) ** 2)
     fora = smin(caixa(g, (0, -30, 9), (74, 62, 9), 10), np.maximum(rad - RE - 7, np.maximum(-Z, Z - 18)), 6)
@@ -148,38 +144,35 @@ def bandeja():
     corpo = menos(fora, np.maximum(dentro, 3 - Z), 1.5)
     corpo = menos(corpo, np.maximum(rad - RE - 0.3, ZB - Z))          # rebaixo onde a torre assenta
     # borda de pedra (blocos) e calçamento no fundo
-    u = np.where(np.abs(X) > 70, Y, X)
-    sul = blocos(u, Z - 3, 7.5, 18)
-    corpo = menos(corpo, np.maximum(-sul, np.maximum(-(fora + 0.7), np.maximum(4 - Z, Z - 17))), 0.2)
-    m1, m2 = np.mod(X + 4, 14), np.mod(Y + np.mod(np.floor((X + 4) / 14), 2) * 7, 14)
-    lajes = np.minimum(np.minimum(m1, 14 - m1), np.minimum(m2, 14 - m2)) - 0.5
-    corpo = menos(corpo, np.maximum(lajes, np.maximum(dentro + 0.8, np.abs(Z - 3) - 0.6)), 0.2)
+    u = np.where(np.abs(X) > 70, Y + 300 * np.sign(X), X)
+    perto = np.clip(1 - np.abs(fora) / 1.6, 0, 1)
+    corpo = corpo + perto * np.where((Z > 4) & (Z < 17), tijolos(u, Z - 3, larg=16, alt=7, junta=0.6, prof=0.7, semente=7, irregular=0.3), 0)
+    lajes = tijolos(X, Y, larg=16, alt=13, junta=0.6, prof=0.6, semente=8, irregular=0.45)
+    corpo = corpo + np.where(dentro < -0.8, lajes * np.clip(1 - np.abs(Z - 3) / 0.9, 0, 1), 0) + desgaste(g, 0.3, 9)
     # ossinhos e moedas na bandeja (decoração em relevo baixo no canto)
     tesouro = None
     for (x, y, rz) in [(-52, -76, 20), (-44, -84, -30), (55, -80, 10), (50, -70, 70)]:
         v = Vista(g, (x, y, 3.6), rot_z(rz))
         m = cilindro(v, (x, y, 3), 4.5, 1.8, 0.6)
+        m = menos(m, np.maximum(texto2d(v.x - x, v.y - y, "T", 4.0, "serif"), np.abs(v.z - 4.8) - 0.35), 0.1)    # moeda cunhada
         tesouro = m if tesouro is None else np.minimum(tesouro, m)
     tudo = np.minimum(corpo, tesouro)
     tudo = np.maximum(tudo, -Z)
-    return g, dividir(tudo, {"c3": tesouro})
+    return tudo, {"c3": tesouro}
 
 
-base_out = saida(__file__, "torre_dragao", False)
-pasta = os.path.dirname(base_out)
-os.makedirs(pasta, exist_ok=True)
-gt, pt = torre()
-ft = exportar(gt, pt, base_out + "-torre", faces=None)
-del gt, pt
-gb, pb = bandeja()
-fb = exportar(gb, pb, base_out + "-bandeja", faces=None)
-# foto: junta torre (sobre o rebaixo) e bandeja por cor
-for c in ["c1", "c2", "c3", "c4"]:
-    ms = []
-    if c in ft:
-        m = trimesh.load(ft[c][0]); m.apply_translation((0, BY, ZB - 0.0 - 0.0)); ms.append(m)
-    if c in fb:
-        ms.append(trimesh.load(fb[c][0]))
-    if ms:
-        trimesh.util.concatenate(ms).export(f"{base_out}_{c}.stl")
-print("ok", list(ft), list(fb))
+if __name__ == "__main__":
+    base_out = saida(__file__, "torre_dragao", False)
+    ft = esculpir(torre, (-70, -62, 0), (70, 62, 200), passo, base_out + "-torre")
+    fb = esculpir(bandeja, (-80, -102, 0), (80, 72, 22), passo, base_out + "-bandeja")
+    for c in ["c1", "c2", "c3", "c4"]:          # foto: torre sobre o rebaixo da bandeja, por cor
+        ms = []
+        if c in ft:
+            m = trimesh.load(ft[c][0])
+            m.apply_translation((0, BY, ZB))
+            ms.append(m)
+        if c in fb:
+            ms.append(trimesh.load(fb[c][0]))
+        if ms:
+            trimesh.util.concatenate(ms).export(f"{base_out}_{c}.stl")
+    print("ok", list(ft), list(fb))

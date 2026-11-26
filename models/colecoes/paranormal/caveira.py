@@ -5,87 +5,93 @@ Cores: c1 osso, c2 fundo das órbitas e do nariz, c3 velas e cera, c4 chamas.
 Impressão (--imprimir): corpo e tampa em pé, lado a lado; suporte em árvore só sob o queixo e as órbitas."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from base import *
+from detalhe import *
 
 passo, IMP = args(0.3)
 CORTE, E, F = 46.0, 2.6, 0.25
 C0, R0 = (0, 2, 46), (31, 35, 31)
-g = Grade((-40, -46, 0), (130 if IMP else 40, 40, 104), passo)
+MN, MX = (-40, -46, 0), (130 if IMP else 40, 40, 104)
 
 
-def cranio(g):
-    X, Y, Z = g.x, g.y, g.z
-    cab = elipsoide(g, C0, R0)
-    cab = smin(cab, elipsoide(g, (0, -14, 30), (27, 22, 20)), 6)
-    mand = smin(elipsoide(g, (0, -20, 12), (21, 17, 12)), caixa(g, (0, -14, 8), (18, 15, 8), 6), 4)
-    cab = smin(cab, mand, 6)
-    cab = smax(cab, -Z, 2)
-    for sx in (-1, 1):
-        cab = smin(cab, elipsoide(g, (sx * 21, -22, 28), (7, 8, 6)), 4)        # maçãs do rosto
-        cab = menos(cab, elipsoide(g, (sx * 32.5, -2, 34), (3.2, 11, 8)), 3)     # têmporas (rasas)
-    cab = cab + ruido(g, 2.0, 21) * 0.15
-    orb = None
-    for sx in (-1, 1):
-        o = elipsoide(Vista(g, (sx * 12, -33, 38), rot_y(sx * 12)), (sx * 12, -33, 38), (8.2, 9, 9.5))
-        orb = o if orb is None else np.minimum(orb, o)
-    furos = np.minimum(orb, elipsoide(g, (0, -37, 25), (4, 6, 6.5)))
-    cab = menos(cab, furos, 1.2)
-    escuro = furos - 1.6
-    dentes = None
-    for i in range(-3, 4):
-        d = caixa(g, (i * 4.6, -33.5 + abs(i) * 0.9, 14), (2.0, 2.5, 3.6), 1.0)
-        dentes = d if dentes is None else np.minimum(dentes, d)
-    cab = menos(cab, np.maximum(caixa(g, (0, -34, 14), (17, 5, 4.6), 1.5), -dentes + 0.35), 0.3)
-    # rachadura e símbolo gravado na testa (círculo com triângulo vazado)
-    rach = tubo(g, [(14, -26, 62), (17, -24, 56), (15, -27, 51), (19, -25, 46)], [0.7, 0.6, 0.5, 0.3])
-    cab = menos(cab, np.maximum(rach, -(cab + 2.0)), 0.2)
-    u, w = X, Z - 58
-    tri = lambda r: np.maximum(-w - r, w * 0.5 + np.abs(u) * 0.866 - r)
-    simb = np.minimum(np.abs(np.sqrt(u ** 2 + w ** 2) - 7) - 0.6, np.maximum(tri(4.2), -tri(2.9)))
-    cab = menos(cab, np.maximum(simb, np.maximum(-(Y + 20), -(cab + 1.0))), 0.2)
-    # oco
-    oco = smin(elipsoide(g, C0, (R0[0] - E, R0[1] - E, R0[2] - E)), elipsoide(g, (0, -12, 26), (22, 18, 14)), 5)
-    cab = menos(cab, np.maximum(oco, 4 - Z))
-    cab = np.minimum(cab, np.maximum(np.maximum(furos - 1.8, -furos), oco))   # fundo das órbitas fechado por dentro
-    # velas em cima e cera escorrendo
-    velas = chamas = None
-    for (x, y, h, r) in [(-9, 6, 22, 4.2), (6, 12, 15, 3.6), (12, -4, 10, 3.2)]:
-        z0 = 74.0
-        v = smin(cilindro(g, (x, y, z0 - 4), r, h + 4, 1.0), cilindro(g, (x, y, z0 - 4), r + 2.6, 2.6, 1.2), 1.5)
-        for k in range(3):
-            a = k * 2.1 + x
-            p0 = (x + r * np.cos(a), y + r * np.sin(a), z0 + h - 1)
-            v = smin(v, capsula(g, p0, (p0[0], p0[1], p0[2] - h * (0.4 + 0.2 * k)), 1.2, 1.5), 0.8)
-        velas = v if velas is None else np.minimum(velas, v)
-        ch = smin(elipsoide(g, (x, y, z0 + h + 3.2), (1.8, 1.8, 3.0)), capsula(g, (x, y, z0 + h + 4), (x, y, z0 + h + 7.5), 1.0, 0.2), 0.6)
-        chamas = ch if chamas is None else np.minimum(chamas, ch)
-    for (x, c) in [(-6, 14), (4, 20), (10, 9)]:
-        velas = np.minimum(velas, capsula(g, (x, -26, 66), (x, -31.5, 66 - c), 2.0, 2.6))
-    tudo = np.minimum.reduce([cab, velas, chamas])
-    return tudo, escuro, velas, chamas
+def campo(g):
 
 
-def anel(g, folga=0.0):
-    """anel de encaixe: sobe 3 mm acima do corte por dentro da tampa e se funde na parede do corpo embaixo."""
+    def cranio(g):
+        X, Y, Z = g.x, g.y, g.z
+        cab = elipsoide(g, C0, R0)
+        cab = smin(cab, elipsoide(g, (0, -14, 30), (27, 22, 20)), 6)
+        mand = smin(elipsoide(g, (0, -20, 12), (21, 17, 12)), caixa(g, (0, -14, 8), (18, 15, 8), 6), 4)
+        cab = smin(cab, mand, 6)
+        cab = smax(cab, -Z, 2)
+        for sx in (-1, 1):
+            cab = smin(cab, elipsoide(g, (sx * 21, -22, 28), (7, 8, 6)), 4)        # maçãs do rosto
+            cab = menos(cab, elipsoide(g, (sx * 32.5, -2, 34), (3.2, 11, 8)), 3)     # têmporas (rasas)
+        cab = cab + ruido(g, 2.0, 21) * 0.15
+        orb = None
+        for sx in (-1, 1):
+            o = elipsoide(Vista(g, (sx * 12, -33, 38), rot_y(sx * 12)), (sx * 12, -33, 38), (8.2, 9, 9.5))
+            orb = o if orb is None else np.minimum(orb, o)
+        furos = np.minimum(orb, elipsoide(g, (0, -37, 25), (4, 6, 6.5)))
+        cab = menos(cab, furos, 1.2)
+        escuro = furos - 1.6
+        dentes = None
+        for i in range(-3, 4):
+            d = caixa(g, (i * 4.6, -33.5 + abs(i) * 0.9, 14), (2.0, 2.5, 3.6), 1.0)
+            dentes = d if dentes is None else np.minimum(dentes, d)
+        cab = menos(cab, np.maximum(caixa(g, (0, -34, 14), (17, 5, 4.6), 1.5), -dentes + 0.35), 0.3)
+        # rachadura e símbolo gravado na testa (círculo com triângulo vazado)
+        rach = tubo(g, [(14, -26, 62), (17, -24, 56), (15, -27, 51), (19, -25, 46)], [0.7, 0.6, 0.5, 0.3])
+        cab = menos(cab, np.maximum(rach, -(cab + 2.0)), 0.2)
+        u, w = X, Z - 58
+        tri = lambda r: np.maximum(-w - r, w * 0.5 + np.abs(u) * 0.866 - r)
+        simb = np.minimum(np.abs(np.sqrt(u ** 2 + w ** 2) - 7) - 0.6, np.maximum(tri(4.2), -tri(2.9)))
+        cab = menos(cab, np.maximum(simb, np.maximum(-(Y + 20), -(cab + 1.0))), 0.2)
+        # oco
+        oco = smin(elipsoide(g, C0, (R0[0] - E, R0[1] - E, R0[2] - E)), elipsoide(g, (0, -12, 26), (22, 18, 14)), 5)
+        cab = menos(cab, np.maximum(oco, 4 - Z))
+        cab = np.minimum(cab, np.maximum(np.maximum(furos - 1.8, -furos), oco))   # fundo das órbitas fechado por dentro
+        # velas em cima e cera escorrendo
+        velas = chamas = None
+        for (x, y, h, r) in [(-9, 6, 22, 4.2), (6, 12, 15, 3.6), (12, -4, 10, 3.2)]:
+            z0 = 74.0
+            v = smin(cilindro(g, (x, y, z0 - 4), r, h + 4, 1.0), cilindro(g, (x, y, z0 - 4), r + 2.6, 2.6, 1.2), 1.5)
+            for k in range(3):
+                a = k * 2.1 + x
+                p0 = (x + r * np.cos(a), y + r * np.sin(a), z0 + h - 1)
+                v = smin(v, capsula(g, p0, (p0[0], p0[1], p0[2] - h * (0.4 + 0.2 * k)), 1.2, 1.5), 0.8)
+            velas = v if velas is None else np.minimum(velas, v)
+            ch = smin(elipsoide(g, (x, y, z0 + h + 3.2), (1.8, 1.8, 3.0)), capsula(g, (x, y, z0 + h + 4), (x, y, z0 + h + 7.5), 1.0, 0.2), 0.6)
+            chamas = ch if chamas is None else np.minimum(chamas, ch)
+        for (x, c) in [(-6, 14), (4, 20), (10, 9)]:
+            velas = np.minimum(velas, capsula(g, (x, -26, 66), (x, -31.5, 66 - c), 2.0, 2.6))
+        tudo = np.minimum.reduce([cab, velas, chamas])
+        return tudo, escuro, velas, chamas
+
+
+    def anel(g, folga=0.0):
+        """anel de encaixe: sobe 3 mm acima do corte por dentro da tampa e se funde na parede do corpo embaixo."""
+        Z = g.z
+        fora = elipsoide(g, C0, (R0[0] - E - F + folga, R0[1] - E - F + folga, R0[2] - E - F + folga))
+        dentro = elipsoide(g, C0, (R0[0] - E - 1.8, R0[1] - E - 1.8, R0[2] - E - 1.8))
+        a = np.maximum(np.maximum(fora, -dentro), np.maximum(CORTE - 4 - Z, Z - CORTE - 3 - folga))
+        return a
+
+
+    tudo, escuro, claro, chamas = cranio(g)
     Z = g.z
-    fora = elipsoide(g, C0, (R0[0] - E - F + folga, R0[1] - E - F + folga, R0[2] - E - F + folga))
-    dentro = elipsoide(g, C0, (R0[0] - E - 1.8, R0[1] - E - 1.8, R0[2] - E - 1.8))
-    a = np.maximum(np.maximum(fora, -dentro), np.maximum(CORTE - 4 - Z, Z - CORTE - 3 - folga))
-    return a
+    corpo = np.minimum(np.maximum(tudo, Z - CORTE), anel(g))
+    if IMP:
+        gv = Vista(g, (0, 0, 0), np.eye(3))
+        gv.x, gv.z = gv.x - 90, gv.z + CORTE + 0.3          # tampa ao lado, base do corte na mesa
+        t2, e2, c2, ch2 = cranio(gv)
+        tampa = menos(np.maximum(t2, CORTE + 0.3 - gv.z), anel(gv, F))
+        escuro, claro, chamas = np.minimum(escuro, e2), np.minimum(claro, c2), np.minimum(chamas, ch2)
+    else:
+        tampa = menos(np.maximum(tudo, CORTE + 0.3 - Z), anel(g, F))
+    tudo = np.maximum(np.minimum(corpo, tampa), -Z)
+    return tudo, {"c4": chamas, "c3": claro, "c2": escuro}
 
 
-tudo, escuro, claro, chamas = cranio(g)
-Z = g.z
-corpo = np.minimum(np.maximum(tudo, Z - CORTE), anel(g))
-if IMP:
-    gv = Vista(g, (0, 0, 0), np.eye(3))
-    gv.x, gv.z = gv.x - 90, gv.z + CORTE + 0.3          # tampa ao lado, base do corte na mesa
-    t2, e2, c2, ch2 = cranio(gv)
-    tampa = menos(np.maximum(t2, CORTE + 0.3 - gv.z), anel(gv, F))
-    escuro, claro, chamas = np.minimum(escuro, e2), np.minimum(claro, c2), np.minimum(chamas, ch2)
-else:
-    tampa = menos(np.maximum(tudo, CORTE + 0.3 - Z), anel(g, F))
-tudo = np.maximum(np.minimum(corpo, tampa), -Z)
-partes = dividir(tudo, {"c4": chamas, "c3": claro, "c2": escuro})
-for k, v in exportar(g, partes, saida(__file__, "caveira", IMP), faces=None).items():
-    print(k, v)
+if __name__ == "__main__":
+    for k, v in esculpir(campo, MN, MX, passo, saida(__file__, "caveira", IMP)).items():
+        print(k, v)

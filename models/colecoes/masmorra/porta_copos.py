@@ -4,9 +4,9 @@ Cores: c1 porta-copo e muralha, c2 brasão (só nas últimas camadas), c3 borda 
 Impressão (--imprimir): porta-copos deitados, um por arquivo de cor; muralha em pé, sem suporte."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from base import *
+from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.15)
 RC, HC = 46.0, 5.0
 
 
@@ -57,36 +57,49 @@ def porta_copo(g, c, tipo, rot=None):
     corda = np.maximum(tor, np.maximum(-z, z - HC - 0.6))
     # fundo rebaixado e brasão em relevo
     corpo = menos(corpo, np.maximum(rad - RC + 9, HC - 1.2 - z), 0.6)
-    br = np.maximum(brasao(x, y, tipo), np.maximum(HC - 1.4 - z, z - HC))
+    corpo = corpo + 0.08 * ruido(gv, 0.6, 3)                                         # couro batido no fundo
+    anel_ = np.maximum(np.abs(rad - RC + 11.5) - 0.45, np.maximum(HC - 1.4 - z, z - HC + 0.6))   # filete com pontinhos
+    for a in np.linspace(0, 2 * np.pi, 37)[:-1]:
+        anel_ = np.minimum(anel_, np.sqrt((x - (RC - 13.8) * np.cos(a)) ** 2 + (y - (RC - 13.8) * np.sin(a)) ** 2 + (z - HC + 1.2) ** 2) - 0.7)
+    d2 = brasao(x, y, tipo)
+    br = np.maximum(d2, np.maximum(HC - 1.4 - z, z - HC + 0.3 * np.clip(1 + d2, 0, 1)))   # relevo com bisel nas bordas
+    br = np.minimum(br, anel_)
     return np.minimum.reduce([corpo, corda, br]), br, corda
 
 
 TIPOS = ["d20", "coroa", "torre", "espadas"]
-if IMP:
-    g = Grade((-50, -50, 0), (250 + 150, 50, 8), passo)
-else:
-    g = Grade((-62, -110, 0), (62, 40, 108), passo)
-X, Y, Z = g.x, g.y, g.z
-tudo = br = corda = None
-if IMP:
-    for i, t in enumerate(TIPOS):
-        a, b, c = porta_copo(g, (i * 100, 0, 0), t)
-        tudo = a if tudo is None else np.minimum(tudo, a); br = b if br is None else np.minimum(br, b); corda = c if corda is None else np.minimum(corda, c)
-else:
+MN, MX = ((-50, -50, 0), (400, 50, 8)) if IMP else ((-62, -110, 0), (62, 40, 108))
+
+
+def campo(g):
+    X, Y, Z = g.x, g.y, g.z
+    tudo = br = corda = None
+    if IMP:
+        for i, t in enumerate(TIPOS):
+            a, b, c = porta_copo(g, (i * 100, 0, 0), t)
+            tudo = a if tudo is None else np.minimum(tudo, a)
+            br = b if br is None else np.minimum(br, b)
+            corda = c if corda is None else np.minimum(corda, c)
+        return np.maximum(tudo, -Z), {"c2": br, "c3": corda}
     # muralha: caixa de pedra aberta em cima com ameias, 4 porta-copos de pé dentro
     mur = caixa(g, (0, 0, 26), (52, 15, 26), 2.0)
+    u = np.where(np.abs(X) / 52 > np.abs(Y) / 15, Y * np.sign(X) + 200, X)
+    mur = mur + np.clip(1 - np.abs(mur) / 1.5, 0, 1) * (tijolos(u, Z, larg=10, alt=6, junta=0.5, prof=0.6, semente=4) * (Z < 51) + desgaste(g, 0.3, 5))
     for i in range(-5, 6):
         for sy in (-1, 1):
-            mur = np.minimum(mur, caixa(g, (i * 9.4, sy * 13, 55), (2.8, 2.0, 3.2), 0.6))
+            mur = np.minimum(mur, caixa(g, (i * 9.4, sy * 13, 55), (2.8, 2.0, 3.2), 0.6) + desgaste(g, 0.2, 6))
     mur = menos(mur, caixa(g, (0, 0, 32), (49, 12, 28), 1.0))
-    mur = menos(mur, np.maximum(np.minimum(np.mod(Z, 9), 9 - np.mod(Z, 9)) - 0.4, np.maximum(-(np.abs(Y) - 14.3), np.maximum(3 - Z, Z - 50))), 0.2)
     tudo = mur
     for i, t in enumerate(TIPOS[1:]):
         a, b, c = porta_copo(g, (0, -6 + i * 6, 47), t, rot_x(90))
-        tudo = np.minimum(tudo, a); br = b if br is None else np.minimum(br, b); corda = c if corda is None else np.minimum(corda, c)
+        tudo = np.minimum(tudo, a)
+        br = b if br is None else np.minimum(br, b)
+        corda = c if corda is None else np.minimum(corda, c)
     a, b, c = porta_copo(g, (0, -64, 0), "d20")
-    tudo = np.minimum(tudo, a); br = np.minimum(br, b); corda = np.minimum(corda, c)
-tudo = np.maximum(tudo, -Z)
-partes = dividir(tudo, {"c2": br, "c3": corda})
-for k, v in exportar(g, partes, saida(__file__, "porta_copos", IMP), faces=None).items():
-    print(k, v)
+    tudo = np.minimum(tudo, a)
+    return np.maximum(tudo, -Z), {"c2": np.minimum(br, b), "c3": np.minimum(corda, c)}
+
+
+if __name__ == "__main__":
+    for k, v in esculpir(campo, MN, MX, passo, saida(__file__, "porta_copos", IMP)).items():
+        print(k, v)
