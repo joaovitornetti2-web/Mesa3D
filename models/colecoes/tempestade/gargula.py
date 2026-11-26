@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.25)
+passo, IMP = args(0.13)
 MN, MX = (-44, -40, 0), (44, 40, 106)
 
 
@@ -62,6 +62,9 @@ def campo(g):
     olhos = np.minimum(elipsoide(g, (-4.4, -16.6, Z0 + 42), (1.8, 1.2, 1.1)), elipsoide(g, (4.4, -16.6, Z0 + 42), (1.8, 1.2, 1.1)))
     corpo = menos(corpo, np.minimum(elipsoide(g, (-4.4, -16.8, Z0 + 42), (2.3, 1.6, 1.6)), elipsoide(g, (4.4, -16.8, Z0 + 42), (2.3, 1.6, 1.6))), 0.3)
     claro = np.minimum(chif, garras)
+    # pedra envelhecida: lascas, poros e escamas gastas no dragão; blocos irregulares no pedestal
+    corpo = corpo + np.clip(1 - np.abs(corpo) / 1.2, 0, 1) * (escamas(np.arctan2(X, -(Y - 6)) * 12, Z, r=1.5, prof=0.3) + desgaste(g, 0.35, 153)) + 0.05 * ruido(g, 0.4, 154)
+    ped = ped + np.clip(1 - np.abs(ped) / 1.5, 0, 1) * desgaste(g, 0.4, 155)
     tudo = np.minimum.reduce([ped, corpo, claro, olhos])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c4": olhos, "c3": claro, "c2": ped}

@@ -1,4 +1,4 @@
-"""Torre da Tempestade Rubra – torre de dados redonda de pedra rachada, coroada por uma nuvem de tempestade vermelha
+"""Torre da Tormenta – torre de dados redonda de pedra rachada, coroada pela nuvem rubra da Tormenta
 de onde descem raios pelas paredes. O dado entra pelo olho da nuvem, desce por três rampas e sai pelo portão para
 a bandeja embutida, com o chão de lajes partidas. Uma peça só: 130 × 150 × 172 mm. Dado máximo: d20 de 26 mm.
 Cores: c1 pedra, c2 rachaduras e portão, c3 raios, c4 nuvem. Em pé, sem suporte (nuvem com balanço de 45°)."""
@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.45)
+passo, IMP = args(0.2)
 RE, RI, HT = 33.0, 28.0, 138.0
 MN, MX = (-66, -100, 0), (66, 50, 176)
 
@@ -82,6 +82,10 @@ def campo(g):
         rr2 = [w * (1 - 0.6 * t) for t in np.linspace(0, 1, 6)]
         r_ = tubo(g, pts, rr2)
         raios = r_ if raios is None else np.minimum(raios, r_)
+    # pedra em blocos irregulares e lascada; nuvem com volutas (camadas de ruído)
+    perto = np.clip(1 - np.abs(corpo) / 1.8, 0, 1)
+    corpo = corpo + perto * (np.where((Z > 12) & (Z < HT - 8) & (rad > RE - 3), tijolos(ang * RE, Z, larg=15, alt=9, junta=0.65, prof=0.75, semente=171, irregular=0.35), 0) + desgaste(g, 0.35, 172))
+    nuv = nuv - 0.9 * np.clip(fbm(g, 5.0, 173, 3), 0, None) * np.clip(1 - np.abs(nuv) / 3, 0, 1)
     tudo = np.minimum.reduce([corpo, nuv, raios, portao])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c3": raios, "c4": nuv, "c2": escuro}

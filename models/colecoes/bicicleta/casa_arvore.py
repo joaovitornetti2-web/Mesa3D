@@ -85,7 +85,7 @@ def campo(g):
     else:
         tel = telhado(g)
     tudo = np.maximum(np.minimum(tudo, tel), -g.z)
-    return tudo, {"c4": c4, "c3": tel, "c2": casa})          # letras da placa ficam na cor do tronco (c1
+    return tudo, {"c4": c4, "c3": tel, "c2": casa}          # letras da placa ficam na cor do tronco (c1)
 
 
 if __name__ == "__main__":

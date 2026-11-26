@@ -11,7 +11,7 @@ from detalhe import *
 passo, IMP = args(0.12)
 RW, ZC, LW = 15.0, 22.0, 10.0          # raio da roda, altura do eixo, largura da roda
 MOSTRA = (2, 0)                        # número na foto: 20
-MN, MX = (-36, -25, 0), (36 + (60 if IMP else 0), 20, 54)
+MN, MX = (-36, -25, 0), (36 + (66 if IMP else 0), 20, 54)
 
 
 def campo(g):

@@ -68,7 +68,7 @@ def porta_copo(g, c, tipo, rot=None):
 
 
 TIPOS = ["d20", "coroa", "torre", "espadas"]
-MN, MX = ((-50, -50, 0), (400, 50, 8)) if IMP else ((-62, -110, 0), (62, 40, 108))
+MN, MX = ((-50, -50, 0), (400, 50, 8)) if IMP else ((-62, -116, 0), (62, 40, 108))
 
 
 def campo(g):

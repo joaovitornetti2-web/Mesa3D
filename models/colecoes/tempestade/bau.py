@@ -6,9 +6,9 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 L, P, HB, E = 40.0, 27.0, 36.0, 2.6
-MN, MX = (-46, -42, 0), (46, 52, 98)
+MN, MX = (-46, -42, 0), (46, 62, 98)
 
 
 def campo(g):
@@ -58,6 +58,10 @@ def campo(g):
     monte = np.maximum(monte, caixa(g, (0, 0, HB / 2 + 2), (L - E + 0.4, P - E + 0.4, HB / 2 + 4), 1.2))
     moedas = np.minimum(moedas, monte + 0.4)
     gema = np.maximum(np.abs(X) * 0.9 + np.abs(Y + 12) * 0.9 + np.abs(Z - HB - 9) - 5.2, -(Z - HB - 5.5))   # gema lapidada
+    perto = np.clip(1 - np.abs(corpo) / 1.5, 0, 1)
+    u = np.where(np.abs(X) / L > np.abs(Y) / P, Y, X)
+    corpo = corpo + perto * (madeira(u, Z, tabua=9, fenda=0.5, prof=0.4, veio=0.12, semente=132) + desgaste(g, 0.25, 133))
+    metal = metal + 0.05 * ruido(g, 0.5, 134)
     tudo = np.minimum.reduce([corpo, metal, moedas, gema])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c3": gema, "c4": moedas, "c2": metal}

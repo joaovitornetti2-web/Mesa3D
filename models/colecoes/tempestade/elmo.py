@@ -5,9 +5,9 @@ Cores: c1 elmo, c2 rebites, viseira e faixa, c3 chifres, c4 crista e base.
 Impressão (--imprimir): elmo em pé (boca para baixo, cúpula autoportante) e base deitada, lado a lado."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from base import *
+from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.14)
 RB, ZB, E, F = 38.0, 6.0, 2.4, 0.3            # raio da boca do elmo, altura onde assenta, parede, folga
 
 
@@ -46,6 +46,10 @@ def elmo(g):
         h = 63 + 10 * np.sin(np.pi * t) + ZB
         cr = capsula(g, (0, y, h - 8), (0, y + 3, h + 2), 3.4, 1.4)
         crista = cr if crista is None else smin(crista, cr, 1.5)
+    # metal martelado, chifres com anéis de crescimento, crina em mechas
+    cup = cup + 0.05 * ruido(g, 0.5, 141) + 0.12 * np.clip(ruido(g, 1.4, 142) - 1.1, 0, None)
+    chif = chif + 0.18 * np.abs(np.sin(np.hypot(g.x, g.z - 60) * 1.6)) * np.clip(1 - np.abs(chif) / 1.0, 0, 1)
+    crista = crista + pelo(g, 3.0, 0.55, 0.22, 143)
     tudo = np.minimum.reduce([cup, metal, chif, crista])
     return tudo, metal, chif, crista
 
@@ -60,19 +64,26 @@ def base(g):
     return b
 
 
-if IMP:
-    g = Grade((-58, -46, 0), (58 + 100, 46, 96), passo)
-    gv = Vista(g, (0, 0, 0), np.eye(3)); gv.z = gv.z + ZB        # elmo com a boca na mesa
-    tudo, metal, chif, crista = elmo(gv)
-    tudo = np.maximum(tudo, -g.z)
-    gb = Vista(g, (0, 0, 0), np.eye(3)); gb.x = gb.x - 100
-    b = base(gb)
-else:
-    g = Grade((-58, -46, 0), (58, 46, 92), passo)
-    tudo, metal, chif, crista = elmo(g)
-    b = base(g)
-c4 = np.minimum(crista, b)
-tudo = np.maximum(np.minimum(tudo, b), -g.z)
-partes = dividir(tudo, {"c3": chif, "c2": metal, "c4": c4})
-for k, vv in exportar(g, partes, saida(__file__, "elmo", IMP), faces=None).items():
-    print(k, vv)
+MN, MX = ((-58, -46, 0), (158, 46, 96)) if IMP else ((-58, -46, 0), (58, 46, 92))
+
+
+def campo(g):
+    if IMP:
+        gv = Vista(g, (0, 0, 0), np.eye(3))
+        gv.z = gv.z + ZB                                           # elmo com a boca na mesa
+        tudo, metal, chif, crista = elmo(gv)
+        tudo = np.maximum(tudo, -g.z)
+        gb = Vista(g, (0, 0, 0), np.eye(3))
+        gb.x = gb.x - 100
+        b = base(gb)
+    else:
+        tudo, metal, chif, crista = elmo(g)
+        b = base(g)
+    c4 = np.minimum(crista, b)
+    tudo = np.maximum(np.minimum(tudo, b), -g.z)
+    return tudo, {"c3": chif, "c2": metal, "c4": c4}
+
+
+if __name__ == "__main__":
+    for k, v in esculpir(campo, MN, MX, passo, saida(__file__, "elmo", IMP)).items():
+        print(k, v)

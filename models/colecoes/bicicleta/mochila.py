@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
 passo, IMP = args(0.3)
-MN, MX = (-42, -32, 0), (42, 32, 108)
+MN, MX = (-42, -32, 0), (42, 32, 116)
 
 
 def campo(g):

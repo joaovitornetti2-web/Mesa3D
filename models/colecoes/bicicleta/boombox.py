@@ -8,7 +8,7 @@ from detalhe import *
 
 passo, IMP = args(0.3)
 LX, LY, H = 62.0, 22.0, 62.0
-MN, MX = (-66, -26, 0), (66, 26, 94)
+MN, MX = (-66, -26, 0), (66, 26, 104)
 
 
 def campo(g):

@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.22)
+passo, IMP = args(0.12)
 MN, MX = (-30, -26, 0), (30, 26, 62)
 
 
@@ -60,6 +60,10 @@ def campo(g):
         t = np.clip((v.z - z) / h, 0, 1)
         c = np.maximum(hexr - 2.4 * (1 - t ** 1.6) - 0.2, np.maximum(z - 4 - v.z, v.z - z - h))
         crist = c if crist is None else np.minimum(crist, c)
+    # carapaça em segmentos com sulcos e poros; chão gasto
+    perto = np.clip(1 - np.abs(corpo) / 1.2, 0, 1)
+    corpo = corpo + perto * (0.3 * np.clip(1 - np.abs(np.mod(Z * 0.9 + 0.3 * np.sin(X * 0.4), 3.0) - 1.5) / 0.35, 0, 1) + 0.12 * np.clip(ruido_cel(g, 0.7, 121) - 0.8, 0, None))
+    base = base + desgaste(g, 0.4, 122)
     tudo = np.minimum.reduce([smin(corpo, base, 1.5), juntas, mand, olhos, crist, rach])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c4": np.minimum(crist, rach), "c3": olhos, "c2": np.minimum(juntas, mand)}

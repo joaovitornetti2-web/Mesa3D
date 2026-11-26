@@ -1,11 +1,11 @@
-"""Bandeja Nuvem Rubra – bandeja de dados com a borda feita de nuvens de tempestade fofas e, no fundo, raios em
+"""Bandeja da Tormenta – bandeja de dados com a borda feita de nuvens de tempestade fofas e, no fundo, raios em
 relevo cruzando um céu rachado. 168 × 124 × 22 mm.
 Cores: c1 bandeja, c2 rachaduras do céu, c3 raios, c4 nuvens da borda (vermelhas). Deitada, sem suporte."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.15)
 AX, AY, EF = 76.0, 54.0, 2.4
 MN, MX = (-86, -64, 0), (86, 64, 26)
 
@@ -58,6 +58,8 @@ def campo(g):
             seg = np.sqrt((X - x0 - dx * h) ** 2 + (Y - y0 - dy * h) ** 2) - w * (1 - 0.5 * (i + h) / (len(pts) - 1))
             raios = seg if raios is None else np.minimum(raios, seg)
     raios = np.maximum(raios, np.maximum(EF - Z, Z - EF - 0.8))
+    nuv = nuv - 0.8 * np.clip(fbm(g, 4.5, 181, 3), 0, None) * np.clip(1 - np.abs(nuv) / 3, 0, 1)      # volutas
+    fundo = fundo + 0.05 * ruido(g, 0.5, 182)
     tudo = np.minimum.reduce([fundo, nuv, rach, raios])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c3": raios, "c2": rach, "c4": nuv}

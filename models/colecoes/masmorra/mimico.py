@@ -13,7 +13,7 @@ HT = 20.0                            # altura da tampa (arco)
 E = 2.4                              # parede
 ABRE = 38                           # ângulo de abertura na foto
 
-MN, MX = ((-40, -32, 0), (122, 32, HB + 8)) if IMP else ((-42, -50, 0), (42, 40, 88))
+MN, MX = ((-40, -36, 0), (122, 32, HB + 8)) if IMP else ((-42, -50, 0), (42, 40, 88))
 
 
 def base_caixa(g):

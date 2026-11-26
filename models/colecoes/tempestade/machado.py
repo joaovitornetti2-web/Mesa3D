@@ -1,12 +1,12 @@
-"""Machado do Campeão – réplica de mesa (decoração): machado de duas lâminas em lua com runas gravadas, cabo
+"""Machado de Tapista – réplica de mesa (o machado dos minotauros do Império de Tapista) (decoração): machado de duas lâminas em lua com runas gravadas, cabo
 enrolado em couro e pomo de gema, em pé num suporte de pedra com um furo onde o cabo encaixa.
 44 × 64 × 150 mm. Cores: c1 suporte, c2 lâmina, c3 runas e gema, c4 couro do cabo.
 Impressão (--imprimir): machado deitado de lado (sem suporte) e o suporte em pé, lado a lado."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from base import *
+from detalhe import *
 
-passo, IMP = args(0.25)
+passo, IMP = args(0.12)
 HC = 110.0                     # comprimento do cabo
 
 
@@ -41,6 +41,10 @@ def machado(g, z0):
                 tr = np.minimum(tr, np.abs(np.sqrt((u - 1.6) ** 2 + (w - 1) ** 2) - 1.4) - 0.5)
             runas = tr if runas is None else np.minimum(runas, tr)
     runas = np.maximum(runas, np.abs(np.abs(Y) - (3.2 - 2.2 * 0.5)) - 0.6)
+    # aço martelado com bisel no fio, veio no cabo, textura no couro
+    lam = lam + 0.05 * ruido(g, 0.6, 162) + 0.15 * np.clip(1 - (30 - np.sqrt(X ** 2 + (Z - zc) ** 2)) / 3, 0, 1)
+    cabo = cabo + 0.06 * np.sin(np.arctan2(Y, X) * 2 + Z * 0.9 + 1.5 * ruido(g, 2, 163))
+    couro = couro + 0.04 * ruido(g, 0.3, 164)
     tudo = np.minimum.reduce([cabo, couro, pomo, gema, lam, runas])
     return tudo, lam, np.minimum(runas, gema), couro
 
@@ -53,18 +57,24 @@ def suporte(g, cx=0.0):
     return s
 
 
-if IMP:
-    g = Grade((-36, -40, 0), (36 + 160, 40, 18), passo)
-    gv = Vista(g, (0, 0, 0), rot_x(90)); gv.z, gv.y = gv.z + 70, gv.y + 3.4     # machado deitado (eixo ao longo de y)
-    tudo, lam, claro, couro = machado(gv, 0.0)
-    tudo = np.maximum(tudo, -g.z)
-    s = suporte(g, 140)
-else:
-    g = Grade((-36, -40, 0), (36, 40, 152), passo)
-    # machado em pé, cabo encaixado no furo do suporte
-    tudo, lam, claro, couro = machado(g, 4.5)
-    s = suporte(g)
-tudo = np.maximum(np.minimum(tudo, s), -g.z)
-partes = dividir(tudo, {"c3": claro, "c4": couro, "c2": lam})
-for k, vv in exportar(g, partes, saida(__file__, "machado", IMP), faces=None).items():
-    print(k, vv)
+MN, MX = ((-36, -40, 0), (196, 40, 18)) if IMP else ((-36, -40, 0), (36, 40, 152))
+
+
+def campo(g):
+    if IMP:
+        gv = Vista(g, (0, 0, 0), rot_x(90))
+        gv.z, gv.y = gv.z + 70, gv.y + 3.4                            # machado deitado (eixo ao longo de y)
+        tudo, lam, claro, couro = machado(gv, 0.0)
+        tudo = np.maximum(tudo, -g.z)
+        s = suporte(g, 140)
+    else:
+        tudo, lam, claro, couro = machado(g, 4.5)                     # em pé, cabo encaixado no furo do suporte
+        s = suporte(g)
+    s = s + desgaste(g, 0.15, 165)
+    tudo = np.maximum(np.minimum(tudo, s), -g.z)
+    return tudo, {"c3": claro, "c4": couro, "c2": lam}
+
+
+if __name__ == "__main__":
+    for k, v in esculpir(campo, MN, MX, passo, saida(__file__, "machado", IMP)).items():
+        print(k, v)

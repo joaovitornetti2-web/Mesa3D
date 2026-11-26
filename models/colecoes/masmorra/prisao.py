@@ -9,7 +9,8 @@ from detalhe import *
 
 passo, IMP = args(0.13)
 L, P, H, E = 70.0, 58.0, 52.0, 4.0
-W, ZB, ZT = 17.0, 8.0, 36.0                       # vão da grade: meia largura, base, início do arco
+W, ZB, ZT = 17.0, 8.0, 36.0
+MN, MX = (-48, -38, 0), (40, 37, 66)                       # vão da grade: meia largura, base, início do arco
 
 
 def campo(g):
@@ -127,5 +128,5 @@ def campo(g):
 
 
 if __name__ == "__main__":
-    for k, v in esculpir(campo, (-48, -38, 0), (40, 37, 66), passo, saida(__file__, "prisao", IMP)).items():
+    for k, v in esculpir(campo, MN, MX, passo, saida(__file__, "prisao", IMP)).items():
         print(k, v)

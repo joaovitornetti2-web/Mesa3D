@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.22)
+passo, IMP = args(0.12)
 MN, MX = (-32, -24, 0), (32, 24, 68)
 
 
@@ -64,6 +64,11 @@ def campo(g):
     tanga = np.minimum(tanga, np.maximum(caixa(g, (0, -10.5, 11), (4.5, 1.0, 5), 1), Z - 16))
     faixa = np.maximum(np.abs(elipsoide(g, (0, 0.5, 28), (14.6, 11.2, 12.5))) - 0.7, np.abs((Z - 28) - 0.75 * X) - 2.2)
     c4 = np.minimum(tanga, faixa)
+    # pelo em mechas, couro da tanga, metal martelado, pedras da base
+    corpo = corpo + np.clip(1 - np.abs(corpo) / 1.4, 0, 1) * pelo(g, 3.5, 0.65, 0.2, 102)
+    c4 = c4 + 0.05 * ruido(g, 0.4, 103) + 0.1 * np.clip(ruido(g, 1.2, 104) - 1.0, 0, None)
+    metal = metal + 0.04 * ruido(g, 0.5, 105)
+    base = base + desgaste(g, 0.4, 107)
     tudo = np.minimum.reduce([smin(corpo, base, 1.5), claro, metal, c4, olhos_p])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c2": np.minimum(metal, olhos_p), "c3": claro, "c4": c4}

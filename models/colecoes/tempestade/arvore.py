@@ -1,4 +1,4 @@
-"""Árvore dos Sussurros – porta-joias e decoração: árvore retorcida e sem folhas, com um rosto sonolento entalhado
+"""Árvore de Arton – porta-joias e decoração: árvore retorcida e sem folhas, com um rosto sonolento entalhado
 no tronco, galhos para pendurar anéis, colares e chaveiros, raízes num prato de musgo e um corvinho num galho.
 Ø 100 × 118 mm. Cores: c1 tronco, c2 olhos/boca e corvo, c3 cogumelos, c4 musgo do prato.
 Em pé, suporte em árvore só sob as pontas dos galhos mais abertos."""
@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.14)
 MN, MX = (-56, -56, 0), (56, 56, 122)
 
 
@@ -58,6 +58,10 @@ def campo(g):
     for (x, y, h) in [(18, -16, 7), (-20, -12, 9), (6, 26, 6)]:
         c = smin(capsula(g, (x, y, 4), (x, y, 4 + h), 1.6), np.maximum(elipsoide(g, (x, y, 4 + h), (4.2, 4.2, 2.8)), 4 + h - 0.4 - Z), 0.8)
         cog = c if cog is None else np.minimum(cog, c)
+    # casca em sulcos verticais retorcidos, musgo felpudo, prato de pedra
+    tronco = tronco + np.clip(1 - np.abs(tronco) / 1.5, 0, 1) * (0.35 * np.abs(np.sin(np.arctan2(Y, X) * 14 + Z * 0.08 + 1.2 * ruido(g, 2, 191))) + desgaste(g, 0.2, 192))
+    musgo = musgo - 0.35 * np.clip(ruido_cel(g, 0.8, 193), 0, None) * np.clip(1 - np.abs(musgo) / 0.8, 0, 1)
+    prato = prato + desgaste(g, 0.3, 194)
     tudo = np.minimum.reduce([prato, musgo, tronco, corvo, cog])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c3": cog, "c2": escuro, "c4": musgo}

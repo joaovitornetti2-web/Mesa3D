@@ -7,7 +7,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.22)
+passo, IMP = args(0.12)
 MN, MX = (-30, -22, 0), (36, 26, 64)
 
 
@@ -68,6 +68,11 @@ def campo(g):
     # avental
     avental = np.maximum(np.abs(elipsoide(g, (0, 1, 15), (8.9, 7.9, 9.4))) - 0.6, np.maximum(Y + 0.5, np.abs(Z - 14) - 7))
     c4 = np.minimum(avental, fumaca)
+    # pele enrugada com verrugas, couro do avental com costura, metal riscado
+    corpo = corpo + 0.06 * ruido(g, 0.4, 111) + 0.25 * np.clip(ruido_cel(g, 1.6, 112) - 1.3, 0, None) * np.clip(1 - np.abs(corpo) / 1.0, 0, 1)
+    c4 = c4 + 0.07 * ruido(g, 0.5, 113)
+    metal = metal + 0.04 * ruido(g, 0.4, 114)
+    base = base + desgaste(g, 0.35, 115)
     tudo = np.minimum.reduce([smin(corpo, base, 1.5), moch, claro, pup, metal, c4])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c2": np.minimum(metal, pup), "c3": claro, "c4": c4}

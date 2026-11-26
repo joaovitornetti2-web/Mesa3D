@@ -10,7 +10,7 @@ from detalhe import *
 passo, IMP = args(0.12)
 N = 8 if IMP else 4
 DX = 30.0
-MN, MX = (-16, -16, 0), (16 + DX * (N - 1), 16, 66)
+MN, MX = (-16, -16, 0), (16 + DX * (N - 1), 16, 72)
 
 
 def campo(g):

@@ -1,4 +1,4 @@
-"""Pergaminho do Aventureiro – porta-lápis e porta-fichas deitado: um pergaminho enrolado com as pontas abertas
+"""Pergaminho de Arton – porta-lápis e porta-fichas deitado: um pergaminho enrolado com as pontas abertas
 em espiral, amarrado por uma fita com selo de cera; em cima, uma canaleta para lápis e borracha e uma fenda para
 fichas de personagem dobradas (até 6 mm). 140 × 48 × 42 mm.
 Cores: c1 papel, c2 tinta (mapa/letras na lateral), c3 fita, c4 selo de cera. Deitado, sem suporte."""
@@ -6,7 +6,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detalhe import *
 
-passo, IMP = args(0.3)
+passo, IMP = args(0.13)
 L, R = 64.0, 19.0
 MN, MX = (-72, -26, 0), (72, 26, 46)
 
@@ -46,6 +46,8 @@ def campo(g):
     linhas = np.maximum(np.abs(np.mod(Z - R + 1, 3.6) - 1.8) - 0.4, np.maximum(np.abs(X - 2) - 10, np.abs(Z - R) - 7))
     tinta = np.maximum(np.minimum(rosa, linhas), np.abs(rad - R - 0.4) - 0.5)
     tinta = np.maximum(tinta, Y + 4)
+    corpo = corpo + 0.05 * ruido(g, 0.3, 135) + 0.12 * np.clip(ruido(g, 2.0, 136) - 0.8, 0, None) * np.clip(1 - np.abs(corpo) / 1.0, 0, 1)   # fibras e vincos
+    selo = selo + 0.06 * ruido(g, 0.4, 137)
     tudo = np.minimum.reduce([corpo, fita, selo, tinta])
     tudo = np.maximum(tudo, -Z)
     return tudo, {"c4": selo, "c3": fita, "c2": tinta}
