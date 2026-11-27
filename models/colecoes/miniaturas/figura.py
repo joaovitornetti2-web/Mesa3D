@@ -930,5 +930,5 @@ def rodar_mini(arquivo, classe, campo_de, mn=MN_MINI, mx=MX_MINI, passo_padrao=0
     passo, _ = args(passo_padrao)
     sexos = [s for s in ("m", "f") if f"--{s}" in sys.argv] or ["m", "f"]
     for sx in sexos:
-        r = esculpir(campo_de(sx), mn, mx, passo, saida(arquivo, f"{classe}_{sx}", False), suaviza=2, min_area=0.3)
+        r = esculpir(campo_de(sx), mn, mx, passo, saida(arquivo, f"{classe}_{sx}", False), suaviza=2, min_area=0.3, vox=float(os.environ.get("VOX", 5e6)))
         print(classe, sx, {k: v[1] for k, v in r.items()}, flush=True)

@@ -288,8 +288,14 @@ def esculpir(campo, mn, mx, passo, base, suaviza=3, vox=18e6, procs=None, min_ar
     _JOB.update(campo=campo, mn=mn, n=n, passo=float(passo), nx=nx)
     procs = procs or int(os.environ.get("PROCS", 3))
     if procs > 1 and len(tarefas) > 1:
-        with mp.get_context("fork").Pool(min(procs, len(tarefas))) as pool:
-            res = pool.map(_fatia, tarefas)
+        from concurrent.futures import ProcessPoolExecutor
+        from concurrent.futures.process import BrokenProcessPool
+        try:
+            with ProcessPoolExecutor(min(procs, len(tarefas)), mp_context=mp.get_context("fork")) as ex:
+                res = list(ex.map(_fatia, tarefas))
+        except BrokenProcessPool:          # um processo morreu (memória): refaz em série em vez de travar
+            print("AVISO: processo de fatia morreu; refazendo em série", flush=True)
+            res = [_fatia(t) for t in tarefas]
     else:
         res = [_fatia(t) for t in tarefas]
     os.makedirs(os.path.dirname(base) or ".", exist_ok=True)
